@@ -1,0 +1,83 @@
+//////////////////////////////////////////////////////////
+//
+//	MglText  v0.10.01 04/01/30
+//		- テキスト
+//
+//	v0.10.00 04/12/13
+//	・新規作成
+//
+//	v0.10.01 04/01/30
+//	・SetFont()をSetDrawParam()に名称変更
+//
+//////////////////////////////////////////////////////////
+
+#ifndef __MglText_H__
+#define __MglText_H__
+
+#include "MglGraphicManager.h"
+#include <stdarg.h>
+
+//	クラス宣言
+class DLL_EXP CMglText : public CMyuReleaseBase
+{
+private:
+	//	一応両方保持しとくげま
+	CMglGraphicManager* m_myudg;			//	DGクラスへのポインタを格納
+	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
+
+	//	インターフェース
+	ID3DXFont *m_text;
+
+	//	作成されたか記憶するフラグ
+	BOOL bCreateFlg;
+
+	//	フォント設定
+	BOOL bSetParamFlg;
+	int m_nX;
+	int m_nY;
+	DWORD m_dwOption;
+	D3DCOLOR m_color;
+
+	void SetParamCheck() {
+		if ( bSetParamFlg != TRUE )
+			MyuThrow( 0, "CMglText::Draw(),fDraw()  SetDrawParam()が設定されていないのに引数を省略しました。" );
+	}
+
+public:
+	CMglText();
+	virtual ~CMglText();
+
+	//	初期化及び作成
+	void InitAndCreate( CMglGraphicManager* in_myudg, HFONT hFont );
+	void InitAndCreate( CMglGraphicManager* in_myudg, int nHeight );
+	void InitAndEzCreate( CMglGraphicManager* in_myudg, int nHeight ){ InitAndCreate(in_myudg, nHeight); }	//	古い
+
+	//	in_myudg省略形。関数名違っても内容同じ
+	void Create( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
+	void Create( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
+	void Init( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
+	void Init( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
+	void Setup( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
+	void Setup( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
+
+	//	明示的開放
+	void Release();
+
+	//	絵画
+	void Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD dwOption=0 );
+	void Draw( const char* szString, D3DCOLOR color ) {
+		SetParamCheck();
+		Draw( szString, m_nX, m_nY, color, m_dwOption );
+	}
+	void Draw( const char* szString, int nX, int nY ) {
+		SetParamCheck();
+		Draw( szString, nX, nY, m_color, m_dwOption );
+	}
+	void Draw( const char* szString ){ FDraw( szString ); }
+	void FDraw( const char* szString, ... );
+	void SetDrawParam( int in_nX, int in_nY, D3DCOLOR in_color, DWORD in_dwOption=0 );
+};
+
+typedef CMglText CMglGraphicText;
+
+#endif//__MglText_H__
