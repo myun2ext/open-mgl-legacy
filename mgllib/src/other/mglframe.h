@@ -4,7 +4,7 @@
 #include "mgl2d.h"
 #include "mglinput.h"
 
-#include "CMglEzGameFrame.h"
+#include "MglEzGameFrame.h"
 
 
 #endif//__mglframe_H__
