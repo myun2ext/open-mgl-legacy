@@ -75,14 +75,14 @@ public:
 		MGL_EZGAME_FRAME_FUNCPTR mainThreadFuncPtr );*/
 	int StartWindow( int nWinWidthSize, int nWinHeightSize,
 		LPTHREAD_START_ROUTINE mainThreadFuncPtr,
-		const char *szWindowTitle="No title", BOOL bFullscreen=FALSE )
+		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE )
 	{
 		return StartWindowEx(nWinWidthSize, nWinHeightSize, mainThreadFuncPtr,
 			this, szWindowTitle, bFullscreen);
 	}
 	int StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 		LPTHREAD_START_ROUTINE mainThreadFuncPtr, void* threadFuncParam,
-		const char *szWindowTitle="No title", BOOL bFullscreen=FALSE );
+		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );
 
 	//	FPSで待つ
 	BOOL DoFpsWait();
@@ -98,6 +98,8 @@ public:
 	void EnableEscEnd(){ m_bEscEnd = TRUE; }
 	void DisableEscEnd(){ m_bEscEnd = FALSE; }
 	void SetWindowClassName(const char* szWindowClass){ m_strWindowClassName = szWindowClass; }
+	void SetWindowTitle(const char* szWindowTitle){ ::SetWindowText(m_window.GetWindowHandle(), szWindowTitle); }
+	//const char* GetWindowTitle(){ ::GetWindowText(m_window.GetWindowHandle(), szWindowTitle); }
 	//void SetStartupFillColor( D3DCOLOR color ){}
 
 	//	デバッグ用
