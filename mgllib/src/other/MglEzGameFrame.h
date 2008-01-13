@@ -38,6 +38,7 @@ private:
 	CMglText m_txtDebug;
 	CMglText m_txtFps;
 	string m_strDebugText;
+	string m_strWindowClassName;
 	//CMglGraphicText m_text;	-> 毎回作る
 
 	//	ウインドウ関連
@@ -74,6 +75,13 @@ public:
 		MGL_EZGAME_FRAME_FUNCPTR mainThreadFuncPtr );*/
 	int StartWindow( int nWinWidthSize, int nWinHeightSize,
 		LPTHREAD_START_ROUTINE mainThreadFuncPtr,
+		const char *szWindowTitle="No title", BOOL bFullscreen=FALSE )
+	{
+		return StartWindowEx(nWinWidthSize, nWinHeightSize, mainThreadFuncPtr,
+			this, szWindowTitle, bFullscreen);
+	}
+	int StartWindowEx( int nWinWidthSize, int nWinHeightSize,
+		LPTHREAD_START_ROUTINE mainThreadFuncPtr, void* threadFuncParam,
 		const char *szWindowTitle="No title", BOOL bFullscreen=FALSE );
 
 	//	FPSで待つ
@@ -89,6 +97,7 @@ public:
 	void SetFpsShow( BOOL bFpsShow ){ m_bFpsShow = bFpsShow; }
 	void EnableEscEnd(){ m_bEscEnd = TRUE; }
 	void DisableEscEnd(){ m_bEscEnd = FALSE; }
+	void SetWindowClassName(const char* szWindowClass){ m_strWindowClassName = szWindowClass; }
 	//void SetStartupFillColor( D3DCOLOR color ){}
 
 	//	デバッグ用

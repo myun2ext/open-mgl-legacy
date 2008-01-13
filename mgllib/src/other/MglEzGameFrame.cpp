@@ -49,9 +49,9 @@ CMglEzGameFrame::~CMglEzGameFrame()
 }
 
 //	ウインドウの開始
-int CMglEzGameFrame::StartWindow( int nWinWidthSize, int nWinHeightSize,
+int CMglEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 //	MGL_EZGAME_FRAME_FUNCPTR mainThreadFuncPtr )
-	LPTHREAD_START_ROUTINE mainThreadFuncPtr, const char *szWindowTitle, BOOL bFullscreen )
+	LPTHREAD_START_ROUTINE mainThreadFuncPtr, void* threadFuncParam, const char *szWindowTitle, BOOL bFullscreen )
 {
 	if ( ms_nInstanceCount >= 2 )
 	{
@@ -76,15 +76,20 @@ int CMglEzGameFrame::StartWindow( int nWinWidthSize, int nWinHeightSize,
 		nWinStartPosY = (nScreenHeight/2)-(m_nHeight/2)-16;
 	}
 
-	string strWindowClassName = "MGL Appllication WindowClass";
-	strWindowClassName += szWindowTitle;
+	if ( m_strWindowClassName == "" ){
+		//	WindowClass名生成（"MGL Appllication WindowClass"＋タイトル）
+		m_strWindowClassName = "MGL Appllication WindowClass";
+		m_strWindowClassName += szWindowTitle;
+		/*string strWindowClassName = "MGL Appllication WindowClass";
+		strWindowClassName += szWindowTitle;*/
+	}
 
 	//	簡易Window処理呼び出し
 	return m_window.StartWindow(
-		szWindowTitle, strWindowClassName.c_str(),
+		szWindowTitle, m_strWindowClassName.c_str(),
 		nWinStartPosX, nWinStartPosY, m_nWidth, m_nHeight,
 		WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
-		(LPTHREAD_START_ROUTINE)CallMainThread, this );
+		(LPTHREAD_START_ROUTINE)CallMainThread, threadFuncParam );
 //		(LPTHREAD_START_ROUTINE)CallMainThread, (DWORD)(this) );
 }
 
