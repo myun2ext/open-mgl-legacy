@@ -1,6 +1,9 @@
-#ifndef __mgl2d_H__
-#define __mgl2d_H__
+#ifndef __mglinput_2_H__
+#define __mglinput_2_H__
 
+#include "mglafx.h"
+
+/*
 //////////////////////
 //
 //	DLLエクスポート
@@ -15,7 +18,7 @@
 /////////////////////////////////////
 
 /*#include <msl.h>	//	07/01/01 Add.
-#include <mwl.h>	//	07/01/02 Add.*/
+#include <mwl.h>	//	07/01/02 Add.*//*
 
 //#include "mglstd.h"
 
@@ -44,38 +47,24 @@ using namespace std;
 #define _MGL_DEBUGLOG			_MGL_MANAGER_INSTANCE.g_debugLog.Print
 */
 
-//	Direct3D系
+/*
+//	DirectInput系
 #ifdef _MGL_USE_DXVER9
-	#pragma comment(lib, "D3d9.lib")
-	#pragma comment(lib, "D3dx9.lib")
-	#include <D3d9.h>
-	#include <D3dx9core.h>
-
+	#pragma comment(lib, "dinput9.lib")
+	#define DIRECTINPUT_VERSION		(0x0900)
+	
 #elif _MGL_USE_DXVER10
-	#pragma comment(lib, "D3d10.lib")
-	#pragma comment(lib, "D3dx10.lib")
-	#include <D3d10.h>
-	#include <D3dx10core.h>
-
+	#pragma comment(lib, "dinput10.lib")
+	#define DIRECTINPUT_VERSION		(0x1000)
+	
 #else
-	#pragma comment(lib, "D3d8.lib")
-	#pragma comment(lib, "D3dx8.lib")
-	#include <D3d8.h>
-	#include <D3dx8core.h>
+	#pragma comment(lib, "dinput8.lib")
+	#define DIRECTINPUT_VERSION		(0x0800)
+
 #endif
 
-#include "MglBitmapText.h"
-#include "MglGraphicManager.h"
-#include "MglGraphicUtil.h"
-#include "MglImage.h"
-#include "MglImageTips.h"
-#include "MglImageCacher.h"
-#include "MglImageManager.h"
-#include "MglImageFader.h"
-#include "MglImageAnimator.h"
-#include "MglText.h"
-#include "MglTexture.h"
-#include "MglVertex.h"
+#include <dinput.h>
+*/
 
 
-#endif//__mgl2d_H__
+#endif//__mglinput_2_H__

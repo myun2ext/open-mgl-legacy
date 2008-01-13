@@ -75,16 +75,62 @@ extern CMyuDebugLog g_workLog;
 //	VCïWèÄÇæÇ∆DWORD_PTRñ≥Ç¢Ç≠ÇπÅ[ÅB(ÅLÑD`;)
 #include <dplay.h>	//	ÉRÉCÉcÇÃíÜÇ…Ç†ÇÈèLÇ¢ÇÃÇ≈à¯Ç¡í£Ç¡ÇƒÇ≠ÇÈ
 
+/*
 //	Direct3Dån
 #pragma comment(lib, "D3d8.lib")
 #pragma comment(lib, "D3dx8.lib")
 #include <D3d8.h>
 #include <D3dx8core.h>
+*/
 
+//	Direct3Dån
+#ifdef _MGL_USE_DXVER9
+	#pragma comment(lib, "D3d9.lib")
+	#pragma comment(lib, "D3dx9.lib")
+	#include <D3d9.h>
+	#include <D3dx9core.h>
+
+#elif _MGL_USE_DXVER10
+	#pragma comment(lib, "D3d10.lib")
+	#pragma comment(lib, "D3dx10.lib")
+	#include <D3d10.h>
+	#include <D3dx10core.h>
+
+#else
+	#pragma comment(lib, "D3d8.lib")
+	#pragma comment(lib, "D3dx8.lib")
+	#include <D3d8.h>
+	#include <D3dx8core.h>
+#endif
+
+/*
 //	DirectInputån
 #pragma comment(lib, "dinput8.lib")
 #define DIRECTINPUT_VERSION		(0x0800)
 #include <dinput.h>
+*/
+//	DirectInputån
+#ifdef _MGL_USE_DXVER9
+	#pragma comment(lib, "dinput9.lib")
+	#define DIRECTINPUT_VERSION		(0x0900)
+	#define _MGL_IDirectInput IDirectInput9
+	#define _MGL_IDirectInputDevice IDirectInputDevice9
+	
+#elif _MGL_USE_DXVER10
+	#pragma comment(lib, "dinput10.lib")
+	#define DIRECTINPUT_VERSION		(0x1000)
+	#define _MGL_IDirectInput IDirectInput10
+	#define _MGL_IDirectInputDevice IDirectInputDevice10
+	
+#else
+	#pragma comment(lib, "dinput8.lib")
+	#define DIRECTINPUT_VERSION		(0x0800)
+	#define _MGL_IDirectInput IDirectInput8
+	#define _MGL_IDirectInputDevice IDirectInputDevice8
+#endif
+
+#include <dinput.h>
+
 
 //	DirectMusicån
 //#include <dsound.h>		//	dsound.lib

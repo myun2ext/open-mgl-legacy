@@ -221,6 +221,10 @@ SOURCE=.\src\2d\MglVertex.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\src\common\mgl.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\common\mgl_global.cpp
 # End Source File
 # Begin Source File
@@ -296,6 +300,10 @@ SOURCE=.\src\other\MglEzGameFrame.cpp
 # Begin Source File
 
 SOURCE=.\src\other\MglEzGameFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\other\mglframe.h
 # End Source File
 # Begin Source File
 
@@ -400,6 +408,10 @@ SOURCE=.\src\input\MglInput.cpp
 # Begin Source File
 
 SOURCE=.\src\input\MglInput.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\input\mglinput_.h
 # End Source File
 # Begin Source File
 

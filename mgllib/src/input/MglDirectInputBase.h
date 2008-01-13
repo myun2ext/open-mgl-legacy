@@ -10,6 +10,9 @@
 #ifndef __MglDirectInputBase_H__
 #define __MglDirectInputBase_H__
 
+//#include "mglinput_.h"
+//#include <dinput.h>
+
 //	クラス宣言
 class DLL_EXP CMglDirectInputBase
 {
@@ -17,8 +20,8 @@ private:
 	static int m_nRef;
 
 protected:
-	//	みんなで共用する IDirectInput8 インスタンス
-	static IDirectInput8 *m_pDi;
+	//	みんなで共用する IDirectInput インスタンス
+	static _MGL_IDirectInput *m_pDi;
 
 	//	コイツを呼び出す
 	void InitBase();

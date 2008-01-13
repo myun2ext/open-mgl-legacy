@@ -10,7 +10,7 @@ class DLL_EXP CMglJoyInput
 {
 protected:
 	//DIDEVCAPS m_devCaps;
-	IDirectInputDevice8* m_pDevice;	//	Attachされるだけなので開放はしないよん
+	_MGL_IDirectInputDevice* m_pDevice;	//	Attachされるだけなので開放はしないよん
 
 	//	JOYの設定
 	long m_nNeutralX;
@@ -29,7 +29,7 @@ public:
 	virtual ~CMglJoyInput();
 
 	//	Attachする
-	void Attach( IDirectInputDevice8* pDevice ){ m_pDevice = pDevice; }
+	void Attach( _MGL_IDirectInputDevice* pDevice ){ m_pDevice = pDevice; }
 
 	//	各取得メソッド
 	BOOL IsPushBotton( int nBottomNo );

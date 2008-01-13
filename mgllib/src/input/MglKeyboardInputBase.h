@@ -31,7 +31,7 @@
 class DLL_EXP CMglKeyboardInputBase : public CMglDirectInputBase
 {
 protected:
-	IDirectInputDevice8 *m_pDevice;
+	_MGL_IDirectInputDevice *m_pDevice;
 	BYTE m_stateBuf[STATEBUF_SIZE];
 
 	void Acquire();

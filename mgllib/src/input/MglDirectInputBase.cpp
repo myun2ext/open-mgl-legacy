@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "MglDirectInputBase.h"
 
-
 //	静的メンバ変数のインスタンス
-IDirectInput8* CMglDirectInputBase::m_pDi = NULL;
+_MGL_IDirectInput* CMglDirectInputBase::m_pDi = NULL;
 int CMglDirectInputBase::m_nRef=0;
 
 
@@ -29,10 +28,17 @@ void CMglDirectInputBase::InitBase()
 	if ( m_pDi != NULL )
 		return;	//	既に初期化済みよーん
 
+#ifdef _MGL_USE_DXVER9
+	//	DirectInput9を初期化
+	MyuAssert( DirectInput9Create(
+		GetModuleHandle(NULL), /*DIRECTINPUT_VERSION*/ 0x0900, IID_IDirectInput9, (void**)&m_pDi, NULL ),
+		DI_OK, "CMglDirectInputBase::Init()  DirectInput9Create()に失敗" );
+#else
 	//	DirectInput8を初期化
 	MyuAssert( DirectInput8Create(
 		GetModuleHandle(NULL), /*DIRECTINPUT_VERSION*/ 0x0800, IID_IDirectInput8, (void**)&m_pDi, NULL ),
 		DI_OK, "CMglDirectInputBase::Init()  DirectInput8Create()に失敗" );
+#endif
 }
 
 void CMglDirectInputBase::FinalRelease()

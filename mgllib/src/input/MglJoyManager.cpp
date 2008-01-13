@@ -5,8 +5,8 @@
 //	列挙コールバック関連
 typedef struct
 {
-	IDirectInput8 *pDi;
-	vector<IDirectInputDevice8*> *pJoystkDevAry;
+	_MGL_IDirectInput *pDi;
+	vector<_MGL_IDirectInputDevice*> *pJoystkDevAry;
 }
 ENUM_JOYSTICKS_CALLBACK_IO;
 BOOL CALLBACK EnumJoystickScaleback(const DIDEVICEINSTANCE* pdidInstance, void* pContext);
@@ -65,7 +65,7 @@ void CMglJoyManager::ExInit( HWND hWnd, DWORD dwCooperativeFlag )
 	//	各デバイスごとの設定なのでループ
 	for( int i=0; i<m_joystkDevAry.size(); i++ )
 	{
-		IDirectInputDevice8* pDev = m_joystkDevAry[i];
+		_MGL_IDirectInputDevice* pDev = m_joystkDevAry[i];
 
 		//	データ形式をじょいぱどに設定
 		MyuAssert( pDev->SetDataFormat( &c_dfDIJoystick2 ), DI_OK,
@@ -100,7 +100,7 @@ void CMglJoyManager::Release()
 	//	各ジョイスティックデバイス
 	for( int i=0; i<m_joystkDevAry.size(); i++ )
 	{
-		IDirectInputDevice8* pDev = m_joystkDevAry[i];
+		_MGL_IDirectInputDevice* pDev = m_joystkDevAry[i];
 		if( pDev )
 		   pDev->Unacquire();
 
@@ -117,10 +117,10 @@ void CMglJoyManager::Release()
 BOOL CALLBACK EnumJoystickScaleback(const DIDEVICEINSTANCE* pdidInstance, void* pContext)
 {
 	ENUM_JOYSTICKS_CALLBACK_IO *pCallbackIo = (ENUM_JOYSTICKS_CALLBACK_IO*)pContext;
-	IDirectInput8 *pIoDi = pCallbackIo->pDi;
-	vector<IDirectInputDevice8*> *pIoJoystkDevAry = pCallbackIo->pJoystkDevAry;
+	_MGL_IDirectInput *pIoDi = pCallbackIo->pDi;
+	vector<_MGL_IDirectInputDevice*> *pIoJoystkDevAry = pCallbackIo->pJoystkDevAry;
 
-	IDirectInputDevice8* pJoystkDeviceWork=NULL;
+	_MGL_IDirectInputDevice* pJoystkDeviceWork=NULL;
 
 	// 列挙されたジョイスティックへのインターフェイスを取得する。
 	HRESULT hr = pIoDi->CreateDevice(pdidInstance->guidInstance, &pJoystkDeviceWork, NULL);

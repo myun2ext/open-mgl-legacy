@@ -7,7 +7,7 @@
 class DLL_EXP CMglJoyManager : public CMglDirectInputBase
 {
 protected:
-	vector<IDirectInputDevice8*> m_joystkDevAry;
+	vector<_MGL_IDirectInputDevice*> m_joystkDevAry;
 
 	//BOOL bInitFlg;
 
@@ -27,7 +27,7 @@ public:
 	int GetJoyCount(){ return m_joystkDevAry.size(); }
 
 	//	デバイスを取得する
-	IDirectInputDevice8* GetJoyDevice( int nDeviceNo )
+	_MGL_IDirectInputDevice* GetJoyDevice( int nDeviceNo )
 	{
 		if ( nDeviceNo > GetJoyCount()-1 )
 			MyuThrow( 0, "CMglJoyInput::IsPushBotton  ジョイデバイス番号 %d は存在しません。", nDeviceNo );

@@ -1,6 +1,9 @@
 #ifndef __mgl2d_H__
 #define __mgl2d_H__
 
+#include "mglafx.h"
+
+/*
 //////////////////////
 //
 //	DLLエクスポート
@@ -15,7 +18,7 @@
 /////////////////////////////////////
 
 /*#include <msl.h>	//	07/01/01 Add.
-#include <mwl.h>	//	07/01/02 Add.*/
+#include <mwl.h>	//	07/01/02 Add.*//*
 
 //#include "mglstd.h"
 
@@ -37,6 +40,8 @@ using namespace std;
 
 //extern CMyuDebugLog g_workLog;
 
+*/
+
 //	MGLマネージャ
 /*
 #define _MGL_MANAGER_INSTANCE	_g_mglManager
@@ -44,6 +49,7 @@ using namespace std;
 #define _MGL_DEBUGLOG			_MGL_MANAGER_INSTANCE.g_debugLog.Print
 */
 
+/*
 //	Direct3D系
 #ifdef _MGL_USE_DXVER9
 	#pragma comment(lib, "D3d9.lib")
@@ -63,6 +69,7 @@ using namespace std;
 	#include <D3d8.h>
 	#include <D3dx8core.h>
 #endif
+*/
 
 #include "MglBitmapText.h"
 #include "MglGraphicManager.h"
