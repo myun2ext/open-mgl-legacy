@@ -461,6 +461,7 @@ SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
 # Begin Source File
 
 SOURCE=.\src\include_test_mgl.cpp
+# SUBTRACT CPP /YX /Yc /Yu
 # End Source File
 # Begin Source File
 
