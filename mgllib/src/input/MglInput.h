@@ -4,6 +4,7 @@
 #include "MglKeyboardInput.h"
 #include "MglJoyManager.h"
 #include "MglJoyInput.h"
+#include "MglMouseInput.h"
 
 //	関連付け配列用アイテム
 typedef struct {

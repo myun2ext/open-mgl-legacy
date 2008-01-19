@@ -76,7 +76,7 @@ void CMglDirectInputDeviceBase::Unacquire()
 }
 
 //	ステート情報を取得
-void CMglDirectInputDeviceBase::UpdateStateBuf()
+BYTE* CMglDirectInputDeviceBase::UpdateStateBuf()
 {
 	InitCheck();
 	ZeroMemory( m_pStateBuf, m_nStateBufSize );
@@ -84,13 +84,19 @@ void CMglDirectInputDeviceBase::UpdateStateBuf()
 	{
 		//	失敗したらAcquire()を実行してもう一回試してみる
 		Acquire();
-		m_pDevice->GetDeviceState( m_nStateBufSize, m_pStateBuf );
+		if ( m_pDevice->GetDeviceState( m_nStateBufSize, m_pStateBuf ) != DI_OK ){
+			ZeroMemory( m_pStateBuf, m_nStateBufSize );
+			return NULL;
+		}
 
 		/*
 			単にウインドウフォーカスが外れているだけかもしれないので何もしない
 		*/
 
 		//	どうも取得に失敗した時、中身が何か入ってしまっているようだ。
-		ZeroMemory( m_pStateBuf, m_nStateBufSize );
+		//ZeroMemory( m_pStateBuf, m_nStateBufSize );
+		//	↑-- 2008/01/19 GetDeviceState()で成功している場合はZeroMemoryしてはいけないような・・・？
 	}
+
+	return m_pStateBuf;
 }

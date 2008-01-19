@@ -21,7 +21,7 @@ protected:
 	void Acquire();
 	void Unacquire();
 
-	void InitCheck()
+	virtual void InitCheck()
 	{
 		if ( m_pDevice == NULL )
 			MyuThrow(20, "CMglDirectInputDeviceBase: Init()ÇåƒÇ—èoÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
@@ -37,7 +37,9 @@ public:
 		HWND hWnd=NULL, DWORD dwCooperativeFlag=DISCL_NONEXCLUSIVE|DISCL_FOREGROUND );
 	void Release();
 
-	void UpdateStateBuf();
+	BYTE* UpdateStateBuf();
+	BYTE* GetStateBuf(){ return m_pStateBuf; }
+	//BYTE* GetStateBuf(){ return UpdateStateBuf(); }
 };
 
 

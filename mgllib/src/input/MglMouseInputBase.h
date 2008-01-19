@@ -7,20 +7,12 @@
 #ifndef __MglMouseInputBase_H__
 #define __MglMouseInputBase_H__
 
-#include "MglDirectInputBase.h"
-
-#define STATEBUF_SIZE	(256)
+#include "MglDirectInputDeviceBase.h"
 
 //	ÉNÉâÉXêÈåæ
-class DLL_EXP CMglMouseInputBase : public CMglDirectInputBase
+class DLL_EXP CMglMouseInputBase : public CMglDirectInputDeviceBase
 {
 protected:
-	_MGL_IDirectInputDevice *m_pDevice;
-	BYTE m_stateBuf[STATEBUF_SIZE];
-
-	void Acquire();
-	void Unacquire();
-
 	void InitCheck()
 	{
 		if ( m_pDevice == NULL )
@@ -34,11 +26,10 @@ public:
 
 	//	èâä˙âªÇ∆äJï˙
 	void Init( HWND hWnd=NULL, DWORD dwCooperativeFlag=DISCL_NONEXCLUSIVE|DISCL_FOREGROUND );
-	void Release();
 
-	void UpdateStateBuf();
-	BOOL IsPressKey( BYTE keyCode );		//	Is???
-	BOOL IsPressDikey( BYTE keyCode ){ return IsPressKey(keyCode); }
+	DIMOUSESTATE2* UpdateStateBuf(){ return (DIMOUSESTATE2*)CMglDirectInputDeviceBase::UpdateStateBuf(); }
+	DIMOUSESTATE2* GetStateBuf(){ return (DIMOUSESTATE2*)CMglDirectInputDeviceBase::GetStateBuf(); }
+	//DIMOUSESTATE2* GetStateBuf(){ return (DIMOUSESTATE2*)CMglDirectInputDeviceBase::GetStateBuf(); }
 };
 
 
