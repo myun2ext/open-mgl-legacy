@@ -176,6 +176,7 @@ public:
 		VERTEX_COLORS* vertexColors, DWORD dwAlphaOption );
 	//void TextureDraw( float x=0.0f, float y=0.0f, float fSizeX=1.0f, float fSizeY=1.0f, D3DCOLOR color=0xffffffff );
 
+	//D3DCOLOR* GetSurfaceIterator(){ ;
 	/*
 	//	ê›íË
 	void EnableCenterDraw() {	m_bCenterDraw = TRUE; }

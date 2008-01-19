@@ -50,8 +50,8 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
 	vertices[VERTEXNO_LT].y = fStartY;
 	vertices[VERTEXNO_LT].rhw = 1.0f;
 	vertices[VERTEXNO_LT].color = startColor;
-	vertices[VERTEXNO_RT].x = fStartX+1;
-	vertices[VERTEXNO_RT].y = fStartY-1;
+	vertices[VERTEXNO_RT].x = fStartX+width;
+	vertices[VERTEXNO_RT].y = fStartY-width;
 	vertices[VERTEXNO_RT].rhw = 1.0f;
 	vertices[VERTEXNO_RT].color = startColor;
 	
@@ -60,8 +60,8 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
 	vertices[VERTEXNO_LB].y = fEndY;
 	vertices[VERTEXNO_LB].rhw = 1.0f;
 	vertices[VERTEXNO_LB].color = endColor;
-	vertices[VERTEXNO_RB].x = fEndX+1;
-	vertices[VERTEXNO_RB].y = fEndY+1;
+	vertices[VERTEXNO_RB].x = fEndX+width;
+	vertices[VERTEXNO_RB].y = fEndY-width;
 	vertices[VERTEXNO_RB].rhw = 1.0f;
 	vertices[VERTEXNO_RB].color = endColor;
 
@@ -150,11 +150,11 @@ void CMglDrawLine::Draw2(float fStartX, float fStartY, float fEndX, float fEndY,
 	pt[VERTEXNO_RT].color = startColor;
 	
 	//	終点
-	pt[VERTEXNO_LB].x = fEndX;
-	pt[VERTEXNO_LB].y = fEndY;
+	pt[VERTEXNO_LB].x = fEndX+50;
+	pt[VERTEXNO_LB].y = fEndY+90;
 	pt[VERTEXNO_LB].color = endColor;
-	pt[VERTEXNO_RB].x = fEndX;
-	pt[VERTEXNO_RB].y = fEndY;
+	pt[VERTEXNO_RB].x = fEndX+20;
+	pt[VERTEXNO_RB].y = fEndY+20;
 	pt[VERTEXNO_RB].color = endColor;
 
 	/*
@@ -175,15 +175,46 @@ void CMglDrawLine::Draw2(float fStartX, float fStartY, float fEndX, float fEndY,
 	memcpy(d3dv , pt , sizeof (D3DVERTEX) * 4);
 	d3dvb->Unlock();
 
+	m_d3d->SetVertexShader(D3DFVF);
+	m_d3d->SetStreamSource(0 , d3dvb , sizeof (D3DVERTEX));
+	//m_d3d->DrawPrimitive(D3DPT_TRIANGLESTRIP , 0 , 2);
+}
 
-	/*m_d3d->Clear(0 , NULL , D3DCLEAR_TARGET ,
-		D3DCOLOR_XRGB(0xFF , 0xFF , 0xFF) , 1.0 , 0);
-	m_d3d->BeginScene();*/
+
+/*
+void CMglDrawLine::Draw2(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width)
+{
+	InitCheck();
+
+	static D3DVERTEX pt[4];
+
+	//	始点
+	pt[VERTEXNO_LT].x = fStartX;
+	pt[VERTEXNO_LT].y = fStartY;
+	pt[VERTEXNO_LT].color = startColor;
+	pt[VERTEXNO_RT].x = fStartX;
+	pt[VERTEXNO_RT].y = fStartY;
+	pt[VERTEXNO_RT].color = startColor;
+	
+	//	終点
+	pt[VERTEXNO_LB].x = fEndX;
+	pt[VERTEXNO_LB].y = fEndY;
+	pt[VERTEXNO_LB].color = endColor;
+	pt[VERTEXNO_RB].x = fEndX;
+	pt[VERTEXNO_RB].y = fEndY;
+	pt[VERTEXNO_RB].color = endColor;
+
+	D3DXMATRIX d3dm;
+	D3DVERTEX *d3dv;
+	IDirect3DVertexBuffer8 *d3dvb;
+
+	m_d3d->CreateVertexBuffer(
+		sizeof (D3DVERTEX) * 4 , 0 , D3DFVF , D3DPOOL_MANAGED , &d3dvb);
+	d3dvb->Lock(0 , 0 , (BYTE**)&d3dv , 0);
+	memcpy(d3dv , pt , sizeof (D3DVERTEX) * 4);
+	d3dvb->Unlock();
 	m_d3d->SetVertexShader(D3DFVF);
 	m_d3d->SetStreamSource(0 , d3dvb , sizeof (D3DVERTEX));
 	m_d3d->DrawPrimitive(D3DPT_TRIANGLESTRIP , 0 , 2);
-	/*m_d3d->EndScene();
-
-	m_d3d->Present(NULL,NULL,NULL,NULL);*/
-	//ValidateRect(hWnd,NULL);
 }
+*/

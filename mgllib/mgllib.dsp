@@ -203,6 +203,14 @@ SOURCE=.\src\2d\MglImage.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglSurfaceIterator.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglSurfaceIterator.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglText.cpp
 # End Source File
 # Begin Source File

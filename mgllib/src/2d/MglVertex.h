@@ -39,6 +39,8 @@ DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexC
 inline void MglMoveVertexs( MGL_SQUARE_VERTEXS *pVertexs, float x, float y ){
 	MglMoveVertexs( (MGL_VERTEX*)pVertexs, x, y, 4 ); }
 
+#define MGL_VERTEX_SIZE		(sizeof(MYU_VERTEX))
+#define MGL_VERTEXES_SIZE		(sizeof(MYU_VERTEX)*4)
 
 /////////////////////////////////////////////
 
