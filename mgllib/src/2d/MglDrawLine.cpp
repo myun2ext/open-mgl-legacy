@@ -24,8 +24,6 @@ CMglDrawLine::CMglDrawLine(){
 //	描画
 void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width)
 {
-	m_pLineTex->CreateCheck();	//	Createチェック
-
 	MYU_VERTEX vertices[4];		//	頂点
 	ZeroMemory( vertices, sizeof(vertices) );
 
@@ -38,23 +36,23 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
 	//	始点
 	vertices[VERTEXNO_LT].x = fStartX;
 	vertices[VERTEXNO_LT].y = fStartY;
-	vertices[VERTEXNO_RT].y = fStartX;
-	vertices[VERTEXNO_RT].x = fStartY;
+	vertices[VERTEXNO_RT].y = fStartX+1;
+	vertices[VERTEXNO_RT].x = fStartY+1;
 	vertices[VERTEXNO_LT].color = startColor;
 	vertices[VERTEXNO_RT].color = startColor;
 	
 	//	終点
 	vertices[VERTEXNO_LB].x = fEndX;
 	vertices[VERTEXNO_LB].y = fEndY;
-	vertices[VERTEXNO_RB].x = fEndX;
-	vertices[VERTEXNO_RB].y = fEndY;
+	vertices[VERTEXNO_RB].x = fEndX+1;
+	vertices[VERTEXNO_RB].y = fEndY+1;
 	vertices[VERTEXNO_LB].color = endColor;
 	vertices[VERTEXNO_RB].color = endColor;
 
 	//	アルファオプション
-	m_myudg->SetAlphaMode( MGL_ALPHA_OPT_DEFAULT );
+	//m_myudg->SetAlphaMode( MGL_ALPHA_OPT_DEFAULT );
 
 	//	描画
-	Draw( vertices );
+	m_pLineTex->Draw( vertices );
 }
 

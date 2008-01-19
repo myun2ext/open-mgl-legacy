@@ -25,6 +25,8 @@ public:
 		Draw( fStartX,fStartY,fEndX,fEndY, color,color,width ); }
 	//void Draw(float x, float y, D3DCOLOR startColor=D3DCOLOR_WHITE, D3DCOLOR endColor=D3DCOLOR_BLACK, float width=1.0f);
 	void Draw(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width=1.0f);
+
+	CMglTexture* GetInternalTexture(){ return m_pLineTex; }
 };
 
 #endif//__MglDrawLine_H__
