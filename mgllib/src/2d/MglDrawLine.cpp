@@ -19,11 +19,23 @@ CMglDrawLine::CMglDrawLine(){
 		//m_pLineTex->Create(1,1,FALSE);
 		m_pLineTex->Create(2,2,FALSE);
 	}
+
+	m_myudg = NULL;
+	m_d3d = NULL;
+}
+
+//	初期化
+void CMglDrawLine::Init( CMglGraphicManager* in_myudg )
+{
+	m_myudg = in_myudg;
+	m_d3d = m_myudg->GetD3dDevPtr();
 }
 
 //	描画
 void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width)
 {
+	InitCheck();
+
 	MYU_VERTEX vertices[4];		//	頂点
 	ZeroMemory( vertices, sizeof(vertices) );
 
@@ -36,23 +48,142 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
 	//	始点
 	vertices[VERTEXNO_LT].x = fStartX;
 	vertices[VERTEXNO_LT].y = fStartY;
-	vertices[VERTEXNO_RT].y = fStartX+1;
-	vertices[VERTEXNO_RT].x = fStartY+1;
+	vertices[VERTEXNO_LT].rhw = 1.0f;
 	vertices[VERTEXNO_LT].color = startColor;
+	vertices[VERTEXNO_RT].x = fStartX+1;
+	vertices[VERTEXNO_RT].y = fStartY-1;
+	vertices[VERTEXNO_RT].rhw = 1.0f;
 	vertices[VERTEXNO_RT].color = startColor;
 	
 	//	終点
 	vertices[VERTEXNO_LB].x = fEndX;
 	vertices[VERTEXNO_LB].y = fEndY;
+	vertices[VERTEXNO_LB].rhw = 1.0f;
+	vertices[VERTEXNO_LB].color = endColor;
 	vertices[VERTEXNO_RB].x = fEndX+1;
 	vertices[VERTEXNO_RB].y = fEndY+1;
-	vertices[VERTEXNO_LB].color = endColor;
+	vertices[VERTEXNO_RB].rhw = 1.0f;
 	vertices[VERTEXNO_RB].color = endColor;
 
+
+	//////////////////////////////////////////////////////
+
+
+	//	頂点バッファ生成
+	LPDIRECT3DVERTEXBUFFER8 pVertexBuffer = NULL;
+	if( FAILED( m_d3d->CreateVertexBuffer( sizeof(vertices),
+                                                  //0, D3DFVF_CUSTOMVERTEX,
+                                                  0, FVF_MYU_VERTEX,
+                                                  D3DPOOL_DEFAULT, &pVertexBuffer ) ) )
+    {
+        MyuThrow( 0x0207, "CMglDrawLine::Draw()  m_d3d->CreateVertexBuffer()に失敗" );
+    }
+
+    // Now we fill the vertex buffer. To do this, we need to Lock() the VB to
+    // gain access to the vertices. This mechanism is required becuase vertex
+    // buffers may be in device memory.
+    BYTE* pVertices = NULL;
+    if( FAILED( pVertexBuffer->Lock( 0, MGL_VERTEXES_SIZE, &pVertices, 0 ) ) )
+        MyuThrow( 0x0207, "CMglDrawLine::Draw()  pVertexBuffer->Lock()に失敗" );
+
+	if ( pVertices == NULL )
+        MyuThrow( 0x0207, "CMglDrawLine::Draw()  pVertices is NULL." );
+
+    memcpy( pVertices, vertices, MGL_VERTEXES_SIZE );
+    pVertexBuffer->Unlock();
+
+	m_d3d->SetVertexShader(FVF_MYU_VERTEX);
+	m_d3d->SetStreamSource(0, pVertexBuffer , sizeof(MYU_VERTEX));
+	m_d3d->DrawPrimitive(D3DPT_TRIANGLESTRIP , 0 , 2);
+
+    //m_d3d->SetStreamSource( 0, pVertexBuffer, 0, sizeof(MYU_VERTEX) );
+    //m_d3d->SetStreamSource( 0, pVertexBuffer, sizeof(MYU_VERTEX) );
+    //m_d3d->SetFVF( FVF_MYU_VERTEX );
+    //m_d3d->DrawPrimitive( D3DPT_TRIANGLELIST, 0, 2 );
+
+	/*
+	//	絵画
+	MyuAssert( m_d3d->DrawPrimitiveUP( D3DPT_TRIANGLESTRIP, 1, vertices, sizeof(MYU_VERTEX) ), D3D_OK,
+		"CMglDrawLine::Draw()  DrawPrimitiveUP()に失敗" );
+	*/
+
+	/*
 	//	アルファオプション
 	//m_myudg->SetAlphaMode( MGL_ALPHA_OPT_DEFAULT );
 
 	//	描画
 	m_pLineTex->Draw( vertices );
+	*/
 }
 
+
+
+
+
+
+
+
+//#define D3DFVF D3DFVF_XYZRHW | D3DFVF_DIFFUSE
+#define D3DFVF FVF_MYU_VERTEX
+
+/*
+typedef struct {
+	float x , y , z , w;
+	DWORD color;
+} D3DVERTEX;
+*/
+#define D3DVERTEX	MYU_VERTEX
+
+
+void CMglDrawLine::Draw2(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width)
+{
+	InitCheck();
+
+	static D3DVERTEX pt[4];
+
+	//	始点
+	pt[VERTEXNO_LT].x = fStartX;
+	pt[VERTEXNO_LT].y = fStartY;
+	pt[VERTEXNO_LT].color = startColor;
+	pt[VERTEXNO_RT].x = fStartX;
+	pt[VERTEXNO_RT].y = fStartY;
+	pt[VERTEXNO_RT].color = startColor;
+	
+	//	終点
+	pt[VERTEXNO_LB].x = fEndX;
+	pt[VERTEXNO_LB].y = fEndY;
+	pt[VERTEXNO_LB].color = endColor;
+	pt[VERTEXNO_RB].x = fEndX;
+	pt[VERTEXNO_RB].y = fEndY;
+	pt[VERTEXNO_RB].color = endColor;
+
+	/*
+	static D3DVERTEX pt[4] = {
+		{fStartX , 10 , 0 , 1 , 0xFFFF0000} ,
+		{400 , 200 , 0 , 1 , 0xFF00FF00} ,
+		{10 , 200 , 0 , 1 , 0xFF0000FF} ,
+		{200 , 600 , 0 , 1 , 0xFF000000}
+	};
+	*/
+	D3DXMATRIX d3dm;
+	D3DVERTEX *d3dv;
+	IDirect3DVertexBuffer8 *d3dvb;
+
+	m_d3d->CreateVertexBuffer(
+		sizeof (D3DVERTEX) * 4 , 0 , D3DFVF , D3DPOOL_MANAGED , &d3dvb);
+	d3dvb->Lock(0 , 0 , (BYTE**)&d3dv , 0);
+	memcpy(d3dv , pt , sizeof (D3DVERTEX) * 4);
+	d3dvb->Unlock();
+
+
+	/*m_d3d->Clear(0 , NULL , D3DCLEAR_TARGET ,
+		D3DCOLOR_XRGB(0xFF , 0xFF , 0xFF) , 1.0 , 0);
+	m_d3d->BeginScene();*/
+	m_d3d->SetVertexShader(D3DFVF);
+	m_d3d->SetStreamSource(0 , d3dvb , sizeof (D3DVERTEX));
+	m_d3d->DrawPrimitive(D3DPT_TRIANGLESTRIP , 0 , 2);
+	/*m_d3d->EndScene();
+
+	m_d3d->Present(NULL,NULL,NULL,NULL);*/
+	//ValidateRect(hWnd,NULL);
+}
