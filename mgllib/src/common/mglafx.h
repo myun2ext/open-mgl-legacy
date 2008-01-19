@@ -115,18 +115,21 @@ extern CMyuDebugLog g_workLog;
 	#define DIRECTINPUT_VERSION		(0x0900)
 	#define _MGL_IDirectInput IDirectInput9
 	#define _MGL_IDirectInputDevice IDirectInputDevice9
+	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice9
 	
 #elif _MGL_USE_DXVER10
 	#pragma comment(lib, "dinput10.lib")
 	#define DIRECTINPUT_VERSION		(0x1000)
 	#define _MGL_IDirectInput IDirectInput10
 	#define _MGL_IDirectInputDevice IDirectInputDevice10
+	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice10
 	
 #else
 	#pragma comment(lib, "dinput8.lib")
 	#define DIRECTINPUT_VERSION		(0x0800)
 	#define _MGL_IDirectInput IDirectInput8
 	#define _MGL_IDirectInputDevice IDirectInputDevice8
+	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice8
 #endif
 
 #include <dinput.h>

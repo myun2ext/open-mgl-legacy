@@ -445,6 +445,14 @@ SOURCE=.\src\input\MglKeyboardInputBase.cpp
 
 SOURCE=.\src\input\MglKeyboardInputBase.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\input\MglMouseInput.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\input\MglMouseInput.h
+# End Source File
 # End Group
 # Begin Group "Intellisense Files"
 
