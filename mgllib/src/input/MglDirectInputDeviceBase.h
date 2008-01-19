@@ -9,14 +9,14 @@
 
 #include "MglDirectInputBase.h"
 
-#define STATEBUF_SIZE	(256)
-
 //	ÉNÉâÉXêÈåæ
 class DLL_EXP CMglDirectInputDeviceBase : public CMglDirectInputBase
 {
 protected:
 	_MGL_IDirectInputDevice *m_pDevice;
-	BYTE m_stateBuf[STATEBUF_SIZE];
+	//BYTE m_stateBuf[STATEBUF_SIZE];
+	BYTE *m_pStateBuf;
+	int m_nStateBufSize;
 
 	void Acquire();
 	void Unacquire();
@@ -33,7 +33,8 @@ public:
 	virtual ~CMglDirectInputDeviceBase();
 
 	//	èâä˙âªÇ∆äJï˙
-	void Init(  REFGUID rguid, LPCDIDATAFORMAT dataFormat, HWND hWnd=NULL, DWORD dwCooperativeFlag=DISCL_NONEXCLUSIVE|DISCL_FOREGROUND );
+	void Init(  REFGUID rguid, LPCDIDATAFORMAT dataFormat, int nStateBufSize,
+		HWND hWnd=NULL, DWORD dwCooperativeFlag=DISCL_NONEXCLUSIVE|DISCL_FOREGROUND );
 	void Release();
 
 	void UpdateStateBuf();

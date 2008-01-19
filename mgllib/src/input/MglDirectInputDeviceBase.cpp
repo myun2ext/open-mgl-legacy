@@ -7,17 +7,20 @@
 CMglDirectInputDeviceBase::CMglDirectInputDeviceBase()
 {
 	m_pDevice = NULL;
-	ZeroMemory( m_stateBuf, sizeof(m_stateBuf) );
+	//ZeroMemory( m_stateBuf, sizeof(m_stateBuf) );
+	m_pStateBuf = NULL;
+	m_nStateBufSize = 0;
 }
 
 //	デストラクタ
 CMglDirectInputDeviceBase::~CMglDirectInputDeviceBase()
 {
+	SAFE_DELETE_ARY(m_pStateBuf);
 	Release();
 }
 
 //	初期化
-void CMglDirectInputDeviceBase::Init( REFGUID rguid, LPCDIDATAFORMAT dataFormat, HWND hWnd, DWORD dwCooperativeFlag )
+void CMglDirectInputDeviceBase::Init( REFGUID rguid, LPCDIDATAFORMAT dataFormat, int nStateBufSize, HWND hWnd, DWORD dwCooperativeFlag )
 {
 	//	基底初期化
 	InitBase();
@@ -34,6 +37,10 @@ void CMglDirectInputDeviceBase::Init( REFGUID rguid, LPCDIDATAFORMAT dataFormat,
     
 	MyuAssert( m_pDevice->SetCooperativeLevel( hWnd, dwCooperativeFlag ), DI_OK,
 		"CMglDirectInputDeviceBase::Init  m_pDevice->SetCooperativeLevel()に失敗" );
+
+	//	ステートバッファ確保
+	m_pStateBuf = new BYTE[nStateBufSize];
+	m_nStateBufSize = nStateBufSize;
 
 	Acquire();
 }
@@ -72,18 +79,18 @@ void CMglDirectInputDeviceBase::Unacquire()
 void CMglDirectInputDeviceBase::UpdateStateBuf()
 {
 	InitCheck();
-	ZeroMemory( m_stateBuf, sizeof(m_stateBuf) );
-	if ( m_pDevice->GetDeviceState( sizeof(m_stateBuf), &m_stateBuf ) != DI_OK )
+	ZeroMemory( m_pStateBuf, m_nStateBufSize );
+	if ( m_pDevice->GetDeviceState( m_nStateBufSize, m_pStateBuf ) != DI_OK )
 	{
 		//	失敗したらAcquire()を実行してもう一回試してみる
 		Acquire();
-		m_pDevice->GetDeviceState( sizeof(m_stateBuf), &m_stateBuf );
+		m_pDevice->GetDeviceState( m_nStateBufSize, m_pStateBuf );
 
 		/*
 			単にウインドウフォーカスが外れているだけかもしれないので何もしない
 		*/
 
 		//	どうも取得に失敗した時、中身が何か入ってしまっているようだ。
-		ZeroMemory( m_stateBuf, sizeof(m_stateBuf) );
+		ZeroMemory( m_pStateBuf, m_nStateBufSize );
 	}
 }
