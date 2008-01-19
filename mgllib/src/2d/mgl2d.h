@@ -83,6 +83,7 @@ using namespace std;
 #include "MglText.h"
 #include "MglTexture.h"
 #include "MglVertex.h"
+#include "MglDrawLine.h"
 
 
 #endif//__mgl2d_H__

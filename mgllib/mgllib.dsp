@@ -162,6 +162,14 @@ SOURCE=.\src\2d\MglD3dCapsDumper.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglDrawLine.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglDrawLine.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglGraphicManager.cpp
 
 !IF  "$(CFG)" == "mgllib - Win32 Release"
