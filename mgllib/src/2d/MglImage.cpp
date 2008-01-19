@@ -32,8 +32,13 @@ void CMglImage::Draw(
 	float fScaleX, float fScaleY, float fRotationCenterX, float fRotationCenterY, float fAngle )
 {
 	if ( m_bCenterDraw ){
-		x -= CMglTexture::GetBmpWidth()/2;
-		y -= CMglTexture::GetBmpHeight()/2;
+		/*x -= CMglTexture::GetBmpWidth()/2;
+		y -= CMglTexture::GetBmpHeight()/2;*/
+
+		//	2008/01/19 拡大縮小の際に中心にならないがわざとなのかなんなのか・・・？
+		//x -= (CMglTexture::GetBmpWidth() - ((1.0f-fScaleX)*CMglTexture::GetBmpWidth())/2);
+		x -= fScaleX * CMglTexture::GetBmpWidth() / 2;
+		y -= fScaleY * CMglTexture::GetBmpHeight() / 2;
 	}
 	m_myudg->SpriteDraw( this, x, y, srcRect, color, fScaleX, fScaleY,
 		fRotationCenterX, fRotationCenterY, fAngle );
