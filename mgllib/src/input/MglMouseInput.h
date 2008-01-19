@@ -20,6 +20,8 @@ public:
 	//	コンストラクタ・デストラクタ
 	CMglMouseInput();
 	virtual ~CMglMouseInput();
+
+
 };
 
 

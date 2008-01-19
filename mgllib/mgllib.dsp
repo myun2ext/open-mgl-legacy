@@ -403,6 +403,14 @@ SOURCE=.\src\input\MglDirectInputBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\input\MglDirectInputDeviceBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\input\MglDirectInputDeviceBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\input\MglInput.cpp
 # End Source File
 # Begin Source File
