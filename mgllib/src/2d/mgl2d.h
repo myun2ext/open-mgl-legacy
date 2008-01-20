@@ -84,6 +84,7 @@ using namespace std;
 #include "MglTexture.h"
 #include "MglVertex.h"
 #include "MglDrawLine.h"
+#include "MglLayer.h"
 
 
 #endif//__mgl2d_H__

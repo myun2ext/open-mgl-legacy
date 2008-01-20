@@ -18,61 +18,128 @@
 #define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CMglLayer : public CMglImageManager
+class DLL_EXP CMglLayer
 {
 private:
+	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
+	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
+
 	typedef struct {
 		BOOL bShow;			//	表示するか
 		RECT rect;			//	矩形領域
+		//RECT* pRect;		//	矩形領域。指定されていればrectのポインタが、指定されてなければNULLが入る
 		D3DCOLOR color;		//	アルファ値 | カラー
+
+		//	2008/01/20  拡張
+		float x, y;				//	場所
+		float fScaleX, fScaleY;	//	縮尺率
+		float fRotationCenterX;
+		float fRotationCenterY;
+		float fAngle;			//	角度
+
+		CMglImage *pImage;		//	イメージへのポインタ
 	} LAYERINFO;
 
+	/*
 	//map<string,LAYERINFO> layerInfos;
 	//map<int,string> indexs;
 	typedef map<string,LAYERINFO> LAYERINFOS_MAP;
-	typedef map<int,string> INDEXS_MAP;
 	LAYERINFOS_MAP *p_layerInfos;
 	INDEXS_MAP *p_indexs;
+	*/
 
+	//	リスト
+	//list<LAYERINFO> m_list;
+	map<int,LAYERINFO> m_list;
+	map<CMglImage*,int> m_imagePtrMap;	//	CMglImageより高速に検索するためのマップ
+	typedef map<int,LAYERINFO>::iterator LIST_ITR;
+
+	/*
 	//	レンダリング用サーフェス
 	CMglImage m_renderingSurface;
 
 	//	前回はどのサーフェスにレンダリングしようとしたか
 	CMglImage* m_pPrevTargetSurface;
 
-	//	CreateFromFile用に記憶
-	char m_szDummyFile[MAX_PATH+1];
-	D3DCOLOR m_colorKey;
-
 	//	前回のレンダリングを適用する
 	void AdaptRenderingSurface();
+	*/
+
+	//	内部メソッド（チェック用）
+	void InitCheck() {
+		if ( m_myudg == NULL )
+			Init( GetDefaultGd() );
+	}
+
+	LAYERINFO& ExistChk(int z){
+		if ( m_list.find(z) == m_list.end() )
+			MyuThrow( 222, "CMglLayer : z=%d は見つかりません。", z );
+		return m_list[z];
+	}
+
 
 public:
 	//	コンストラクタ/デストラクタ
 	CMglLayer();
 	virtual ~CMglLayer();
 
-	//	初期化・開放系メソッド
-	void Init( CMglGraphicManager *in_myudg, const char* in_szDummyFile, D3DCOLOR colorKey=DEF_COLORKEY );
-	void Release();		//	開放
-	void DeleteAll();	//	全てのレイヤーを削除（現時点ではRelease()と同じ）
+	//	初期化
+	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd ){
+		m_myudg = in_myudg;
+		m_d3d = m_myudg->GetD3dDevPtr();
+	}
 
-	void Add( const char *szBufferName );
-	CMglImage* AddEntry( const char *szBufferName );
-	CMglImage* GetRenderingSurface( const char *szLayerName );
-	//	Get()は CMglImageBuffers で実装済みなのでいらない罠ｗ
-	//CMglImage* Get( const char *szLayerName );
-	void SetLayerOption( const char *szLayerName, RECT *rect, D3DCOLOR color );
-	void SetLayerOption( const char *szLayerName, RECT *rect );
-	void SetLayerOption( const char *szLayerName, D3DCOLOR color );
-	void OnDraw( D3DCOLOR baseColor=0 );
+	//	登録/削除
+	//void Regist( CMglImage *pImage, const char *szIdentifierName );
+	//void Regist( CMglImage *pImage, int z );
+	void Regist( CMglImage *pImage, int z,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f );
+	void SetParam( int z,
+		float x, float y, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f );
+	void Move( int z, float x, float y );
+	void SetPos( int z, float x, float y );
+	void SetColor( int z, D3DCOLOR color );
+	void SetScale( int z, float fScale ){
+		SetScale(z,fScale,fScale); }
+	void SetScale( int z, float fScaleX, float fScaleY );
+	void SetAngle( int z, float fAngle );
+	void SetRect( int z, RECT rect );
+	void SetCenter( int z, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f ){
+		SetRotationCenter(z,fRotationCenterX,fRotationCenterY); }
+	void SetRotationCenter( int z, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f );
 
-	//	便利な拡張メソッド
-	void SetRender( const char *szLayerName )			{ Get( szLayerName )->SetRender(); }
-	void SetRenderAndClear( const char *szLayerName )	{ SetRender( szLayerName ); Get( szLayerName )->Clear(); }
+	//	取得
+	CMglImage* Get( int z ){
+		if ( m_list.find(z) == m_list.end() )
+			return NULL;
+		return m_list[z].pImage;
+	}
+
+	//	取得
+	int Find( CMglImage *pImage ){
+		if ( m_imagePtrMap.find(pImage) == m_imagePtrMap.end() )
+			return NULL;
+		return m_imagePtrMap[pImage];
+	}
+
+	//	クリアする
+	void Clear(){ m_list.clear(); m_imagePtrMap.clear(); }
+
+	//	描画
+	void Draw(){ Rendering(); }
+	void DrawAll(){ Rendering(); }
+	void AllDraw(){ Rendering(); }
+	void Rendering();
 
 	//	プロパティ系メソッド
-	void SetEnable( int i ) { iLayerInfos(i).bShow = TRUE; };
+	/*void Show( const char* szIdentifierName ) { iLayerInfos(i).bShow = TRUE; };
+	void Hide( const char* szIdentifierName ) { iLayerInfos(i).bShow = TRUE; };*/
+	void Show( int z ) { ExistChk(z).bShow = TRUE; }
+	void Hide( int z ) { ExistChk(z).bShow = FALSE; }
+
+	/*
 	void SetDisable( int i ) { iLayerInfos(i).bShow = FALSE; };
 	void ChangeEnable( int i ) {
 		if ( iLayerInfos(i).bShow == TRUE ) { iLayerInfos(i).bShow = FALSE; }
@@ -87,6 +154,7 @@ public:
 		if ( (*p_layerInfos)[szLayerName].bShow == TRUE ) { (*p_layerInfos)[szLayerName].bShow = FALSE; }
 		else											  { (*p_layerInfos)[szLayerName].bShow = TRUE;  }
 	}
+	*/
 };
 
 

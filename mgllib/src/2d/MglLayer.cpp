@@ -8,214 +8,150 @@
 #include "stdafx.h"
 #include "MglLayer.h"
 
-
 //	コンストラクタ
 CMglLayer::CMglLayer()
 {
-	p_layerInfos = new LAYERINFOS_MAP;
-	p_indexs = new INDEXS_MAP;
-
-	m_pPrevTargetSurface = NULL;
+	m_myudg = NULL;
+	m_d3d = NULL;
 }
 
 //	デストラクタ
 CMglLayer::~CMglLayer()
 {
-	Release();
 
-	SAFE_DELETE( p_layerInfos );
-	SAFE_DELETE( p_indexs );
 }
 
-//	開放
-void CMglLayer::Release()
+///////////////////////////////////////////////////////
+
+//	登録
+void CMglLayer::Regist( CMglImage *pImage, int z, float x, float y, 
+	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
-	CMglImageManager::Release();
-	DeleteAll();
+	if ( m_list.find(z) != m_list.end() )
+		MyuThrow( 66126, "CMglLayer::Regist() z=%d は既にあります。", z );
+
+	LAYERINFO t;
+	ZeroMemory(&t,sizeof(t));
+
+	/*
+	t.bShow = bShow;
+	t.color = color;
+	t.x = x;
+	t.y = y;
+	t.fScaleX = fScaleX;
+	t.fScaleY = fScaleY;
+	t.fAngle = fAngle;
+	*/
+	t.pImage = pImage;
+
+	m_list[z] = t;
+
+	SetParam(z,x,y,bShow,color,fScaleX,fScaleY,fAngle);
 }
 
-//	全てのレイヤーを削除（現時点ではRelease()と同じ）
-void CMglLayer::DeleteAll()
+//	パラメータ設定
+void CMglLayer::SetParam( int z, float x, float y, 
+	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
-	p_layerInfos->clear();
-	p_indexs->clear();
+	ExistChk(z);
 
-	CMglImageManager::DeleteAll();
+	m_list[z].bShow = bShow;
+	m_list[z].color = color;
+	m_list[z].x = x;
+	m_list[z].y = y;
+	m_list[z].fScaleX = fScaleX;
+	m_list[z].fScaleY = fScaleY;
+	m_list[z].fAngle = fAngle;
+
+	m_list[z].fRotationCenterX = 0.5f;
+	m_list[z].fRotationCenterY = 0.5f;
 }
 
-//	初期化
-void CMglLayer::Init( CMglGraphicManager *in_m_myudg, const char* in_szDummyFile, D3DCOLOR colorKey )
+//	移動
+void CMglLayer::Move( int z, float x, float y )
 {
-	//	内部変数へコピー
-	strcpy( m_szDummyFile, in_szDummyFile );
-	m_colorKey = colorKey;
-
-	//	CMglImageManagerのInit()を呼び出す
-	CMglImageManager::Init( in_m_myudg );
-
-	//	レンダリング用サーフェスの初期化
-	m_renderingSurface.Init( in_m_myudg );
-	m_renderingSurface.Create();
+	ExistChk(z);
+	m_list[z].x += x;
+	m_list[z].y += y;
 }
 
-//	レイヤーの追加
-void CMglLayer::Add( const char *szBufferName )
+//	パラメータ設定（位置）
+void CMglLayer::SetPos( int z, float x, float y )
 {
-	CMglImage *pSurface = AddEntry( szBufferName );
-
-	//	CreateFromFile()は良くエラーを起こすのでExceptionを書き換える
-	try
-	{
-		pSurface->Create( m_szDummyFile, TRUE, m_colorKey );
-		//pSurface->CreateFromFile( m_szDummyFile, TRUE, m_colorKey );
-		//pSurface->CreateFromFile( m_szDummyFile, FALSE, m_colorKey );	//	重いイイイ_|￣|○
-
-		//	ダミーサーフェスのサイズチェック
-		if ( pSurface->GetBmpWidth() != m_myudg->GetDispX() ||
-			 pSurface->GetBmpHeight() != m_myudg->GetDispY() )
-		{
-			MyuThrow( 0, "ダミーサーフェスは画面のサイズと一致していなければいけません。" );
-		}
-
-		pSurface->Clear();
-	}
-	catch( MyuCommonException except )
-	{
-		static MyuCommonException except2;
-		sprintf( except2.szErrMsg, "CMglLayer::Add(\"%s\")\r\n"
-			"0x%08x %s", szBufferName, except.nErrCode, except.szErrMsg );
-		throw except2;
-	}
-	catch( ... )
-	{
-		MyuThrow( 0, "CMglLayer::Add()  Unknown Exception Error." );
-	}
+	ExistChk(z);
+	m_list[z].x = x;
+	m_list[z].y = y;
 }
 
-//	レイヤーの追加（Pre）
-CMglImage* CMglLayer::AddEntry( const char *szBufferName )
+//	パラメータ設定（色）
+void CMglLayer::SetColor( int z, D3DCOLOR color )
 {
-	//	indexs
-	INDEXS_MAP &indexs = *p_indexs;
-	LAYERINFOS_MAP &layerInfos = *p_layerInfos;
-	indexs[layerInfos.size()] = szBufferName;
-
-	//	layerInfos
-	LAYERINFO layerInfo;
-	ZeroMemory( &layerInfo, sizeof(LAYERINFO) );
-	layerInfo.bShow = TRUE;
-	layerInfo.color = 0xffffffff;
-	layerInfos[szBufferName] = layerInfo;
-
-	return CMglImageManager::Add( szBufferName );
+	ExistChk(z);
+	m_list[z].color = color;
 }
 
-//	レイヤーを取得
-CMglImage* CMglLayer::GetRenderingSurface( const char *szLayerName )
+//	パラメータ設定（縮尺率）
+void CMglLayer::SetScale( int z, float fScaleX, float fScaleY )
 {
-	InitCheck();
-
-	//	前回のレンダリングを反映
-	AdaptRenderingSurface();
-
-	//	ターゲットサーフェスを取得し、コピーしてくる
-	CMglImageManager::Get( szLayerName )->CopyRectToOther(&m_renderingSurface);
-
-	//	ターゲットサーフェスを保持
-	m_pPrevTargetSurface = CMglImageManager::Get( szLayerName );
-	if ( m_pPrevTargetSurface == NULL )
-		MyuThrow( 0, "CMglLayer::GetRenderingSurface()  なんかNULL㌧で来ました（何" );
-
-	//	偽のレンダリング用サーフェスを復帰
-	return &m_renderingSurface;
+	ExistChk(z);
+	m_list[z].fScaleX = fScaleX;
+	m_list[z].fScaleY = fScaleY;
 }
 
-//	前回のレンダリングを反映
-void CMglLayer::AdaptRenderingSurface()
+//	パラメータ設定（角度）
+void CMglLayer::SetAngle( int z, float fAngle )
 {
-	//	m_pPrevTargetSurfaceがNULL→初回なので前回のレンダリングは無い
-	if ( m_pPrevTargetSurface != NULL )
-	{
-		m_renderingSurface.CopyRectToOther(m_pPrevTargetSurface);
-
-		//	初期化
-		m_pPrevTargetSurface = NULL;
-	}
+	ExistChk(z);
+	m_list[z].fAngle = fAngle;
 }
 
-//	exを設定するです
-void CMglLayer::SetLayerOption( const char *szLayerName, RECT *rect, D3DCOLOR color )
+//	パラメータ設定（矩形）
+void CMglLayer::SetRect( int z, RECT rect )
 {
-	SetLayerOption( szLayerName, rect );
-	SetLayerOption( szLayerName, color );
+	ExistChk(z);
+	m_list[z].rect = rect;
 }
 
-//	exを設定するです
-void CMglLayer::SetLayerOption( const char *szLayerName, RECT *rect )
+//	パラメータ設定（回転の中心）
+void CMglLayer::SetRotationCenter( int z, float fRotationCenterX, float fRotationCenterY )
+{
+	ExistChk(z);
+	m_list[z].fRotationCenterX = fRotationCenterX;
+	m_list[z].fRotationCenterY = fRotationCenterY;
+}
+
+////////////////////////////////////////////////////////////////
+
+//	描画
+void CMglLayer::Rendering()
 {
 	InitCheck();
 
-	//	てかあんの…？
-	if ( p_layerInfos->find( szLayerName ) == p_layerInfos->end() )
+	//	ループ
+	for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
 	{
-		MyuThrow( 0, "CMglLayer::SetLayerOption()  レイヤー %s は存在しません。", szLayerName );
-	}
+		LAYERINFO& t = it->second;
+		CMglImage* pImage = t.pImage;
 
-	LAYERINFOS_MAP &layerInfos = *p_layerInfos;
-
-	if ( rect == NULL )
-		ZeroMemory( &layerInfos[szLayerName].rect, sizeof(RECT) );	//	NULLなら0,0,0,0
-	else
-		layerInfos[szLayerName].rect = *rect;						//	構造体まるこぴー
-}
-
-//	exを設定するです
-void CMglLayer::SetLayerOption( const char *szLayerName, D3DCOLOR color )
-{
-	InitCheck();
-
-	//	てかあんの…？
-	if ( p_layerInfos->find( szLayerName ) == p_layerInfos->end() )
-	{
-		MyuThrow( 0, "CMglLayer::SetLayerOption()  レイヤー %s は存在しません。", szLayerName );
-	}
-
-	LAYERINFOS_MAP &layerInfos = *p_layerInfos;
-
-	layerInfos[szLayerName].color = color;
-}
-
-
-//	画面への反映
-void CMglLayer::OnDraw( D3DCOLOR baseColor )
-{
-	InitCheck();
-
-	//if ( p_buffers->size() == 0 )
-	//	MyuThrow( 0, "CMglLayer::OnDraw() レイヤーが空です。" );
-
-	//	前回のレンダリングを反映
-	AdaptRenderingSurface();
-
-	//	バックバッファにレンダリング。ついでに画面をクリア
-	m_myudg->SetRenderBackBuffer();
-	m_myudg->Clear( baseColor );
-
-	//	レイヤー結合ループ
-	for ( int i=0; i<m_buffers.Size(); i++ )
-	{
-		LAYERINFO *pInfo = &iLayerInfos(i);
-		CMglImage *pSfc = iBuffers(i);
-
-		if ( pInfo->bShow == TRUE )
+		if ( t.bShow == TRUE )
 		{
 			//pSfc->XDraw();
 			//pSfc->Draw( pInfo->rect.left, pInfo->rect.top, NULL, pInfo->color );
 
+			RECT* pRect = &t.rect;
+			if ( pRect->left == 0 && pRect->right == 0 && pRect->top == 0 && pRect->bottom == 0 )
+				pRect = NULL;
+
+			//	描画
+			pImage->Draw(t.x, t.y, pRect, t.color,
+				t.fScaleX, t.fScaleY, t.fRotationCenterX, t.fRotationCenterY, t.fAngle );
+
+			/*
 			if ( pInfo->rect.left == pInfo->rect.right || pInfo->rect.top == pInfo->rect.bottom )
 				pSfc->Draw( pInfo->rect.left, pInfo->rect.top, NULL, pInfo->color );
 			else
 				pSfc->Draw( pInfo->rect.left, pInfo->rect.top, &pInfo->rect, pInfo->color );
+			*/
 		}
 	}
 
