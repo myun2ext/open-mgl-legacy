@@ -139,11 +139,18 @@ SOURCE=.\src\graphic_extends\MglImageTips.h
 # Begin Group "_old"
 
 # PROP Default_Filter ""
-# End Group
 # Begin Source File
 
-SOURCE=.\src\2d\mgl2d.h
+SOURCE=.\src\2d\MglLayers.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayers.h
+# End Source File
+# End Group
+# Begin Group "Util"
+
+# PROP Default_Filter ""
 # Begin Source File
 
 SOURCE=.\src\2d\MglBitmapData.cpp
@@ -178,6 +185,27 @@ SOURCE=.\src\2d\MglDrawLine.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglGraphicUtil.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglGraphicUtil.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglVertex.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglVertex.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\src\2d\mgl2d.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglGraphicManager.cpp
 
 !IF  "$(CFG)" == "mgllib - Win32 Release"
@@ -195,19 +223,19 @@ SOURCE=.\src\2d\MglGraphicManager.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\2d\MglGraphicUtil.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglGraphicUtil.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\2d\MglImage.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\src\2d\MglImage.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayer.h
 # End Source File
 # Begin Source File
 
@@ -224,14 +252,6 @@ SOURCE=.\src\2d\MglTexture.cpp
 # Begin Source File
 
 SOURCE=.\src\2d\MglTexture.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglVertex.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglVertex.h
 # End Source File
 # End Group
 # Begin Group "Common Files"

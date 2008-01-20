@@ -24,12 +24,12 @@ public:
 	}
 	virtual ~CMglBitmapData(){}
 
-	D3DCOLOR* GetLine(int y){ return GetHorizontalLine(y); }
 	D3DCOLOR* GetHorizontalLine(int y){
 		if ( y >= m_nHeight )
 			return NULL;
 		return (D3DCOLOR*)(m_pBits + m_nPitch*y);
 	}
+	D3DCOLOR* GetLine(int y){ return GetHorizontalLine(y); }
 	D3DCOLOR Get(int x,int y){
 		D3DCOLOR* p = GetHorizontalLine(y);
 		if ( p == NULL )
