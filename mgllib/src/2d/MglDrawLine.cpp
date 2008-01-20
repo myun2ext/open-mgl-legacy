@@ -8,10 +8,11 @@
 #include "stdafx.h"
 #include "MglDrawLine.h"
 
-CMglTexture* CMglDrawLine::m_pLineTex;
+//CMglTexture* CMglDrawLine::m_pLineTex;
 
 //	コンストラクタ
 CMglDrawLine::CMglDrawLine(){
+	/*
 	//	初回一回だけ
 	if ( m_pLineTex == NULL ){
 		m_pLineTex = new CMglTexture();
@@ -19,6 +20,7 @@ CMglDrawLine::CMglDrawLine(){
 		//m_pLineTex->Create(1,1,FALSE);
 		m_pLineTex->Create(2,2,FALSE);
 	}
+	*/
 
 	m_myudg = NULL;
 	m_d3d = NULL;

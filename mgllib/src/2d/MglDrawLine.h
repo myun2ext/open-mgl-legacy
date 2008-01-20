@@ -8,7 +8,7 @@
 #define __MglDrawLine_H__
 
 #include "MglGraphicManager.h"
-#include "MglTexture.h"
+//#include "MglTexture.h"
 
 //	クラス宣言
 class DLL_EXP CMglDrawLine
@@ -17,7 +17,7 @@ protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
 
-	static CMglTexture* m_pLineTex;
+	//static CMglTexture* m_pLineTex;
 
 	//	内部メソッド（チェック用）
 	void InitCheck() {
@@ -38,7 +38,7 @@ public:
 	void Draw(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width=1.0f);
 	void Draw2(float fStartX, float fStartY, float fEndX, float fEndY, D3DCOLOR startColor, D3DCOLOR endColor, float width=1.0f);
 
-	CMglTexture* GetInternalTexture(){ return m_pLineTex; }
+	//CMglTexture* GetInternalTexture(){ return m_pLineTex; }
 };
 
 #endif//__MglDrawLine_H__
