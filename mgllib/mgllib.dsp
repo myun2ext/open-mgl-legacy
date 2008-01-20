@@ -146,6 +146,14 @@ SOURCE=.\src\2d\mgl2d.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglBitmapData.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglBitmapData.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglBitmapText.cpp
 # End Source File
 # Begin Source File
@@ -200,14 +208,6 @@ SOURCE=.\src\2d\MglImage.cpp
 # Begin Source File
 
 SOURCE=.\src\2d\MglImage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglSurfaceIterator.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglSurfaceIterator.h
 # End Source File
 # Begin Source File
 
