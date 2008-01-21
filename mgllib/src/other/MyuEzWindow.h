@@ -59,7 +59,7 @@ public:
 
 	HWND GetWindowHandle() {
 		if ( m_bAlive != TRUE )
-			MyuThrow( 0, "CMyuEzWindow::GetWindowHandle()  ウインドウは生存状態にありません。" );
+			MyuThrow( MGLEC_WINDOW_NOT_ALIVE, "CMyuEzWindow::GetWindowHandle()  ウインドウは生存状態にありません。" );
 		return m_hWnd;
 	}
 };

@@ -107,6 +107,7 @@ public:
 
 	//	“à•”‚ÅŽg—p
 	int PrivateMainMethod();
+	int PrivateMainMethod(DWORD dwUserThreadParam);
 
 	//	Žæ“¾‚Æ‚©Šg’£‚Æ‚©
 	HWND GetWindowHandle(){ return m_window.GetWindowHandle(); }

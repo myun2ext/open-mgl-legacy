@@ -51,6 +51,7 @@ using namespace std;
 #include "MyuDebugLog.h"
 #include "MyuCommonException.h"
 #include "MglExceptionThrowerBase.h"
+#include "MglExceptionCode.h"
 #include "mglmsg.h"
 
 extern CMyuDebugLog g_workLog;

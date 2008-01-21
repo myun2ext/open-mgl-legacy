@@ -70,5 +70,6 @@ public:
 	CMglImage* operator[]( const char *szBufferName ) { return Get(szBufferName); };
 };
 
+typedef CMglImageManager CMglImageBuffer;
 
 #endif//__MglImageManager_H__

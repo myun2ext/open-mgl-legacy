@@ -71,20 +71,24 @@ using namespace std;
 #endif
 */
 
-#include "MglBitmapText.h"
 #include "MglGraphicManager.h"
 #include "MglGraphicUtil.h"
+
+#include "MglVertex.h"
+#include "MglTexture.h"
 #include "MglImage.h"
+#include "MglSprite.h"
+
 #include "MglImageTips.h"
 #include "MglImageCacher.h"
 #include "MglImageManager.h"
 #include "MglImageFader.h"
 #include "MglImageAnimator.h"
-#include "MglText.h"
-#include "MglTexture.h"
-#include "MglVertex.h"
-#include "MglDrawLine.h"
+
 #include "MglLayer.h"
+#include "MglBitmapText.h"
+#include "MglText.h"
+#include "MglDrawLine.h"
 
 
 #endif//__mgl2d_H__

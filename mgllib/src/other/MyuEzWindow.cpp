@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "MyuEzWindow.h"
 #include "MyuFunctions.h"
+#include "MglManager.h"		//	デバッグログ
 
 LRESULT WINAPI MyuEzWindowMsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
@@ -32,6 +33,8 @@ int CMyuEzWindow::StartWindow( const char* szAppCaption, const char* szWinClassN
 //							  DWORD dwThreadUserOption )
 							  LPVOID threadFuncParam )
 {
+	_MGL_DEBUGLOG("+ CMyuEzWindow::StartWindow()" );
+
 	HANDLE hMainThread;
 	HWND hWnd;
 
@@ -107,6 +110,7 @@ int CMyuEzWindow::StartWindow( const char* szAppCaption, const char* szWinClassN
 	m_hWnd = hWnd;
 	m_bAlive = TRUE;
 	//hMainThread = CreateThread( NULL, 0, threadFunc, &threadFuncParam, 0, &id );
+	_MGL_DEBUGLOG("CreateThread()..." );
 	hMainThread = CreateThread( NULL, 0, threadFunc, threadFuncParam, 0, &id );
 	
 	//////////////////////////////////////////
@@ -131,8 +135,10 @@ int CMyuEzWindow::StartWindow( const char* szAppCaption, const char* szWinClassN
 				MessageBox( hWnd, "CMyuEzWindow::StartWindow()  GetExitCodeThread()に失敗。", szAppCaption, MB_ICONERROR );
 				break;
 			}
-			if ( exitCode != STILL_ACTIVE )
+			if ( exitCode != STILL_ACTIVE ){
+				_MGL_DEBUGLOG("exitCode is not STILL_ACTIVE." );
 				break;
+			}
 
 			//	なんにもすることないよーん。(ﾟ∋ﾟ)～♪
 			Sleep(1);	//	Zzzz..

@@ -239,6 +239,14 @@ SOURCE=.\src\2d\MglLayer.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglSprite.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglSprite.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglText.cpp
 # End Source File
 # Begin Source File
@@ -272,6 +280,14 @@ SOURCE=.\src\common\mgl_global.h
 # Begin Source File
 
 SOURCE=.\src\common\mglafx.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglException.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglExceptionCode.h
 # End Source File
 # Begin Source File
 
@@ -524,10 +540,6 @@ SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
 
 SOURCE=.\src\include_test_mgl.cpp
 # SUBTRACT CPP /YX /Yc /Yu
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MglException.h
 # End Source File
 # Begin Source File
 

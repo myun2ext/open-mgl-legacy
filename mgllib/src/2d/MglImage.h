@@ -155,6 +155,6 @@ public:
 };
 
 typedef CMglImage CMglBitmap;
-typedef CMglImage CMglSprite;
+//typedef CMglImage CMglSprite;
 
 #endif//__MglImage_H__

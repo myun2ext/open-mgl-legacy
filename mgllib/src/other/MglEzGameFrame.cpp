@@ -25,9 +25,24 @@ int		CMglEzGameFrame::ms_nInstanceCount=0;
 	CMglEzGameFrame *pInstance = (CMglEzGameFrame*)(dwInstancePtr);
 	return (DWORD)( pInstance->PrivateMainMethod() );
 }*/
+
+//	自分自身のメインスレッドを呼び出す
 DWORD CallMainThread( CMglEzGameFrame *pFrameInstance )
 {
 	return (DWORD)( pFrameInstance->PrivateMainMethod() );
+}
+
+//	2008/01/22  ユーザパラメータ対応
+typedef struct {
+	CMglEzGameFrame *pFrameInstance;
+	DWORD dwUserParam;
+}
+CALL_THREAD_EX_PARAM;
+
+//
+DWORD CallMainThreadEx( CALL_THREAD_EX_PARAM *pParam )
+{
+	return (DWORD)( pParam->pFrameInstance->PrivateMainMethod(pParam->dwUserParam) );
 }
 
 
@@ -53,6 +68,8 @@ int CMglEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 //	MGL_EZGAME_FRAME_FUNCPTR mainThreadFuncPtr )
 	LPTHREAD_START_ROUTINE mainThreadFuncPtr, void* threadFuncParam, const char *szWindowTitle, BOOL bFullscreen )
 {
+	_MGL_DEBUGLOG("StartWindowEx() start." );
+
 	if ( ms_nInstanceCount >= 2 )
 	{
 		::MessageBox( NULL, "CMglEzGameFrame のインスタンスが複数あります。", "MyuGameLibrary", MB_ICONERROR );
@@ -84,31 +101,49 @@ int CMglEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 		strWindowClassName += szWindowTitle;*/
 	}
 
+	CALL_THREAD_EX_PARAM param;
+	param.pFrameInstance = this;
+	param.dwUserParam = (DWORD)threadFuncParam;
+
 	//	簡易Window処理呼び出し
+	_MGL_DEBUGLOG("m_window.StartWindow()" );
 	return m_window.StartWindow(
 		szWindowTitle, m_strWindowClassName.c_str(),
 		nWinStartPosX, nWinStartPosY, m_nWidth, m_nHeight,
 		WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
-		(LPTHREAD_START_ROUTINE)CallMainThread, threadFuncParam );
+		(LPTHREAD_START_ROUTINE)CallMainThreadEx, &param );
 //		(LPTHREAD_START_ROUTINE)CallMainThread, (DWORD)(this) );
 }
 
 //	スレッド
-int CMglEzGameFrame::PrivateMainMethod()
+int CMglEzGameFrame::PrivateMainMethod(){
+	return PrivateMainMethod((DWORD)this);
+}
+
+//	スレッド - 2008/01/22
+int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 {
 	try	//	例外処理受け付け開始
 	{
+		_MGL_DEBUGLOG("+ CMglEzGameFrame::PrivateMainMethod()" );
+
+		_MGL_DEBUGLOG("CoInitialize()..." );
 		CoInitialize(NULL);
 
+		_MGL_DEBUGLOG("grp.Init()..." );
 		grp.Init( m_window.GetWindowHandle(), m_nWidth, m_nHeight, m_bFullscreen );
+
+		_MGL_DEBUGLOG("input.Init()..." );
 		input.Init( m_window.GetWindowHandle() );
+
 		m_txtDebug.InitAndEzCreate( &grp, 14 );
 		m_txtFps.InitAndEzCreate( &grp, 14 );
 		//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
 		grp.Clear();
 
 		//	MGL S3.1からは呼び出すだけにする（ループはこの中でやってもらう）- 2006/11/25
-		m_userMainThread(this);
+		_MGL_DEBUGLOG("Call User MainMethod." );
+		m_userMainThread((void*)dwUserThreadParam);
 		//→ やっぱやめ -> ない！（どっちだよ：笑）
 
 		/*
