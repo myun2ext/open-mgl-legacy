@@ -1,0 +1,61 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglImage::Draw()</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+<!-- $Id: Draw.html,v 1.2 2007/02/17 08:55:12 myun2 Exp $ -->
+
+<div class="padding">
+	<h1>CMglImage::Draw()</h1>
+	<div class="padding_s">
+
+<pre>
+void Draw(
+	float x=0, float y=0, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
+	float fScallX=1.0f, float fScallY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f );
+void Draw( CMglImage* destSurface,
+	float x=0, float y=0, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
+	float fScallX=1.0f, float fScallY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f );
+</pre>
+
+<!--<pre>
+void Draw( float x=0, float y=0, RECT *srcRect=NULL, D3DCOLOR color=0xffffffff );
+void Draw( CMglImage* destSurface, float x, float y, RECT *srcRect=NULL, D3DCOLOR color=0xffffffff );
+</pre>-->
+		
+		<P>
+		<BR><h2>概要</h2>
+		<div class="padding_s">
+			<P>描画処理を行います。
+			<!--<BR>高機能な描画（回転、伸縮）を行う場合は <A href="DrawEx.html">DrawEx()</A> を使用して下さい。-->
+		</div>
+		
+		
+		<P>
+		<BR><h2>引数</h2>
+		<div class="padding_s">
+			<P>x　- 描画開始位置のX
+			<BR>y　- 描画開始位置のY
+			<BR>srcRect　- 描画対象として使用する矩形
+			<BR>color　- 乗算する色、及び<A href="../glossary.html#アルファチャネル">アルファチャネル</A>。省略時は乗算色、アルファブレンド共に無し
+			
+			<P>fScallX　- 横の伸縮率。省略時1.0（伸縮なし）
+			<BR>fScallY　- 縦の伸縮率。省略時1.0（伸縮なし）
+			<BR>fRotationCenterX　- 回転の中心のX座標（BMPデータ上の）。省略時0.5（中心）<!--。省略時もしくは-1指定で画像の中心-->
+			<BR>fRotationCenterY　- 回転の中心のY座標（BMPデータ上の）。省略時0.5（中心）<!--。省略時もしくは-1指定で画像の中心-->
+			<BR>fAngle　- 回転の角度。省略時0（回転なし）
+			
+			<P>destSurface　- 描画先を別の CMglImage にする場合はこれを指定。
+		</div>
+		
+	
+		<P>　
+		<BR>　
+		<BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

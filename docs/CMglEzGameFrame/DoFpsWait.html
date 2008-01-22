@@ -1,0 +1,58 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglEzGameFrame::DoFpsWait()</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<h1>CMglEzGameFrame::DoFpsWait()</h1>
+	<div class="padding_s">
+		
+<pre>BOOL DoFpsWait()</pre>
+		
+		<P><h2>概要</h2>
+		<div class="padding_s">
+			<P><A href="StartWindow.html">StartWindow()</A>にて開始されたコールバック関数内で使用します。
+			
+			<P>指定されたFPS（デフォルト60。変更する場合はSetFps()を呼び出す）
+			<BR>になるようにスリープ処理を行います。
+			<BR>同時に、終了チェックも行います。このメソッドの復帰値がFALSEであった場合、
+			<BR>コールバック関数はただちに終了する必要があります。
+			
+			<P>一定時間（デフォルト10秒）以内に終了されなかった場合、
+			<BR><A href="StartWindow.html">StartWindow()</A>は強制終了を促すメッセージダイアログを表示します。
+			<BR>この強制終了には TerminateThread()（WindowsAPI）を使用するため
+			<BR>予期せぬ動作を起こす可能性があります。
+		</div>
+		
+		<P>
+		<BR><h2>引数</h2>
+		<div class="padding_s">
+			<P>なし
+		</div>
+		
+		<P>
+		<BR><h2>復帰値</h2>
+		<div class="padding_s">
+			<P>アプリケーションの有効状態を返します。
+			<BR>×ボタンが押された場合等に「無効状態」と判断され、
+			<BR>FALSEを復帰します。それ以外の場合はTRUEを復帰します。
+		</div>
+		
+		<P>
+		<BR><h2>備考</h2>
+		<div class="padding_s">
+			<P>特になし。
+		</div>
+		
+	
+		<P>　
+		<BR>　
+		<BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

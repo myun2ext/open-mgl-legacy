@@ -1,0 +1,180 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL - チュートリアル</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="./main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<P><!--<img src="takuan.jpg">-->
+	
+	<h1>MGL<font size=2 color="#666677">　- チュートリアル</font></h1>
+
+	<div class="padding">
+	
+		<P><A name="初めてのMGL"></A>
+		<BR><H2>初めてのMGL</H2>
+		<div class="padding_s">
+			
+			<P>・プロジェクトを「Win32 Application（※VC++6.0の場合。.netでも同じ名前だかは不明）」
+			<BR>　にて作成します。プリコンパイル済みヘッダ等イチイチ作るのはめんどいので
+			<BR>　「単純な Win32 アプリケーション」で作成する事にしましょう。
+			
+			<P>・mgl_header ディレクトリをコピーしてきます。
+			<BR>・Includeパスを切らないといけないので切ってください。（やり方は自分で調べて！）
+			
+			<P>・stdafx.h 内「// TODO: プログラムで必要なヘッダー参照を追加してください。」
+			<BR>　の前辺りに「#include "mglafx.h"」と「#include "mglheads.h"」を記述します。
+			
+			<P>・mgllib.lib を、今作成したプロジェクトのディレクトリにコピーします。
+			<BR>・このlibファイルをリンクするように設定します。
+			<BR>　（<strong>親切な解説！＠VC++6.0編：</strong>
+			<BR>　　メニューの「プロジェクト」→「設定」→「リンク」の
+			<BR>　　「ｵﾌﾞｼﾞｪｸﾄ/ﾗｲﾌﾞﾗﾘ ﾓｼﾞｭｰﾙ」に「mgllib.lib」を追加する。
+			<BR>　　DebugビルドとReleaseビルドの両方にて設定しておくのを忘れずに！） 
+			
+			<P>・実行モジュールの作成されるディレクトリ（デフォルトであれば「Debug」の筈）
+			<BR>　に「mgllib.dll」をコピーしておきます。（Releaseビルドの際には、勿論「Release」
+			<BR>　ディレクトリ内にもコピーしておく必要性アリ。）
+			
+			<P>一応これで、ひとまずセッティングは完了です。
+			<BR>後は好きにゴリゴリ作っていってクダサイ。
+			<BR>とりあえず動かしてみたいと言う人は
+			<BR>「<A href="#初めてのMGL＠とりあえず動かす編">初めてのMGL＠とりあえず動かす編</A>」を読み進めてみると良いでしょう。
+			
+			<!--
+			<BR>・とりあえず stdafx を追加しておきましょう。よく知らない人は<A href="stdafx.html">こちら</A>でも参照してください。
+			<BR>・ちなみに「default_stdafx」と言うディレクトリ内に stdafx.h、及び stdafx.cpp が
+			<BR>　同封されているので、面倒な人はこれを使うと便利です。
+			<BR>　（勿論の事だけど、追加するだけではダメで、<A href="stdafx.html">プリコンパイル済みヘッダの設定</A>は必要…）
+			-->
+		</div>
+		
+		
+		
+		<P><A name="初めてのMGL＠とりあえず動かす編"></A>
+		<BR><H2>初めてのMGL＠とりあえず動かす編</H2>
+		<div class="padding_s">
+			
+			<P>「<A href="#初めてのMGL">初めてのMGL</A>」からの続きです。
+			<BR>「<A href="#初めてのMGL">初めてのMGL</A>」を読んでない人はちゃんとそっちから読んでないと駄目ですよっ！
+			
+			
+			<P>　□　□　□
+			
+<!--
+			<P>メインのcppが出来ていると思うので、まずはグローバル変数（イキナリだけどグローバル変数！:p）
+
+<pre>
+CMglEzGameFrame g_frame;
+</pre>
+
+			<P>次に、自動生成されている筈の WinMain() に以下のように記述します。
+			<BR>として CMglEzGameFrameクラス を以下のように宣言してください。
+
+<pre>
+int APIENTRY WinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPSTR     lpCmdLine,
+                     int       nCmdShow )
+{
+	g_frame.StartWindow( 640, 480, (MGL_EZGAME_FRAME_FUNCPTR)MainLoop );
+	return 0;
+}
+</pre>
+
+-->
+
+			<P>メインのcppが出来ている筈なので、その WinMain() 関数の中に以下を記述します。
+
+<pre>
+int APIENTRY WinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPSTR     lpCmdLine,
+                     int       nCmdShow )
+{
+	CMglEzGameFrame frame;
+	frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread, "MGL Sample Program" );
+	return 0;
+}
+</pre>
+			
+			<P>「MainThread」はこれから作ろうとしているコールバック関数です。
+			<BR>CMglEzGameFrame::StartWindow() はウィンドウを作成した後、
+			<BR>別スレッドとしてこのコールバック関数を呼び出します。
+			<BR>（厳密にはその前に前処理等が含まれたりしますが…）
+
+<!--			
+			<P>CMglEzGameFrame::StartWindow() の中から1フレーム毎に呼び出されます。
+			<BR>もしくはループ処理を自分で行う事も出来ます。
+			
+			<P>今回は後者の方式でやってみる事にしましょう。
+			<BR>と言う事で以下のように記述する事にします。
+-->
+
+			<P>（※ちなみにインテリセンス（※パラメータヒント等の事）がちゃんと機能してくれないと思いますので
+			<BR>　　「<A href="#インテリセンス">インテリセンスが機能しない...?</A>」の方を参考にしてみてください。）
+			
+<pre>
+//	プロトタイプ宣言
+BOOL MainThread( CMglEzGameFrame *pFrame );
+
+//	関数本体
+BOOL MainThread( CMglEzGameFrame *pFrame )
+{
+	for(int i=0; i&lt;=255; i+=2)
+	{
+		pFrame-&gt;grp.Clear(D3DCOLOR_MONO(i));
+		
+		//	ウェイト処理と終了チェック
+		if ( pFrame-&gt;DoFpsWait() != TRUE )
+			return TRUE;
+	}
+	
+	pFrame-&gt;MsgBox( "終わり。", "おわりだよー" );
+	return TRUE;
+}
+</pre>
+			<P>コールバックの引数として、先の CMglEzGameFrame のインスタンス（frame）
+			<BR>のポインタが渡って来るのでこれを使用して色々処理をします。
+			<BR>具体的にどうなるかは…実行すれば一目瞭然かと思います。（笑
+			
+			<P>DoFpsWait() は指定されたFPS（デフォルト60）に合わせて
+			<BR>ウェイトするメソッドです。兼、他にも色々な処理（画面への反映とか）
+			<BR>を行うのでフレーム処理毎に呼ばないと駄目です。
+			
+			<P>また復帰値として、ウインドウがちゃんと生存しているか否かが返って来るので、
+			<BR>FALSE が帰ってきた場合は処理を抜けるように記述します。
+			<BR>（これをやらないと×ボタン押された時等にちゃんと終了しない…）
+			
+			<P>　
+			<BR>大体感覚は掴めて頂けましたかね…？
+			<BR>次回はもうちょっと切り込んだ話をしたいと思います。
+		</div>
+		
+		
+		
+		<P>　<A name="インテリセンス"></A>
+		<BR><H2>インテリセンスが機能しない...?</H2>
+		<div class="padding_s">
+			
+			<P>どうも（少なくともVisual C++ 6.0では）ヘッダファイルがプロジェクトに
+			<BR>追加されていないとインテリセンスが機能しないようです。
+			<BR>（何で標準の関数とかは追加されてなくても出てくるんですかね…？良く分かりません。。。）
+			
+			<P>該当のヘッダファイルをincludeした状態でビルドすると、ワークスペースの「外部依存関係」
+			<BR>の所にそのヘッダファイルが出てきます。これを適当に、別のフォルダでも作ってあげて
+			<BR>そこに入れてあげるとインテリセンスが機能するようになります。（暫定対処…？）
+		</div>
+	</div>
+		
+	<P>　
+	<BR>　
+	<BR>　
+	<BR>　
+	<BR>＞<A href="index.html">戻る</A>
+</div>
+
+</left></body>
+</HTML>

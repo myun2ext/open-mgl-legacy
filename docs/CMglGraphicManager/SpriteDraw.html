@@ -1,0 +1,46 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglGraphicManager::SpriteDraw()</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<h1>CMglGraphicManager::SpriteDraw()</h1>
+	<div class="padding_s">
+
+<pre>void SpriteDraw( CMglTexture *pTexture, float x=0, float y=0, CONST RECT* pSrcRect=NULL,
+	D3DCOLOR color=D3DCOLOR_WHITE, float fScaleX=1.0f, float fScaleY=1.0f,
+	float fRotationCenterX=-1, float fRotationCenterY=-1, float fAngle=0.0f );</pre>
+		
+		<P>
+		<BR><h2>概要</h2>
+		<div class="padding_s">
+			<P>DirectXのスプライト機能を利用した多機能描画を行います。
+		</div>
+		
+		
+		<P>
+		<BR><h2>引数</h2>
+		<div class="padding_s">
+			<P>pTexture　- BMPデータとして使用される画像の管理クラスへのポインタ（CMglImage）
+			<BR>x　- 絵画開始位置 X座標。省略時0
+			<BR>x　- 絵画開始位置 Y座標。省略時0
+			<BR>color　- 乗算する色、及び<A href="../alphablend.html">アルファブレンド</A>。省略時は乗算色、アルファブレンド共に無し
+			<BR>fScaleX　- 横の伸縮率。省略時1.0
+			<BR>fScaleY　- 縦の伸縮率。省略時1.0
+			<BR>fRotationCenterX　- 回転の中心のX座標（BMPデータ上の）。省略時もしくは-1指定で画像の中心
+			<BR>fRotationCenterY　- 回転の中心のY座標（BMPデータ上の）。省略時もしくは-1指定で画像の中心
+			<BR>fAngle　- 回転の角度。省略時回転無し
+		</div>
+		
+	
+		<P>　
+		<BR>　
+		<BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

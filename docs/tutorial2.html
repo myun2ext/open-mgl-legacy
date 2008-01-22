@@ -1,0 +1,149 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL - チュートリアル</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="./main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<P><!--<img src="takuan.jpg">-->
+	
+	<h1>MGL<font size=2 color="#666677">　- チュートリアルその２</font></h1>
+
+	<div class="padding">
+	
+		<P><A name="画像描画"></A>
+		<BR><H2>画像描画</H2>
+		<div class="padding_s">
+			
+			<P>画像描画には <A href="CMglImage/index.html">CMglImageクラス</A> を使います。
+		</div>
+		
+		
+		
+		<P><A name="初めてのMGL＠とりあえず動かす編"></A>
+		<BR><H2>初めてのMGL＠とりあえず動かす編</H2>
+		<div class="padding_s">
+			
+			<P>「<A href="#初めてのMGL">初めてのMGL</A>」からの続きです。
+			<BR>「<A href="#初めてのMGL">初めてのMGL</A>」を読んでない人はちゃんとそっちから読んでないと駄目ですよっ！
+			
+			
+			<P>　□　□　□
+			
+<!--
+			<P>メインのcppが出来ていると思うので、まずはグローバル変数（イキナリだけどグローバル変数！:p）
+
+<pre>
+CMglEzGameFrame g_frame;
+</pre>
+
+			<P>次に、自動生成されている筈の WinMain() に以下のように記述します。
+			<BR>として CMglEzGameFrameクラス を以下のように宣言してください。
+
+<pre>
+int APIENTRY WinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPSTR     lpCmdLine,
+                     int       nCmdShow )
+{
+	g_frame.StartWindow( 640, 480, (MGL_EZGAME_FRAME_FUNCPTR)MainLoop );
+	return 0;
+}
+</pre>
+
+-->
+
+			<P>メインのcppが出来ている筈なので、その WinMain() 関数の中に以下を記述します。
+
+<pre>
+int APIENTRY WinMain(HINSTANCE hInstance,
+                     HINSTANCE hPrevInstance,
+                     LPSTR     lpCmdLine,
+                     int       nCmdShow )
+{
+	CMglEzGameFrame frame;
+	frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread, "MGL Sample Program" );
+	return 0;
+}
+</pre>
+			
+			<P>「MainThread」はこれから作ろうとしているコールバック関数です。
+			<BR>CMglEzGameFrame::StartWindow() はウィンドウを作成した後、
+			<BR>別スレッドとしてこのコールバック関数を呼び出します。
+			<BR>（厳密にはその前に前処理等が含まれたりしますが…）
+
+<!--			
+			<P>CMglEzGameFrame::StartWindow() の中から1フレーム毎に呼び出されます。
+			<BR>もしくはループ処理を自分で行う事も出来ます。
+			
+			<P>今回は後者の方式でやってみる事にしましょう。
+			<BR>と言う事で以下のように記述する事にします。
+-->
+
+			<P>（※ちなみにインテリセンス（※パラメータヒント等の事）がちゃんと機能してくれないと思いますので
+			<BR>　　「<A href="#インテリセンス">インテリセンスが機能しない...?</A>」の方を参考にしてみてください。）
+			
+<pre>
+//	プロトタイプ宣言
+BOOL MainThread( CMglEzGameFrame *pFrame );
+
+//	関数本体
+BOOL MainThread( CMglEzGameFrame *pFrame )
+{
+	for(int i=0; i&lt;=255; i+=2)
+	{
+		pFrame-&gt;grp.Clear(D3DCOLOR_MONO(i));
+		
+		//	ウェイト処理と終了チェック
+		if ( pFrame-&gt;DoFpsWait() != TRUE )
+			return TRUE;
+	}
+	
+	pFrame-&gt;MsgBox( "終わり。", "おわりだよー" );
+	return TRUE;
+}
+</pre>
+			<P>コールバックの引数として、先の CMglEzGameFrame のインスタンス（frame）
+			<BR>のポインタが渡って来るのでこれを使用して色々処理をします。
+			<BR>具体的にどうなるかは…実行すれば一目瞭然かと思います。（笑
+			
+			<P>DoFpsWait() は指定されたFPS（デフォルト60）に合わせて
+			<BR>ウェイトするメソッドです。兼、他にも色々な処理（画面への反映とか）
+			<BR>を行うのでフレーム処理毎に呼ばないと駄目です。
+			
+			<P>また復帰値として、ウインドウがちゃんと生存しているか否かが返って来るので、
+			<BR>FALSE が帰ってきた場合は処理を抜けるように記述します。
+			<BR>（これをやらないと×ボタン押された時等にちゃんと終了しない…）
+			
+			<P>　
+			<BR>大体感覚は掴めて頂けましたかね…？
+			<BR>次回はもうちょっと切り込んだ話をしたいと思います。
+		</div>
+		
+		
+		
+		<P>　<A name="インテリセンス"></A>
+		<BR><H2>インテリセンスが機能しない...?</H2>
+		<div class="padding_s">
+			
+			<P>どうも（少なくともVisual C++ 6.0では）ヘッダファイルがプロジェクトに
+			<BR>追加されていないとインテリセンスが機能しないようです。
+			<BR>（何で標準の関数とかは追加されてなくても出てくるんですかね…？良く分かりません。。。）
+			
+			<P>該当のヘッダファイルをincludeした状態でビルドすると、ワークスペースの「外部依存関係」
+			<BR>の所にそのヘッダファイルが出てきます。これを適当に、別のフォルダでも作ってあげて
+			<BR>そこに入れてあげるとインテリセンスが機能するようになります。（暫定対処…？）
+		</div>
+	</div>
+		
+	<P>　
+	<BR>　
+	<BR>　
+	<BR>　
+	<BR>＞<A href="index.html">戻る</A>
+</div>
+
+</left></body>
+</HTML>

@@ -1,0 +1,114 @@
+BODY
+{
+	font-family:			'ＭＳ Ｐゴシック';
+}
+
+BODY,TD
+{
+	background-color:	#FFFFFF;
+	color: 				#282A40;
+	line-height:		121%;
+	font-size:			90%;
+}
+
+.padding	{	padding-left:	20px;	}
+.padding_s	{	padding-left:	8px;	}
+.padding30	{	padding-left:	30px;	}
+.padding60	{	padding-left:	60px;	}
+
+/* アンカー */
+A { text-decoration: underline; }
+
+A:link {
+	color: #0066FF;
+}
+A:visited {
+	color: #0066FF;
+}
+A:hover {
+	color: #0022FF;
+}
+A:active {
+	background-color:	#1177FF;
+	color:				#FFFFFF;
+}
+
+small,.small
+{
+	font-size:		11px;
+	line-height:	100%;
+}
+
+.vsmall,.vsmall_pad
+{
+	font-size:		10px;
+	line-height:	100%;
+}
+.vsmall_pad{ padding-left:	10px; }
+
+
+IMG {
+	border:				0;
+}
+
+/*div.title*/
+h1
+{
+	font-size:			130%;
+	/*font-size:		150%;*/
+	padding:			5px 0px 3px 12px;
+	width:				540px;
+	
+	color: 				#555566;
+	border-left:		10px solid #BBBBC8;
+	border-bottom:		1px solid #777780;
+	border-right:		1px solid #777780;
+
+/*	color: 				#555577;
+	border-bottom:		1px solid #9999BB;
+	border-right:		1px solid #9999BB;
+	border-left:		10px solid #9999BB;*/
+}
+
+h2
+{
+	font-size:			110%;
+	padding:			2px 0px 0px 15px;
+	width:				540px;
+	
+	color: 				#555555;
+	border-bottom:		1px solid #A09990;
+	border-right:		1px solid #A09990;
+	border-left:		6px solid #BBAAA0;
+	
+/*	color: 				#555577;
+	border-bottom:		1px solid #80AAAA;
+	border-right:		1px solid #80AAAA;
+	border-left:		6px solid #80AAAA;*/
+}
+
+h3
+{
+	font-size:			105%;
+	padding:			2px 0px 0px 15px;
+	width:				540px;
+	
+	color: 				#555577;
+	border-bottom:		1px solid #9999BB;
+	border-right:		1px solid #9999BB;
+	border-left:		6px solid #9999BB;
+}
+
+
+pre
+{
+	font-size:			90%;
+	/*padding-left:		20px;*/
+	padding-left:		18px;
+	padding-top:		10px;
+	padding-bottom:		10px;
+	width:				600px;
+	/*width:			90%;*/
+	background-color:	#E8E8E8;
+}
+

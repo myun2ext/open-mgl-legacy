@@ -1,0 +1,77 @@
+<!-- http://www.nwhite.info/ -->
+
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL S3.1 document - CMglEzGameFrame クラス</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<P><img src="../nave.jpg">
+	
+	<h1>CMglEzGameFrame クラス<font size=2 color="#666688">　- 簡易フレームワーククラス</font></h1>
+	<div class="padding_s">
+		<P>特に凝った事をしないようであれば、このフレームワーククラスを使うと良いです。
+		<BR>ウインドウ作成やFPS管理等を肩代わりしてくれます。
+		<BR><A href="../tutorial.html">チュートリアル</A>に簡単な使い方が載っています。
+		
+		<P>簡単に解説するならば、StartWindows()にてウインドウの作成等を行わせ、
+		<BR>それら初期化処理完了後、引数にて指定されたコールバック関数が別スレッドで起動されるので、
+		<BR>その中でループを行い色々ゲームの描画処理等を行います。
+		<BR>DoFpsWait()にて指定されたFPS（デフォルト60）になるようにスリープさせる事が出来ます。
+		<BR>また、DoFpsWait()がFALSEを返した場合は、ただちにコールバック関数を終了する必要があります。
+		
+		<P>内部で使用されている CMglGraphicManager、CMglInput 等はさりげなくpublic変数です。
+		<BR>描画処理や入力処理の際にはこの公開メンバ変数を使用してください。
+		
+
+		<P><BR><h2>メソッド</h2>
+		<div class="padding_s">
+			<P><strong>必然的なメソッド：</strong>
+			<BR>＞<A href="StartWindow.html"><strong>StartWindow()</strong></A>　- フレームワークの開始
+			<BR>＞<A href="DoFpsWait.html"><strong>DoFpsWait()</strong></A>　- ウェイト処理と終了チェック
+			
+			<P><strong>ちょくちょく使われるであろうメソッド：</strong>
+			<!--<BR>＞<A X_href="GetWindowHandle.html"><strong>GetWindowHandle()</strong></A>　- ウインドウハンドル（HWND）の取得-->
+			<BR>＞ HWND GetWindowHandle();　- ウインドウハンドルの取得
+			
+			<P><strong>オプション設定系メソッド：</strong>
+			<BR>＞ void SetFPS( int nFps );　　- FPSの設定（初期値60）
+			<BR>＞ void SetFpsShow( BOOL bFpsShow );　　- FPSの表示/非表示（初期状態非表示）
+			<BR>＞ void EnableEscEnd();　　- ESCにて終了するようにする（デフォルト）
+			<BR>＞ void DisableEscEnd();　　- ESCにて終了しないようにする
+			<!--<BR>＞<A X_href="SetFps.html"><strong>SetFps()</strong></A>　- FPSの設定（初期値60）
+			<BR>＞<A X_href="SetFpsShow.html"><strong>SetFpsShow()</strong></A>　- FPSの表示/非表示（初期状態非表示）
+			<BR>＞<A X_href="EnableEscEnd.html"><strong>EnableEscEnd()</strong></A>　- ESCにて終了するようにする（デフォルト）
+			<BR>＞<A X_href="DisableEscEnd.html"><strong>DisableEscEnd()</strong></A>　- ESCにて終了しないようにする-->
+
+			<P><strong>おまけ的ユーティリティメソッド：</strong>
+			<BR>＞<A href="DrawText.html"><strong>DrawText()</strong></A>　- テキストの描画
+			<BR>＞<A href="GetKey.html"><strong>GetKey()</strong></A>　- キー入力の取得
+
+			<P>＞<A X_href="PrintDebug.html"><strong>PrintDebug()</strong></A>　- デバッグ文の描画
+			<BR>＞<A X_href="MsgBox.html"><strong>MsgBox()</strong></A>　- MessageBox
+		</div>
+
+		<P><BR><h2>公開メンバ変数</h2>
+		<div class="padding_s">
+			<P>CMglGraphicManager grp;
+			<BR>CMglInput input;
+			<BR>CMyuFPS fps;
+		</div>
+		
+		<P><BR><h2>エイリアス</h2>
+		<div class="padding_s">
+			<P>・CMglEzFramework
+		</div>
+		
+		<P>　
+		<BR>　
+		<BR>＞<A href="../index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

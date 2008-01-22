@@ -1,0 +1,57 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglImage::Create()</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+<!-- $Id: Create.html,v 1.4 2007/02/17 09:04:39 myun2 Exp $ -->
+
+<div class="padding">
+	<h1>CMglImage::Create()</h1>
+	<div class="padding_s">
+
+<pre>
+void Create( int x=0, int y=0, BOOL bRenderTarget=TRUE );
+void Create( LPCSTR szFileName, BOOL bRenderTarget=TRUE, D3DCOLOR colorKey=DEF_COLORKEY );
+</pre>
+		
+		<P>
+		<BR><h2>概要</h2>
+		<div class="padding_s">
+			<P>画像イメージの作成（初期化）を行います。
+			<BR>szFileName 指定版の場合は、画像ファイルより作成を行います。
+		</div>
+		
+		
+		<P>
+		<BR><h2>引数</h2>
+		<div class="padding_s">
+			<P>x　- 作成される画像の幅。省略時、または0指定時は画面サイズと同じ
+			<BR>y　- 作成される画像の高さ。省略時、または0指定時は画面サイズと同じ
+			<BR>bRenderTarget　- <A href="../glossary.html#レンダリングターゲット">レンダリングターゲット</A>として使用するか否かのフラグ
+			<BR>szFileName　- 読み込む画像ファイル
+			<BR>colorKey　- 透過色として使用する色（<A href="../glossary.html#カラーキー">カラーキー</A>）
+		</div>
+		
+		
+		<P>
+		<BR><h2>備考</h2>
+		<div class="padding_s">
+			<P>szFileName にて指定可能な画像フォーマットは以下の通りです。
+			
+			<P><I>BMP, <A href="../glossary.html#DDS">DDS</A>, JPEG, PNG</I>
+			
+			<P>また、bRenderTarget にTRUEを設定した場合、その画像データはVRAM上に配置されます。
+			<BR>逆に FALSE を設定した場合はシステムメモリ上に配置されます。
+		</div>
+		
+	
+		<P>　
+		<BR>　
+		<BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

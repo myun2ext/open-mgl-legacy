@@ -1,0 +1,64 @@
+<!-- http://nwhite.s19.xrea.com/ -->
+
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>Myu Game Library - stdafx.h</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="./main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<h1>Myu Game Library　<font size=3>stdafx.h</font></h1>
+
+	<div class="padding">
+		<h2>stdafx.h</h2>
+		<div class="padding">
+			<P>stdafx.h は「プリコンパイル済みヘッダ」なるもので、
+			<BR>コンパイルの時間を大幅に短縮出来ます。
+			
+			<P>MGLではこの プリコンパイル済みヘッダ が存在するものと仮定して
+			<BR>作られているので、以下のような手順を行う必要があります。
+			
+			<P>１．stdafx.h 及び stdafx.cpp をプロジェクトに追加。
+			
+			<P>２．stdafx.cpp にて stdafx.h をインクルードするようにする。
+			
+			<P>３．（VC++6.0の場合）メニューの「プロジェクト」→「設定」で、ダイアログ左から 
+			<BR>　　プロジェクトを選択し、設定の対象を「全ての構成」に。
+			<BR>　　右のタブの「C/C++」の「カテゴリ」を「プリコンパイル済みヘッダー」にし、
+			<BR>　　「プリコンパイル済みヘッダー (.pch) を使用」を選び
+			<BR>　　テキストボックスに stdafx.h と記述。
+			
+			<P>４．（VC++6.0の場合）同ダイアログのダイアログ左から stdafx.cpp を選択し、
+			<BR>　　ダイアログ右の「プリコンパイル済みヘッダー (.pch) を作成」を選び
+			<BR>　　テキストボックスに stdafx.h と記述。
+			
+			<P>５．全 .cpp ファイルの先頭にて stdafx.h をインクルードするようにする。
+			<BR>　（どの #include よりも前でインクルードさせてください）
+			
+			<P>なお、以下は stdafx.h 及び stdafx.cpp の具体例です。
+			
+			<P>↓stdafx.h
+			<BR><div class="idt1">
+				#ifndef __stdafx_H__
+				<BR>#define __stdafx_H__
+				
+				<P>//	MGLでは、ここに #include "mglafx.h" を記述します
+				
+				<P>#endif//__stdafx_H__
+			</div>
+			
+			
+			<P>↓stdafx.cpp
+			<BR><div class="idt1">
+				#include "stdafx.h"
+			</div>
+		</div>
+		
+		<P><BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

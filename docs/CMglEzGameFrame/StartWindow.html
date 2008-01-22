@@ -1,0 +1,64 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglEzGameFrame::StartWindow()</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+
+<div class="padding">
+	<h1>CMglEzGameFrame::StartWindow()</h1>
+	<div class="padding_s">
+
+<pre>int StartWindow( int nWinWidthSize, int nWinHeightSize,
+		LPTHREAD_START_ROUTINE mainThreadFuncPtr,
+		const char *szWindowTitle="No title", BOOL bFullscreen=FALSE );</pre>
+		
+		<P>
+		<BR><h2>概要</h2>
+		<div class="padding_s">
+			<P>ウインドウを作成し、DirectX関連等の初期化後 mainThreadFuncPtr
+			<BR>にて指定されたコールバック関数を別スレッドとして開始させます。
+		</div>
+		
+		
+		<P>
+		<BR><h2>引数</h2>
+		<div class="padding_s">
+			<P>nWinWidthSize　- ウインドウの横幅
+			<BR>nWinHeightSize　- ウインドウの高さ
+			<BR>mainThreadFuncPtr　- メイン処理として呼び出されるコールバック関数
+			<BR>szWindowTitle　- ウインドウのタイトル（省略可能）
+			<BR>bFullscreen　- フルスクリーンにするか否か（省略時ウインドウモード）
+		</div>
+		
+		<P>
+		<BR><h2>解説</h2>
+		<div class="padding_s">
+			<P>mainThreadFuncPtr は以下のような宣言である必要があります。
+			
+			<pre>BOOL <i>任意の関数名</i>( CMglEzGameFrame *<i>任意の変数名</i> );</pre>
+			
+			<P>pFrame には、そのコールバック関数を呼び出した CMglEzGameFrame クラスの
+			<BR>インスタンスへのポインタです。このコールバック関数の中で何をすべきかは
+			<BR><A href="../tutorial.html">チュートリアル</A>を見れば大体分かります。
+			
+			<P>このコールバック関数が復帰した場合、終了処理を行った後に StartWindow() は
+			<BR>終了します。このコールバック関数の復帰値は BOOL 型ですが、
+			<BR>現在使用されていません。また、pFrame-&gt;<A href="DoFpsWait.html">DoFpsWait()</A> がFALSEである場合、
+			<BR>コールバック関数は即座（と言ってもある程度・・・1フレーム分くらいの猶予はある）
+			<BR>に復帰しなければいけません。
+			
+			<P>コールバック関数内からMGL例外が上がり、それがキャッチされなかった場合、
+			<BR>StartWindow() はデフォルトのエラーメッセージダイアログを表示します。
+		</div>
+		
+	
+		<P>　
+		<BR>　
+		<BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

@@ -1,0 +1,56 @@
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglImage::DrawEx()</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+<!-- $Id: DrawEx.html,v 1.1 2007/02/12 08:33:10 myun2 Exp $ -->
+
+<div class="padding">
+	<h1>CMglImage::DrawEx()</h1>
+	<div class="padding_s">
+
+<pre>
+void DrawEx( float fScallX, float fScallY,
+	float fRotationCenterX, float fRotationCenterY, float fAngle,
+	float x, float y, RECT *srcRect=NULL, D3DCOLOR color=0xffffffff);
+
+void DrawEx( CMglImage* destSurface, float fScallX, float fScallY,
+	float fRotationCenterX, float fRotationCenterY, float fAngle,
+	float x, float y, RECT *srcRect=NULL, D3DCOLOR color=0xffffffff );
+</pre>
+		
+		<P>
+		<BR><h2>概要</h2>
+		<div class="padding_s">
+			<P>描画処理を行います。Draw()の多機能版です。
+			<BR>回転や伸縮をサポートします。
+		</div>
+		
+		
+		<P>
+		<BR><h2>引数</h2>
+		<div class="padding_s">
+			<P>fScallX　- 横の伸縮率。1.0ならば伸縮なし
+			<BR>fScallY　- 縦の伸縮率。1.0ならば伸縮なし
+			<BR>fRotationCenterX　- 回転の中心のX座標（BMPデータ上の）<!--。省略時もしくは-1指定で画像の中心-->
+			<BR>fRotationCenterY　- 回転の中心のY座標（BMPデータ上の）<!--。省略時もしくは-1指定で画像の中心-->
+			<BR>fAngle　- 回転の角度。0なら回転無し。
+			<BR>x　- 描画開始位置のX
+			<BR>x　- 描画開始位置のX
+			<BR>y　- 描画開始位置のY
+			<BR>srcRect　- 描画対象として使用する矩形
+			<BR>color　- 乗算する色、及び<A href="../glossary.html#アルファチャネル">アルファチャネル</A>。省略時は乗算色、アルファブレンド共に無し
+			<BR>destSurface　- 描画先を別の CMglImage にする場合はこれを指定。
+		</div>
+		
+	
+		<P>　
+		<BR>　
+		<BR>＞<A href="index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

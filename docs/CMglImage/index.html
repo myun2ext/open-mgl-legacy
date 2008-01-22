@@ -1,0 +1,58 @@
+<!-- http://www.nwhite.info/ -->
+
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL document - CMglImage クラス</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+<!-- $Id: index.html,v 1.4 2007/04/13 16:35:22 myun2 Exp $ -->
+
+<div class="padding">
+	<P><img src="../nave.jpg">
+	
+	<h1>CMglImage クラス<font size=2 color="#666688">　- 画像データ管理クラス</font></h1>
+	<div class="padding_s">
+		<P>画像データの管理を行います。
+		<BR>このクラスのインスタンス一つが一枚の画像データに相当します。
+
+		<P><BR><h2>メソッド</h2>
+		<div class="padding_s">
+			<P><strong>初期化/開放系メソッド：</strong>
+			<BR>＞<A href="Create.html"><strong>Create()</strong></A>　- 画像データの構築/読み込み
+			<BR>＞<A X_href="Release.html"><strong>Release()</strong></A>　- 開放（省略可能）
+			
+			<P><strong>描画系メソッド：</strong>
+			<BR>＞<A href="Draw.html"><strong>Draw()</strong></A>　- 描画
+			<!--<BR>＞<A href="DrawEx.html"><strong>DrawEx()</strong></A>　- 高機能描画-->
+			<BR>＞<A X_href="FastDraw.html"><strong>FastDraw()</strong></A>　- 高速描画
+			
+			<P><strong>その他のメソッド：</strong>
+			<BR>＞void SetRender();　- レンダリング対象をこの画像データに設定
+			<BR>＞void Clear();　- 画面のクリア（白色塗り潰し）
+			<BR>＞void Clear( D3DCOLOR color );　- 画面のクリア（塗り潰しの色指定）
+			<BR>＞void Paint( RECT* rect, D3DCOLOR color );　- 矩形領域の塗り潰し
+			
+			<P><strong>設定/取得系メソッド：</strong>
+			<!--<BR>＞int GetBmpSizeX();　- BMPの幅取得
+			<BR>＞int GetBmpSizeY();　- BMPの高さ取得-->
+			<BR>＞int GetBmpWidth();　- BMPの幅取得
+			<BR>＞int GetBmpHeight();　- BMPの高さ取得
+		</div>
+
+
+		<P><BR><h2>エイリアス</h2>
+		<div class="padding_s">
+			<P>・CMglBitmap
+			<BR>・CMglSprite
+		</div>
+		
+		<P>　
+		<BR>　
+		<BR>＞<A href="../index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

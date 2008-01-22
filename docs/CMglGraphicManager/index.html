@@ -1,0 +1,51 @@
+<!-- http://www.nwhite.info/ -->
+
+<HTML>
+<META content="text/html; charset=x-sjis" http-equiv=Content-Type>
+<HEAD>
+ <TITLE>MGL S3.1 document - CMglGraphicManager クラス</TITLE>
+ <LINK REL="stylesheet" TYPE="text/css" HREF="../main.css">
+</HEAD>
+<body><left>
+<!-- $Id: index.html,v 1.4 2007/04/13 16:35:05 myun2 Exp $ -->
+
+<div class="padding">
+	<P><img src="../nave.jpg">
+	
+	<h1>CMglGraphicManager クラス<font size=2 color="#666688">　- グラフィック管理クラス</font></h1>
+	<div class="padding_s">
+		<P>グラフィックの管理を行います。（現在2Dグラフィックスのみサポート）
+		
+
+		<P><BR><h2>メソッド</h2>
+		<div class="padding_s">
+			<P><strong>初期化/開放系メソッド：</strong>
+			<BR>＞<A href="Init.html"><strong>Init()</strong></A>　- DirectXとこのクラスの初期化 
+			<BR>＞<A X_href="Release.html"><strong>Release()</strong></A>　- 開放（省略可能）
+			
+			<P><strong>操作/描画系メソッド：</strong>
+			<BR>＞void Clear( D3DCOLOR color=D3DCOLOR_NABLACK );　- 画面をクリアします。
+			<BR>＞<A href="Paint.html"><strong>Paint()</strong></A>　- 矩形領域の塗り潰し
+			
+			<P><strong>設定/取得系メソッド：</strong>
+			<BR>＞IDirect3DSurface8* GetBackBuffer()　- バックバッファの取得
+			<BR>＞int GetDispX();　- 画面の幅（Init()時に指定したものと同じ）を取得
+			<BR>＞int GetDispY();　- 画面の高さ（Init()時に指定したものと同じ）を取得
+			<BR>＞D3DFORMAT GetFormat();　- 画面のフォーマット（Init()時に指定したものと同じ）を取得
+			<BR>＞IDirect3DDevice8* GetD3dDevPtr();　- Direct3D Deviceへのポインタを取得
+			
+			<P><strong>スプライト機能：</strong>
+			<BR>＞<A X_href="InitSprite.html"><strong>InitSprite()</strong></A>　- スプライトの初期化
+			<BR>＞<A href="SpriteDraw.html"><strong>SpriteDraw()</strong></A>　- DirectXのスプライト機能を利用した多機能描画
+			<BR>＞<A X_href="SpriteBegin.html"><strong>SpriteBegin()</strong></A>　- スプライトの開始
+			<BR>＞<A X_href="SpriteEnd.html"><strong>SpriteEnd()</strong></A>　- スプライトの終了
+		</div>
+		
+		<P>　
+		<BR>　
+		<BR>＞<A href="../index.html">戻る</A>
+	</div>
+</div>
+
+</left></body>
+</HTML>

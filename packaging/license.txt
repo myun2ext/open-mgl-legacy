@@ -1,0 +1,14 @@
+Open-MGL の CMglOgg は Ogg Vorbis 再生のために Voxライブラリ を利用しています。 
+なお、現バージョンのOpen-MGLでは Vox 0.61 を、作者の許可を得てパッケージ内に同封しております。 
+Voxライブラリの最新版は作者である野村XX氏のページにて公開されています。 
+
+＞http://www.nomuraz.com/denpa/（Voxライブラリ 製作の野村XXさんのページ） 
+
+
+また、VoxはOgg Vorbisを利用しています。
+
+Ogg Vorbis のライセンス： 
+
+Ogg, Vorbis, Xiph.org Foundation and their logos are trademarks (tm) of the Xiph.org Foundation. 
+Vox uses their SDK, especially ogg_static.lib ogg_static_d.lib vorbis_static.lib vorbis_static_d.lib vorbisfile_static.lib vorbisfile_static_d.lib. 
+These library are copyright (C) 1994-2001 Xiph.org. All rights reserved. 
