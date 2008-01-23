@@ -4,6 +4,7 @@ REM :: 環境変数設定
 SET MAKEDIR=openmgl_xxxxxx
 SET SRC_DIR=..\mgllib
 SET DOC_DIR=..\docs
+SET DIST_DIR=..\_dist
 SET FIRST_DIR=%CD%
 
 REM :: 既にあったら削除
@@ -25,11 +26,11 @@ mkdir %MAKEDIR%\mgllib_src\src
 mkdir %MAKEDIR%\docs
 
 REM :: DLLのコピー
-xcopy "%SRC_DIR%\Release\mgllib.dll" ".\%MAKEDIR%\mgllib\" /y
-xcopy "%SRC_DIR%\Release\mgllib.lib" ".\%MAKEDIR%\mgllib\" /y
+xcopy "%DIST_DIR%\Release\mgllib.dll" ".\%MAKEDIR%\mgllib\" /y
+xcopy "%DIST_DIR%\Release\mgllib.lib" ".\%MAKEDIR%\mgllib\" /y
 xcopy "%SRC_DIR%\vox\Vox.dll" ".\%MAKEDIR%\mgllib\" /y
-xcopy "%SRC_DIR%\Debug\mgllib.dll" ".\%MAKEDIR%\mgllib\debug_dll\" /y
-REM xcopy "%SRC_DIR%\Debug\mgllib.lib" ".\%MAKEDIR%\mgllib\debug_dll\" /y
+xcopy "%DIST_DIR%\Debug\mgllib.dll" ".\%MAKEDIR%\mgllib\debug_dll\" /y
+REM xcopy "%DIST_DIR%\Debug\mgllib.lib" ".\%MAKEDIR%\mgllib\debug_dll\" /y
 xcopy "%SRC_DIR%\vox\Vox_d.dll" ".\%MAKEDIR%\mgllib\debug_dll\" /y
 
 REM :: mgl_headerのコピー
