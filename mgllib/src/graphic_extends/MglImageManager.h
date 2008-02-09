@@ -61,6 +61,8 @@ public:
 	//void SetRootDirectory( const char* szRootDir ){ m_strRootDir = szRootDir; PathLastYenedString(m_strRootDir); }
 	void SetRootDirectory( const char* szRootDir );
 	CMglImage* Add( const char *szBufferName );
+	CMglImage* AddFile( const char *szBufferName ){
+		return Add(szBufferName, szBufferName);	}
 	CMglImage* Add( const char *szImageFileName, const char *szBufferName,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY );
 	CMglImage* Get( const char *szBufferName );

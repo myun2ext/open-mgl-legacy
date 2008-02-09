@@ -14,8 +14,8 @@
 //	内部的マクロ
 //#define iLayerInfos(V1)	layerInfos[indexs[V1]]
 //#define iBuffers(V1)		buffers[indexs[V1]]
-#define iLayerInfos(V1)		p_layerInfos->find( p_indexs->find(V1)->second )->second
-#define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )
+/*#define iLayerInfos(V1)		p_layerInfos->find( p_indexs->find(V1)->second )->second
+#define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )*/
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglLayer
@@ -71,10 +71,10 @@ private:
 			Init( GetDefaultGd() );
 	}
 
-	LAYERINFO& ExistChk(int z){
-		if ( m_list.find(z) == m_list.end() )
-			MyuThrow( 222, "CMglLayer : z=%d は見つかりません。", z );
-		return m_list[z];
+	LAYERINFO& ExistChk(int depth){
+		if ( m_list.find(depth) == m_list.end() )
+			MyuThrow( 222, "CMglLayer : depth=%d は見つかりません。", depth );
+		return m_list[depth];
 	}
 
 
@@ -91,30 +91,32 @@ public:
 
 	//	登録/削除
 	//void Regist( CMglImage *pImage, const char *szIdentifierName );
-	//void Regist( CMglImage *pImage, int z );
-	void Regist( CMglImage *pImage, int z,
+	//void Regist( CMglImage *pImage, int depth );
+	void Regist( CMglImage *pImage, int depth,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f );
-	void SetParam( int z,
+	void SetParam( int depth,
 		float x, float y, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f );
-	void Move( int z, float x, float y );
-	void SetPos( int z, float x, float y );
-	void SetColor( int z, D3DCOLOR color );
-	void SetScale( int z, float fScale ){
-		SetScale(z,fScale,fScale); }
-	void SetScale( int z, float fScaleX, float fScaleY );
-	void SetAngle( int z, float fAngle );
-	void SetRect( int z, RECT rect );
-	void SetCenter( int z, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f ){
-		SetRotationCenter(z,fRotationCenterX,fRotationCenterY); }
-	void SetRotationCenter( int z, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f );
+	void Move( int depth, float x, float y );
+	void SetPos( int depth, float x, float y );
+	void SetColor( int depth, D3DCOLOR color );
+	void SetScale( int depth, float fScale ){
+		SetScale(depth,fScale,fScale); }
+	void SetScale( int depth, float fScaleX, float fScaleY );
+	void SetAngle( int depth, float fAngle );
+	void SetRect( int depth, RECT rect );
+	void SetCenter( int depth, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f ){
+		SetRotationCenter(depth,fRotationCenterX,fRotationCenterY); }
+	void SetRotationCenter( int depth, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f );
+
+	void MoveDepth( int oldDepth, int newDepth );	//	未実装
 
 	//	取得
-	CMglImage* Get( int z ){
-		if ( m_list.find(z) == m_list.end() )
+	CMglImage* Get( int depth ){
+		if ( m_list.find(depth) == m_list.end() )
 			return NULL;
-		return m_list[z].pImage;
+		return m_list[depth].pImage;
 	}
 
 	//	取得
@@ -136,8 +138,8 @@ public:
 	//	プロパティ系メソッド
 	/*void Show( const char* szIdentifierName ) { iLayerInfos(i).bShow = TRUE; };
 	void Hide( const char* szIdentifierName ) { iLayerInfos(i).bShow = TRUE; };*/
-	void Show( int z ) { ExistChk(z).bShow = TRUE; }
-	void Hide( int z ) { ExistChk(z).bShow = FALSE; }
+	void Show( int depth ) { ExistChk(depth).bShow = TRUE; }
+	void Hide( int depth ) { ExistChk(depth).bShow = FALSE; }
 
 	/*
 	void SetDisable( int i ) { iLayerInfos(i).bShow = FALSE; };
