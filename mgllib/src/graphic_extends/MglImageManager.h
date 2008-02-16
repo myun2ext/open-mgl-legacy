@@ -66,6 +66,7 @@ public:
 	CMglImage* Add( const char *szImageFileName, const char *szBufferName,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY );
 	CMglImage* Get( const char *szBufferName );
+	BOOL IsExist( const char *szBufferName );
 	void Delete( const char *szBufferName );
 
 	//	オペレータ[]
@@ -73,5 +74,6 @@ public:
 };
 
 typedef CMglImageManager CMglImageBuffer;
+typedef CMglImageManager CMglImagePool;
 
 #endif//__MglImageManager_H__

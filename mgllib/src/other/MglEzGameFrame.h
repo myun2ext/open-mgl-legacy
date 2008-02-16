@@ -39,6 +39,7 @@ private:
 	CMglText m_txtFps;
 	string m_strDebugText;
 	string m_strWindowClassName;
+	//string m_strWindowTitle;
 	//CMglGraphicText m_text;	-> 毎回作る
 
 	//	ウインドウ関連
@@ -98,7 +99,12 @@ public:
 	void EnableEscEnd(){ m_bEscEnd = TRUE; }
 	void DisableEscEnd(){ m_bEscEnd = FALSE; }
 	void SetWindowClassName(const char* szWindowClass){ m_strWindowClassName = szWindowClass; }
-	void SetWindowTitle(const char* szWindowTitle){ ::SetWindowText(m_window.GetWindowHandle(), szWindowTitle); }
+	void SetWindowTitle(const char* szWindowTitle){
+		/*if ( m_window.GetWindowHandle() == NULL )
+			m_strWindowTitle = szWindowTitle;
+		else*/
+		::SetWindowText(m_window.GetWindowHandle(), szWindowTitle);
+	}
 	//const char* GetWindowTitle(){ ::GetWindowText(m_window.GetWindowHandle(), szWindowTitle); }
 	//void SetStartupFillColor( D3DCOLOR color ){}
 

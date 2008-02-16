@@ -82,6 +82,12 @@ CMglImage* CMglImageManager::Get( const char *szBufferName )
 	return m_buffers.Get( szBufferName );
 }
 
+//	æ“¾
+BOOL CMglImageManager::IsExist( const char *szBufferName )
+{
+	return m_buffers.IsExist( szBufferName );
+}
+
 //	íœ
 void CMglImageManager::Delete( const char *szBufferName )
 {
