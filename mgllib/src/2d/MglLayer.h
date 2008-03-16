@@ -53,6 +53,7 @@ private:
 	map<int,LAYERINFO> m_list;
 	map<CMglImage*,int> m_imagePtrMap;	//	CMglImageより高速に検索するためのマップ
 	typedef map<int,LAYERINFO>::iterator LIST_ITR;
+	typedef map<int,LAYERINFO>::reverse_iterator LIST_RITR;
 
 	/*
 	//	レンダリング用サーフェス

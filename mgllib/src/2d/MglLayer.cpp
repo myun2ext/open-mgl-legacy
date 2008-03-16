@@ -127,9 +127,15 @@ void CMglLayer::Rendering()
 {
 	InitCheck();
 
+	//	2008/02/17  表示の順番逆だと思う・・・（後ろ＝一番深いものから描画していくべき）
 	//	ループ
-	for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
+	//for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
+	/*LIST_ITR it = m_list.end();
+	for(;;)*/
+	for( LIST_RITR it = m_list.rbegin(); it != m_list.rend(); it++ )
 	{
+		//it--;
+
 		LAYERINFO& t = it->second;
 		CMglImage* pImage = t.pImage;
 
@@ -153,6 +159,9 @@ void CMglLayer::Rendering()
 				pSfc->Draw( pInfo->rect.left, pInfo->rect.top, &pInfo->rect, pInfo->color );
 			*/
 		}
+
+		/*if ( it == m_list.begin() )
+			break;*/
 	}
 
 	m_myudg->UpdateScreen();
