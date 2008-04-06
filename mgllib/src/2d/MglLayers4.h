@@ -25,7 +25,7 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )=0;
 };
 
-class DLL_EXP CMglImageLayer4 : public CMglLayerBase4
+class DLL_EXP layer_tLayer4 : public CMglLayerBase4
 {
 private:
 	CMglImage m_img;
@@ -39,12 +39,13 @@ public:
 };
 
 typedef CMglLayerBase4 CMglLayerBase;
-typedef CMglImageLayer4 CMglImageLayer;
+typedef layer_tLayer4 layer_tLayer;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglLayers4
 {
 private:
+	typedef CMglLayerBase4 layer_t;
 	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
 	IDirect3DDevice8* m_d3d;		//	D3DDeviceへのポインタ
 
@@ -61,7 +62,7 @@ private:
 		float fRotationCenterY;
 		float fAngle;			//	角度
 
-		CMglImage *pImage;		//	イメージへのポインタ
+		layer_t* pLayer;	//	レイヤーへのポインタ
 	} LAYERINFO;
 
 	/*
@@ -77,16 +78,16 @@ private:
 	//typedef map<int,LAYERINFO> LAYER_LIST;
 	typedef ra_list<LAYERINFO> LAYER_LIST;
 	LAYER_LIST m_list;
-	map<CMglImage*,int> m_imagePtrMap;	//	CMglImageより高速に検索するためのマップ
+	//map<layer_t*,int> m_imagePtrMap;	//	layer_tより高速に検索するためのマップ
 	typedef LAYER_LIST::iterator LIST_ITR;
 	typedef LAYER_LIST::reverse_iterator LIST_RITR;
 
 	/*
 	//	レンダリング用サーフェス
-	CMglImage m_renderingSurface;
+	layer_t m_renderingSurface;
 
 	//	前回はどのサーフェスにレンダリングしようとしたか
-	CMglImage* m_pPrevTargetSurface;
+	layer_t* m_pPrevTargetSurface;
 
 	//	前回のレンダリングを適用する
 	void AdaptRenderingSurface();
@@ -118,39 +119,39 @@ public:
 	}
 
 	//	登録/削除
-	//void Regist( CMglImage *pImage, const char *szIdentifierName );
-	//void Regist( CMglImage *pImage, LIST_ITR it );
-	void Regist( CMglImage *pImage, LIST_ITR it,
+	//void Regist( layer_t *pLayer, const char *szIdentifierName );
+	//void Regist( layer_t *pLayer, LIST_ITR it );
+	void Regist( layer_t *pLayer, LIST_ITR it,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f );
-	void RegistBegin( CMglImage *pImage,
+	void RegistBegin( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void RegistTail( CMglImage *pImage,
+		{ Regist( pLayer, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void RegistTail( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void RegistLast( CMglImage *pImage,
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void RegistLast( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void PushFront( CMglImage *pImage,
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void PushFront( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void PushBack( CMglImage *pImage,
+		{ Regist( pLayer, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void PushBack( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void push_front( CMglImage *pImage,
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void push_front( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void push_back( CMglImage *pImage,
+		{ Regist( pLayer, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void push_back( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pImage, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
 
 	void SetParam( LIST_ITR it,
 		float x, float y, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
@@ -170,19 +171,21 @@ public:
 	//void MoveDepth( int oldDepth, int newDepth );	//	未実装
 
 	//	取得
-	CMglImage* Get( LIST_ITR it ){
-		return m_list[it].pImage;
+	layer_t* Get( LIST_ITR it ){
+		return m_list[it].pLayer;
 	}
 
+	/*
 	//	取得
-	int Find( CMglImage *pImage ){
-		if ( m_imagePtrMap.find(pImage) == m_imagePtrMap.end() )
+	int Find( layer_t *pLayer ){
+		if ( m_imagePtrMap.find(pLayer) == m_imagePtrMap.end() )
 			return NULL;
-		return m_imagePtrMap[pImage];
+		return m_imagePtrMap[pLayer];
 	}
+	*/
 
 	//	クリアする
-	void Clear(){ m_list.clear(); m_imagePtrMap.clear(); }
+	void Clear(){ m_list.clear(); /*m_imagePtrMap.clear();*/ }
 
 	//	描画
 	void Draw(){ Rendering(); }

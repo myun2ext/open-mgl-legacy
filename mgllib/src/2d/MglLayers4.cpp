@@ -24,7 +24,7 @@ CMglLayers4::~CMglLayers4()
 ///////////////////////////////////////////////////////
 
 //	“o˜^
-void CMglLayers4::Regist( CMglImage *pImage, LIST_ITR it, float x, float y, 
+void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, float x, float y, 
 	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
 	if ( m_list.find(it) != m_list.end() )
@@ -42,7 +42,7 @@ void CMglLayers4::Regist( CMglImage *pImage, LIST_ITR it, float x, float y,
 	t.fScaleY = fScaleY;
 	t.fAngle = fAngle;
 	*/
-	t.pImage = pImage;
+	t.pLayer = pLayer;
 
 	m_list[it] = t;
 
@@ -137,7 +137,7 @@ void CMglLayers4::Rendering()
 		//it--;
 
 		LAYERINFO& t = m_list.get(it.base());
-		CMglImage* pImage = t.pImage;
+		layer_t* pLayer = t.pLayer;
 
 		if ( t.bShow == TRUE )
 		{
@@ -149,7 +149,7 @@ void CMglLayers4::Rendering()
 				pRect = NULL;
 
 			//	•`‰æ
-			pImage->Draw(t.x, t.y, pRect, t.color,
+			pLayer->Draw(t.x, t.y, pRect, t.color,
 				t.fScaleX, t.fScaleY, t.fRotationCenterX, t.fRotationCenterY, t.fAngle );
 
 			/*
