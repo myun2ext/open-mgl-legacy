@@ -91,5 +91,6 @@ using namespace std;
 #include "MglText.h"
 #include "MglDrawLine.h"
 
+typedef CMglLayers4 CMglLayers;
 
 #endif//__mgl2d_H__

@@ -239,6 +239,10 @@ SOURCE=.\src\2d\MglLayer.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglLayerBase4.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglLayers4.cpp
 # End Source File
 # Begin Source File

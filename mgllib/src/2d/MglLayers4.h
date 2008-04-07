@@ -10,6 +10,7 @@
 #include "MglGraphicManager.h"
 #include "MglImage.h"
 #include "MglImageManager.h"
+#include "MglLayerBase4.h"
 
 //	内部的マクロ
 //#define iLayerInfos(V1)	layerInfos[indexs[V1]]
@@ -17,6 +18,7 @@
 /*#define iLayerInfos(V1)		p_layerInfos->find( p_indexs->find(V1)->second )->second
 #define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )*/
 
+/*
 class DLL_EXP CMglLayerBase4
 {
 public:
@@ -40,6 +42,7 @@ public:
 
 typedef CMglLayerBase4 CMglLayerBase;
 typedef layer_tLayer4 layer_tLayer;
+*/
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglLayers4
