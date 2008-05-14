@@ -27,9 +27,6 @@ CMglLayers4::~CMglLayers4()
 void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, float x, float y, 
 	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
-	if ( m_list.find(it) != m_list.end() )
-		MyuThrow( 66126, "CMglLayers4::Regist() it=%d は既にあります。", it );
-
 	LAYERINFO t;
 	ZeroMemory(&t,sizeof(t));
 
@@ -44,7 +41,8 @@ void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, float x, float y,
 	*/
 	t.pLayer = pLayer;
 
-	m_list[it] = t;
+	//m_list[it] = t;
+	m_list.push_back(t);
 
 	SetParam(it,x,y,bShow,color,fScaleX,fScaleY,fAngle);
 }
@@ -127,6 +125,7 @@ void CMglLayers4::Rendering()
 {
 	InitCheck();
 
+
 	//	2008/02/17  表示の順番逆だと思う・・・（後ろ＝一番深いものから描画していくべき）
 	//	ループ
 	//for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
@@ -148,9 +147,12 @@ void CMglLayers4::Rendering()
 			if ( pRect->left == 0 && pRect->right == 0 && pRect->top == 0 && pRect->bottom == 0 )
 				pRect = NULL;
 
+	MessageBox(NULL,"aa",NULL,NULL);
+
 			//	描画
 			pLayer->Draw(t.x, t.y, pRect, t.color,
 				t.fScaleX, t.fScaleY, t.fRotationCenterX, t.fRotationCenterY, t.fAngle );
+
 
 			/*
 			if ( pInfo->rect.left == pInfo->rect.right || pInfo->rect.top == pInfo->rect.bottom )

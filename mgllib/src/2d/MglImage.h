@@ -40,7 +40,7 @@
 
 //	ƒNƒ‰ƒXéŒ¾
 //class DLL_EXP CMglImage : public CMglTexture
-class DLL_EXP CMglImage : public CMglTexture, CMglLayerBase4
+class DLL_EXP CMglImage : public CMglTexture//, public CMglLayerBase4
 {
 protected:
 	int m_nSfcID;
