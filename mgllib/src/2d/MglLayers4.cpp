@@ -24,7 +24,7 @@ CMglLayers4::~CMglLayers4()
 ///////////////////////////////////////////////////////
 
 //	登録
-void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, float x, float y, 
+void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer, float x, float y, 
 	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
 	LAYERINFO t;
@@ -40,6 +40,7 @@ void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, float x, float y,
 	t.fAngle = fAngle;
 	*/
 	t.pLayer = pLayer;
+	t.isShuoldDeleteLayerPtr = isShouldDeleteLayer;
 
 	//m_list[it] = t;
 	//m_list.push_back(t);
@@ -150,7 +151,7 @@ void CMglLayers4::Rendering()
 			if ( pRect->left == 0 && pRect->right == 0 && pRect->top == 0 && pRect->bottom == 0 )
 				pRect = NULL;
 
-	MessageBox(NULL,"aa",NULL,NULL);
+//	MessageBox(NULL,"aa",NULL,NULL);
 
 			//	描画
 			pLayer->Draw(t.x, t.y, pRect, t.color,
@@ -179,8 +180,12 @@ void CMglLayers4::Delete(LIST_ITR it)
 	LAYERINFO& t = *it;
 	layer_t* pLayer = t.pLayer;
 
+	//	2008/05/16  レイヤーのRelease()呼び出し
+	pLayer->Release();
+
 	//	ポインタを開放すべきであれば開放する
-	if ( pLayer->IsShouldReleasePtr() )
+	//if ( pLayer->IsShouldRelease() )
+	if ( t.isShuoldDeleteLayerPtr )
 		delete pLayer;
 
 	//	リストから除去

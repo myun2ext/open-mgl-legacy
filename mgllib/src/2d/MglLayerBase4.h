@@ -11,18 +11,20 @@
 class DLL_EXP CMglLayerBase4
 {
 protected:
-	bool m_isShouldReleasePtr;
+	bool m_isShouldDeletePtr;
 public:
 	CMglLayerBase4(){
-		m_isShouldReleasePtr = false;
+		m_isShouldDeletePtr = false;
 	}
+	//CMglLayerBase4(bool isShouldDeletePtr):m_isShouldDeletePtr(isShouldDeletePtr){}
 	/*virtual void Release(){
 		if ( m_isReleasePtr
 	}*/
 	virtual void Draw(
 		float x, float y, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )=0;
-	bool IsShouldReleasePtr(){ return m_isShouldReleasePtr; }
+	//bool isShouldDeletePtr(){ return m_isShouldDeletePtr; }
+	virtual void Release(){}
 };
 
 #endif//__MglLayersBase4_H__

@@ -17,6 +17,9 @@
 #include "MglGraphicManager.h"
 #include <stdarg.h>
 
+#define MGL_TEXT_DEFAULT_FONT_SIZE	(12)
+//#define FONT_NAME_MS_GOTHIC			"
+
 //	クラス宣言
 class DLL_EXP CMglText : public CMyuReleaseBase
 {
@@ -59,6 +62,17 @@ public:
 	void Init( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
 	void Setup( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
 	void Setup( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
+
+	//	一杯指定
+	void Create( CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
+		BOOL bItalic=FALSE, BOOL bBold=FALSE, BOOL bUnderLine=FALSE, BOOL bStrikeOut=FALSE, float fAngle=0.0f );
+	void Create( int nHeight, const char* szFontName,
+		BOOL bItalic=FALSE, BOOL bBold=FALSE, BOOL bUnderLine=FALSE, BOOL bStrikeOut=FALSE, float fAngle=0.0f )
+	{	Create( GetDefaultGd(), nHeight, szFontName, bItalic, bBold, bUnderLine, bStrikeOut, fAngle); }
+
+	//	全引数省略
+	void Create(){ Init(MGL_TEXT_DEFAULT_FONT_SIZE); }
+	void Init(){ Init(MGL_TEXT_DEFAULT_FONT_SIZE); }
 
 	//	明示的開放
 	void Release();

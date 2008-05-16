@@ -39,6 +39,26 @@ void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, int nHeight )
 	DeleteObject(hFont);
 }
 
+//	szFontNameのデフォルトは空文字またはNULL
+void CMglText::Create( CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
+		BOOL bItalic, BOOL bBold, BOOL bUnderLine, BOOL bStrikeOut, float fAngle )
+{
+	int nWeight = FW_DONTCARE;
+	if ( bBold )
+		nWeight = FW_BOLD;
+
+	HFONT hFont = CreateFont( nHeight, 0, (int)(fAngle*10), (int)(fAngle*10),
+		nWeight, bItalic, bUnderLine, bStrikeOut, DEFAULT_CHARSET, 0, 0, 4, 0, szFontName );
+
+	if ( hFont == NULL )
+		MyuThrow( 0, "CMglText::InitAndCreate()  CreateFont()に失敗。" );
+
+	InitAndCreate( in_myudg, hFont );
+
+	//	20007/01/02
+	DeleteObject(hFont);
+}
+	
 //	初期化及び作成
 void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, HFONT hFont )
 {
