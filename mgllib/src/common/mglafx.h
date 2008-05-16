@@ -135,7 +135,6 @@ extern CMyuDebugLog g_workLog;
 
 #include <dinput.h>
 
-
 //	DirectMusicån
 //#include <dsound.h>		//	dsound.lib
 #pragma comment(lib, "dxguid.lib")

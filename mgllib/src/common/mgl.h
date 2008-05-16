@@ -1,5 +1,5 @@
-#ifndef __mgl_H__
-#define __mgl_H__
+#ifndef __MGL_MyuGameLibrary_H__
+#define __MGL_MyuGameLibrary_H__
 
 
 #include "mglafx.h"
@@ -9,4 +9,4 @@
 #include "mglframe.h"
 
 
-#endif//__mgl_H__
+#endif//__MGL_MyuGameLibrary_H__

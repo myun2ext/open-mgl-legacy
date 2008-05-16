@@ -8,7 +8,7 @@
 #define __MglLayers4_H__
 
 #include "MglGraphicManager.h"
-#include "MglImage.h"
+//#include "MglImage.h"
 #include "MglImageManager.h"
 #include "MglLayerBase4.h"
 
@@ -44,6 +44,7 @@ typedef CMglLayerBase4 CMglLayerBase;
 typedef layer_tLayer4 layer_tLayer;
 */
 
+/*	2008/05/15  ヘッダ作ってそこに定義
 class DLL_EXP CMglImageLayer : public CMglLayerBase4
 {
 private:
@@ -60,7 +61,7 @@ public:
 		m_pImage->Draw(x,y,srcRect,color,fScaleX,fScaleY,fRotationCenterX,fRotationCenterY,fAngle);
 	}
 };
-
+*/
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglLayers4
@@ -206,7 +207,12 @@ public:
 	*/
 
 	//	クリアする
-	void Clear(){ m_list.clear(); /*m_imagePtrMap.clear();*/ }
+	//void Clear(){ ReleaseAll(); m_list.clear(); /*m_imagePtrMap.clear();*/ }
+	void Delete(LIST_ITR it);
+	void Remove(LIST_ITR it){Delete(it);}
+	void DeleteAll(){Clear();}
+	void RemoveAll(){Clear();}
+	void Clear();
 
 	//	描画
 	void Draw(){ Rendering(); }

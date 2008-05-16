@@ -200,6 +200,50 @@ SOURCE=.\src\2d\MglVertex.cpp
 SOURCE=.\src\2d\MglVertex.h
 # End Source File
 # End Group
+# Begin Group "Layer"
+
+# PROP Default_Filter ""
+# Begin Group "old"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayer.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayer.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\src\2d\MglAnimationLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglBitmapTextLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglImageLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayerBase4.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayers4.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglLayers4.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglTextLayer.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\2d\mgl2d.h
@@ -228,26 +272,6 @@ SOURCE=.\src\2d\MglImage.cpp
 # Begin Source File
 
 SOURCE=.\src\2d\MglImage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayer.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayerBase4.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayers4.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayers4.h
 # End Source File
 # Begin Source File
 

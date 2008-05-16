@@ -169,3 +169,30 @@ void CMglLayers4::Rendering()
 	m_myudg->UpdateScreen();
 }
 
+//	削除する
+void CMglLayers4::Delete(LIST_ITR it)
+{
+	LAYERINFO& t = m_list.get(it);
+	layer_t* pLayer = t.pLayer;
+
+	//	ポインタを開放すべきであれば開放する
+	if ( pLayer->IsShouldReleasePtr() )
+		delete pLayer;
+
+	//	リストから除去
+	m_list.erase(it);
+}
+
+//	全てを削除
+void CMglLayers4::Clear()
+{
+	InitCheck();
+
+	//	リストをループして一つづつ開放
+	for( LIST_RITR it = m_list.rbegin(); it != m_list.rend(); it++ )
+		Delete(it.base());
+
+	//	一応実行しておこうか？
+	m_list.clear();
+}
+
