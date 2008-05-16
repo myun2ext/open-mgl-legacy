@@ -565,6 +565,10 @@ SOURCE=.\src\input\MglMouseInputBase.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\..\MSL\trunk\MSL\header\msl_ra_list.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
 # End Source File
 # Begin Source File

@@ -174,6 +174,47 @@ public:
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	/*
+	void PushFront( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+	{
+		LAYERINFO t;
+		ZeroMemory(&t,sizeof(t));
+		t.pLayer = pLayer;
+		m_list.push_front(
+		SetParam(it,x,y,bShow,color,fScaleX,fScaleY,fAngle);
+	}
+	void push_front( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+		{ Regist( pLayer, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void RegistBegin( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+		{ Regist( pLayer, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+
+	void Regist( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+	{	PushBack( pLayer, m_list.begin(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void RegistTail( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void RegistLast( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void PushBack( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	void push_back( layer_t *pLayer,
+		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
+		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
+		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	*/
 
 	void SetParam( LIST_ITR it,
 		float x, float y, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
