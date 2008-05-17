@@ -30,24 +30,30 @@ void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer
 	LAYERINFO t;
 	ZeroMemory(&t,sizeof(t));
 
-	/*
-	t.bShow = bShow;
-	t.color = color;
-	t.x = x;
-	t.y = y;
-	t.fScaleX = fScaleX;
-	t.fScaleY = fScaleY;
-	t.fAngle = fAngle;
-	*/
 	t.pLayer = pLayer;
 	t.isShuoldDeleteLayerPtr = isShouldDeleteLayer;
 
 	//m_list[it] = t;
 	//m_list.push_back(t);
+
+	/*
+	LIST_ITR newIt;
+	if ( it == m_list.end() ){
+		m_list.push_back(t);
+		newIt = m_list.tail();
+	}
+	else
+		newIt = m_list.insert(it,t);*/
 	LIST_ITR newIt = m_list.insert(it,t);
+
+	/*ZeroMemory(&*newIt,sizeof(LAYERINFO));
+	newIt->pLayer = pLayer;
+	newIt->isShuoldDeleteLayerPtr = isShouldDeleteLayer;*/
 
 	//SetParam(it,x,y,bShow,color,fScaleX,fScaleY,fAngle);	//	2008/05/16  Å©Ç±ÇÍÇÕä‘à·Ç¢
 	SetParam(newIt,x,y,bShow,color,fScaleX,fScaleY,fAngle);
+	/*if ( newIt->pLayer != pLayer )
+		MyuThrow(3255, "newIt->pLayer != pLayer" );*/
 }
 
 //	ÉpÉâÉÅÅ[É^ê›íË
@@ -139,8 +145,12 @@ void CMglLayers4::Rendering()
 		//it--;
 
 		//LAYERINFO& t = m_list.get(it.base());
-		LAYERINFO& t = *(it.base());
+		//LAYERINFO& t = *(it.base());
+		LAYERINFO& t = *it;
 		layer_t* pLayer = t.pLayer;
+
+		if ( pLayer == (void*)0xcdcdcdcd )
+			MyuThrow(999,"pLayer is 0xcdcdcdcd.");
 
 		if ( t.bShow == TRUE )
 		{
