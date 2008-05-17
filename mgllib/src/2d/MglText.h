@@ -45,9 +45,23 @@ private:
 		if ( bSetParamFlg != TRUE )
 			MyuThrow( 0, "CMglText::Draw(),fDraw()  SetDrawParam()が設定されていないのに引数を省略しました。" );
 	}
+	void _Init(){
+		m_myudg = NULL;
+		m_d3d = NULL;
+		m_text = NULL;
+		bCreateFlg = FALSE;
+		bSetParamFlg = FALSE;
+	}
 
 public:
-	CMglText();
+	CMglText(){
+		_Init();
+		Create();	//	デフォルトフォント
+	}
+	CMglText(CMglGraphicManager* in_myudg){
+		_Init();
+		InitAndCreate(in_myudg,MGL_TEXT_DEFAULT_FONT_SIZE);	//	デフォルトフォント
+	}
 	virtual ~CMglText();
 
 	//	初期化及び作成

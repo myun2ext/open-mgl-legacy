@@ -9,14 +9,13 @@
 #include "MglText.h"
 
 //	コンストラクタ
-CMglText::CMglText()
+/*CMglText::CMglText()
 {
-	m_myudg = NULL;
-	m_d3d = NULL;
-	m_text = NULL;
-	bCreateFlg = FALSE;
-	bSetParamFlg = FALSE;
-}
+	_Init();
+
+	//	デフォルトフォント
+	Create();
+}*/
 
 //	デストラクタ
 CMglText::~CMglText()
@@ -29,6 +28,8 @@ CMglText::~CMglText()
 //	サイズ指定による作成
 void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, int nHeight )
 {
+	Release();	//	一応リリース
+
 	HFONT hFont = CreateFont( nHeight, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 4, 0, "" );
 	if ( hFont == NULL )
 		MyuThrow( 0, "CMglText::InitAndCreate()  CreateFont()に失敗。" );
@@ -43,6 +44,8 @@ void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, int nHeight )
 void CMglText::Create( CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
 		BOOL bItalic, BOOL bBold, BOOL bUnderLine, BOOL bStrikeOut, float fAngle )
 {
+	Release();	//	一応リリース
+
 	int nWeight = FW_DONTCARE;
 	if ( bBold )
 		nWeight = FW_BOLD;
@@ -62,6 +65,8 @@ void CMglText::Create( CMglGraphicManager* in_myudg, int nHeight, const char* sz
 //	初期化及び作成
 void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, HFONT hFont )
 {
+	Release();	//	一応リリース
+
 	if ( bCreateFlg == TRUE )
 		MyuThrow( 0, "CMglText::InitAndCreate()  既に InitAndCreate() は実行されています。" );
 

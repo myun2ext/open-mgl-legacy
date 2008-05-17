@@ -29,31 +29,11 @@ void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer
 {
 	LAYERINFO t;
 	ZeroMemory(&t,sizeof(t));
-
 	t.pLayer = pLayer;
 	t.isShuoldDeleteLayerPtr = isShouldDeleteLayer;
-
-	//m_list[it] = t;
-	//m_list.push_back(t);
-
-	/*
-	LIST_ITR newIt;
-	if ( it == m_list.end() ){
-		m_list.push_back(t);
-		newIt = m_list.tail();
-	}
-	else
-		newIt = m_list.insert(it,t);*/
 	LIST_ITR newIt = m_list.insert(it,t);
 
-	/*ZeroMemory(&*newIt,sizeof(LAYERINFO));
-	newIt->pLayer = pLayer;
-	newIt->isShuoldDeleteLayerPtr = isShouldDeleteLayer;*/
-
-	//SetParam(it,x,y,bShow,color,fScaleX,fScaleY,fAngle);	//	2008/05/16  ←これは間違い
 	SetParam(newIt,x,y,bShow,color,fScaleX,fScaleY,fAngle);
-	/*if ( newIt->pLayer != pLayer )
-		MyuThrow(3255, "newIt->pLayer != pLayer" );*/
 }
 
 //	パラメータ設定
@@ -137,15 +117,9 @@ void CMglLayers4::Rendering()
 
 	//	2008/02/17  表示の順番逆だと思う・・・（後ろ＝一番深いものから描画していくべき）
 	//	ループ
-	//for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
-	/*LIST_ITR it = m_list.end();
-	for(;;)*/
-	for( LIST_RITR it = m_list.rbegin(); it != m_list.rend(); it++ )
+	for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
+	//for( LIST_RITR it = m_list.rbegin(); it != m_list.rend(); it++ )
 	{
-		//it--;
-
-		//LAYERINFO& t = m_list.get(it.base());
-		//LAYERINFO& t = *(it.base());
 		LAYERINFO& t = *it;
 		layer_t* pLayer = t.pLayer;
 
