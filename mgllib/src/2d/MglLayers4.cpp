@@ -194,3 +194,29 @@ void CMglLayers4::Clear()
 	m_list.clear();
 }
 
+//	HitTest
+//	 : 指定された位置の一番上のレイヤーを取得する
+CMglLayers4::LIST_ITR CMglLayers4::HitTest(int x, int y)
+{
+	//	ループ
+	//for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
+	for( LIST_RITR it = m_list.rbegin(); it != m_list.rend(); it++ )
+	{
+		LAYERINFO& t = *it;
+		layer_t* pLayer = t.pLayer;
+
+		if ( t.bShow == TRUE )
+		{
+			RECT rect = pLayer->GetRect();
+			rect.left += t.x;
+			rect.right += t.x;
+			rect.top += t.y;
+			rect.bottom += t.y;
+
+			if ( x >= rect.left && x <= rect.right &&
+				 y >= rect.top  && y <= rect.bottom )
+				return it.base();
+		}
+	}
+	return m_list.end();
+}

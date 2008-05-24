@@ -18,51 +18,6 @@
 /*#define iLayerInfos(V1)		p_layerInfos->find( p_indexs->find(V1)->second )->second
 #define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )*/
 
-/*
-class DLL_EXP CMglLayerBase4
-{
-public:
-	virtual void Draw(
-		float x, float y, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
-		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )=0;
-};
-
-class DLL_EXP layer_tLayer4 : public CMglLayerBase4
-{
-private:
-	CMglImage m_img;
-public:
-	void Draw(
-		float x, float y, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
-		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )
-	{
-		m_img.Draw(x,y,srcRect,color,fScaleX,fScaleY,fRotationCenterX,fRotationCenterY,fAngle);
-	}
-};
-
-typedef CMglLayerBase4 CMglLayerBase;
-typedef layer_tLayer4 layer_tLayer;
-*/
-
-/*	2008/05/15  ヘッダ作ってそこに定義
-class DLL_EXP CMglImageLayer : public CMglLayerBase4
-{
-private:
-	//CMglImage m_img;
-	CMglImage* m_pImage;
-public:
-	//	コンストラクタとしてCMglImageのポインタを渡す
-	CMglImageLayer(CMglImage* pImage){ m_pImage=pImage; }
-
-	void Draw(
-		float x, float y, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
-		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )
-	{
-		m_pImage->Draw(x,y,srcRect,color,fScaleX,fScaleY,fRotationCenterX,fRotationCenterY,fAngle);
-	}
-};
-*/
-
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglLayers4
 {
@@ -326,6 +281,11 @@ public:
 	void DrawAll(){ Rendering(); }
 	void AllDraw(){ Rendering(); }
 	void Rendering();
+
+	//	HitTest
+	LIST_ITR HitTest(int x, int y);
+
+	/////////////////////////////////////////////////////////////////////////////////
 
 	//	プロパティ系メソッド
 	/*void Show( const char* szIdentifierName ) { iLayerInfos(i).bShow = TRUE; };

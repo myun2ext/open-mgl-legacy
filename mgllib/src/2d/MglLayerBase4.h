@@ -25,6 +25,7 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )=0;
 	//bool isShouldDeletePtr(){ return m_isShouldDeletePtr; }
 	virtual void Release(){}
+	virtual RECT GetRect(){RECT rect; ZeroMemory(&rect,sizeof(rect)); return rect;}
 };
 
 #endif//__MglLayersBase4_H__
