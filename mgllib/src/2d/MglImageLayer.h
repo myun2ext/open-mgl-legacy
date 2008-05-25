@@ -11,16 +11,16 @@ private:
 	//CMglImage m_img;
 	CMglImage* m_pImage;
 	RECT m_rectWork;
+public:
+	//	コンストラクタとしてCMglImageのポインタを渡す
+	CMglImageLayer(CMglImage* pImage){ Init(pImage); }
+	CMglImageLayer(CMglImage* pImage, bool isShouldDeletePtr){ Init(pImage); m_isShouldDeletePtr=isShouldDeletePtr; }
+	//CMglImageLayer(CMglImage* pImage, bool isShouldDeletePtr):CMglLayerBase4(isShouldDeletePtr){ _Init(pImage); }
 
-	void _Init(CMglImage* pImage){
+	void Init(CMglImage* pImage){
 		ZeroMemory(&m_rectWork, sizeof(RECT));
 		m_pImage=pImage;
 	}
-public:
-	//	コンストラクタとしてCMglImageのポインタを渡す
-	CMglImageLayer(CMglImage* pImage){ _Init(pImage); }
-	CMglImageLayer(CMglImage* pImage, bool isShouldDeletePtr){ _Init(pImage); m_isShouldDeletePtr=isShouldDeletePtr; }
-	//CMglImageLayer(CMglImage* pImage, bool isShouldDeletePtr):CMglLayerBase4(isShouldDeletePtr){ _Init(pImage); }
 
 	//	implement
 	void Draw(
