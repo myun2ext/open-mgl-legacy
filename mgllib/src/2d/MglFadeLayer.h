@@ -71,30 +71,27 @@ public:
 	//	フェードパラメータ指定つきコンストラクタ
 	CMglFadeLayer(	D3DCOLOR bStartColor,
 					D3DCOLOR bEndColor,
-					int nCounter,
 					int nEndFrame)
 	{
-		Init(bStartColor,bEndColor,nCounter,nEndFrame);
+		Init(bStartColor,bEndColor,nEndFrame);
 	}
 	CMglFadeLayer(	D3DCOLOR bStartColor,
 					D3DCOLOR bEndColor,
-					int nCounter,
 					int nEndFrame,
 					bool isShouldDeletePtr)
 	{
-		Init(bStartColor,bEndColor,nCounter,nEndFrame);
+		Init(bStartColor,bEndColor,nEndFrame);
 		m_isShouldDeletePtr=isShouldDeletePtr;
 	}
 
 	//	初期化
 	void Init(	D3DCOLOR bStartColor,
 				D3DCOLOR bEndColor,
-				int nCounter,
 				int nEndFrame)
 	{
+		m_nCounter = 0;
 		m_bStartColor = bStartColor;
 		m_bEndColor = bEndColor;
-		m_nCounter = nCounter;
 		m_nEndFrame = nEndFrame;
 		_ARGPASplit(bStartColor, m_a1, m_r1, m_g1, m_b1);
 		_ARGPASplit(bEndColor, m_a2, m_r2, m_g2, m_b2);

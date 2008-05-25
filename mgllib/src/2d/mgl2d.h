@@ -96,6 +96,7 @@ using namespace std;
 #include "MglBitmapTextLayer.h"
 #include "MglAnimationLayer.h"
 #include "MglFadeLayer.h"
+#include "MglBlinkLayer.h"
 
 
 typedef CMglLayers4 CMglLayers;
