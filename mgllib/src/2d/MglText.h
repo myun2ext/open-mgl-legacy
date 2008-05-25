@@ -56,7 +56,8 @@ private:
 public:
 	CMglText(){
 		_Init();
-		Create();	//	デフォルトフォント
+		if ( CheckDefaultGd() )
+			Create();	//	デフォルトフォント
 	}
 	CMglText(CMglGraphicManager* in_myudg){
 		_Init();

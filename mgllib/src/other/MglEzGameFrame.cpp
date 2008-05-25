@@ -120,68 +120,114 @@ int CMglEzGameFrame::PrivateMainMethod(){
 	return PrivateMainMethod((DWORD)this);
 }
 
+//構造化例外が発生すると、この関数が呼ばれる
+void se_translator_function(unsigned int code, struct _EXCEPTION_POINTERS* ep)
+{
+	throw ep; //標準C++の例外を発生させる
+}
+
 //	スレッド - 2008/01/22
 int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 {
-	try	//	例外処理受け付け開始
-	{
-		_MGL_DEBUGLOG("+ CMglEzGameFrame::PrivateMainMethod()" );
+	_set_se_translator(se_translator_function);
 
-		_MGL_DEBUGLOG("CoInitialize()..." );
-		CoInitialize(NULL);
-
-		_MGL_DEBUGLOG("grp.Init()..." );
-		grp.Init( m_window.GetWindowHandle(), m_nWidth, m_nHeight, m_bFullscreen );
-
-		_MGL_DEBUGLOG("input.Init()..." );
-		input.Init( m_window.GetWindowHandle() );
-
-		m_txtDebug.InitAndEzCreate( &grp, 14 );
-		m_txtFps.InitAndEzCreate( &grp, 14 );
-		//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
-		grp.Clear();
-
-		//	MGL S3.1からは呼び出すだけにする（ループはこの中でやってもらう）- 2006/11/25
-		_MGL_DEBUGLOG("Call User MainMethod." );
-		m_userMainThread((void*)dwUserThreadParam);
-		//→ やっぱやめ -> ない！（どっちだよ：笑）
-
-		/*
-		//	MGL 3.0まで
-		for(;;)
+	//__try{
+		try	//	例外処理受け付け開始
 		{
-			//	ユーザメソッドを呼び出す
-			//if ( m_userMainThread() == 1 )
-			//if ( m_userMainThread(this) == FALSE )
-			if ( m_userMainThread(this) == TRUE )
-				break;
+			_MGL_DEBUGLOG("+ CMglEzGameFrame::PrivateMainMethod()" );
 
-			//	フレーム分待つよん
-			if ( DoFpsWait() == FALSE )
-				break;
+			_MGL_DEBUGLOG("CoInitialize()..." );
+			CoInitialize(NULL);
+
+			_MGL_DEBUGLOG("grp.Init()..." );
+			grp.Init( m_window.GetWindowHandle(), m_nWidth, m_nHeight, m_bFullscreen );
+
+			_MGL_DEBUGLOG("input.Init()..." );
+			input.Init( m_window.GetWindowHandle() );
+
+			m_txtDebug.InitAndEzCreate( &grp, 14 );
+			m_txtFps.InitAndEzCreate( &grp, 14 );
+			//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
+			grp.Clear();
+
+			//	MGL S3.1からは呼び出すだけにする（ループはこの中でやってもらう）- 2006/11/25
+			_MGL_DEBUGLOG("Call User MainMethod." );
+			m_userMainThread((void*)dwUserThreadParam);
+			//→ やっぱやめ -> ない！（どっちだよ：笑）
+
+			/*
+			//	MGL 3.0まで
+			for(;;)
+			{
+				//	ユーザメソッドを呼び出す
+				//if ( m_userMainThread() == 1 )
+				//if ( m_userMainThread(this) == FALSE )
+				if ( m_userMainThread(this) == TRUE )
+					break;
+
+				//	フレーム分待つよん
+				if ( DoFpsWait() == FALSE )
+					break;
+			}
+			*/
 		}
-		*/
-	}
-	//	例外処理 V3.0
-	catch( MglException exp )
-	{
-		char work[1024];
-		snprintf( work, sizeof(work),
-			"Myu Game Library Error :\r\n"
-			"  Location : %s::%s()   Error Code : 0x%08X\r\n"
-			"\r\n"
-			"%s",
-			exp.szClass, exp.szMethod, exp.nInternalCode, exp.szMsg );
+		//	例外処理 V3.0
+		catch( MglException exp )
+		{
+			char work[1024];
+			snprintf( work, sizeof(work),
+				"Myu Game Library Error :\r\n"
+				"  Location : %s::%s()   Error Code : 0x%08X\r\n"
+				"\r\n"
+				"%s",
+				exp.szClass, exp.szMethod, exp.nInternalCode, exp.szMsg );
 
-		::MessageBox( NULL, work, NULL, MB_ICONERROR );
-	}
-	//	例外処理
-	catch( MyuCommonException except )
+			::MessageBox( NULL, work, NULL, MB_ICONERROR );
+		}
+		//	例外処理
+		catch( MyuCommonException except )
+		{
+			char work[512];
+			snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );
+			::MessageBox( NULL, work, NULL, MB_ICONERROR );
+		}
+		//	VC++の例外か
+		catch(_EXCEPTION_POINTERS *ep)
+		{
+			//_EXCEPTION_POINTERS *ep = GetExceptionInformation();
+			PEXCEPTION_RECORD rec = ep->ExceptionRecord;
+
+			char work[1024];
+			snprintf(work,sizeof(work), ("内部アクセス保護違反です。\r\n"
+					"code:%x flag:%x addr:%p params:%d\n"),
+				rec->ExceptionCode,
+				rec->ExceptionFlags,
+				rec->ExceptionAddress,
+				rec->NumberParameters
+			);
+			::MessageBox( NULL, work, NULL, MB_ICONERROR );
+		}
+		//	VC++の例外か
+		catch(...)
+		{
+			::MessageBox( NULL, "fdssdff", NULL, MB_ICONERROR );
+		}
+	/*}
+	__except(_EXCEPTION_POINTERS *ep = GetExceptionInformation())
 	{
-		char work[512];
-		snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );
+		_EXCEPTION_POINTERS *ep = GetExceptionInformation();
+		PEXCEPTION_RECORD rec = ep->ExceptionRecord;
+
+		char work[1024];
+		snprintf(work,sizeof(work), ("内部アクセス保護違反です。\r\n"
+				"code:%x flag:%x addr:%p params:%d\n"),
+			rec->ExceptionCode,
+			rec->ExceptionFlags,
+			rec->ExceptionAddress,
+			rec->NumberParameters
+		);
 		::MessageBox( NULL, work, NULL, MB_ICONERROR );
-	}
+	}*/
 
 	//	↓try-catch内でなくていいのか…？
 	//	ここで開放しとかないとスレッド外で開放されて落ちる
