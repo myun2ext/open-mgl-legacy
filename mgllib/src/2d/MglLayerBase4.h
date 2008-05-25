@@ -28,4 +28,11 @@ public:
 	virtual RECT GetRect(){RECT rect; ZeroMemory(&rect,sizeof(rect)); return rect;}
 };
 
+//	ƒNƒ‰ƒXéŒ¾
+template <typename TBase> class CMgEffectLayerBase : public TBase
+{
+public:
+	virtual BOOL OnFrame()=0;
+};
+
 #endif//__MglLayersBase4_H__

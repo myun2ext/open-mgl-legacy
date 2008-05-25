@@ -4,7 +4,8 @@
 #include "MglLayerBase4.h"
 
 //	クラス宣言
-template <typename TBase> class CMglFadeLayer : public TBase
+//template <typename TBase> class CMglFadeLayer : public TBase
+template <typename TBase> class CMglFadeLayer : public CMgEffectLayerBase<TBase>
 {
 private:
 	D3DCOLOR m_bStartColor;
@@ -12,14 +13,18 @@ private:
 	int m_nCounter;
 	int m_nEndFrame;
 
-	BYTE m_a1;
-	BYTE m_r1;
-	BYTE m_g1;
-	BYTE m_b1;
-	BYTE m_a2;
-	BYTE m_r2;
-	BYTE m_g2;
-	BYTE m_b2;
+	int m_a1;
+	int m_r1;
+	int m_g1;
+	int m_b1;
+	int m_a2;
+	int m_r2;
+	int m_g2;
+	int m_b2;
+	int m_a3;
+	int m_r3;
+	int m_g3;
+	int m_b3;
 
 	void _Init(){
 		m_bStartColor = 0;
@@ -28,7 +33,33 @@ private:
 		m_nEndFrame = 0;
 	}
 
+	void _ARGPASplit(D3DCOLOR& color, BYTE& a, BYTE& r, BYTE& g, BYTE& b){
+		a = D3DCOLOR_GETA(color);
+		r = D3DCOLOR_GETR(color);
+		g = D3DCOLOR_GETG(color);
+		b = D3DCOLOR_GETB(color);
+	}
+
 	D3DCOLOR GetNowColor(){
+		/*
+		float f = (float)m_nCounter / (float)m_nEndFrame;
+		return D3DCOLOR_ARGB(
+			m_a1 + m_a3 * f,
+			m_r1 + m_r3 * f,
+			m_g1 + m_g3 * f,
+			m_b1 + m_b3 * f,
+			);
+		*/
+
+		//	2008/05/25  floatは遅いので使いたくないですねー
+		//		-> 計ってみたらあんま変わんないっぽい・・・まぁ折角作ったのでいっか。（何
+		int x = m_nCounter*256 / m_nEndFrame;
+		return D3DCOLOR_ARGB(
+			m_a1 + (m_a3*256) / x,
+			m_r1 + (m_r3*256) / x,
+			m_g1 + (m_g3*256) / x,
+			m_b1 + (m_b3*256) / x
+		);
 	}
 
 public:
@@ -65,6 +96,16 @@ public:
 		m_bEndColor = bEndColor;
 		m_nCounter = nCounter;
 		m_nEndFrame = nEndFrame;
+		_ARGPASplit(bStartColor, m_a1, m_r1, m_g1, m_b1);
+		_ARGPASplit(bEndColor, m_a2, m_r2, m_g2, m_b2);
+		/*a3 = (int)m_a1 - (int)m_a2;
+		m_r3 = (int)m_r1 - (int)m_r2;
+		m_g3 = (int)m_g1 - (int)m_g2;
+		m_b3 = (int)m_b1 - (int)m_b2;*/
+		m_a3 = m_a1 - m_a2;
+		m_r3 = m_r1 - m_r2;
+		m_g3 = m_g1 - m_g2;
+		m_b3 = m_b1 - m_b2;
 	}
 
 	//	implement
@@ -73,9 +114,17 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )
 	{
 		//color = D3DCOLOR_AMASK(color);
-		color = D3DCOLOR_AMASK(color);
+		color = GetNowColor(color);
 
 		TBase::Draw(x,y,srcRect,color,fScaleX,fScaleY,fRotationCenterX,fRotationCenterY,fAngle);
+	}
+	virtual BOOL OnFrame(){
+		m_nCounter++;
+		if ( m_nCounter > m_nEndFrame ){
+			m_nCounter = m_nEndFrame;
+			return FALSE;
+		}
+		return TRUE;
 	}
 };
 
