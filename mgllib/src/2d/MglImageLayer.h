@@ -13,6 +13,7 @@ private:
 	RECT m_rectWork;
 public:
 	//	コンストラクタとしてCMglImageのポインタを渡す
+	CMglImageLayer(){}
 	CMglImageLayer(CMglImage* pImage){ Init(pImage); }
 	CMglImageLayer(CMglImage* pImage, bool isShouldDeletePtr){ Init(pImage); m_isShouldDeletePtr=isShouldDeletePtr; }
 	//CMglImageLayer(CMglImage* pImage, bool isShouldDeletePtr):CMglLayerBase4(isShouldDeletePtr){ _Init(pImage); }

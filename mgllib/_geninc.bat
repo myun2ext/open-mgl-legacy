@@ -1,4 +1,4 @@
-set EXTERNAL_DIR=..\_dist\mgl_header
+set EXTERNAL_DIR=..\include\mgl_header
 
 del %EXTERNAL_DIR% /Q
 mkdir %EXTERNAL_DIR%

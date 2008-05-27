@@ -31,8 +31,12 @@ public:
 //	ƒNƒ‰ƒXéŒ¾
 template <typename TBase> class CMgEffectLayerBase : public TBase
 {
+private:
+	BOOL m_isTerminated;
 public:
+	CMgEffectLayerBase(){ m_isTerminated=FALSE; }
 	virtual BOOL OnFrame()=0;
+	//virtual BOOL IsTerminated()=0;
 };
 
 #endif//__MglLayersBase4_H__

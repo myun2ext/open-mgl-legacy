@@ -57,8 +57,12 @@ private:
 	typedef ra_list<LAYERINFO> LAYER_LIST;
 	LAYER_LIST m_list;
 	//map<layer_t*,int> m_imagePtrMap;	//	layer_tより高速に検索するためのマップ
+	typedef LAYER_LIST::iterator id_t;
+public:
+	typedef LAYER_LIST::iterator LAYER_ITR;
 	typedef LAYER_LIST::iterator LIST_ITR;
 	typedef LAYER_LIST::reverse_iterator LIST_RITR;
+private:
 
 	/*
 	//	レンダリング用サーフェス
@@ -80,10 +84,6 @@ private:
 	LAYERINFO& ExistChk(LIST_ITR it){
 		return m_list[it];
 	}
-
-public:
-	typedef LAYER_LIST::iterator LAYER_ITR;
-	typedef LAYER_LIST::iterator id_t;
 
 public:
 	//	コンストラクタ/デストラクタ
@@ -236,6 +236,9 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
 	*/
+	LIST_ITR GetItBegin(){ return m_list.begin(); }
+	LIST_ITR GetItEnd(){ return m_list.end(); }
+	LIST_ITR GetItTail(){ return m_list.tail(); }
 
 	void SetParam( LIST_ITR it,
 		float x, float y, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 

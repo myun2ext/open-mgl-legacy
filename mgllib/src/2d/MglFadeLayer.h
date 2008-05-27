@@ -73,19 +73,19 @@ public:
 					D3DCOLOR bEndColor,
 					int nEndFrame)
 	{
-		Init(bStartColor,bEndColor,nEndFrame);
+		EffectInit(bStartColor,bEndColor,nEndFrame);
 	}
 	CMglFadeLayer(	D3DCOLOR bStartColor,
 					D3DCOLOR bEndColor,
 					int nEndFrame,
 					bool isShouldDeletePtr)
 	{
-		Init(bStartColor,bEndColor,nEndFrame);
+		EffectInit(bStartColor,bEndColor,nEndFrame);
 		m_isShouldDeletePtr=isShouldDeletePtr;
 	}
 
 	//	èâä˙âª
-	void Init(	D3DCOLOR bStartColor,
+	void EffectInit(	D3DCOLOR bStartColor,
 				D3DCOLOR bEndColor,
 				int nEndFrame)
 	{
@@ -111,7 +111,7 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )
 	{
 		//color = D3DCOLOR_AMASK(color);
-		color = GetNowColor(color);
+		color = GetNowColor();
 
 		TBase::Draw(x,y,srcRect,color,fScaleX,fScaleY,fRotationCenterX,fRotationCenterY,fAngle);
 	}
@@ -123,6 +123,9 @@ public:
 		}
 		return TRUE;
 	}
+
+	//FadeIn()
+	//FadeOut()
 };
 
 #endif//__MglFadeLayer_H__
