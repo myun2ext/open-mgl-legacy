@@ -204,6 +204,8 @@ public:
 	//	プロパティ系メソッド
 	int GetDispX() { return m_nDispX; }
 	int GetDispY() { return m_nDispY; }
+	int GetWidth() { return m_nDispX; }
+	int GetHeight() { return m_nDispY; }
 	D3DFORMAT GetFormat() { return m_formatTexture; }
 	IDirect3DDevice8* GetD3dDevPtr() { return m_pD3dDev; }
 	IDirect3DDevice8* GetD3dDevice() { return m_pD3dDev; }

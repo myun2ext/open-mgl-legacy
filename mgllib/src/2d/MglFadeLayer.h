@@ -17,10 +17,10 @@ private:
 	int m_r1;
 	int m_g1;
 	int m_b1;
-	int m_a2;
+	/*int m_a2;
 	int m_r2;
 	int m_g2;
-	int m_b2;
+	int m_b2;*/
 	int m_a3;
 	int m_r3;
 	int m_g3;
@@ -33,7 +33,8 @@ private:
 		m_nEndFrame = 0;
 	}
 
-	void _ARGPASplit(D3DCOLOR& color, BYTE& a, BYTE& r, BYTE& g, BYTE& b){
+	//void _ARGPASplit(D3DCOLOR& color, BYTE& a, BYTE& r, BYTE& g, BYTE& b){
+	void _ARGPASplit(D3DCOLOR& color, int& a, int& r, int& g, int& b){
 		a = D3DCOLOR_GETA(color);
 		r = D3DCOLOR_GETR(color);
 		g = D3DCOLOR_GETG(color);
@@ -89,6 +90,11 @@ public:
 				D3DCOLOR bEndColor,
 				int nEndFrame)
 	{
+		int m_a2;
+		int m_r2;
+		int m_g2;
+		int m_b2;
+
 		m_nCounter = 0;
 		m_bStartColor = bStartColor;
 		m_bEndColor = bEndColor;
@@ -127,5 +133,59 @@ public:
 	//FadeIn()
 	//FadeOut()
 };
+
+
+template <typename TBase> class CMglFadeInLayer : public CMglFadeLayer<TBase>
+{
+public:
+	//	コンストラクタ
+	CMglFadeInLayer(){ _Init(); }
+	CMglFadeInLayer(bool isShouldDeletePtr){ _Init(); m_isShouldDeletePtr=isShouldDeletePtr; }
+	
+	//	フェードパラメータ指定つきコンストラクタ
+	CMglFadeInLayer(int nFrameCount)
+	{
+		Init(nFrameCount);
+	}
+	CMglFadeInLayer(int nFrameCount,
+					bool isShouldDeletePtr)
+	{
+		Init(nFrameCount);
+		m_isShouldDeletePtr=isShouldDeletePtr;
+	}
+
+	//	初期化
+	void Init(int nFrameCount)
+	{
+		Init(0x00ffffff,0xffffffff,nFrameCount);
+	}
+};
+
+template <typename TBase> class CMglFadeOutLayer : public CMglFadeLayer<TBase>
+{
+public:
+	//	コンストラクタ
+	CMglFadeOutLayer(){ _Init(); }
+	CMglFadeOutLayer(bool isShouldDeletePtr){ _Init(); m_isShouldDeletePtr=isShouldDeletePtr; }
+	
+	//	フェードパラメータ指定つきコンストラクタ
+	CMglFadeOutLayer(int nFrameCount)
+	{
+		Init(nFrameCount);
+	}
+	CMglFadeOutLayer(	int nFrameCount,
+						bool isShouldDeletePtr)
+	{
+		Init(nFrameCount);
+		m_isShouldDeletePtr=isShouldDeletePtr;
+	}
+
+	//	初期化
+	void Init(int nFrameCount)
+	{
+		Init(0xffffffff,0x00ffffff,nFrameCount);
+	}
+};
+
 
 #endif//__MglFadeLayer_H__

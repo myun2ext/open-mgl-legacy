@@ -237,6 +237,10 @@ SOURCE=.\src\2d\MglBitmapTextLayer.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglFadeLayer.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglImageLayer.h
 # End Source File
 # Begin Source File
