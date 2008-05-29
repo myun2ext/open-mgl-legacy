@@ -29,7 +29,7 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )=0;
 	//bool isShouldDeletePtr(){ return m_isShouldDeletePtr; }
 	virtual void Release(){}
-	virtual void DoFrame(){}
+	virtual BOOL DoFrame(){return TRUE;}
 	virtual RECT GetRect(){RECT rect; ZeroMemory(&rect,sizeof(rect)); return rect;}
 };
 
@@ -42,7 +42,7 @@ private:
 	BOOL m_isTerminated;
 public:
 	CMgEffectLayerBase(){ m_isTerminated=FALSE; }
-	virtual BOOL DoFrame()=0;
+	//virtual BOOL DoFrame()=0;
 	//virtual BOOL IsTerminated()=0;
 
 	int SendMessage(int nMsgCode, string strMsgParams=""){
@@ -50,7 +50,7 @@ public:
 		case MGL_LAYER_CMSGCODE_ON_FRAME:
 			return DoFrame(); break;
 		}
-		return CMglClassMsg::SendMessage();
+		return CMglClassMsg::SendMessage(nMsgCode,strMsgParams);
 	}
 
 };
