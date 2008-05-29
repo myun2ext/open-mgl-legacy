@@ -141,6 +141,7 @@ void CMglLayers4::Rendering()
 			pLayer->Draw(t.x, t.y, pRect, t.color,
 				t.fScaleX, t.fScaleY, t.fRotationCenterX, t.fRotationCenterY, t.fAngle );
 
+			pLayer->SendMessage(MGL_LAYER_CMSGCODE_ON_FRAME);
 
 			/*
 			if ( pInfo->rect.left == pInfo->rect.right || pInfo->rect.top == pInfo->rect.bottom )

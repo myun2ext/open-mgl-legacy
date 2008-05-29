@@ -55,12 +55,15 @@ private:
 		//	2008/05/25  floatは遅いので使いたくないですねー
 		//		-> 計ってみたらあんま変わんないっぽい・・・まぁ折角作ったのでいっか。（何
 		int x = m_nCounter*256 / m_nEndFrame;
-		return D3DCOLOR_ARGB(
-			m_a1 + (m_a3*256) / x,
-			m_r1 + (m_r3*256) / x,
-			m_g1 + (m_g3*256) / x,
-			m_b1 + (m_b3*256) / x
-		);
+		if ( x == 0 )
+			return D3DCOLOR_ARGB(m_a1, m_r1, m_g1, m_b1);
+		else
+			return D3DCOLOR_ARGB(
+				m_a1 + (m_a3*256) / x,
+				m_r1 + (m_r3*256) / x,
+				m_g1 + (m_g3*256) / x,
+				m_b1 + (m_b3*256) / x
+			);
 	}
 
 public:
@@ -87,9 +90,12 @@ public:
 
 	//	初期化
 	void EffectInit(	D3DCOLOR bStartColor,
-				D3DCOLOR bEndColor,
-				int nEndFrame)
+						D3DCOLOR bEndColor,
+						int nEndFrame)
 	{
+		if ( nEndFrame < 2 )
+			MyuThrow( 0, "CMglFadeLayer nEndFrameには2以上の値を指定してください。" );
+
 		int m_a2;
 		int m_r2;
 		int m_g2;
@@ -121,7 +127,7 @@ public:
 
 		TBase::Draw(x,y,srcRect,color,fScaleX,fScaleY,fRotationCenterX,fRotationCenterY,fAngle);
 	}
-	virtual BOOL OnFrame(){
+	virtual BOOL DoFrame(){
 		m_nCounter++;
 		if ( m_nCounter > m_nEndFrame ){
 			m_nCounter = m_nEndFrame;
@@ -130,8 +136,15 @@ public:
 		return TRUE;
 	}
 
-	//FadeIn()
-	//FadeOut()
+	//	フェードイン・フェードアウト
+	void FadeIn(int nFrameCount)
+	{
+		Init(0x00ffffff,0xffffffff,nFrameCount);
+	}
+	void FadeOut(int nFrameCount)
+	{
+		Init(0xffffffff,0x00ffffff,nFrameCount);
+	}
 };
 
 
@@ -145,19 +158,13 @@ public:
 	//	フェードパラメータ指定つきコンストラクタ
 	CMglFadeInLayer(int nFrameCount)
 	{
-		Init(nFrameCount);
+		FadeIn(nFrameCount);
 	}
 	CMglFadeInLayer(int nFrameCount,
 					bool isShouldDeletePtr)
 	{
-		Init(nFrameCount);
+		FadeIn(nFrameCount);
 		m_isShouldDeletePtr=isShouldDeletePtr;
-	}
-
-	//	初期化
-	void Init(int nFrameCount)
-	{
-		Init(0x00ffffff,0xffffffff,nFrameCount);
 	}
 };
 
@@ -171,19 +178,13 @@ public:
 	//	フェードパラメータ指定つきコンストラクタ
 	CMglFadeOutLayer(int nFrameCount)
 	{
-		Init(nFrameCount);
+		FadeOut(nFrameCount);
 	}
 	CMglFadeOutLayer(	int nFrameCount,
 						bool isShouldDeletePtr)
 	{
-		Init(nFrameCount);
+		FadeOut(nFrameCount);
 		m_isShouldDeletePtr=isShouldDeletePtr;
-	}
-
-	//	初期化
-	void Init(int nFrameCount)
-	{
-		Init(0xffffffff,0x00ffffff,nFrameCount);
 	}
 };
 

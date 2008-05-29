@@ -16,6 +16,7 @@
 #include "MyuStringNameMap.h"
 //#include "MglSurfaceLoader.h"
 //#include "MglSurfacesManager.h"
+#include "MglClassMsg.h"
 
 //	---------- V2 -> S3.1 ----------
 

@@ -43,7 +43,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MT /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "MGLLIB_EXPORTS" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "src" /I "src/2d" /I "src/graphic_extends" /I "src/common" /I "src/other" /I "src/game" /I "src/input" /I "vox" /I "../MSL/include" /I "../MWL/include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "MGLLIB_EXPORTS" /FR /Yu"stdafx.h" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "src" /I "src/2d" /I "src/graphic_extends" /I "src/common" /I "src/window" /I "src/game" /I "src/input" /I "vox" /I "../MSL/include" /I "../MWL/include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "MGLLIB_EXPORTS" /FR /Yu"stdafx.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x411 /d "NDEBUG"
@@ -70,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /MTd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "MGLLIB_EXPORTS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "src" /I "src/2d" /I "src/graphic_extends" /I "src/common" /I "src/other" /I "src/game" /I "src/input" /I "vox" /I "../MSL/include" /I "../MWL/include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "MGLLIB_EXPORTS" /FR /Yu"stdafx.h" /FD /GZ /c
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "src" /I "src/2d" /I "src/graphic_extends" /I "src/common" /I "src/window" /I "src/game" /I "src/input" /I "vox" /I "../MSL/include" /I "../MWL/include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "MGLLIB_EXPORTS" /FR /Yu"stdafx.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x411 /d "_DEBUG"
@@ -237,10 +237,6 @@ SOURCE=.\src\2d\MglBitmapTextLayer.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\2d\MglFadeLayer.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\2d\MglImageLayer.h
 # End Source File
 # Begin Source File
@@ -317,6 +313,84 @@ SOURCE=.\src\2d\MglTexture.h
 # Begin Group "Common Files"
 
 # PROP Default_Filter ""
+# Begin Group "Exception"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\common\MglException.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglExceptionCode.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglExceptionThrowerBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuCommonException.cpp
+# SUBTRACT CPP /YX /Yc /Yu
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuCommonException.h
+# End Source File
+# End Group
+# Begin Group "Class"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\common\MglClassMsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuDebugLog.cpp
+# SUBTRACT CPP /YX /Yc /Yu
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuDebugLog.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuFunctions.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuFunctions.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuReleaseBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuReleaseBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuSingleton.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuStringNameMap.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MyuStringNameMap.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\common\mgl.h
@@ -335,137 +409,43 @@ SOURCE=.\src\common\mglafx.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\common\MglException.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MglExceptionCode.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MglExceptionThrowerBase.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\common\mglheads.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MglManager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MglManager.h
 # End Source File
 # Begin Source File
 
 SOURCE=.\src\common\mglmsg.h
 # End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuCommonException.cpp
-# SUBTRACT CPP /YX /Yc /Yu
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuCommonException.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuDebugLog.cpp
-# SUBTRACT CPP /YX /Yc /Yu
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuDebugLog.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuReleaseBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuReleaseBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuStringNameMap.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\common\MyuStringNameMap.h
-# End Source File
 # End Group
-# Begin Group "Other Files"
+# Begin Group "Window Files"
 
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\src\other\MglEzGameFrame.cpp
+SOURCE=.\src\window\MglEzGameFrame.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\other\MglEzGameFrame.h
+SOURCE=.\src\window\MglEzGameFrame.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\other\mglframe.h
+SOURCE=.\src\window\mglframe.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\other\MyuEzGameManager.cpp
+SOURCE=.\src\window\MyuEzGameManager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\other\MyuEzGameManager.h
+SOURCE=.\src\window\MyuEzGameManager.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\other\MyuEzWindow.cpp
+SOURCE=.\src\window\MyuEzWindow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\other\MyuEzWindow.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\other\MyuFunctions.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\other\MyuFunctions.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\other\MyuSingleton.h
-# End Source File
-# End Group
-# Begin Group "Audio Files"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\audio\MglAudio.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglAudio.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglDirectMusicBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglDirectMusicBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglOgg.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglOgg.h
+SOURCE=.\src\window\MyuEzWindow.h
 # End Source File
 # End Group
 # Begin Group "Game Utility Files"
@@ -590,6 +570,34 @@ SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
 # Begin Source File
 
 SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
+# End Source File
+# End Group
+# Begin Group "Audio Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudio.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudio.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectMusicBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectMusicBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglOgg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglOgg.h
 # End Source File
 # End Group
 # Begin Source File

@@ -191,11 +191,17 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );
 			::MessageBox( NULL, work, NULL, MB_ICONERROR );
 		}
+#ifndef _DEBUG
 		//	VC++の例外か
 		catch(_EXCEPTION_POINTERS *ep)
 		{
 			//_EXCEPTION_POINTERS *ep = GetExceptionInformation();
 			PEXCEPTION_RECORD rec = ep->ExceptionRecord;
+
+			switch(rec->ExceptionCode){
+			case 0xc0000094:
+				::MessageBox( NULL, "0 で除算されました。", NULL, MB_ICONERROR ); break;
+			}
 
 			char work[1024];
 			snprintf(work,sizeof(work), ("内部アクセス保護違反です。\r\n"
@@ -212,6 +218,7 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 		{
 			::MessageBox( NULL, "fdssdff", NULL, MB_ICONERROR );
 		}
+#endif//_DEBUG
 	/*}
 	__except(_EXCEPTION_POINTERS *ep = GetExceptionInformation())
 	{

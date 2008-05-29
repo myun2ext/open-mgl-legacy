@@ -9,5 +9,6 @@ xcopy src\common\*.h %EXTERNAL_DIR%
 xcopy src\game\*.h %EXTERNAL_DIR%
 xcopy src\input\*.h %EXTERNAL_DIR%
 xcopy src\other\*.h %EXTERNAL_DIR%
+xcopy src\window\*.h %EXTERNAL_DIR%
 xcopy vox\*.h %EXTERNAL_DIR%
 del %EXTERNAL_DIR%\ÉRÉsÅ[*
