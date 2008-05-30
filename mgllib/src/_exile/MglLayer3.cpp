@@ -1,22 +1,22 @@
 //////////////////////////////////////////////////////////
 //
-//	MglLayer
+//	MglLayer3
 //		- MglGraphicManager レイヤークラス
 //
 //////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "MglLayer.h"
+#include "MglLayer3.h"
 
 //	コンストラクタ
-CMglLayer::CMglLayer()
+CMglLayer3::CMglLayer3()
 {
 	m_myudg = NULL;
 	m_d3d = NULL;
 }
 
 //	デストラクタ
-CMglLayer::~CMglLayer()
+CMglLayer3::~CMglLayer3()
 {
 
 }
@@ -24,11 +24,11 @@ CMglLayer::~CMglLayer()
 ///////////////////////////////////////////////////////
 
 //	登録
-void CMglLayer::Regist( CMglImage *pImage, int depth, float x, float y, 
+void CMglLayer3::Regist( CMglImage *pImage, int depth, float x, float y, 
 	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
 	if ( m_list.find(depth) != m_list.end() )
-		MyuThrow( 66126, "CMglLayer::Regist() depth=%d は既にあります。", depth );
+		MyuThrow( 66126, "CMglLayer3::Regist() depth=%d は既にあります。", depth );
 
 	LAYERINFO t;
 	ZeroMemory(&t,sizeof(t));
@@ -50,7 +50,7 @@ void CMglLayer::Regist( CMglImage *pImage, int depth, float x, float y,
 }
 
 //	パラメータ設定
-void CMglLayer::SetParam( int depth, float x, float y, 
+void CMglLayer3::SetParam( int depth, float x, float y, 
 	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
 	ExistChk(depth);
@@ -68,7 +68,7 @@ void CMglLayer::SetParam( int depth, float x, float y,
 }
 
 //	移動
-void CMglLayer::Move( int depth, float x, float y )
+void CMglLayer3::Move( int depth, float x, float y )
 {
 	ExistChk(depth);
 	m_list[depth].x += x;
@@ -76,7 +76,7 @@ void CMglLayer::Move( int depth, float x, float y )
 }
 
 //	パラメータ設定（位置）
-void CMglLayer::SetPos( int depth, float x, float y )
+void CMglLayer3::SetPos( int depth, float x, float y )
 {
 	ExistChk(depth);
 	m_list[depth].x = x;
@@ -84,14 +84,14 @@ void CMglLayer::SetPos( int depth, float x, float y )
 }
 
 //	パラメータ設定（色）
-void CMglLayer::SetColor( int depth, D3DCOLOR color )
+void CMglLayer3::SetColor( int depth, D3DCOLOR color )
 {
 	ExistChk(depth);
 	m_list[depth].color = color;
 }
 
 //	パラメータ設定（縮尺率）
-void CMglLayer::SetScale( int depth, float fScaleX, float fScaleY )
+void CMglLayer3::SetScale( int depth, float fScaleX, float fScaleY )
 {
 	ExistChk(depth);
 	m_list[depth].fScaleX = fScaleX;
@@ -99,21 +99,21 @@ void CMglLayer::SetScale( int depth, float fScaleX, float fScaleY )
 }
 
 //	パラメータ設定（角度）
-void CMglLayer::SetAngle( int depth, float fAngle )
+void CMglLayer3::SetAngle( int depth, float fAngle )
 {
 	ExistChk(depth);
 	m_list[depth].fAngle = fAngle;
 }
 
 //	パラメータ設定（矩形）
-void CMglLayer::SetRect( int depth, RECT rect )
+void CMglLayer3::SetRect( int depth, RECT rect )
 {
 	ExistChk(depth);
 	m_list[depth].rect = rect;
 }
 
 //	パラメータ設定（回転の中心）
-void CMglLayer::SetRotationCenter( int depth, float fRotationCenterX, float fRotationCenterY )
+void CMglLayer3::SetRotationCenter( int depth, float fRotationCenterX, float fRotationCenterY )
 {
 	ExistChk(depth);
 	m_list[depth].fRotationCenterX = fRotationCenterX;
@@ -123,7 +123,7 @@ void CMglLayer::SetRotationCenter( int depth, float fRotationCenterX, float fRot
 ////////////////////////////////////////////////////////////////
 
 //	描画
-void CMglLayer::Rendering()
+void CMglLayer3::Rendering()
 {
 	InitCheck();
 

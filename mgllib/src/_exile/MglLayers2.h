@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 //
-//	MglLayers  v0.16.60 04/12/22
+//	MglLayers2  v0.16.60 04/12/22
 //		- MglGraphicManager レイヤークラス
 //
 //	v0.15.05 04/11/14
@@ -27,8 +27,8 @@
 //
 //////////////////////////////////////////////////////////
 
-#ifndef __MglLayers_H__
-#define __MglLayers_H__
+#ifndef __MglLayers2_H__
+#define __MglLayers2_H__
 
 #include "MglGraphicManager.h"
 #include "MglImage.h"
@@ -41,7 +41,7 @@
 #define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CMglLayers : public CMglImageManager
+class DLL_EXP CMglLayers2 : public CMglImageManager
 {
 private:
 	typedef struct {
@@ -72,8 +72,8 @@ private:
 
 public:
 	//	コンストラクタ/デストラクタ
-	CMglLayers();
-	virtual ~CMglLayers();
+	CMglLayers2();
+	virtual ~CMglLayers2();
 
 	//	初期化・開放系メソッド
 	void Init( CMglGraphicManager *in_myudg, const char* in_szDummyFile, D3DCOLOR colorKey=DEF_COLORKEY );
@@ -113,4 +113,4 @@ public:
 };
 
 
-#endif//__MglLayers_H__
+#endif//__MglLayers2_H__

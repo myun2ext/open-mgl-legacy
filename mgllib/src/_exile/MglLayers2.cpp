@@ -1,16 +1,16 @@
 //////////////////////////////////////////////////////////
 //
-//	MglLayers
+//	MglLayers2
 //		- MglGraphicManager レイヤークラス
 //
 //////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "MglLayers.h"
+#include "MglLayers2.h"
 
 
 //	コンストラクタ
-CMglLayers::CMglLayers()
+CMglLayers2::CMglLayers2()
 {
 	p_layerInfos = new LAYERINFOS_MAP;
 	p_indexs = new INDEXS_MAP;
@@ -19,7 +19,7 @@ CMglLayers::CMglLayers()
 }
 
 //	デストラクタ
-CMglLayers::~CMglLayers()
+CMglLayers2::~CMglLayers2()
 {
 	Release();
 
@@ -28,14 +28,14 @@ CMglLayers::~CMglLayers()
 }
 
 //	開放
-void CMglLayers::Release()
+void CMglLayers2::Release()
 {
 	CMglImageManager::Release();
 	DeleteAll();
 }
 
 //	全てのレイヤーを削除（現時点ではRelease()と同じ）
-void CMglLayers::DeleteAll()
+void CMglLayers2::DeleteAll()
 {
 	p_layerInfos->clear();
 	p_indexs->clear();
@@ -44,7 +44,7 @@ void CMglLayers::DeleteAll()
 }
 
 //	初期化
-void CMglLayers::Init( CMglGraphicManager *in_m_myudg, const char* in_szDummyFile, D3DCOLOR colorKey )
+void CMglLayers2::Init( CMglGraphicManager *in_m_myudg, const char* in_szDummyFile, D3DCOLOR colorKey )
 {
 	//	内部変数へコピー
 	strcpy( m_szDummyFile, in_szDummyFile );
@@ -59,7 +59,7 @@ void CMglLayers::Init( CMglGraphicManager *in_m_myudg, const char* in_szDummyFil
 }
 
 //	レイヤーの追加
-void CMglLayers::Add( const char *szBufferName )
+void CMglLayers2::Add( const char *szBufferName )
 {
 	CMglImage *pSurface = AddEntry( szBufferName );
 
@@ -82,18 +82,18 @@ void CMglLayers::Add( const char *szBufferName )
 	catch( MyuCommonException except )
 	{
 		static MyuCommonException except2;
-		sprintf( except2.szErrMsg, "CMglLayers::Add(\"%s\")\r\n"
+		sprintf( except2.szErrMsg, "CMglLayers2::Add(\"%s\")\r\n"
 			"0x%08x %s", szBufferName, except.nErrCode, except.szErrMsg );
 		throw except2;
 	}
 	catch( ... )
 	{
-		MyuThrow( 0, "CMglLayers::Add()  Unknown Exception Error." );
+		MyuThrow( 0, "CMglLayers2::Add()  Unknown Exception Error." );
 	}
 }
 
 //	レイヤーの追加（Pre）
-CMglImage* CMglLayers::AddEntry( const char *szBufferName )
+CMglImage* CMglLayers2::AddEntry( const char *szBufferName )
 {
 	//	indexs
 	INDEXS_MAP &indexs = *p_indexs;
@@ -111,7 +111,7 @@ CMglImage* CMglLayers::AddEntry( const char *szBufferName )
 }
 
 //	レイヤーを取得
-CMglImage* CMglLayers::GetRenderingSurface( const char *szLayerName )
+CMglImage* CMglLayers2::GetRenderingSurface( const char *szLayerName )
 {
 	InitCheck();
 
@@ -124,14 +124,14 @@ CMglImage* CMglLayers::GetRenderingSurface( const char *szLayerName )
 	//	ターゲットサーフェスを保持
 	m_pPrevTargetSurface = CMglImageManager::Get( szLayerName );
 	if ( m_pPrevTargetSurface == NULL )
-		MyuThrow( 0, "CMglLayers::GetRenderingSurface()  なんかNULL㌧で来ました（何" );
+		MyuThrow( 0, "CMglLayers2::GetRenderingSurface()  なんかNULL㌧で来ました（何" );
 
 	//	偽のレンダリング用サーフェスを復帰
 	return &m_renderingSurface;
 }
 
 //	前回のレンダリングを反映
-void CMglLayers::AdaptRenderingSurface()
+void CMglLayers2::AdaptRenderingSurface()
 {
 	//	m_pPrevTargetSurfaceがNULL→初回なので前回のレンダリングは無い
 	if ( m_pPrevTargetSurface != NULL )
@@ -144,21 +144,21 @@ void CMglLayers::AdaptRenderingSurface()
 }
 
 //	exを設定するです
-void CMglLayers::SetLayerOption( const char *szLayerName, RECT *rect, D3DCOLOR color )
+void CMglLayers2::SetLayerOption( const char *szLayerName, RECT *rect, D3DCOLOR color )
 {
 	SetLayerOption( szLayerName, rect );
 	SetLayerOption( szLayerName, color );
 }
 
 //	exを設定するです
-void CMglLayers::SetLayerOption( const char *szLayerName, RECT *rect )
+void CMglLayers2::SetLayerOption( const char *szLayerName, RECT *rect )
 {
 	InitCheck();
 
 	//	てかあんの…？
 	if ( p_layerInfos->find( szLayerName ) == p_layerInfos->end() )
 	{
-		MyuThrow( 0, "CMglLayers::SetLayerOption()  レイヤー %s は存在しません。", szLayerName );
+		MyuThrow( 0, "CMglLayers2::SetLayerOption()  レイヤー %s は存在しません。", szLayerName );
 	}
 
 	LAYERINFOS_MAP &layerInfos = *p_layerInfos;
@@ -170,14 +170,14 @@ void CMglLayers::SetLayerOption( const char *szLayerName, RECT *rect )
 }
 
 //	exを設定するです
-void CMglLayers::SetLayerOption( const char *szLayerName, D3DCOLOR color )
+void CMglLayers2::SetLayerOption( const char *szLayerName, D3DCOLOR color )
 {
 	InitCheck();
 
 	//	てかあんの…？
 	if ( p_layerInfos->find( szLayerName ) == p_layerInfos->end() )
 	{
-		MyuThrow( 0, "CMglLayers::SetLayerOption()  レイヤー %s は存在しません。", szLayerName );
+		MyuThrow( 0, "CMglLayers2::SetLayerOption()  レイヤー %s は存在しません。", szLayerName );
 	}
 
 	LAYERINFOS_MAP &layerInfos = *p_layerInfos;
@@ -187,12 +187,12 @@ void CMglLayers::SetLayerOption( const char *szLayerName, D3DCOLOR color )
 
 
 //	画面への反映
-void CMglLayers::OnDraw( D3DCOLOR baseColor )
+void CMglLayers2::OnDraw( D3DCOLOR baseColor )
 {
 	InitCheck();
 
 	//if ( p_buffers->size() == 0 )
-	//	MyuThrow( 0, "CMglLayers::OnDraw() レイヤーが空です。" );
+	//	MyuThrow( 0, "CMglLayers2::OnDraw() レイヤーが空です。" );
 
 	//	前回のレンダリングを反映
 	AdaptRenderingSurface();

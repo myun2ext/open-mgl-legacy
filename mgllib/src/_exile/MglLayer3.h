@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////
 //
-//	MglLayer - レイヤー
+//	MglLayer3 - レイヤー
 //
 //////////////////////////////////////////////////////////
 
-#ifndef __MglLayer_H__
-#define __MglLayer_H__
+#ifndef __MglLayer3_H__
+#define __MglLayer3_H__
 
 #include "MglGraphicManager.h"
 #include "MglImage.h"
@@ -18,7 +18,7 @@
 #define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )*/
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CMglLayer
+class DLL_EXP CMglLayer3
 {
 private:
 	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
@@ -74,15 +74,15 @@ private:
 
 	LAYERINFO& ExistChk(int depth){
 		if ( m_list.find(depth) == m_list.end() )
-			MyuThrow( 222, "CMglLayer : depth=%d は見つかりません。", depth );
+			MyuThrow( 222, "CMglLayer3 : depth=%d は見つかりません。", depth );
 		return m_list[depth];
 	}
 
 
 public:
 	//	コンストラクタ/デストラクタ
-	CMglLayer();
-	virtual ~CMglLayer();
+	CMglLayer3();
+	virtual ~CMglLayer3();
 
 	//	初期化
 	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd ){
@@ -161,4 +161,4 @@ public:
 };
 
 
-#endif//__MglLayer_H__
+#endif//__MglLayer3_H__
