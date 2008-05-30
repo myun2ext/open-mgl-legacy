@@ -33,6 +33,7 @@
 #include "MglText.h"
 #include "MglTexture.h"
 #include "MglVertex.h"
+#include "MglLayers4.h"
 
 //	Inputån
 #include "MglInput.h"

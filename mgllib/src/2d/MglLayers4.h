@@ -267,6 +267,9 @@ public:
 	LIST_ITR GetItBegin(){ return m_list.begin(); }
 	LIST_ITR GetItEnd(){ return m_list.end(); }
 	LIST_ITR GetItTail(){ return m_list.tail(); }
+	LIST_ITR begin(){ return m_list.begin(); }
+	LIST_ITR end(){ return m_list.end(); }
+	LIST_ITR tail(){ return m_list.tail(); }
 
 	void SetParam( LIST_ITR it,
 		float x, float y, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 

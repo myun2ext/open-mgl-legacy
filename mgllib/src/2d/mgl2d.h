@@ -85,7 +85,7 @@ using namespace std;
 #include "MglImageFader.h"
 #include "MglImageAnimator.h"
 
-#include "MglLayer.h"
+//#include "MglLayer.h"
 #include "MglLayers4.h"
 #include "MglBitmapText.h"
 #include "MglText.h"
