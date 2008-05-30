@@ -71,10 +71,10 @@ typedef IDirect3D8			MGL_D3D;
 #define D3DCOLOR_GETG(COLOR)				(D3DCOLOR_AMASK(COLOR)<<8)
 #define D3DCOLOR_GETB(COLOR)				(D3DCOLOR_AMASK(COLOR))*/
 //	2008/05/25  ‚±‚Á‚¿‚Ì•û‚ª‚‘¬‚©H
-#define D3DCOLOR_GETA(COLOR)				(((BYTE*)(&COLOR))[0])
-#define D3DCOLOR_GETR(COLOR)				(((BYTE*)(&COLOR))[1])
-#define D3DCOLOR_GETG(COLOR)				(((BYTE*)(&COLOR))[2])
-#define D3DCOLOR_GETB(COLOR)				(((BYTE*)(&COLOR))[3])
+#define D3DCOLOR_GETA(COLOR)				(((BYTE*)(&COLOR))[3])
+#define D3DCOLOR_GETR(COLOR)				(((BYTE*)(&COLOR))[2])
+#define D3DCOLOR_GETG(COLOR)				(((BYTE*)(&COLOR))[1])
+#define D3DCOLOR_GETB(COLOR)				(((BYTE*)(&COLOR))[0])
 
 /*
 #define D3DCOLOR_BLUE			((D3DCOLOR)0x000000ff)

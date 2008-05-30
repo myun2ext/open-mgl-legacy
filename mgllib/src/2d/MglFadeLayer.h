@@ -54,16 +54,32 @@ private:
 
 		//	2008/05/25  floatは遅いので使いたくないですねー
 		//		-> 計ってみたらあんま変わんないっぽい・・・まぁ折角作ったのでいっか。（何
+		//int x = m_nCounter*256*256 / m_nEndFrame;
 		int x = m_nCounter*256 / m_nEndFrame;
 		if ( x == 0 )
 			return D3DCOLOR_ARGB(m_a1, m_r1, m_g1, m_b1);
-		else
+		else{
+			
+#define _COLOR_CALC_WORK(V1,V3)		(V1 + V3 * x / 256)
+			char work[246];
+			/*sprintf(work, "%d + (%d*256) / %d | %d", m_a1, m_a3, x,
+					_COLOR_CALC_WORK(m_a1,m_a3));*/
+			sprintf(work, "%d, %d, %d, %d",
+				_COLOR_CALC_WORK(m_a1,m_a3),
+				_COLOR_CALC_WORK(m_r1,m_r3),
+				_COLOR_CALC_WORK(m_g1,m_g3),
+				_COLOR_CALC_WORK(m_b1,m_b3));
+			//::MessageBox(NULL,work,NULL,NULL);
+
 			return D3DCOLOR_ARGB(
-				m_a1 + (m_a3*256) / x,
-				m_r1 + (m_r3*256) / x,
-				m_g1 + (m_g3*256) / x,
-				m_b1 + (m_b3*256) / x
+				_COLOR_CALC_WORK(m_a1,m_a3),
+				_COLOR_CALC_WORK(m_r1,m_r3),
+				_COLOR_CALC_WORK(m_g1,m_g3),
+				_COLOR_CALC_WORK(m_b1,m_b3)
 			);
+#undef _COLOR_CALC_WORK
+
+		}
 	}
 
 public:
@@ -111,10 +127,18 @@ public:
 		m_r3 = (int)m_r1 - (int)m_r2;
 		m_g3 = (int)m_g1 - (int)m_g2;
 		m_b3 = (int)m_b1 - (int)m_b2;*/
-		m_a3 = m_a1 - m_a2;
+		m_a3 = m_a2 - m_a1;
+		m_r3 = m_r2 - m_r1;
+		m_g3 = m_g2 - m_g1;
+		m_b3 = m_b2 - m_b1;
+		/*m_a3 = m_a1 - m_a2;
 		m_r3 = m_r1 - m_r2;
 		m_g3 = m_g1 - m_g2;
-		m_b3 = m_b1 - m_b2;
+		m_b3 = m_b1 - m_b2;*/
+
+		/*char work[246];
+		sprintf(work, "%d, %d, %d, %d", m_a3,m_r3,m_g3,m_b3);
+		::MessageBox(NULL,work,NULL,NULL);*/
 	}
 
 	//	implement
@@ -139,11 +163,11 @@ public:
 	//	フェードイン・フェードアウト
 	void FadeIn(int nFrameCount)
 	{
-		Init(0x00ffffff,0xffffffff,nFrameCount);
+		EffectInit(0x00ffffff,0xffffffff,nFrameCount);
 	}
 	void FadeOut(int nFrameCount)
 	{
-		Init(0xffffffff,0x00ffffff,nFrameCount);
+		EffectInit(0xffffffff,0x00ffffff,nFrameCount);
 	}
 };
 
