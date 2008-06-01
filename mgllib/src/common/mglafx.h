@@ -32,14 +32,18 @@
 
 /////////////////////////////////////
 
-/*#include <msl.h>	//	07/01/01 Add.
-#include <mwl.h>	//	07/01/02 Add.*/
+#pragma warning( disable : 4251 )	//	template classのエクスポートしてるのにワーニングが出てしまうので消す
+
+//	なんで除外してあんだろ (2008/06/01)
+#include <msl.h>	//	07/01/01 Add.
+#include <mwl.h>	//	07/01/02 Add.
 
 //#include "mglstd.h"
 
+/*
 // VC でのSTLの警告を取り除きます。
 #pragma warning( disable : 4786 ) 
-#pragma warning( disable : 4251 )	//	template class でexportしてるのに出すなょｳｾﾞｰ(;´Д`)ゞ
+//#pragma warning( disable : 4251 )	//	template class でexportしてるのに出すなょｳｾﾞｰ(;´Д`)ゞ
 
 #include <string>
 #include <vector>
@@ -47,7 +51,7 @@
 using namespace std;
 
 #include <stdio.h>
-#include <windows.h>
+#include <windows.h>*/
 #include "MyuDebugLog.h"
 #include "MyuCommonException.h"
 #include "MglExceptionThrowerBase.h"

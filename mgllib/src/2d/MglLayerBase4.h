@@ -7,6 +7,8 @@
 #ifndef __MglLayersBase4_H__
 #define __MglLayersBase4_H__
 
+#include "mglafx.h"
+
 #define MGL_LAYER_CMSGCODE_ON_FRAME		(0x00010080)
 
 ///////////////////////////////////////////////////////////////////

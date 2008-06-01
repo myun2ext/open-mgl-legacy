@@ -136,18 +136,6 @@ SOURCE=.\src\graphic_extends\MglImageTips.cpp
 SOURCE=.\src\graphic_extends\MglImageTips.h
 # End Source File
 # End Group
-# Begin Group "_old"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayers.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayers.h
-# End Source File
-# End Group
 # Begin Group "Util"
 
 # PROP Default_Filter ""
@@ -203,18 +191,6 @@ SOURCE=.\src\2d\MglVertex.h
 # Begin Group "Layer"
 
 # PROP Default_Filter ""
-# Begin Group "old"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayer.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglLayer.h
-# End Source File
-# End Group
 # Begin Group "Effect Layer"
 
 # PROP Default_Filter ""
@@ -602,6 +578,26 @@ SOURCE=.\src\audio\MglOgg.cpp
 # Begin Source File
 
 SOURCE=.\src\audio\MglOgg.h
+# End Source File
+# End Group
+# Begin Group "Exile Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\_exile\MglLayer3.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\_exile\MglLayer3.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\_exile\MglLayers2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\_exile\MglLayers2.h
 # End Source File
 # End Group
 # Begin Source File
