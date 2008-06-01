@@ -96,8 +96,8 @@ class DLL_EXP CMglGraphicManager
 {
 protected:
 	//	DirectX系宣言
-	IDirect3D8* m_pD3d;				//	D3D
-	IDirect3DDevice8* m_pD3dDev;	//	D3Dデバイス
+	_MGL_IDirect3D* m_pD3d;			//	D3D
+	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
 
 	int m_nDispX, m_nDispY;		//	画面サイズ
 	D3DFORMAT m_formatTexture;	//	フォーマット
@@ -207,8 +207,8 @@ public:
 	int GetWidth() { return m_nDispX; }
 	int GetHeight() { return m_nDispY; }
 	D3DFORMAT GetFormat() { return m_formatTexture; }
-	IDirect3DDevice8* GetD3dDevPtr() { return m_pD3dDev; }
-	IDirect3DDevice8* GetD3dDevice() { return m_pD3dDev; }
+	_MGL_IDirect3DDevice* GetD3dDevPtr() { return m_pD3dDev; }
+	_MGL_IDirect3DDevice* GetD3dDevice() { return m_pD3dDev; }
 	DWORD GetD3dDeviceFlg() { return m_dwD3dDeviceFlg; }
 	DWORD GetAlphaMode() { return m_dwAlphaOption; }
 	void EnableSupportSprite(){ m_bUseSprite = TRUE; }

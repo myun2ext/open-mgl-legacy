@@ -10,6 +10,7 @@
 
 #include "MglGraphicManager.h"
 #include "MglVertex.h"
+#include "MglBitmapData.h"
 
 /*
 //	ADJ S1
@@ -63,13 +64,16 @@ MGL_SQUARE_VERTEXS;
 //	クラス宣言
 class DLL_EXP CMglTexture// : public CMyuReleaseBase
 {
+public:
+	typedef CMglLockedRectIterator iterator;
+
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 
 	//	Direct3D系
-	IDirect3DDevice8* d3d;			//	D3DDeviceへのポインタ
-	IDirect3DTexture8* m_pTexture;	//	テクスチャ
-	IDirect3DSurface8* m_pSurface;	//	サーフェス
+	_MGL_IDirect3DDevice* d3d;			//	D3DDeviceへのポインタ
+	_MGL_IDirect3DTexture* m_pTexture;	//	テクスチャ
+	_MGL_IDirect3DSurface* m_pSurface;	//	サーフェス
 
 	//	画像情報
 	D3DXIMAGE_INFO m_imgInfo;
@@ -118,7 +122,6 @@ private:
 		MyuAssert( m_pTexture->GetSurfaceLevel(0, &m_pSurface), D3D_OK,
 			"CMglTexture::GetSurface()  GetSurfaceLevel()に失敗" );
 	}
-
 public:
 	//	コンストラクタ・デストラクタ
 	CMglTexture();
@@ -155,12 +158,22 @@ public:
 	void GetBmpVertexs( MGL_SQUARE_VERTEXS *pMglSqVertexs );
 
 	//	内部変数取得系
-	IDirect3DTexture8* GetDirect3dTexturePtr(){ CreateCheck(); return m_pTexture; }
-	IDirect3DSurface8* GetSurfacePtr() { CreateCheck(); return m_pSurface; }
+	_MGL_IDirect3DTexture* GetDirect3dTexturePtr(){ CreateCheck(); return m_pTexture; }
+	_MGL_IDirect3DSurface* GetSurfacePtr() { CreateCheck(); return m_pSurface; }
 
 	//	サイズ取得
 	int GetBmpWidth(){ return m_imgInfo.Width; }
 	int GetBmpHeight(){ return m_imgInfo.Height; }
+
+	////////////////////////////////////////////////////////////////////////////////
+
+	//	2008/06/01  Bitmapデータ取得（クラスだけ用意して実装してなかったっぽい・・・？）
+	CMglBitmapData* GetIternalBitmapData();
+
+	/*
+	iterator begin();
+	iterator end(){ return NULL; }
+	*/
 
 	/////////////////////////////////////////////////////////////////////////
 

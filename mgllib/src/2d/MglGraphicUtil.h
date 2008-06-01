@@ -11,6 +11,7 @@
 #ifndef __MglGraphicUtil_H__
 #define __MglGraphicUtil_H__
 
+/*
 #ifdef  MGL_USE_DIRECTX_VERSION_9
 typedef IDirect3DDevice9	MGL_D3D_DEVICE;
 typedef IDirect3D9			MGL_D3D;
@@ -18,6 +19,7 @@ typedef IDirect3D9			MGL_D3D;
 typedef IDirect3DDevice8	MGL_D3D_DEVICE;
 typedef IDirect3D8			MGL_D3D;
 #endif//MGL_USE_DIRECTX_VERSION_9
+*/
 
 ////////////////////////////////
 //

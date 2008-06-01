@@ -14,7 +14,18 @@ protected:
 	BYTE* m_pBits;
 	int m_nHeight;
 
+	void _Init(D3DLOCKED_RECT lockedRect, int nHeight){
+		//m_lockedRect = lockedRect;
+		m_nPitch = lockedRect.Pitch;
+		m_pBits = (BYTE*)lockedRect.pBits;
+		m_nHeight = nHeight;
+	}
+
 public:
+	//	コンストラクタ・デストラクタ
+	CMglBitmapData(CMglTexture &mglTex);
+	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
+	/*
 	//	コンストラクタ・デストラクタ
 	CMglBitmapData(D3DLOCKED_RECT lockedRect, int nHeight){
 		//m_lockedRect = lockedRect;
@@ -22,7 +33,11 @@ public:
 		m_pBits = (BYTE*)lockedRect.pBits;
 		m_nHeight = nHeight;
 	}
+	*/
 	virtual ~CMglBitmapData(){}
+	void Release();
+
+	////////////////////////////////////////////////
 
 	D3DCOLOR* GetHorizontalLine(int y){
 		if ( y >= m_nHeight )
@@ -38,9 +53,24 @@ public:
 			return NULL;
 		return p[x];
 	}
+	void Fill(D3DCOLOR color){
+		for(int i=0; i<GetHeight(); i++)
+			memset(GetLine(i), color, GetWidth());
+	}
 
 	int GetWidth(){ return m_nPitch; }
 	int GetHeight(){ return m_nHeight; }
+};
+
+/////////////////////////////////////////////////////
+
+class DLL_EXP CMglLockedRectIterator : public CMglBitmapData
+{
+public:
+	CMglLockedRectIterator(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0)
+		: CMglBitmapData(pSurface,nHeight,pTargetRect,dwFlags){}
+
+
 };
 
 #endif//__MglBitmapData_H__

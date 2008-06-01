@@ -122,7 +122,7 @@ extern CMyuDebugLog g_workLog;
 	#define _MGL_IDirectInput IDirectInput9
 	#define _MGL_IDirectInputDevice IDirectInputDevice9
 	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice9
-	
+
 #elif _MGL_USE_DXVER10
 	#pragma comment(lib, "dinput10.lib")
 	#define DIRECTINPUT_VERSION		(0x1000)
@@ -136,6 +136,15 @@ extern CMyuDebugLog g_workLog;
 	#define _MGL_IDirectInput IDirectInput8
 	#define _MGL_IDirectInputDevice IDirectInputDevice8
 	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice8
+
+	/*#define _MGL_IDirect3D IDirect3D8
+	#define _MGL_IDirect3DDevice IDirect3DDevice8
+	#define _MGL_IDirect3DSurface IDirect3DSurface8
+	#define _MGL_IDirect3DTexture IDirect3DTexture8*/
+	typedef IDirect3D8 _MGL_IDirect3D;
+	typedef IDirect3DDevice8 _MGL_IDirect3DDevice;
+	typedef IDirect3DSurface8 _MGL_IDirect3DSurface;
+	typedef IDirect3DTexture8 _MGL_IDirect3DTexture;
 #endif
 
 #include <dinput.h>

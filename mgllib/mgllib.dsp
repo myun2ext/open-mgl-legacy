@@ -541,6 +541,50 @@ SOURCE=.\src\input\MglMouseInputBase.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=C:\dxsdk90b\Include\d3d8.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3d8caps.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3d8types.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8core.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8effect.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8math.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8math.inl
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8mesh.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8shape.h
+# End Source File
+# Begin Source File
+
+SOURCE=C:\dxsdk90b\Include\d3dx8tex.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\MSL\trunk\MSL\header\msl_ra_list.h
 # End Source File
 # Begin Source File

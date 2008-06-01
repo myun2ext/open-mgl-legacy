@@ -349,3 +349,18 @@ void CMglTexture::TextureDraw(
 	//	描画
 	Draw( vertices );
 }
+
+//	イテレータ ////////////////////////////////////////////////
+
+iterator CMglTexture::begin()
+{
+
+}
+
+iterator CMglTexture::end()
+{
+
+
+}
+
+
