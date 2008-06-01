@@ -10,9 +10,9 @@
 #include "MglTexture.h"
 
 //	コンストラクタ
-CMglBitmapData::CMglBitmapData(CMglTexture &mglTex, CONST RECT* pTargetRect, DWORD dwFlags)
+CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect, DWORD dwFlags)
 {
-	_Init(mglTex.GetSurfacePtr(), mglTex.GetBmpHeight(), pTargetRect, dwFlags);
+	_Init(pMglTex->GetSurfacePtr(), pMglTex->GetBmpHeight(), pTargetRect, dwFlags);
 }
 
 void CMglBitmapData::_Init(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)

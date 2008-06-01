@@ -352,10 +352,11 @@ void CMglTexture::TextureDraw(
 
 //	イテレータ ////////////////////////////////////////////////
 
-/*CMglBitmapData* CMglTexture::GetIternalBitmapData()
+CMglBitmapData* CMglTexture::GetIternalBitmapData()
 {
-	CMglBitmapData
-}*/
+	CMglBitmapData *pBmpData = new CMglBitmapData(this);
+	return pBmpData;
+}
 
 /*
 CMglTexture::iterator CMglTexture::begin()

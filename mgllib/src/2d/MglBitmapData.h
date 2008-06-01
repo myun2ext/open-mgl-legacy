@@ -26,7 +26,7 @@ protected:
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMglBitmapData(CMglTexture &mglTex, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
+	CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
 	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0){
 		_Init(pSurface,nHeight,pTargetRect,dwFlags);
 	}
