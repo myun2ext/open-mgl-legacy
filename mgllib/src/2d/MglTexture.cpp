@@ -101,7 +101,7 @@ void CMglTexture::CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth
 		MyuThrow2( r, 0x0203, "CMglImage::CreateFromFile()  D3DXCreateTextureFromFileEx(%s)に失敗", szFileName );
 
 	//	SetRenderとかで必要なのでサーフェス取得しておく
-	GetSurface();
+	_GetSurface();
 }
 
 
@@ -154,7 +154,7 @@ void CMglTexture::Create( int x, int y, BOOL bRenderTarget )
 	*/
 
 	//	SetRenderとかで必要なのでサーフェス取得しておく
-	GetSurface();
+	_GetSurface();
 
 	_MGL_DEBUGLOG( "- CMglTexture::Create()" );
 }
@@ -352,15 +352,21 @@ void CMglTexture::TextureDraw(
 
 //	イテレータ ////////////////////////////////////////////////
 
-iterator CMglTexture::begin()
+/*CMglBitmapData* CMglTexture::GetIternalBitmapData()
+{
+	CMglBitmapData
+}*/
+
+/*
+CMglTexture::iterator CMglTexture::begin()
 {
 
 }
 
-iterator CMglTexture::end()
+CMglTexture::iterator CMglTexture::end()
 {
 
 
 }
-
+*/
 

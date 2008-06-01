@@ -5,6 +5,8 @@
 #ifndef __MglBitmapData_H__
 #define __MglBitmapData_H__
 
+class CMglTexture;
+
 //	クラス宣言
 class DLL_EXP CMglBitmapData
 {
@@ -20,11 +22,14 @@ protected:
 		m_pBits = (BYTE*)lockedRect.pBits;
 		m_nHeight = nHeight;
 	}
+	void _Init(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMglBitmapData(CMglTexture &mglTex);
-	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
+	CMglBitmapData(CMglTexture &mglTex, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
+	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0){
+		_Init(pSurface,nHeight,pTargetRect,dwFlags);
+	}
 	/*
 	//	コンストラクタ・デストラクタ
 	CMglBitmapData(D3DLOCKED_RECT lockedRect, int nHeight){

@@ -82,6 +82,8 @@ protected:
 	D3DCOLOR m_colorKey;			//	カラーキー
 	BOOL m_bRenderTarget;			//	bRenderTarget
 
+	CMglBitmapData *m_pBitmapData;
+
 	//	頂点情報
 	//MYU_VERTEX m_vertices[4];		//	頂点 -> 別にメンバ変数で持つ必要ナクネ
 	//float fRealTexTu, fRealTexTv;	//	テクスチャ上で実際に使用されるtu,uv
@@ -118,7 +120,7 @@ protected:
 
 private:
 	//	テクスチャのサーフェスを取得する
-	void GetSurface(){
+	void _GetSurface(){
 		MyuAssert( m_pTexture->GetSurfaceLevel(0, &m_pSurface), D3D_OK,
 			"CMglTexture::GetSurface()  GetSurfaceLevel()に失敗" );
 	}

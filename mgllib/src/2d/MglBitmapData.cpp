@@ -7,9 +7,15 @@
 
 #include "stdafx.h"
 #include "MglBitmapData.h"
+#include "MglTexture.h"
 
 //	コンストラクタ
-CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
+CMglBitmapData::CMglBitmapData(CMglTexture &mglTex, CONST RECT* pTargetRect, DWORD dwFlags)
+{
+	_Init(mglTex.GetSurfacePtr(), mglTex.GetBmpHeight(), pTargetRect, dwFlags);
+}
+
+void CMglBitmapData::_Init(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
 {
 	//D3DLOCKED_RECT* pLockedRect = NULL;
 	D3DLOCKED_RECT lockedRectInfo;
