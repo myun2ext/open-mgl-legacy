@@ -35,6 +35,9 @@ protected:
 	void CHKJOYNO( int n ){ if(n>=m_joyAry.size()) MyuThrow( 0343, "%d のJOYは存在しません。" ); }
 
 public:
+	CMglMouseInput mouse;
+
+public:
 	//	コンストラクタとデストラクタ
 	CMglInput();
 	virtual ~CMglInput();

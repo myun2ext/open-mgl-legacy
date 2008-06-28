@@ -40,6 +40,8 @@ public:
 	}
 
 	POINT GetCursorPos();
+	LONG GetCursorPosX(){ return GetCursorPos().x; }
+	LONG GetCursorPosY(){ return GetCursorPos().y; }
 };
 
 

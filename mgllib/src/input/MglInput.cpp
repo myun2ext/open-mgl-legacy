@@ -53,6 +53,9 @@ void CMglInput::Init( HWND hWnd, DWORD dwCooperativeFlag )
 	//	キーボードの関連付け配列生成
 	//m_keyboard.GenRtAry();
 
+	//	2008/06/28  マウス対応
+	mouse.Init(hWnd);
+
 	//	フラグを立てる
 	m_bInitFlg = TRUE;
 }
