@@ -17,6 +17,7 @@ protected:
 	//BYTE m_stateBuf[STATEBUF_SIZE];
 	BYTE *m_pStateBuf;
 	int m_nStateBufSize;
+	HWND m_hWnd;
 
 	void Acquire();
 	void Unacquire();

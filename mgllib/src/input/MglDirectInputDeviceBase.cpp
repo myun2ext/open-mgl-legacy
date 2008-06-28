@@ -10,6 +10,7 @@ CMglDirectInputDeviceBase::CMglDirectInputDeviceBase()
 	//ZeroMemory( m_stateBuf, sizeof(m_stateBuf) );
 	m_pStateBuf = NULL;
 	m_nStateBufSize = 0;
+	m_hWnd = NULL;
 }
 
 //	デストラクタ
@@ -43,6 +44,8 @@ void CMglDirectInputDeviceBase::Init( REFGUID rguid, LPCDIDATAFORMAT dataFormat,
 	m_nStateBufSize = nStateBufSize;
 
 	Acquire();
+
+	m_hWnd = hWnd;
 }
 
 //	開放

@@ -38,6 +38,8 @@ public:
 		else
 			return FALSE;
 	}
+
+	POINT GetCursorPos();
 };
 
 
