@@ -22,16 +22,24 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
 {
 	CMglImage img;
+	//img.Create("C:\\Documents and Settings\\’qÍ\\My Documents\\shana_36-1.jpg");
+	//img.Create("font_level.tga");
 	img.Create();
 	//CMglBitmapData *pBitmap = img.GetIternalBitmapData();
 	CMglBitmapData inBitmap(&img);
-	inBitmap.Set(20,29,D3DCOLOR_WHITE);
 	//inBitmap.Get(20,29);
 	//inBitmap.Fill(D3DCOLOR_WHITE);
-	inBitmap.Release();
+	//inBitmap.Release();
 
+	int i=0;
 	for(;;){
+		i++;
+		//inBitmap.Set(i,i,D3DCOLOR_WHITE);
+		//inBitmap.Fill(D3DCOLOR_WHITE, Rect(i*4,i*4,i*4+4,i*4*4));
 		img.Draw();
+
+		POINT point = pFrame->input.mouse.GetCursorPos();
+		inBitmap.Set(point.x, point.y, D3DCOLOR_WHITE);
 
 		if ( !pFrame->DoFpsWait() )
 			return TRUE;
