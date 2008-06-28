@@ -89,23 +89,21 @@ void CMglBitmapData::Fill(D3DCOLOR color){
 
 //	“h‚è‚Â‚Ô‚µ
 void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
-	if ( rect.left > GetWidth() )
-		return;
-	if ( rect.top > GetHeight() )
-		return;
-
 	Lock();
 
-	int nEndX = rect.right;
-	if ( nEndX > GetWidth() )
-		nEndX = GetWidth();
+	if ( rect.left <= GetWidth()  && rect.top <= GetHeight() )
+	{
+		int nEndX = rect.right;
+		if ( nEndX > GetWidth() )
+			nEndX = GetWidth();
 
-	int nEndY = rect.bottom;
-	if ( nEndY > GetHeight() )
-		nEndY = GetHeight();
+		int nEndY = rect.bottom;
+		if ( nEndY > GetHeight() )
+			nEndY = GetHeight();
 
-	for(int i=rect.top; i<nEndY; i++)
-		memset(GetLine(i)+rect.left, color, nEndX);
+		for(int i=rect.top; i<nEndY; i++)
+			memset(GetLine(i)+rect.left, color, nEndX);
+	}
 
 	Unlock();
 }
