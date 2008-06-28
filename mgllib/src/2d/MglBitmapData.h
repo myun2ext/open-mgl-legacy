@@ -81,19 +81,19 @@ public:
 	D3DCOLOR* GetHorizontalLine(int y){
 		Lock();
 		if ( y >= m_nHeight )
-			MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine() y=%d は縦 %d の範囲を超えています。",y,m_nHeight);
-			//return NULL;
+			//MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine() y=%d は縦 %d の範囲を超えています。",y,m_nHeight);
+			return NULL;
 		return (D3DCOLOR*)(m_pBits + m_nPitch*y);
 	}
 	D3DCOLOR* GetLine(int y){ return GetHorizontalLine(y); }
 	D3DCOLOR* GetPtr(int x,int y){
 		D3DCOLOR* p = GetHorizontalLine(y);
 		if ( p == NULL )
-			MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine(%d) は失敗しました。",y);
-			//return NULL;
+			//MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine(%d) は失敗しました。",y);
+			return NULL;
 		if ( x >= m_nPitch )
-			MyuThrow( 0, "CMglInternalBitmapData::GetPtr() x=%d は横の範囲を超えています。",x);
-			//return NULL;
+			//MyuThrow( 0, "CMglInternalBitmapData::GetPtr() x=%d は横の範囲を超えています。",x);
+			return NULL;
 		return &p[x];
 	}
 	D3DCOLOR Get(int x,int y){
@@ -111,18 +111,17 @@ public:
 		Lock();
 
 		D3DCOLOR *p = GetPtr(x,y);
-		if ( p == NULL )
+		/*if ( p == NULL )
 			MyuThrow( 0, "CMglInternalBitmapData::Set(%d,%d) は失敗しました。",x,y);
-		*p = color;
+		*p = color;*/
+		if ( p != NULL )
+			*p = color;
 
 		Unlock();
 	}
-	void Fill(D3DCOLOR color){
-		Lock();
-		for(int i=0; i<GetHeight(); i++)
-			memset(GetLine(i), color, GetWidth());
-		Unlock();
-	}
+
+	void Fill(D3DCOLOR color);
+	void Fill(D3DCOLOR color, RECT rect);
 
 	//////////////////////////////////////////////////////////////////////////////
 

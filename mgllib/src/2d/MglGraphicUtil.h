@@ -117,6 +117,14 @@ DLL_EXP RECT* _Rect( int left, int top, int right, int bottom, RECT *destRect=NU
 DLL_EXP RECT* _Rect2( int left, int top, int width, int height, RECT *destRect=NULL );
 DLL_EXP RECT* EzRect( int left, int top, int right, int bottom, RECT *destRect=NULL );
 DLL_EXP RECT* EzRect2( int left, int top, int width, int height, RECT *destRect=NULL );
+inline RECT Rect( int left, int top, int right, int bottom){
+	RECT rect;
+	rect.left = left;
+	rect.top = top;
+	rect.right = right;
+	rect.bottom = bottom;
+	return rect;
+}
 
 DLL_EXP const char* GetD3DResultString( DWORD nD3dResult );
 

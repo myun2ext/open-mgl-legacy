@@ -77,3 +77,36 @@ void CMglBitmapData::Unlock()
 
 	m_bLocked = FALSE;
 }
+
+//	“h‚è‚Â‚Ô‚µ
+void CMglBitmapData::Fill(D3DCOLOR color){
+	Fill(color,Rect(0,0,GetWidth(),GetHeight()));
+	/*Lock();
+	for(int i=0; i<GetHeight(); i++)
+		memset(GetLine(i), color, GetWidth());
+	Unlock();*/
+}
+
+//	“h‚è‚Â‚Ô‚µ
+void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
+	if ( rect.left > GetWidth() )
+		return;
+	if ( rect.top > GetHeight() )
+		return;
+
+	Lock();
+
+	int nEndX = rect.right;
+	if ( nEndX > GetWidth() )
+		nEndX = GetWidth();
+
+	int nEndY = rect.bottom;
+	if ( nEndY > GetHeight() )
+		nEndY = GetHeight();
+
+	for(int i=rect.top; i<nEndY; i++)
+		memset(GetLine(i)+rect.left, color, nEndX);
+
+	Unlock();
+}
+
