@@ -58,6 +58,7 @@ using namespace std;
 #include "MglExceptionCode.h"
 #include "mglmsg.h"
 #include "MglClassMsg.h"
+#include "MyuReleaseBase.h"
 
 extern CMyuDebugLog g_workLog;
 

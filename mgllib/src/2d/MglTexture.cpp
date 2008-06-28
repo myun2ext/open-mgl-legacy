@@ -20,6 +20,7 @@ CMglTexture::CMglTexture()
 	//m_bCenterDraw = FALSE;
 	m_colorKey = D3DCOLOR_PINK;
 	m_bRenderTarget = FALSE;
+	m_bLocked = FALSE;
 	ZeroMemory(&m_imgInfo,sizeof(m_imgInfo));
 }
 
@@ -120,6 +121,10 @@ void CMglTexture::Create( int x, int y, BOOL bRenderTarget )
 	/*m_nBmpSizeX = x;
 	m_nBmpSizeY = y;*/
 
+	//	2008/06/28  m_imgInfoも設定してあ・げ・る。
+	m_imgInfo.Width = x;
+	m_imgInfo.Height = y;
+
 	/*int i;
 	ZeroMemory( m_vertices, sizeof(MYU_VERTEX)*4 );*/
 
@@ -191,6 +196,7 @@ void CMglTexture::Draw( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise )
 void CMglTexture::Draw( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOOL bVertexRevise )
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	//	頂点補正
 	if ( bVertexRevise )
@@ -211,6 +217,7 @@ void CMglTexture::DrawPrimitiveUP( D3DPRIMITIVETYPE primitiveType, UINT nPrimiti
 								  const void *pVertexStreamZeroData, UINT nVertexStreamZeroStride )
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	//	絵画
 	MyuAssert( d3d->DrawPrimitiveUP( primitiveType, nPrimitiveCount, pVertexStreamZeroData, nVertexStreamZeroStride ), D3D_OK,
@@ -258,6 +265,7 @@ void CMglTexture::TextureDraw(
 	VERTEX_COLORS* vertexColors, DWORD dwAlphaOption )
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	//	srcRectを考慮したBMPサイズ
 	//int nBmpSrcX = m_nBmpSizeX;

@@ -352,10 +352,6 @@ SOURCE=.\src\common\MyuFunctions.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\common\MyuReleaseBase.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\common\MyuReleaseBase.h
 # End Source File
 # Begin Source File

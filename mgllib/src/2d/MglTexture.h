@@ -82,6 +82,8 @@ protected:
 	D3DCOLOR m_colorKey;			//	カラーキー
 	BOOL m_bRenderTarget;			//	bRenderTarget
 
+	BOOL m_bLocked;					//	ロック - 2008/06/28
+
 	//CMglBitmapData *m_pBitmapData;
 
 	//	頂点情報
@@ -97,9 +99,10 @@ protected:
 			Init( GetDefaultGd() );
 	}
 	void CreateCheck() {
+		InitCheck();	//	2008/06/28 これもやらないと駄目でない・・・？
 		//if ( createFlg == FALSE ){
 		if ( m_pTexture == NULL )
-			MyuThrow( 0, "CMglTexture 未作成であるにも関わらず操作を行おうとしました。" );
+			MyuThrow( 0, "CMglTexture 未作成であるにも関わらず操作を行おうとしました。Create()系メソッドを呼んでください。" );
 	}
 
 	//	古い描画方式用
@@ -116,6 +119,13 @@ protected:
 		dest->rightTop = color;
 		dest->rightBottom = color;
 		*/
+	}
+
+	void LockedCheck(){
+		if ( m_bLocked == TRUE )
+			MyuThrow(0, "CMglTexture ロックされています。ロックを開放してください。\r\n\r\n"
+				"考えられる可能性 :\r\n"
+				"  CMglInternalBitmapData::Release() の呼び出し漏れ。");
 	}
 
 private:
@@ -198,6 +208,9 @@ public:
 	void EnableCenterDraw() {	m_bCenterDraw = TRUE; }
 	void DisableCenterDraw() {	m_bCenterDraw = FALSE; }
 	*/
+
+	void Lock(){ m_bLocked = TRUE; }
+	void Unlock(){ m_bLocked = FALSE; }
 };
 
 

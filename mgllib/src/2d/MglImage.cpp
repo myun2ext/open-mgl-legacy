@@ -31,6 +31,9 @@ void CMglImage::Draw(
 	float x, float y, CONST RECT *srcRect, D3DCOLOR color,
 	float fScaleX, float fScaleY, float fRotationCenterX, float fRotationCenterY, float fAngle )
 {
+	CreateCheck();
+	LockedCheck();
+
 	if ( m_bCenterDraw ){
 		/*x -= CMglTexture::GetBmpWidth()/2;
 		y -= CMglTexture::GetBmpHeight()/2;*/
@@ -49,6 +52,7 @@ void CMglImage::Draw(
 void CMglImage::CopyRectToOther( CMglImage* destSurface, RECT *srcRect, int x, int y )
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	//if ( m_pSurface == NULL )
 	//	MyuThrow( 0, "CMglImage::CopyRectToOther()  m_pSurfaceが取得されていません。");
@@ -129,6 +133,7 @@ void CMglImage::CopyRect( int x, int y, RECT *srcRect )
 void CMglImage::SetRender()
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	MyuAssert( d3d->SetRenderTarget( m_pSurface, NULL ), D3D_OK, //m_myudg->lpZbuffer
 		"CMglImage::SetRender()  SetRenderTarget()に失敗" );
@@ -148,6 +153,7 @@ void CMglImage::SetRender()
 void CMglImage::Clear( D3DCOLOR color )
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	if ( m_bRenderTarget == TRUE )
 	{
@@ -180,6 +186,7 @@ void CMglImage::Clear( D3DCOLOR color )
 void CMglImage::Paint( RECT* rect, D3DCOLOR color )
 {
 	CreateCheck();	//	Createチェック
+	LockedCheck();
 
 	if ( m_bRenderTarget == TRUE )
 	{
