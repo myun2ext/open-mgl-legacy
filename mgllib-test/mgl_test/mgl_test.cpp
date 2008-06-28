@@ -5,8 +5,6 @@
 
 CMglEzGameFrame g_frame;
 BOOL WINAPI MainThread(CMglEzGameFrame *pFrame);
-//BOOL MainThread(void *pFrame);
-//DWORD WINAPI MainThread( LPVOID lpThreadParameter );
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -22,17 +20,21 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 //	メインスレッド
 BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
-//DWORD WINAPI MainThread( LPVOID vpFrame )
 {
-	//CMglEzGameFrame *pFrame = (CMglEzGameFrame*)vpFrame;
+	CMglImage img;
+	img.Create();
+	//CMglBitmapData *pBitmap = img.GetIternalBitmapData();
+	CMglBitmapData inBitmap(&img);
+	inBitmap.Set(20,29,D3DCOLOR_WHITE);
+	//inBitmap.Get(20,29);
+	//inBitmap.Fill(D3DCOLOR_WHITE);
+	inBitmap.Release();
 
-	//CMglImage img;
-	//img.Create();
 	for(;;){
-		//img.Draw();
+		img.Draw();
 
-		/*if ( !pFrame->DoFpsWait() )
-			return TRUE;*/
+		if ( !pFrame->DoFpsWait() )
+			return TRUE;
 	}
 	return TRUE;
 }

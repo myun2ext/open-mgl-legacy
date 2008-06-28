@@ -117,7 +117,19 @@ SOURCE=.\StdAfx.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\include\mgl_header\MglBitmapData.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MglEzGameFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglImage.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglTexture.h
 # End Source File
 # End Group
 # End Target
