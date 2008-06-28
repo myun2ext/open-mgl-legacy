@@ -9,15 +9,7 @@
 #include "MglBitmapData.h"
 #include "MglTexture.h"
 
-//	コンストラクタ
-CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect, DWORD dwFlags)
-{
-	m_pMglTex = pMglTex;
-	m_pMglTex->Lock();
-	_Init(pMglTex->GetSurfacePtr(), pMglTex->GetBmpHeight(), pTargetRect, dwFlags);
-}
-
-void CMglBitmapData::_Init(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
+/*void CMglBitmapData::_Init(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
 {
 	//D3DLOCKED_RECT* pLockedRect = NULL;
 	D3DLOCKED_RECT lockedRectInfo;
@@ -26,14 +18,62 @@ void CMglBitmapData::_Init(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST R
 
 	m_pSurface = pSurface;
 	_Init(lockedRectInfo, nHeight);
+}*/
+
+//	コンストラクタ1
+CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
+{
+	/*_Init();
+	m_pSurface = pSurface;
+	m_nHeight = nHeight;
+	m_pTargetRect = pTargetRect;
+	m_dwFlags = dwFlags;*/
+	_Init(NULL,pSurface,nHeight,pTargetRect,dwFlags);
+}
+
+//	コンストラクタ2
+CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect, DWORD dwFlags)
+{
+	/*_Init();
+	m_pMglTex = pMglTex;
+	m_pTargetRect = pTargetRect;
+	m_dwFlags = dwFlags;
+	m_nHeight = */
+	_Init(pMglTex, pMglTex->GetSurfacePtr(), pMglTex->GetBmpHeight(), pTargetRect, dwFlags);
 }
 
 void CMglBitmapData::Release()
 {
-	//	TODO
+	//	こんな単純でいいんだっけか（ほかにも何かあったような肝・・・
+	Unlock();
+}
+
+//	2008/06/28
+void CMglBitmapData::Lock(DWORD dwMode)
+{
+	if ( m_bLocked == TRUE )
+		return;
+
+	D3DLOCKED_RECT lockedRectInfo;
+	MyuAssert( m_pSurface->LockRect(&lockedRectInfo, m_pTargetRect, 0), D3D_OK,
+		"CMglBitmapData::CMglBitmapData()  pSurface->LockRect()に失敗" );
+	if ( m_pMglTex != NULL )
+		m_pMglTex->Lock();
+	SetupLockedRect(lockedRectInfo);
+
+	m_bLocked = TRUE;
+}
+
+//	2008/06/28
+void CMglBitmapData::Unlock()
+{
+	if ( m_bLocked == FALSE )
+		return;
+
 	MyuAssert( m_pSurface->UnlockRect(), D3D_OK,
 		"CMglBitmapData::CMglBitmapData()  pSurface->UnlockRect()に失敗" );
 	if ( m_pMglTex != NULL )
 		m_pMglTex->Unlock();
-}
 
+	m_bLocked = FALSE;
+}

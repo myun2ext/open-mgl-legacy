@@ -209,6 +209,7 @@ public:
 	void DisableCenterDraw() {	m_bCenterDraw = FALSE; }
 	*/
 
+
 	void Lock(){ m_bLocked = TRUE; }
 	void Unlock(){ m_bLocked = FALSE; }
 };
