@@ -4,7 +4,9 @@
 #include "stdafx.h"
 
 CMglEzGameFrame g_frame;
-BOOL MainThread(CMglEzGameFrame *pFrame);
+BOOL WINAPI MainThread(CMglEzGameFrame *pFrame);
+//BOOL MainThread(void *pFrame);
+//DWORD WINAPI MainThread( LPVOID lpThreadParameter );
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -19,13 +21,18 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 }
 
 //	メインスレッド
-BOOL MainThread( CMglEzGameFrame *pFrame )
+BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
+//DWORD WINAPI MainThread( LPVOID vpFrame )
 {
+	//CMglEzGameFrame *pFrame = (CMglEzGameFrame*)vpFrame;
+
+	//CMglImage img;
+	//img.Create();
 	for(;;){
+		//img.Draw();
 
-
-		if ( !pFrame->DoFpsWait() )
-			return TRUE;
+		/*if ( !pFrame->DoFpsWait() )
+			return TRUE;*/
 	}
 	return TRUE;
 }
