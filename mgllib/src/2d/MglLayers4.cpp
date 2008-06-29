@@ -114,7 +114,6 @@ void CMglLayers4::Rendering()
 {
 	InitCheck();
 
-
 	//	2008/02/17  表示の順番逆だと思う・・・（後ろ＝一番深いものから描画していくべき）
 	//	ループ
 	for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
@@ -128,18 +127,8 @@ void CMglLayers4::Rendering()
 
 		if ( t.bShow == TRUE )
 		{
-			//pSfc->XDraw();
-			//pSfc->Draw( pInfo->rect.left, pInfo->rect.top, NULL, pInfo->color );
-
-			RECT* pRect = &t.rect;
-			if ( pRect->left == 0 && pRect->right == 0 && pRect->top == 0 && pRect->bottom == 0 )
-				pRect = NULL;
-
-//	MessageBox(NULL,"aa",NULL,NULL);
-
-			//	描画
-			pLayer->Draw(t.x, t.y, pRect, t.color,
-				t.fScaleX, t.fScaleY, t.fRotationCenterX, t.fRotationCenterY, t.fAngle );
+			//	2008/06/29  他んところでも使うので関数化
+			LayerSingleDraw(t);
 
 			pLayer->SendMessage(MGL_LAYER_CMSGCODE_ON_FRAME);
 
@@ -156,6 +145,23 @@ void CMglLayers4::Rendering()
 	}
 
 	m_myudg->UpdateScreen();
+}
+
+//	レイヤー単体の描画
+void CMglLayers4::LayerSingleDraw(LAYERINFO& t)
+{
+	layer_t* pLayer = t.pLayer;
+
+	//pSfc->XDraw();
+	//pSfc->Draw( pInfo->rect.left, pInfo->rect.top, NULL, pInfo->color );
+
+	RECT* pRect = &t.rect;
+	if ( pRect->left == 0 && pRect->right == 0 && pRect->top == 0 && pRect->bottom == 0 )
+		pRect = NULL;
+
+	//	描画
+	pLayer->Draw(t.x, t.y, pRect, t.color,
+		t.fScaleX, t.fScaleY, t.fRotationCenterX, t.fRotationCenterY, t.fAngle );
 }
 
 //	削除する
@@ -250,5 +256,44 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest2(int x, int y)
 				return it.base();
 		}
 	}
+	return m_list.end();
+}
+
+//	HitTest - 2008/06/29
+//	 : 指定された位置の一番上のレイヤーを取得する
+CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
+{
+	if ( m_pHitTestMap == NULL )
+		m_pHitTestMap = new CMglLayers4HitTest(m_myudg);
+
+	//	ループ
+	//for ( LIST_ITR it = m_list.begin(); it != m_list.end(); it++ )
+	for( LIST_RITR it = m_list.rbegin(); it != m_list.rend(); it++ )
+	{
+		LAYERINFO& t = *it;
+		//layer_t* pLayer = t.pLayer;
+
+		if ( t.bShow == TRUE )
+		{
+			CMglImage imgTest;
+			imgTest.Create();
+			imgTest.SetRender();
+
+			LayerSingleDraw(t);
+
+			/*BOOL bCheck=FALSE;
+			D3DCOLOR color = imgTest.GetIternalBitmapData()->GetNE(x,y, &bCheck);
+			if ( bCheck == FALSE )*/
+			if ( D3DCOLOR_GETA(imgTest.GetIternalBitmapData()->Get(x,y)) != 0 ){
+				//	レンダリング先を元に戻す
+				m_myudg->SetRenderBackBuffer();
+
+				return it.base();
+			}
+		}
+	}
+
+	//	レンダリング先を元に戻す
+	m_myudg->SetRenderBackBuffer();
 	return m_list.end();
 }

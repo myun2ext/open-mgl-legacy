@@ -95,18 +95,22 @@ D3DCOLOR CMglBitmapData::Get(int x,int y)
 	return work;
 }
 
-/*D3DCOLOR GetChecked(int x,int y, D3DCOLOR *color){
+D3DCOLOR CMglBitmapData::GetNE(int x,int y, BOOL *pbSuccess)
+{
 	Lock(D3DLOCK_READONLY);
 
 	D3DCOLOR *p = GetPtr(x,y);
-	if ( p == NULL )
-		MyuThrow( MSGMSLNO_BITMAP_DATA_INVALID_POS,
-			"CMglInternalBitmapData::Get(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
+	if ( p == NULL ){
+		*pbSuccess = FALSE;
+		return 0;
+	}
 
 	D3DCOLOR work = *p;
 	Unlock();
+	
+	*pbSuccess = TRUE;
 	return work;
-}*/
+}
 
 void CMglBitmapData::Set(int x, int y, D3DCOLOR color)
 {

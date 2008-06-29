@@ -84,7 +84,7 @@ protected:
 
 	BOOL m_bLocked;					//	ロック - 2008/06/28
 
-	//CMglBitmapData *m_pBitmapData;
+	CMglBitmapData *m_pBitmapData;
 
 	//	頂点情報
 	//MYU_VERTEX m_vertices[4];		//	頂点 -> 別にメンバ変数で持つ必要ナクネ

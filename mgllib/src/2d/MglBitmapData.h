@@ -108,7 +108,7 @@ public:
 		return &p[x];
 	}
 	D3DCOLOR Get(int x,int y);
-	/*D3DCOLOR GetChecked(int x,int y, D3DCOLOR *color);*/
+	D3DCOLOR GetNE(int x,int y, BOOL *pbSuccess);
 	void Set(int x, int y, D3DCOLOR color);
 
 	void Fill(D3DCOLOR color);

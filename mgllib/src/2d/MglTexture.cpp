@@ -21,6 +21,7 @@ CMglTexture::CMglTexture()
 	m_colorKey = D3DCOLOR_PINK;
 	m_bRenderTarget = FALSE;
 	m_bLocked = FALSE;
+	m_pBitmapData = NULL;
 	ZeroMemory(&m_imgInfo,sizeof(m_imgInfo));
 }
 
@@ -35,6 +36,7 @@ void CMglTexture::Init( CMglGraphicManager* in_myudg )
 //	ŠJ•ú
 void CMglTexture::Release()
 {
+	SAFE_DELETE( m_pBitmapData );
 	SAFE_RELEASE( m_pTexture );
 	SAFE_RELEASE( m_pSurface );
 }
@@ -362,8 +364,9 @@ void CMglTexture::TextureDraw(
 
 CMglBitmapData* CMglTexture::GetIternalBitmapData()
 {
-	CMglBitmapData *pBmpData = new CMglBitmapData(this);
-	return pBmpData;
+	if ( m_pBitmapData == NULL )
+		m_pBitmapData = new CMglBitmapData(this);
+	return m_pBitmapData;
 }
 
 /*

@@ -18,31 +18,7 @@
 /*#define iLayerInfos(V1)		p_layerInfos->find( p_indexs->find(V1)->second )->second
 #define iBuffers(V1)		m_buffers.Get( p_indexs->find(V1)->second.c_str() )*/
 
-class DLL_EXP CMglLayers4HitTest
-{
-private:
-	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
-	D3DCOLOR* m_pHistTestMap;
-public:
-	CMglLayers4HitTest(CMglGraphicManager* in_myudg=g_pDefaultGd){Init(in_myudg);}
-	virtual ~CMglLayers4HitTest(){Release();}
-
-	void Init(CMglGraphicManager* in_myudg=g_pDefaultGd){
-		//m_pHistTestMap = NULL;
-		m_myudg = in_myudg;
-
-		m_pHistTestMap = new D3DCOLOR[ m_myudg->GetWidth() * m_myudg->GetHeight() ];
-	}
-	void Release(){
-		SAFE_DELETE_ARY(m_myudg);
-	}
-	void Set(int x, int y, D3DCOLOR color){
-		m_pHistTestMap[x,y] = color;
-	}
-	D3DCOLOR Get(int x, int y){
-		return m_pHistTestMap[x,y];
-	}
-};
+class CMglLayers4HitTest;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglLayers4
@@ -111,6 +87,8 @@ private:
 	LAYERINFO& ExistChk(LIST_ITR it){
 		return m_list[it];
 	}
+
+	void LayerSingleDraw(LAYERINFO& t);
 
 public:
 	//	コンストラクタ/デストラクタ
@@ -319,6 +297,7 @@ public:
 	//	HitTest
 	LIST_ITR HitTest(int x, int y);
 	LIST_ITR HitTest2(int x, int y);
+	LIST_ITR HitTest3(int x, int y);
 
 	/////////////////////////////////////////////////////////////////////////////////
 
@@ -346,5 +325,34 @@ public:
 	*/
 };
 
+
+////////////////////////////////////////////////////////////////////////////
+
+
+class DLL_EXP CMglLayers4HitTest
+{
+private:
+	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
+	D3DCOLOR* m_pHistTestMap;
+public:
+	CMglLayers4HitTest(CMglGraphicManager* in_myudg=g_pDefaultGd){Init(in_myudg);}
+	virtual ~CMglLayers4HitTest(){Release();}
+
+	void Init(CMglGraphicManager* in_myudg=g_pDefaultGd){
+		//m_pHistTestMap = NULL;
+		m_myudg = in_myudg;
+
+		m_pHistTestMap = new D3DCOLOR[ m_myudg->GetWidth() * m_myudg->GetHeight() ];
+	}
+	void Release(){
+		SAFE_DELETE_ARY(m_myudg);
+	}
+	void Set(int x, int y, D3DCOLOR color){
+		m_pHistTestMap[x,y] = color;
+	}
+	D3DCOLOR Get(int x, int y){
+		return m_pHistTestMap[x,y];
+	}
+};
 
 #endif//__MglLayers4_H__
