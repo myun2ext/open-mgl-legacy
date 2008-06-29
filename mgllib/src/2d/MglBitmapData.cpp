@@ -123,7 +123,7 @@ void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
 		nEndY = m_nHeight;
 
 	//size_t nFillSize = (nStartX) * sizeof(D3DCOLOR);
-	size_t nFillSize = nEndX - nStartX + 1;
+	int nFillSize = nEndX - nStartX + 1;
 	if ( nFillSize <= 0 )
 		return;
 
