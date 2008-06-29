@@ -80,6 +80,51 @@ void CMglBitmapData::Unlock()
 	m_bLocked = FALSE;
 }
 
+D3DCOLOR CMglBitmapData::Get(int x,int y)
+{
+	//Lock(D3DLOCK_READONLY);
+	CMglBitmapDataLocker locker(*this);
+
+	D3DCOLOR *p = GetPtr(x,y);
+	if ( p == NULL )
+		MyuThrow( MSGMSLNO_BITMAP_DATA_INVALID_POS,
+			"CMglInternalBitmapData::Get(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
+
+	D3DCOLOR work = *p;
+	//Unlock();
+	return work;
+}
+
+/*D3DCOLOR GetChecked(int x,int y, D3DCOLOR *color){
+	Lock(D3DLOCK_READONLY);
+
+	D3DCOLOR *p = GetPtr(x,y);
+	if ( p == NULL )
+		MyuThrow( MSGMSLNO_BITMAP_DATA_INVALID_POS,
+			"CMglInternalBitmapData::Get(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
+
+	D3DCOLOR work = *p;
+	Unlock();
+	return work;
+}*/
+
+void CMglBitmapData::Set(int x, int y, D3DCOLOR color)
+{
+	//Lock();
+	CMglBitmapDataLocker locker(*this);
+
+	D3DCOLOR *p = GetPtr(x,y);
+	/*if ( p == NULL )
+		MyuThrow( 0, "CMglInternalBitmapData::Set(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
+	*p = color;*/
+	if ( p != NULL )
+		*p = color;
+
+	//Unlock();
+}
+
+////////////////////////////////////////////////////////////////////////
+
 //	ìhÇËÇ¬Ç‘Çµ
 void CMglBitmapData::Fill(D3DCOLOR color){
 	Fill(color,Rect(0,0,m_nWidth,m_nHeight));

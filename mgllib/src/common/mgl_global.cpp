@@ -28,7 +28,7 @@ HWND GetDefaultHwnd()
 {
 	if ( g_hWndDefault == NULL )
 	{
-		MyuThrow2( 0, 0x0C02, "g_hWndDefault ‚ª–¢İ’è‚Å‚·B" );
+		MyuThrow2( 0, MSGMSLNO_GLOBAL_HWND_DEFAULT, "g_hWndDefault ‚ª–¢İ’è‚Å‚·B" );
 	}
 	return g_hWndDefault;
 }

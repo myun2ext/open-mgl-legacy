@@ -78,7 +78,8 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
                                                   0, FVF_MYU_VERTEX,
                                                   D3DPOOL_DEFAULT, &pVertexBuffer ) ) )
     {
-        MyuThrow( 0x0207, "CMglDrawLine::Draw()  m_d3d->CreateVertexBuffer()‚ÉŽ¸”s" );
+        MyuThrow( MSGMSLNO_DRAW_LINE_DRAW_FAILED,
+			"CMglDrawLine::Draw()  m_d3d->CreateVertexBuffer()‚ÉŽ¸”s" );
     }
 
     // Now we fill the vertex buffer. To do this, we need to Lock() the VB to
@@ -86,10 +87,12 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
     // buffers may be in device memory.
     BYTE* pVertices = NULL;
     if( FAILED( pVertexBuffer->Lock( 0, MGL_VERTEXES_SIZE, &pVertices, 0 ) ) )
-        MyuThrow( 0x0207, "CMglDrawLine::Draw()  pVertexBuffer->Lock()‚ÉŽ¸”s" );
+        MyuThrow( MSGMSLNO_DRAW_LINE_DRAW_FAILED,
+			"CMglDrawLine::Draw()  pVertexBuffer->Lock()‚ÉŽ¸”s" );
 
 	if ( pVertices == NULL )
-        MyuThrow( 0x0207, "CMglDrawLine::Draw()  pVertices is NULL." );
+        MyuThrow( MSGMSLNO_DRAW_LINE_DRAW_FAILED,
+			"CMglDrawLine::Draw()  pVertices is NULL." );
 
     memcpy( pVertices, vertices, MGL_VERTEXES_SIZE );
     pVertexBuffer->Unlock();

@@ -107,29 +107,9 @@ public:
 			return NULL;
 		return &p[x];
 	}
-	D3DCOLOR Get(int x,int y){
-		Lock(D3DLOCK_READONLY);
-
-		D3DCOLOR *p = GetPtr(x,y);
-		if ( p == NULL )
-			MyuThrow( 0, "CMglInternalBitmapData::Get(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
-
-		D3DCOLOR work = *p;
-		Unlock();
-		return work;
-	}
-	void Set(int x, int y, D3DCOLOR color){
-		Lock();
-
-		D3DCOLOR *p = GetPtr(x,y);
-		/*if ( p == NULL )
-			MyuThrow( 0, "CMglInternalBitmapData::Set(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
-		*p = color;*/
-		if ( p != NULL )
-			*p = color;
-
-		Unlock();
-	}
+	D3DCOLOR Get(int x,int y);
+	/*D3DCOLOR GetChecked(int x,int y, D3DCOLOR *color);*/
+	void Set(int x, int y, D3DCOLOR color);
 
 	void Fill(D3DCOLOR color);
 	void Fill(D3DCOLOR color, RECT rect);
