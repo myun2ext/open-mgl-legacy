@@ -42,6 +42,7 @@ void CMglDirectInputDeviceBase::Init( REFGUID rguid, LPCDIDATAFORMAT dataFormat,
 	//	ステートバッファ確保
 	m_pStateBuf = new BYTE[nStateBufSize];
 	m_nStateBufSize = nStateBufSize;
+	ZeroMemory(m_pStateBuf,nStateBufSize);	//	2008/06/29  初期化してなかったんですけど！！
 
 	Acquire();
 

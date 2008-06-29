@@ -60,7 +60,12 @@ public:
 	void StateUpdateLock();
 	*/
 
-	void KeyboardUpdate(){ CMglKeyboardInput::Update(); }
+	//void KeyboardUpdate(){ CMglKeyboardInput::Update(); }
+	void UpdateBuffer(){ Update(); }
+	void Update(){
+		CMglKeyboardInput::Update();
+		mouse.UpdateStateBuf();
+	}
 
 	//	ƒŠƒtƒ@ƒŒƒ“ƒX‚ÌŽæ“¾
 	int GetJoyCount(){ return m_joyAry.size(); }

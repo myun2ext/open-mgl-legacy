@@ -136,7 +136,8 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////////
 
-	int GetWidth(){ return m_nPitch; }
+	//int GetWidth(){ return m_nPitch; }
+	int GetWidth(){ return m_nWidth; }
 	int GetHeight(){ return m_nHeight; }
 };
 

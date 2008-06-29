@@ -82,10 +82,10 @@ void CMglBitmapData::Unlock()
 
 //	“h‚è‚Â‚Ô‚µ
 void CMglBitmapData::Fill(D3DCOLOR color){
-	Fill(color,Rect(0,0,GetWidth(),GetHeight()));
+	Fill(color,Rect(0,0,m_nWidth,m_nHeight));
 	/*Lock();
-	for(int i=0; i<GetHeight(); i++)
-		memset(GetLine(i), color, GetWidth());
+	for(int i=0; i<m_nHeight; i++)
+		memset(GetLine(i), color, m_nWidth);
 	Unlock();*/
 }
 
@@ -93,18 +93,19 @@ void CMglBitmapData::Fill(D3DCOLOR color){
 void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
 	Lock();
 
-	if ( rect.left <= GetWidth()  && rect.top <= GetHeight() )
+	if ( rect.left < m_nWidth	&& rect.top < m_nHeight &&
+		 rect.left >= 0			&& rect.top >= 0 )
 	{
 		int nEndX = rect.right;
-		if ( nEndX > GetWidth() )
-			nEndX = GetWidth();
+		if ( nEndX > m_nWidth )
+			nEndX = m_nWidth;
 
 		int nEndY = rect.bottom;
-		if ( nEndY > GetHeight() )
-			nEndY = GetHeight();
+		if ( nEndY > m_nHeight )
+			nEndY = m_nHeight;
 
 		for(int i=rect.top; i<nEndY; i++)
-			memset(GetLine(i)+rect.left, color, nEndX);
+			memset(GetLine(i)+rect.left, color, nEndX); <- ‚¤‚»‚Á‚Ò[I
 	}
 
 	Unlock();
