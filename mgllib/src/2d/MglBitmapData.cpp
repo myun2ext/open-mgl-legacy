@@ -89,6 +89,16 @@ void CMglBitmapData::Fill(D3DCOLOR color){
 	Unlock();*/
 }
 
+#define MEMSET4_TYPE	unsigned long
+
+void *memset4(MEMSET4_TYPE *s, MEMSET4_TYPE ul, size_t n){
+	MEMSET4_TYPE *p = s;
+	//for(; p-s != n*sizeof(MEMSET4_TYPE); p++)
+	for(; p-s != n; p++)
+		*p = ul;
+	return s;
+}
+
 //	塗りつぶし
 void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
 	Lock();
@@ -104,8 +114,13 @@ void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
 		if ( nEndY > m_nHeight )
 			nEndY = m_nHeight;
 
+		//size_t nFillSize = (nEndX-rect.left) * sizeof(D3DCOLOR);
+		size_t nFillSize = nEndX-rect.left;
+
 		for(int i=rect.top; i<nEndY; i++)
-			memset(GetLine(i)+rect.left, color, nEndX); <- うそっぴー！
+			memset4(GetLine(i)+rect.left, color, nFillSize);
+			//memset(GetLine(i)+rect.left, color, nFillSize);
+			//memset(GetLine(i)+rect.left, color, nEndX); <- うそっぴー！
 	}
 
 	Unlock();
