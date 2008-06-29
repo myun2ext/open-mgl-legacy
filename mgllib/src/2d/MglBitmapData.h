@@ -152,4 +152,15 @@ public:
 		: CMglBitmapData(pSurface,nWidth,nHeight,pTargetRect,dwFlags){}
 };
 
+/////////////////////////////////////////////////////
+
+class DLL_EXP CMglBitmapDataLocker
+{
+protected:
+	CMglBitmapData &m_target;
+public:
+	CMglBitmapDataLocker(CMglBitmapData &target) : m_target(target) { m_target.Lock(); }
+	virtual ~CMglBitmapDataLocker(){ m_target.Unlock(); }
+};
+
 #endif//__MglBitmapData_H__

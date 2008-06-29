@@ -101,11 +101,53 @@ void *memset4(MEMSET4_TYPE *s, MEMSET4_TYPE ul, size_t n){
 
 //	塗りつぶし
 void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
+	CMglBitmapDataLocker locker(*this);
+
+	if ( rect.left >= m_nWidth || rect.top >= m_nHeight )
+		return;
+
+	int nStartX = rect.left;
+	if ( nStartX < 0 )
+		nStartX = 0;
+
+	int nStartY = rect.top;
+	if ( nStartY < 0 )
+		nStartY = 0;
+
+	int nEndX = rect.right;
+	if ( nEndX > m_nWidth )
+		nEndX = m_nWidth;
+
+	int nEndY = rect.bottom;
+	if ( nEndY > m_nHeight )
+		nEndY = m_nHeight;
+
+	//size_t nFillSize = (nStartX) * sizeof(D3DCOLOR);
+	size_t nFillSize = nEndX - nStartX + 1;
+	if ( nFillSize <= 0 )
+		return;
+
+	for(int i=nStartY; i<nEndY; i++)
+		memset4(GetLine(i)+nStartX, color, nFillSize);
+		//memset(GetLine(i)+rect.left, color, nFillSize);
+		//memset(GetLine(i)+rect.left, color, nEndX); <- うそっぴー！
+}
+
+/*
+//	塗りつぶし
+void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
 	Lock();
 
-	if ( rect.left < m_nWidth	&& rect.top < m_nHeight &&
-		 rect.left >= 0			&& rect.top >= 0 )
+	if ( rect.left < m_nWidth	&& rect.top < m_nHeight )
 	{
+		int nStartX = rect.left;
+		if ( nStartX < 0 )
+			nStartX = 0;
+
+		int nStartY = rect.top;
+		if ( nStartY < 0 )
+			nStartY = 0;
+
 		int nEndX = rect.right;
 		if ( nEndX > m_nWidth )
 			nEndX = m_nWidth;
@@ -114,15 +156,17 @@ void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
 		if ( nEndY > m_nHeight )
 			nEndY = m_nHeight;
 
-		//size_t nFillSize = (nEndX-rect.left) * sizeof(D3DCOLOR);
-		size_t nFillSize = nEndX-rect.left;
-
-		for(int i=rect.top; i<nEndY; i++)
-			memset4(GetLine(i)+rect.left, color, nFillSize);
-			//memset(GetLine(i)+rect.left, color, nFillSize);
-			//memset(GetLine(i)+rect.left, color, nEndX); <- うそっぴー！
+		//size_t nFillSize = (nStartX) * sizeof(D3DCOLOR);
+		size_t nFillSize = nEndX - nStartX + 1;
+		if ( nFillSize > 0 )
+		{
+			for(int i=nStartY; i<=nEndY; i++)
+				memset4(GetLine(i)+nStartX, color, nFillSize);
+				//memset(GetLine(i)+rect.left, color, nFillSize);
+				//memset(GetLine(i)+rect.left, color, nEndX); <- うそっぴー！
+		}
 	}
 
 	Unlock();
 }
-
+*/
