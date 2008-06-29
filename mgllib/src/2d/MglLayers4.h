@@ -339,13 +339,13 @@ public:
 	virtual ~CMglLayers4HitTest(){Release();}
 
 	void Init(CMglGraphicManager* in_myudg=g_pDefaultGd){
-		//m_pHistTestMap = NULL;
 		m_myudg = in_myudg;
 
+		//m_pHistTestMap = NULL;
 		m_pHistTestMap = new D3DCOLOR[ m_myudg->GetWidth() * m_myudg->GetHeight() ];
 	}
 	void Release(){
-		SAFE_DELETE_ARY(m_myudg);
+		SAFE_DELETE_ARY(m_pHistTestMap);
 	}
 	void Set(int x, int y, D3DCOLOR color){
 		m_pHistTestMap[x,y] = color;

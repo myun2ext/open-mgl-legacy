@@ -276,7 +276,7 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 		if ( t.bShow == TRUE )
 		{
 			CMglImage imgTest;
-			imgTest.Create();
+			imgTest.Create(TRUE);
 			imgTest.SetRender();
 
 			LayerSingleDraw(t);
