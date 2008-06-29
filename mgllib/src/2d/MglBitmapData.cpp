@@ -21,14 +21,14 @@
 }*/
 
 //	コンストラクタ1
-CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
+CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nWidth, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
 {
 	/*_Init();
 	m_pSurface = pSurface;
 	m_nHeight = nHeight;
 	m_pTargetRect = pTargetRect;
 	m_dwFlags = dwFlags;*/
-	_Init(NULL,pSurface,nHeight,pTargetRect,dwFlags);
+	_Init(NULL,pSurface,nWidth,nHeight,pTargetRect,dwFlags);
 }
 
 //	コンストラクタ2
@@ -39,7 +39,9 @@ CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect, DW
 	m_pTargetRect = pTargetRect;
 	m_dwFlags = dwFlags;
 	m_nHeight = */
-	_Init(pMglTex, pMglTex->GetSurfacePtr(), pMglTex->GetBmpHeight(), pTargetRect, dwFlags);
+	_Init(pMglTex, pMglTex->GetSurfacePtr(),
+		pMglTex->GetBmpWidth(), pMglTex->GetBmpHeight(),
+		pTargetRect, dwFlags);
 }
 
 void CMglBitmapData::Release()

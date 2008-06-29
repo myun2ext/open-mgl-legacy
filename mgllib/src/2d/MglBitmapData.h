@@ -5,6 +5,12 @@
 #ifndef __MglBitmapData_H__
 #define __MglBitmapData_H__
 
+/*
+　参考資料：http://msdn.microsoft.com/ja-jp/library/cc373032.aspx
+
+  ピッチはメモリ上の幅。実際の横幅とは異なるよ！
+*/
+
 class CMglTexture;
 
 //	クラス宣言
@@ -17,10 +23,11 @@ protected:
 	CMglTexture* m_pMglTex;
 	DWORD m_dwFlags;
 	BOOL m_bLocked;
-	int m_nHeight;
+	int m_nWidth;	//	実際のBMPデータの横幅
+	int m_nHeight;	//	実際のBMPデータの縦幅
 
-	BYTE* m_pBits;
-	int m_nPitch;
+	BYTE* m_pBits;	//	privateビット
+	int m_nPitch;	//	ピッチ（メモリ上の幅。高さが1増えた際のインクリメント値）
 
 	/*void _Init(D3DLOCKED_RECT lockedRect, int nHeight){
 		//m_lockedRect = lockedRect;
@@ -43,11 +50,15 @@ protected:
 		m_dwFlags = 0;
 		m_bLocked = FALSE;
 	}*/
-	void _Init(CMglTexture* pMglTex, _MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags){
+	void _Init(CMglTexture* pMglTex, _MGL_IDirect3DSurface *pSurface,
+			int nWidth, int nHeight,
+			CONST RECT* pTargetRect, DWORD dwFlags)
+	{
 		m_pBits = NULL;
 		m_nPitch = -1;
 		m_pSurface = pSurface;
 		m_pTargetRect = pTargetRect;
+		m_nWidth = nWidth;
 		m_nHeight = nHeight;
 		m_pMglTex = pMglTex;
 		m_dwFlags = dwFlags;
@@ -57,7 +68,7 @@ protected:
 public:
 	//	コンストラクタ・デストラクタ
 	CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
-	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
+	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nWidth, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
 	/*
 	//	コンストラクタ・デストラクタ
 	CMglBitmapData(D3DLOCKED_RECT lockedRect, int nHeight){
@@ -80,7 +91,7 @@ public:
 
 	D3DCOLOR* GetHorizontalLine(int y){
 		Lock();
-		if ( y >= m_nHeight )
+		if ( y >= m_nHeight || y < 0 )
 			//MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine() y=%d は縦 %d の範囲を超えています。",y,m_nHeight);
 			return NULL;
 		return (D3DCOLOR*)(m_pBits + m_nPitch*y);
@@ -91,7 +102,7 @@ public:
 		if ( p == NULL )
 			//MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine(%d) は失敗しました。",y);
 			return NULL;
-		if ( x >= m_nPitch )
+		if ( x >= m_nWidth || x < 0  )
 			//MyuThrow( 0, "CMglInternalBitmapData::GetPtr() x=%d は横の範囲を超えています。",x);
 			return NULL;
 		return &p[x];
@@ -136,10 +147,8 @@ typedef CMglBitmapData CMglInternalBitmapData;
 class DLL_EXP CMglLockedRectIterator : public CMglBitmapData
 {
 public:
-	CMglLockedRectIterator(_MGL_IDirect3DSurface *pSurface, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0)
-		: CMglBitmapData(pSurface,nHeight,pTargetRect,dwFlags){}
-
-
+	CMglLockedRectIterator(_MGL_IDirect3DSurface *pSurface, int nWidth, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0)
+		: CMglBitmapData(pSurface,nWidth,nHeight,pTargetRect,dwFlags){}
 };
 
 #endif//__MglBitmapData_H__
