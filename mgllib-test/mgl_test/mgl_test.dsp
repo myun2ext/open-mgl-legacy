@@ -117,7 +117,159 @@ SOURCE=.\StdAfx.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\MSL\include\auto_fp.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\BaseTsd.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8effect.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8mesh.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dls1.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmdls.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmerror.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmplugin.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmusbuff.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmusicc.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmusici.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dxfile.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\FileUtil.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Guiddef.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\int_string.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\mgl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\mgl2d.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\mgl_global.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\mglafx.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglAnimationLayer.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MglBitmapData.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglBitmapText.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglBitmapTextLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglBlinkLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglClassMsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglDirectInputBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglDirectInputDeviceBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglDrawLine.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglExceptionCode.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglExceptionThrowerBase.h
 # End Source File
 # Begin Source File
 
@@ -125,11 +277,283 @@ SOURCE=..\include\mgl_header\MglEzGameFrame.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\MglFadeLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\mglframe.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglGraphicManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglGraphicUtil.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MglImage.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\MglImageAnimator.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglImageCacher.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglImageFader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglImageLayer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglImageManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglImageTips.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglInput.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglJoyInput.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglJoyManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglKeyboardInput.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglKeyboardInputBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglLayerBase4.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglLayers4.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglMouseInput.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglMouseInputBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\mglmsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglSprite.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglText.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglTextLayer.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MglTexture.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglTimer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglVertex.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msl_ra_list.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msl_stlcommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslcommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslfile2.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslnet.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslrand.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstd.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstr.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstr2.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msltime.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwl_filedlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlcommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlmsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlstd.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlstd_ofn.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuCharbuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuCharCnv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuCommonException.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuDebugLog.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuDynamicArray.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuDynamicDll.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuEzWindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuFgets.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuFPS.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuIniReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuIniWriter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuIntervalTimer.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuProcessManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuReleaseBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuSpecialIniReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MyuStringNameMap.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuThreadManager.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\PropIdl.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Reason.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\StlSerializer.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\StrAlign.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Tvout.h"
 # End Source File
 # End Group
 # End Target
