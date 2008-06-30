@@ -52,15 +52,16 @@ using namespace std;
 
 #include <stdio.h>
 #include <windows.h>*/
-#include "MyuDebugLog.h"
+//#include "MyuDebugLog.h"	//	2008/06/30  mgl_common.h ‚ÉˆÚ“®
 #include "MyuCommonException.h"
 #include "MglExceptionThrowerBase.h"
 #include "MglExceptionCode.h"
 #include "mglmsg.h"
-#include "MglClassMsg.h"
+//#include "MglClassMsg.h"	//	2008/06/30  mgl_common.h ‚ÉˆÚ“®
 #include "MyuReleaseBase.h"
 
-extern CMyuDebugLog g_workLog;
+//	2008/06/30  mgl_common.h ‚ÉˆÚ“®
+//extern CMyuDebugLog g_workLog;
 
 //	timeGetTime()—p
 #pragma comment(lib, "winmm.lib")

@@ -16,6 +16,9 @@ void SetDefaultGraphicManager( CMglGraphicManager* pDg )
 
 /*	MyuFunctions‚ÉŠù‚É‚ ‚éc -> ‚±‚Á‚¿‚ÖˆÚ“®*/
 HWND g_hWndDefault=NULL;
+CMyuSimpleStackTrace g_stackTrace;
+
+/////////////////////////////////////////////////////////
 
 //	g_hWndDefault ‚Ìİ’è
 void MglDefaultInitialize( HWND hWnd )

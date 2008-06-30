@@ -3,7 +3,7 @@
 
 
 #include "mglafx.h"
-#include "mgl_global.h"
+//#include "mgl_global.h"
 #include "mgl2d.h"
 #include "mglinput.h"
 #include "mglframe.h"
