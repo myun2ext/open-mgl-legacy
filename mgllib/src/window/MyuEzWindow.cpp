@@ -34,6 +34,7 @@ int CMyuEzWindow::StartWindow( const char* szAppCaption, const char* szWinClassN
 							  LPVOID threadFuncParam )
 {
 	_MGL_DEBUGLOG("+ CMyuEzWindow::StartWindow()" );
+	CMglStackInstance("CMyuEzWindow::StartWindow");
 
 	HANDLE hMainThread;
 	HWND hWnd;

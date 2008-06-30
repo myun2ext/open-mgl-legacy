@@ -63,6 +63,7 @@ void MyuThrow2( int in_nApiResultCode, int in_nInternalCode, const char* in_szEr
 	_snprintf( szDebugLogStr, sizeof(szDebugLogStr)-1, "%s", tExcep.szErrMsg );
 	_MGL_DEBUGLOG("");
 	_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
+	_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump().c_str() );
 
 	throw tExcep;
 }
@@ -128,6 +129,7 @@ void MyuThrow( int nErrCode, const char* szErrMsg, ... )
 	sprintf( szDebugLogStr, "%s", tExcep.szErrMsg );
 	_MGL_DEBUGLOG("");
 	_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
+	_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump() );
 
 	throw tExcep;
 }
@@ -148,6 +150,7 @@ void MyuAssert( long nResult, long nOK, const char* szErrMsg, ... )
 		sprintf( szDebugLogStr, "%s", tExcep.szErrMsg );
 		_MGL_DEBUGLOG("");
 		_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
+		_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump() );
 
 		throw tExcep;
 	}

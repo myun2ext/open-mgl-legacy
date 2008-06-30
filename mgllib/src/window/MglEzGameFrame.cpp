@@ -69,6 +69,7 @@ int CMglEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 	LPTHREAD_START_ROUTINE mainThreadFuncPtr, void* threadFuncParam, const char *szWindowTitle, BOOL bFullscreen )
 {
 	_MGL_DEBUGLOG("StartWindowEx() start." );
+	CMglStackInstance("CMglEzGameFrame::StartWindowEx");
 
 	if ( ms_nInstanceCount >= 2 )
 	{
@@ -135,6 +136,7 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 		try	//	例外処理受け付け開始
 		{
 			_MGL_DEBUGLOG("+ CMglEzGameFrame::PrivateMainMethod()" );
+			CMglStackInstance("CMglEzGameFrame::PrivateMainMethod");
 
 			_MGL_DEBUGLOG("CoInitialize()..." );
 			CoInitialize(NULL);
@@ -188,7 +190,13 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 		catch( MyuCommonException except )
 		{
 			char work[512];
-			snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );
+			//snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );
+			snprintf( work,sizeof(work),
+				"ErrNo : 0x%08X\r\n%s\r\n"
+				"\r\n"
+				"%s",
+				except.nErrCode, except.szErrMsg,
+				g_stackTrace.Dump() );
 			::MessageBox( NULL, work, NULL, MB_ICONERROR );
 		}
 #ifndef _DEBUG
