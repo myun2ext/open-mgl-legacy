@@ -373,6 +373,10 @@ SOURCE=.\src\common\mgl.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\common\mgl_common.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\common\mgl_global.cpp
 # End Source File
 # Begin Source File

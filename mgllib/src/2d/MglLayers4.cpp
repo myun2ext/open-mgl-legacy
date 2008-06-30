@@ -298,7 +298,7 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 				/*//	レンダリング先を元に戻す
 				m_myudg->SetRenderBackBuffer();*/
 
-				return it.base();
+				return (--it.base());	//	2008/06/30  --してやったら上手くいった…。
 			}
 		}
 	}
