@@ -275,18 +275,26 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 
 		if ( t.bShow == TRUE )
 		{
-			CMglImage imgTest;
-			imgTest.Create(TRUE);
-			imgTest.SetRender();
+			CMglImage imgRender;
+			CMglImage imgCopied;
+			imgRender.Create(TRUE);
+			imgCopied.Create();
 
-			LayerSingleDraw(t);
+			imgRender.SetRender();			//	レンダリング先変更
+			LayerSingleDraw(t);				//	描画
+			m_myudg->SetRenderBackBuffer();	//	レンダリング先元に戻す
 
-			/*BOOL bCheck=FALSE;
+			//	こぴい
+			imgCopied.CopyRectToThis(&imgRender);
+
+			/*	イチイチチェックしてあげんのやめた
+			BOOL bCheck=FALSE;
 			D3DCOLOR color = imgTest.GetIternalBitmapData()->GetNE(x,y, &bCheck);
-			if ( bCheck == FALSE )*/
-			if ( D3DCOLOR_GETA(imgTest.GetIternalBitmapData()->Get(x,y)) != 0 ){
-				//	レンダリング先を元に戻す
-				m_myudg->SetRenderBackBuffer();
+			if ( bCheck == FALSE )
+			*/
+			if ( D3DCOLOR_GETA(imgCopied.GetIternalBitmapData()->Get(x,y)) != 0 ){
+				/*//	レンダリング先を元に戻す
+				m_myudg->SetRenderBackBuffer();*/
 
 				return it.base();
 			}

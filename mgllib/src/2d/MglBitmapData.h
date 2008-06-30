@@ -21,7 +21,7 @@ protected:
 	_MGL_IDirect3DSurface *m_pSurface;
 	CONST RECT* m_pTargetRect;
 	CMglTexture* m_pMglTex;
-	DWORD m_dwFlags;
+	//DWORD m_dwFlags;
 	BOOL m_bLocked;
 	int m_nWidth;	//	実際のBMPデータの横幅
 	int m_nHeight;	//	実際のBMPデータの縦幅
@@ -52,7 +52,7 @@ protected:
 	}*/
 	void _Init(CMglTexture* pMglTex, _MGL_IDirect3DSurface *pSurface,
 			int nWidth, int nHeight,
-			CONST RECT* pTargetRect, DWORD dwFlags)
+			CONST RECT* pTargetRect/*, DWORD dwFlags*/)
 	{
 		m_pBits = NULL;
 		m_nPitch = -1;
@@ -61,14 +61,15 @@ protected:
 		m_nWidth = nWidth;
 		m_nHeight = nHeight;
 		m_pMglTex = pMglTex;
-		m_dwFlags = dwFlags;
+		//m_dwFlags = dwFlags;
 		m_bLocked = FALSE;
 	}
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
-	CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nWidth, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0);
+	CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/);
+	CMglBitmapData(_MGL_IDirect3DSurface *pSurface,
+		int nWidth, int nHeight, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/);
 	/*
 	//	コンストラクタ・デストラクタ
 	CMglBitmapData(D3DLOCKED_RECT lockedRect, int nHeight){
@@ -89,16 +90,16 @@ public:
 
 	/////////////////////////////////////////////////////////////////
 
-	D3DCOLOR* GetHorizontalLine(int y){
-		Lock();
+	D3DCOLOR* GetHorizontalLine(int y, DWORD dwMode=0){
+		Lock(dwMode);
 		if ( y >= m_nHeight || y < 0 )
 			//MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine() y=%d は縦 %d の範囲を超えています。",y,m_nHeight);
 			return NULL;
 		return (D3DCOLOR*)(m_pBits + m_nPitch*y);
 	}
-	D3DCOLOR* GetLine(int y){ return GetHorizontalLine(y); }
-	D3DCOLOR* GetPtr(int x,int y){
-		D3DCOLOR* p = GetHorizontalLine(y);
+	D3DCOLOR* GetLine(int y, DWORD dwMode=0){ return GetHorizontalLine(y, dwMode); }
+	D3DCOLOR* GetPtr(int x,int y, DWORD dwMode=0){
+		D3DCOLOR* p = GetHorizontalLine(y, dwMode);
 		if ( p == NULL )
 			//MyuThrow( 0, "CMglInternalBitmapData::GetHorizontalLine(%d) は失敗しました。",y);
 			return NULL;
@@ -128,8 +129,9 @@ typedef CMglBitmapData CMglInternalBitmapData;
 class DLL_EXP CMglLockedRectIterator : public CMglBitmapData
 {
 public:
-	CMglLockedRectIterator(_MGL_IDirect3DSurface *pSurface, int nWidth, int nHeight, CONST RECT* pTargetRect=NULL, DWORD dwFlags=0)
-		: CMglBitmapData(pSurface,nWidth,nHeight,pTargetRect,dwFlags){}
+	CMglLockedRectIterator(_MGL_IDirect3DSurface *pSurface,
+		int nWidth, int nHeight, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/)
+		: CMglBitmapData(pSurface,nWidth,nHeight,pTargetRect){}
 };
 
 /////////////////////////////////////////////////////
@@ -139,7 +141,7 @@ class DLL_EXP CMglBitmapDataLocker
 protected:
 	CMglBitmapData &m_target;
 public:
-	CMglBitmapDataLocker(CMglBitmapData &target) : m_target(target) { m_target.Lock(); }
+	CMglBitmapDataLocker(CMglBitmapData &target, DWORD dwMode=0) : m_target(target) { m_target.Lock(dwMode); }
 	virtual ~CMglBitmapDataLocker(){ m_target.Unlock(); }
 };
 

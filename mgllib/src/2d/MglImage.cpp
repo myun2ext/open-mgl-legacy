@@ -204,6 +204,7 @@ void CMglImage::Paint( RECT* rect, D3DCOLOR color )
 	}
 	else
 	{
+		/*
 		//	別にクリアされたサーフェスを作成してそこからコピー、と言う面倒な処理(´Д`)
 		CMglImage workSurface;
 		workSurface.Init( m_myudg );
@@ -212,5 +213,9 @@ void CMglImage::Paint( RECT* rect, D3DCOLOR color )
 		workSurface.Paint( rect, color );
 		workSurface.Paint( rect, color );
 		CopyRectToThis( &workSurface );
+		*/
+
+		//	2008/06/29  CMglBitmapData::Fill()実装したんだからFill()使えばよくネ？
+		this->GetIternalBitmapData()->Fill(color,*rect);
 	}
 }

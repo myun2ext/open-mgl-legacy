@@ -21,18 +21,19 @@
 }*/
 
 //	コンストラクタ1
-CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface, int nWidth, int nHeight, CONST RECT* pTargetRect, DWORD dwFlags)
+CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface,
+							   int nWidth, int nHeight, CONST RECT* pTargetRect/*, DWORD dwFlags*/)
 {
 	/*_Init();
 	m_pSurface = pSurface;
 	m_nHeight = nHeight;
 	m_pTargetRect = pTargetRect;
 	m_dwFlags = dwFlags;*/
-	_Init(NULL,pSurface,nWidth,nHeight,pTargetRect,dwFlags);
+	_Init(NULL,pSurface,nWidth,nHeight,pTargetRect);
 }
 
 //	コンストラクタ2
-CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect, DWORD dwFlags)
+CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect/*, DWORD dwFlags*/)
 {
 	/*_Init();
 	m_pMglTex = pMglTex;
@@ -41,26 +42,45 @@ CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect, DW
 	m_nHeight = */
 	_Init(pMglTex, pMglTex->GetSurfacePtr(),
 		pMglTex->GetBmpWidth(), pMglTex->GetBmpHeight(),
-		pTargetRect, dwFlags);
+		pTargetRect);
 }
 
+//	開放
 void CMglBitmapData::Release()
 {
 	//	こんな単純でいいんだっけか（ほかにも何かあったような肝・・・
 	Unlock();
 }
 
-//	2008/06/28
+/////////////////////////////////////////////////////////////
+
+//	ロック
 void CMglBitmapData::Lock(DWORD dwMode)
 {
 	if ( m_bLocked == TRUE )
 		return;
 
+	/////////////////////////////////////////////////////
+
 	D3DLOCKED_RECT lockedRectInfo;
-	MyuAssert( m_pSurface->LockRect(&lockedRectInfo, m_pTargetRect, 0), D3D_OK,
-		"CMglBitmapData::CMglBitmapData()  pSurface->LockRect()に失敗" );
+
+	//	2008/06/29 - レンダリングサーフェースに対応
+	D3DSURFACE_DESC sfcDesc;
+	m_pSurface->GetDesc(&sfcDesc);
+	if ( sfcDesc.Usage == D3DUSAGE_RENDERTARGET )
+	{
+		//	やっぱここではどうしようも無いので使用者側でやってもらう・・・
+		MyuThrow(0, "レンダリングターゲットな CMglImage の BitmapData は取得・変更出来ません。"
+			"他の CMglImage へのコピーを行ってから取得・変更してください。");
+	}
+	else
+	{
+		MyuAssert( m_pSurface->LockRect(&lockedRectInfo, m_pTargetRect, dwMode), D3D_OK,
+			"CMglBitmapData::CMglBitmapData()  pSurface->LockRect()に失敗" );
+	}
 	if ( m_pMglTex != NULL )
 		m_pMglTex->Lock();
+
 	SetupLockedRect(lockedRectInfo);
 
 	m_bLocked = TRUE;
@@ -83,7 +103,7 @@ void CMglBitmapData::Unlock()
 D3DCOLOR CMglBitmapData::Get(int x,int y)
 {
 	//Lock(D3DLOCK_READONLY);
-	CMglBitmapDataLocker locker(*this);
+	CMglBitmapDataLocker locker(*this, D3DLOCK_READONLY);
 
 	D3DCOLOR *p = GetPtr(x,y);
 	if ( p == NULL )
