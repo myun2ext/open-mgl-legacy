@@ -60,12 +60,28 @@ public:
 	}
 	virtual ~CMglImage();
 
+	//	Create
 	void CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CMglTexture::CreateTextureFromFile( szFileName, bRenderTarget, colorKey ); }
 	void Create( BOOL bRenderTarget=RENDER_TARGET_DEFAULT ){ CMglTexture::Create(0,0,bRenderTarget); }
 	void Create( int x, int y, BOOL bRenderTarget=RENDER_TARGET_DEFAULT ){ CMglTexture::Create(x,y,bRenderTarget); }
 	void Create( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFile( szFileName, bRenderTarget, colorKey ); }
+
+	//	Create - CMglGraphicManager* in_myudg —L‚è”Å
+	void CreateFromFile( CMglGraphicManager* in_myudg,
+		LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY )
+	{
+		CMglTexture::Init(in_myudg);
+		CMglTexture::CreateTextureFromFile( szFileName, bRenderTarget, colorKey );
+	}
+	void Create( CMglGraphicManager* in_myudg, BOOL bRenderTarget=RENDER_TARGET_DEFAULT ){
+		CMglTexture::Init(in_myudg); CMglTexture::Create(0,0,bRenderTarget); }
+	void Create( CMglGraphicManager* in_myudg, int x, int y, BOOL bRenderTarget=RENDER_TARGET_DEFAULT ){
+		CMglTexture::Init(in_myudg); CMglTexture::Create(x,y,bRenderTarget); }
+	void Create( CMglGraphicManager* in_myudg,
+		LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
+		CMglTexture::Init(in_myudg); CreateFromFile( szFileName, bRenderTarget, colorKey ); }
 
 	/////////////////////////////////////////////////////////////////////////////////////////////
 

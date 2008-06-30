@@ -263,6 +263,8 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest2(int x, int y)
 //	 : 指定された位置の一番上のレイヤーを取得する
 CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 {
+	CMglStackInstance("CMglLayers4::HitTest3");
+
 	if ( m_pHitTestMap == NULL )
 		m_pHitTestMap = new CMglLayers4HitTest(m_myudg);
 
@@ -277,8 +279,8 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 		{
 			CMglImage imgRender;
 			CMglImage imgCopied;
-			imgRender.Create(TRUE);
-			imgCopied.Create();
+			imgRender.Create(m_myudg, TRUE);
+			imgCopied.Create(m_myudg);
 
 			imgRender.SetRender();			//	レンダリング先変更
 			LayerSingleDraw(t);				//	描画
