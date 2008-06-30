@@ -157,10 +157,6 @@ public:
 	//void SetGradation() { SetGradation(0xffffffff,0xffffffff,0xffffffff,0xffffffff); }
 	//void SetGradation( D3DCOLOR colorLeftTop, D3DCOLOR colorRightTop, D3DCOLOR colorLeftBottom, D3DCOLOR colorRightBottom );
 
-	void SetRender();
-	void Clear(){ Clear( m_colorKey & 0x00ffffff ); } // m_colorKeyが関連するのでデフォルト引数には出来ないのでれす
-	void Clear( D3DCOLOR color );
-	void Paint( RECT* rect, D3DCOLOR color );
 
 	//	プロパティ系メソッド
 	//IDirect3DTexture8* GetTexturePtr() { CreateCheck(); return m_pTexture; }

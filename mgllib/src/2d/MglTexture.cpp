@@ -163,6 +163,10 @@ void CMglTexture::Create( int x, int y, BOOL bRenderTarget )
 	//	SetRenderとかで必要なのでサーフェス取得しておく
 	_GetSurface();
 
+	//	2008/06/30 なんでクリアしないんだろうかー？
+	//Clear();
+	Clear(0);	//	0にしないとカラーキー＋白に勝手にされてしまう・・・
+
 	_MGL_DEBUGLOG( "- CMglTexture::Create()" );
 }
 
@@ -252,6 +256,110 @@ void CMglTexture::GetBmpVertexs( MGL_SQUARE_VERTEXS *pMglSqVertexs )
 	//MglMoveVertexs( pMglSqVertexs, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ );
 }
 
+//	絵画先をこのサーフェスに設定する
+void CMglTexture::SetRender()
+{
+	CreateCheck();	//	Createチェック
+	LockedCheck();
+
+	MyuAssert( d3d->SetRenderTarget( m_pSurface, NULL ), D3D_OK, //m_myudg->lpZbuffer
+		"CMglTexture::SetRender()  SetRenderTarget()に失敗" );
+}
+
+//	クリアする
+/*void CMglImage::Clear()
+{
+	//	m_colorKeyが関連するのでデフォルト引数には出来ないのでれす
+	Clear( m_colorKey & 0x00ffffff );
+}*/
+
+/*
+	######## D3DXCreateRenderToSurface でやるようにしよう… ########
+*/
+
+//	クリアする
+void CMglTexture::Clear( D3DCOLOR color )
+{
+	Paint(NULL,color);
+}
+
+void CMglTexture::Clear__( D3DCOLOR color )
+{
+	CreateCheck();	//	Createチェック
+	LockedCheck();
+
+	if ( m_bRenderTarget == TRUE )
+	{
+		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
+		IDirect3DSurface8* bkupRender;
+		d3d->GetRenderTarget( &bkupRender );
+
+		SetRender();
+		//d3d->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );	//	|D3DCLEAR_ZBUFFER
+		m_myudg->Clear( color );	//	|D3DCLEAR_ZBUFFER
+		//	D3DCOLOR_FULLALPHA
+
+		//	レンダーを元に戻す
+		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
+			"CMglTexture::Clear()  レンダーを戻すのに失敗" );
+	}
+	else
+	{
+		/*
+		//	別にクリアされたサーフェスを作成してそこからコピー、と言う面倒な処理(´Д`)
+		CMglTexture workSurface;
+		workSurface.Init( m_myudg );
+		//workSurface.Create();	//	レンダリング先はTRUEにしないと無限再帰してしまう
+		workSurface.Create(TRUE);	//	レンダリング先はTRUEにしないと無限再帰してしまう
+		workSurface.Clear( color );
+		CopyRectToThis( &workSurface );
+		*/
+
+		//	2008/06/29  CMglBitmapData::Fill()実装したんだからFill()使えばよくネ？
+		this->GetIternalBitmapData()->Fill(color);
+	}
+}
+
+//	指定された矩形領域を塗りつぶす
+void CMglTexture::Paint( RECT* pRect, D3DCOLOR color )
+{
+	CreateCheck();	//	Createチェック
+	LockedCheck();
+
+	if ( m_bRenderTarget == TRUE )
+	{
+		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
+		IDirect3DSurface8* bkupRender;
+		d3d->GetRenderTarget( &bkupRender );
+
+		SetRender();
+		//d3d->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );	//	|D3DCLEAR_ZBUFFER
+		m_myudg->Paint( pRect, color );	//	|D3DCLEAR_ZBUFFER
+
+		//	レンダーを元に戻す
+		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
+			"CMglTexture::Clear()  レンダーを戻すのに失敗" );
+	}
+	else
+	{
+		/*
+		//	別にクリアされたサーフェスを作成してそこからコピー、と言う面倒な処理(´Д`)
+		CMglImage workSurface;
+		workSurface.Init( m_myudg );
+		//workSurface.Create();
+		workSurface.Create(TRUE);	//	レンダリング先はTRUEにしないと無限再帰してしまう
+		workSurface.Paint( rect, color );
+		workSurface.Paint( rect, color );
+		CopyRectToThis( &workSurface );
+		*/
+
+		//	2008/06/29  CMglBitmapData::Fill()実装したんだからFill()使えばよくネ？
+		if ( pRect != NULL )
+			this->GetIternalBitmapData()->Fill(color,*pRect);
+		else
+			this->GetIternalBitmapData()->Fill(color);
+	}
+}
 
 
 

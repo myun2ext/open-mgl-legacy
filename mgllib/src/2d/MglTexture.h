@@ -209,6 +209,11 @@ public:
 	void DisableCenterDraw() {	m_bCenterDraw = FALSE; }
 	*/
 
+	void SetRender();
+	void Clear(){ Clear( m_colorKey & 0x00ffffff ); } // m_colorKeyが関連するのでデフォルト引数には出来ないのでれす
+	void Clear( D3DCOLOR color );
+	void Clear__( D3DCOLOR color );
+	void Paint( RECT* pRect, D3DCOLOR color );
 
 	void Lock(){ m_bLocked = TRUE; }
 	void Unlock(){ m_bLocked = FALSE; }

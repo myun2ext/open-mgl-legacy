@@ -59,9 +59,22 @@ void CMglImage::CopyRectToOther( CMglImage* destSurface, RECT *srcRect, int x, i
 	//	srcRectにNULLを指定された場合はフルで絵画
 
 	D3DXLoadSurfaceFromSurface(
-		destSurface->GetSurfacePtr(), NULL, NULL,
-		m_pSurface, NULL, NULL,
+		destSurface->GetSurfacePtr(), NULL, srcRect,
+		m_pSurface, NULL, srcRect,
 		D3DX_FILTER_POINT, 0 );
+
+	/*
+	RECT srcRect2;
+	_Rect(0,0, this->GetBmpWidth(), this->GetBmpHeight(), &srcRect2);
+	D3DXLoadSurfaceFromSurface(
+		destSurface->GetSurfacePtr(), NULL, &srcRect2,
+		this->m_pSurface, NULL, &srcRect2,
+		D3DX_FILTER_POINT, 0 );
+	*/
+
+	/*	これは全然駄目
+	d3d->UpdateTexture(this->m_pTexture, destSurface->GetDirect3dTexturePtr());
+	*/
 
 	/*
 	RECT _srcRect;
@@ -128,94 +141,3 @@ void CMglImage::CopyRect( int x, int y, RECT *srcRect )
 	CopyRectToOther( x, y, srcRect, m_myudg->_GetBackBuffer() );
 }
 */
-
-//	絵画先をこのサーフェスに設定する
-void CMglImage::SetRender()
-{
-	CreateCheck();	//	Createチェック
-	LockedCheck();
-
-	MyuAssert( d3d->SetRenderTarget( m_pSurface, NULL ), D3D_OK, //m_myudg->lpZbuffer
-		"CMglImage::SetRender()  SetRenderTarget()に失敗" );
-}
-
-//	クリアする
-/*void CMglImage::Clear()
-{
-	//	m_colorKeyが関連するのでデフォルト引数には出来ないのでれす
-	Clear( m_colorKey & 0x00ffffff );
-}*/
-
-/*
-	######## D3DXCreateRenderToSurface でやるようにしよう… ########
-*/
-//	クリアする
-void CMglImage::Clear( D3DCOLOR color )
-{
-	CreateCheck();	//	Createチェック
-	LockedCheck();
-
-	if ( m_bRenderTarget == TRUE )
-	{
-		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
-		IDirect3DSurface8* bkupRender;
-		d3d->GetRenderTarget( &bkupRender );
-
-		SetRender();
-		//d3d->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );	//	|D3DCLEAR_ZBUFFER
-		m_myudg->Clear( color );	//	|D3DCLEAR_ZBUFFER
-		//	D3DCOLOR_FULLALPHA
-
-		//	レンダーを元に戻す
-		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
-			"CMglImage::Clear()  レンダーを戻すのに失敗" );
-	}
-	else
-	{
-		//	別にクリアされたサーフェスを作成してそこからコピー、と言う面倒な処理(´Д`)
-		CMglImage workSurface;
-		workSurface.Init( m_myudg );
-		//workSurface.Create();	//	レンダリング先はTRUEにしないと無限再帰してしまう
-		workSurface.Create(TRUE);	//	レンダリング先はTRUEにしないと無限再帰してしまう
-		workSurface.Clear( color );
-		CopyRectToThis( &workSurface );
-	}
-}
-
-//	指定された矩形領域を塗りつぶす
-void CMglImage::Paint( RECT* rect, D3DCOLOR color )
-{
-	CreateCheck();	//	Createチェック
-	LockedCheck();
-
-	if ( m_bRenderTarget == TRUE )
-	{
-		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
-		IDirect3DSurface8* bkupRender;
-		d3d->GetRenderTarget( &bkupRender );
-
-		SetRender();
-		//d3d->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );	//	|D3DCLEAR_ZBUFFER
-		m_myudg->Paint( rect, color );	//	|D3DCLEAR_ZBUFFER
-
-		//	レンダーを元に戻す
-		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
-			"CMglImage::Clear()  レンダーを戻すのに失敗" );
-	}
-	else
-	{
-		/*
-		//	別にクリアされたサーフェスを作成してそこからコピー、と言う面倒な処理(´Д`)
-		CMglImage workSurface;
-		workSurface.Init( m_myudg );
-		//workSurface.Create();
-		workSurface.Create(TRUE);	//	レンダリング先はTRUEにしないと無限再帰してしまう
-		workSurface.Paint( rect, color );
-		workSurface.Paint( rect, color );
-		CopyRectToThis( &workSurface );
-		*/
-
-		//	2008/06/29  CMglBitmapData::Fill()実装したんだからFill()使えばよくネ？
-		this->GetIternalBitmapData()->Fill(color,*rect);
-	}
-}
