@@ -44,6 +44,8 @@ private:
 
 		layer_t* pLayer;	//	レイヤーへのポインタ
 		bool isShuoldDeleteLayerPtr;//	レイヤーのポインタをdeleteすべきか
+
+		DWORD dwUser;		//	ユーザが登録出来るパラメータ
 	} LAYERINFO;
 
 	/*
@@ -139,7 +141,7 @@ public:
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 		{ Regist( pLayer, m_list.tail(), x,y, bShow, color, fScaleX, fScaleY, fAngle); }
 	*/
-	void Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer,
+	LIST_ITR Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f );
 
@@ -147,11 +149,11 @@ public:
 		float x, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 		{ Regist( pLayer, m_list.begin(), false, x,y, bShow, color, fScaleX, fScaleY, fAngle); }*/
-	void PushFront( layer_t *pLayer, bool isShouldDeleteLayer,
+	LIST_ITR PushFront( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 	{
-		Regist( pLayer, m_list.begin(), isShouldDeleteLayer, x,y, bShow, color, fScaleX, fScaleY, fAngle);
+		return Regist( pLayer, m_list.begin(), isShouldDeleteLayer, x,y, bShow, color, fScaleX, fScaleY, fAngle);
 		/*LAYERINFO t;
 		ZeroMemory(&t,sizeof(t));	//	まぁぶっちゃけいらないけどね。（むしろSTLメンバ入ると危険か？
 		t.pLayer = pLayer;
@@ -159,24 +161,24 @@ public:
 		m_list.push_front(t);
 		SetParam(m_list.begin(),x,y,bShow,color,fScaleX,fScaleY,fAngle);*/
 	}
-	void RegistBegin( layer_t *pLayer, bool isShouldDeleteLayer,
+	LIST_ITR RegistBegin( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pLayer, m_list.begin(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void push_front( layer_t *pLayer, bool isShouldDeleteLayer,
+		{ return Regist( pLayer, m_list.begin(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	LIST_ITR push_front( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pLayer, m_list.begin(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+		{ return Regist( pLayer, m_list.begin(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
 
 	/*void PushBack( layer_t *pLayer,
 		float x, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 		{ Regist( pLayer, m_list.tail(), false, x,y, bShow, color, fScaleX, fScaleY, fAngle); }*/
-	void PushBack( layer_t *pLayer, bool isShouldDeleteLayer,
+	LIST_ITR PushBack( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
 	{
-		Regist( pLayer, m_list.end(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle);
+		return Regist( pLayer, m_list.end(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle);
 		//Regist( pLayer, m_list.begin(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle);
 		//Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle);
 		/*LAYERINFO t;
@@ -189,18 +191,18 @@ public:
 		if ( m_list.rbegin().base()->pLayer != pLayer )
 			MyuThrow(3255, "m_list.rbegin().base()->pLayer != pLayer" );*/
 	}
-	void RegistTail( layer_t *pLayer, bool isShouldDeleteLayer,
+	LIST_ITR RegistTail( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void RegistLast( layer_t *pLayer, bool isShouldDeleteLayer,
+		{ return Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	LIST_ITR RegistLast( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
-	void push_back( layer_t *pLayer, bool isShouldDeleteLayer,
+		{ return Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+	LIST_ITR push_back( layer_t *pLayer, bool isShouldDeleteLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
 		float fScaleX=1.0f, float fScaleY=1.0f, float fAngle=0.0f )
-		{ Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
+		{ return Regist( pLayer, m_list.tail(), isShouldDeleteLayer,x,y, bShow, color, fScaleX, fScaleY, fAngle); }
 	/*
 	void PushFront( layer_t *pLayer,
 		float x=0.0f, float y=0.0f, BOOL bShow=TRUE, D3DCOLOR color=D3DCOLOR_WHITE, 
@@ -263,6 +265,8 @@ public:
 	void SetCenter( LIST_ITR it, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f ){
 		SetRotationCenter(it,fRotationCenterX,fRotationCenterY); }
 	void SetRotationCenter( LIST_ITR it, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f );
+	void SetUserParam( LIST_ITR it, DWORD dwUser );
+	DWORD GetUserParam( LIST_ITR it );
 
 	//void MoveDepth( int oldDepth, int newDepth );	//	未実装
 

@@ -24,7 +24,7 @@ CMglLayers4::~CMglLayers4()
 ///////////////////////////////////////////////////////
 
 //	登録
-void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer, float x, float y, 
+CMglLayers4::LIST_ITR CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer, float x, float y, 
 	BOOL bShow, D3DCOLOR color, float fScaleX, float fScaleY, float fAngle )
 {
 	LAYERINFO t;
@@ -34,6 +34,8 @@ void CMglLayers4::Regist( layer_t *pLayer, LIST_ITR it, bool isShouldDeleteLayer
 	LIST_ITR newIt = m_list.insert(it,t);
 
 	SetParam(newIt,x,y,bShow,color,fScaleX,fScaleY,fAngle);
+
+	return newIt;
 }
 
 //	パラメータ設定
@@ -105,6 +107,18 @@ void CMglLayers4::SetRotationCenter( LIST_ITR it, float fRotationCenterX, float 
 	ExistChk(it);
 	it->fRotationCenterX = fRotationCenterX;
 	it->fRotationCenterY = fRotationCenterY;
+}
+
+//	パラメータ設定（ユーザ値）
+void CMglLayers4::SetUserParam( LIST_ITR it, DWORD dwUser )
+{
+	ExistChk(it);
+	it->dwUser = dwUser;
+}
+DWORD CMglLayers4::GetUserParam( LIST_ITR it )
+{
+	ExistChk(it);
+	return it->dwUser;
 }
 
 ////////////////////////////////////////////////////////////////
@@ -288,6 +302,9 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 
 			//	こぴい
 			imgCopied.CopyRectToThis(&imgRender);
+
+			imgRender.Draw();
+			m_myudg->UpdateScreen();
 
 			/*	イチイチチェックしてあげんのやめた
 			BOOL bCheck=FALSE;
