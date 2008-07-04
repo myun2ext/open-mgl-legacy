@@ -303,8 +303,9 @@ CMglLayers4::LIST_ITR CMglLayers4::HitTest3(int x, int y)
 			//	こぴい
 			imgCopied.CopyRectToThis(&imgRender);
 
-			imgRender.Draw();
-			m_myudg->UpdateScreen();
+			//	Debug
+			/*imgRender.Draw();
+			m_myudg->UpdateScreen();*/
 
 			/*	イチイチチェックしてあげんのやめた
 			BOOL bCheck=FALSE;
