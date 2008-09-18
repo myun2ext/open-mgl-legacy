@@ -103,6 +103,7 @@ public:
 		m_d3d = m_myudg->GetD3dDevPtr();
 		m_pHitTestMap = NULL;
 	}
+	void Release(){ Clear(); }
 
 	//	“o˜^/íœ
 	//void Regist( layer_t *pLayer, const char *szIdentifierName );

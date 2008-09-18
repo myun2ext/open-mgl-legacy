@@ -29,6 +29,7 @@ CMglGraphicManager *g_pDefaultGd=NULL;
 CMglGraphicManager::CMglGraphicManager()
 {
 	_MGL_DEBUGLOG( "CMglGraphicManager のインスタンスが生成されました。" );
+	CMglStackInstance("CMglGraphicManager::CMglGraphicManager");
 
 	m_pD3d = NULL;
 	m_pD3dDev = NULL;
@@ -54,6 +55,7 @@ CMglGraphicManager::CMglGraphicManager()
 CMglGraphicManager::~CMglGraphicManager()
 {
 	_MGL_DEBUGLOG( "+ CMglGraphicManager::デストラクタ" );
+	CMglStackInstance("CMglGraphicManager::~CMglGraphicManager");
 	Release();
 	_MGL_DEBUGLOG( "- CMglGraphicManager::デストラクタ" );
 	g_2dgCount--;
@@ -63,6 +65,7 @@ CMglGraphicManager::~CMglGraphicManager()
 void CMglGraphicManager::Release()
 {
 	_MGL_DEBUGLOG( "+ CMglGraphicManager::Release()" );
+	CMglStackInstance("CMglGraphicManager::Release");
 
 	//	シーンを終了しておく
 	if ( m_pD3dDev != NULL )
@@ -96,6 +99,10 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 							  D3DFORMAT formatTexture, DWORD dwD3dDeviceMode, UINT nAdapterNo )
 {
 	_MGL_DEBUGLOG( "+ CMglGraphicManager::Init()" );
+	CMglStackInstance("CMglGraphicManager::Init");
+
+	//	2008/07/06 追加
+	Release();
 
 	/*	InitEx()へ移動
 	m_nDispX = nDispX;
@@ -226,6 +233,8 @@ void CMglGraphicManager::InitSprite()
 //	D3Dオブジェクトの生成（InitEx()用に分離）
 void CMglGraphicManager::Direct3DCreate()
 {
+	CMglStackInstance("CMglGraphicManager::Direct3DCreate");
+
 	if ( m_pD3d != NULL )
 		//MyuThrow2( 0, 0x0201, "CMglGraphicManager::Direct3DCreate()  D3Dオブジェクトは既あります。" );
 		//	2007/07/15  既にあったら何もしないんでいんでない・・・？
@@ -242,6 +251,7 @@ void CMglGraphicManager::Direct3DCreate()
 void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD3dDeviceMode, D3DFORMAT formatTexture, int nAdapterNo, HWND hFocusWindow )
 {
 	_MGL_DEBUGLOG( "+ CMglGraphicManager::InitEx()" );
+	CMglStackInstance("CMglGraphicManager::InitEx");
 
 	m_nDispX = pPresentParam->BackBufferWidth;
 	m_nDispY = pPresentParam->BackBufferHeight;
@@ -330,6 +340,7 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 BOOL CMglGraphicManager::D3dCreateDevice( DWORD dwD3dDeviceFlg, D3DPRESENT_PARAMETERS* pPresentParam, int nAdapterNo, HWND hFocusWindow )
 {
 	//_MGL_DEBUGLOG( "+ CMglGraphicManager::D3dCreateDevice()" );
+	CMglStackInstance("CMglGraphicManager::D3dCreateDevice");
 
 	D3DDEVTYPE deviceType=D3DDEVTYPE_FORCE_DWORD;
 	DWORD vertexFlag=0;
@@ -393,12 +404,14 @@ void CMglGraphicManager::IsValidDisplayMode( int nWidth, int nHeight, D3DFORMAT 
 
 void CMglGraphicManager::Clear( D3DCOLOR color )
 {
-    //m_pD3dDev->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
+	CMglStackInstance("CMglGraphicManager::Clear");
+   //m_pD3dDev->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
 	Paint( NULL, color );
 }
 
 void CMglGraphicManager::Paint( RECT* rect, D3DCOLOR color )
 {
+	CMglStackInstance("CMglGraphicManager::Paint");
 	if ( m_pD3dDev == NULL )
 		MyuThrow( 0, "CMglGraphicManager::Paint()  m_pD3dDevがNULL" );
 
@@ -679,6 +692,7 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 //
 CMglGraphicManager* GetDefaultGd()
 {
+	CMglStackInstance("CMglGraphicManager::GetDefaultGd");
 	if ( g_pDefaultGd == NULL )
 	{
 		MyuThrow2( 0, MSGMSLNO_GRP_MANAGER_MULTI_INSTANCE,

@@ -200,7 +200,7 @@ void CMglLayers4::Delete(LIST_ITR it)
 //	全てを削除
 void CMglLayers4::Clear()
 {
-	InitCheck();
+	//InitCheck();
 
 	//	リストをループして一つづつ開放
 	//for( LIST_ITR it=m_list.begin(); it!=m_list.end(); it++ )
