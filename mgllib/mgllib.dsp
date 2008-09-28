@@ -236,30 +236,6 @@ SOURCE=.\src\2d\MglLayers4.h
 SOURCE=.\src\2d\MglTextLayer.h
 # End Source File
 # End Group
-# Begin Group "MGL GUI"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\AGH\include\agh.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiControl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiControl.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiScreen.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiScreen.h
-# End Source File
-# End Group
 # Begin Source File
 
 SOURCE=.\src\2d\mgl2d.h
@@ -666,6 +642,42 @@ SOURCE=.\src\_exile\MglLayers2.cpp
 # Begin Source File
 
 SOURCE=.\src\_exile\MglLayers2.h
+# End Source File
+# End Group
+# Begin Group "MGL GUI"
+
+# PROP Default_Filter ""
+# Begin Group "MFC"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiMfcView.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiMfcView.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiScreen.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiScreen.h
 # End Source File
 # End Group
 # Begin Source File
