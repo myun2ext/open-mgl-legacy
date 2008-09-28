@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "MglguiScreen.h"
 
+/*
 //	コンストラクタ
 CMglguiScreen::CMglguiScreen()
 {
@@ -17,3 +18,4 @@ CMglguiScreen::CMglguiScreen()
 CMglguiScreen::~CMglguiScreen()
 {
 }
+*/
