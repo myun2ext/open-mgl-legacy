@@ -8,13 +8,20 @@
 #define __MglguiControl_H__
 
 #include "agh.h"
+#include "MglMouseInput.h"
+
+class DLL_EXP agh::CControlBase;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
-class DLL_EXP CMglguiControl : public agh::CScreenBase
+
+/*
+class DLL_EXP CMglguiControl : public agh::CControlBase
 {
 public:
 
 protected:
+	CMglMouseInput m_mouse;
+
 	HWND m_hWnd;
 
 public:
@@ -24,6 +31,8 @@ public:
 
 	//////////////////////////////////////////////////////
 
+
 };
+*/
 
 #endif//__MglguiControl_H__

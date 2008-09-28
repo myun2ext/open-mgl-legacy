@@ -75,5 +75,6 @@ public:
 
 typedef CMglImageManager CMglImageBuffer;
 typedef CMglImageManager CMglImagePool;
+typedef CMglImageManager CMglImageLoader;
 
 #endif//__MglImageManager_H__
