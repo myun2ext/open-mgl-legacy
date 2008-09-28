@@ -241,6 +241,18 @@ SOURCE=.\src\2d\MglTextLayer.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiControl.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\mglgui\MglguiScreen.cpp
 # End Source File
 # Begin Source File

@@ -1,0 +1,20 @@
+//////////////////////////////////////////////////////////
+//
+//	MglguiControl
+//
+//////////////////////////////////////////////////////////
+
+#include "stdafx.h"
+#include "MglguiControl.h"
+
+/*
+//	コンストラクタ
+CMglguiControl::CMglguiControl()
+{
+}
+
+//	デストラクタ
+CMglguiControl::~CMglguiControl()
+{
+}
+*/
