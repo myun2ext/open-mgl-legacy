@@ -650,18 +650,18 @@ SOURCE=.\src\_exile\MglLayers2.h
 # Begin Group "MFC"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiMfcView.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiMfcView.h
-# End Source File
 # End Group
 # Begin Source File
 
 SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAglImage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAglImage.h
 # End Source File
 # Begin Source File
 

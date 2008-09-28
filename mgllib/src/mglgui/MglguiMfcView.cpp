@@ -2,7 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "neptune.h"
 #include "MglguiMfcView.h"
 
 #ifdef _DEBUG
