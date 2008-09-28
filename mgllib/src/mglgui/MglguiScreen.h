@@ -9,12 +9,14 @@
 
 #include "agh.h"
 #include "MglLayers4.h"
-#include "MglMouseInput.h"
+#include "MglEzGameFrame.h"
+//#include "MglMouseInput.h"
 
+class DLL_EXP agh::CScreenBase;
 class DLL_EXP CMyuThreadBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase
+class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, public CMglEzGameFrame
 {
 public:
 	CMglGraphicManager m_grp;
@@ -23,12 +25,12 @@ public:
 protected:
 	HWND m_hWnd;
 	CMglLayers4 m_layer;
-	CMglMouseInput m_mouse;
+	CMglMouseInput &m_mouse;
 	D3DCOLOR m_rgbBackground;
 
 public:
 	//	コンストラクタ
-	CMglguiScreen(){
+	CMglguiScreen() : m_mouse(input.mouse) {
 		m_hWnd = NULL;
 		m_rgbBackground = D3DCOLOR_WHITE;
 	}
@@ -37,7 +39,7 @@ public:
 	//////////////////////////////////////////////////////
 
 	void ScreenUpdate();
-	void DoFrame();
+	bool DoFrame();
 	void AutoLoopThreadStart();
 
 	BOOL IsExistPool(const char* szAlias);
@@ -51,6 +53,7 @@ public:
 
 private:
 	bool ThreadFunc();
+	bool OnFrameInput();
 };
 
 #endif//__MglguiScreen_H__

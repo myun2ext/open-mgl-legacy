@@ -47,56 +47,37 @@ void CMglguiScreen::ScreenUpdate()
 }
 
 //	フレーム処理
-void CMglguiScreen::DoFrame()
+bool CMglguiScreen::DoFrame()
 {
 	try{
-		/*
-		//	ウインドウが生きてるかのチェック
-		if ( m_window.IsAlive() != TRUE )
-			return FALSE;
+		//	イベント処理
+		OnFrameInput();
 
-		//	抜ける？
-		if ( m_bBreak )
-			return FALSE;
-
-		//	FPS/デバッグ文字列出力
-		if ( m_bFpsShow == TRUE )
-		{
-			char szFps[64];
-			sprintf( szFps, "FPS : %.01f", fps.GetAveFps() );
-			m_txtFps.Draw( szFps, 6, 6, D3DCOLORW_XRGB(0,0,0) );
-			m_txtFps.Draw( szFps, 5, 5, D3DCOLORW_XRGB(255,255,255) );
-		}
-		m_txtDebug.Draw( m_strDebugText.c_str(), 6, 21, D3DCOLORW_XRGB(0,0,0) );
-		m_txtDebug.Draw( m_strDebugText.c_str(), 5, 20, D3DCOLORW_XRGB(255,255,255) );
-
-		//	スプライト終了
-		grp.SpriteEnd();
-
-		//	スクリーンのアップデート
-		grp.UpdateScreen();
-
-		//	待つよん
-		fps.Sleep();
-
-		//	キーボード入力の更新
-		input.Update();
-
-		if ( m_bEscEnd ){
-			if ( input.GetOnKey(ASCII_ESC) )
-				return FALSE;
-		}
-
-		//	スプライト開始
-		grp.SpriteBegin();
-
-		return TRUE;
-		*/
+		//	フレーム処理 (CMglEzGameFrame)
+		if ( CMglEzGameFrame::DoFpsWait() == FALSE )
+			return false;
 	}
 	catch( MyuCommonException e )
 	{
 		EzErrBox(e.szErrMsg);
+		return false;
 	}
+
+	return true;
+}
+
+bool CMglguiScreen::OnFrameInput()
+{
+	//	マウスイベント
+	if ( m_mouse.GetXMoveCount() > 0 ||
+		 m_mouse.GetYMoveCount() > 0)
+		CScreenBase::OnMouseMove(
+			m_mouse.GetCursorPosX(),
+			m_mouse.GetCursorPosY(),
+			m_mouse.GetXMoveCount(),
+			m_mouse.GetYMoveCount());
+
+	return true;
 }
 
 //////////////////////////////////////////////////
@@ -112,7 +93,10 @@ void CMglguiScreen::AutoLoopThreadStart()
 bool CMglguiScreen::ThreadFunc()
 {
 	try{
-		
+		for(;;){
+			if ( DoFrame() == false )
+				return true;
+		}
 	}
 	catch( MyuCommonException e )
 	{
