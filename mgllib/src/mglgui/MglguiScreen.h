@@ -42,6 +42,14 @@ public:
 	bool DoFrame();
 	void AutoLoopThreadStart();
 
+	void OnLButtonDown(int x, int y);
+	virtual void OnBackgroundLButtonDown(int x, int y){}
+	virtual void OnBackgroundRButtonDown(int x, int y){}
+	virtual void OnBackgroundCButtonDown(int x, int y){}
+	virtual void OnControlLButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
+
 	BOOL IsExistPool(const char* szAlias);
 
 	//////////////////////////////////////////////////////

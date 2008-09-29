@@ -8,6 +8,8 @@
 #include "stdafx.h"
 #include "MglguiScreen.h"
 
+using namespace agh;
+
 /*
 //	コンストラクタ
 CMglguiScreen::CMglguiScreen()
@@ -90,6 +92,25 @@ bool CMglguiScreen::OnFrameMouseInput()
 		CScreenBase::OnRButtonDown(x,y);
 
 	return true;
+}
+
+//	左ボタンが押された
+void CMglguiScreen::OnLButtonDown(int x, int y)
+{
+	//	コントロールで該当するものがあるか？
+	for(int i=0; i<m_controlPtrAry.size(); i++)
+	{
+		CControlBase *p = m_controlPtrAry[i];
+		_AGL_RECT& rect = p->m_rect;
+
+		if ( IsRectInternal((_MSL_RECT*)&rect, x, y) ){
+			OnControlLButtonDown(p,x,y);
+			return;
+		}
+	}
+
+	//	どのコントロールにも一致しない場合はバックグラウンド
+	OnBackgroundLButtonDown(x,y);
 }
 
 //////////////////////////////////////////////////
