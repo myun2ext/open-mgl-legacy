@@ -21,7 +21,7 @@
 }*/
 
 //	コンストラクタ1
-CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface,
+void CMglBitmapData::Init(_MGL_IDirect3DSurface *pSurface,
 							   int nWidth, int nHeight, CONST RECT* pTargetRect/*, DWORD dwFlags*/)
 {
 	/*_Init();
@@ -33,7 +33,7 @@ CMglBitmapData::CMglBitmapData(_MGL_IDirect3DSurface *pSurface,
 }
 
 //	コンストラクタ2
-CMglBitmapData::CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect/*, DWORD dwFlags*/)
+void CMglBitmapData::Init(CMglTexture *pMglTex, CONST RECT* pTargetRect/*, DWORD dwFlags*/)
 {
 	/*_Init();
 	m_pMglTex = pMglTex;
@@ -57,6 +57,7 @@ void CMglBitmapData::Release()
 //	ロック
 void CMglBitmapData::Lock(DWORD dwMode)
 {
+	InitChk();
 	if ( m_bLocked == TRUE )
 		return;
 
@@ -89,6 +90,7 @@ void CMglBitmapData::Lock(DWORD dwMode)
 //	2008/06/28
 void CMglBitmapData::Unlock()
 {
+	InitChk();
 	if ( m_bLocked == FALSE )
 		return;
 
@@ -102,6 +104,7 @@ void CMglBitmapData::Unlock()
 
 D3DCOLOR CMglBitmapData::Get(int x,int y)
 {
+	InitChk();
 	//Lock(D3DLOCK_READONLY);
 	CMglBitmapDataLocker locker(*this, D3DLOCK_READONLY);
 
@@ -117,6 +120,7 @@ D3DCOLOR CMglBitmapData::Get(int x,int y)
 
 D3DCOLOR CMglBitmapData::GetNE(int x,int y, BOOL *pbSuccess)
 {
+	InitChk();
 	Lock(D3DLOCK_READONLY);
 
 	D3DCOLOR *p = GetPtr(x,y);
@@ -134,6 +138,7 @@ D3DCOLOR CMglBitmapData::GetNE(int x,int y, BOOL *pbSuccess)
 
 void CMglBitmapData::Set(int x, int y, D3DCOLOR color)
 {
+	InitChk();
 	//Lock();
 	CMglBitmapDataLocker locker(*this);
 
@@ -151,6 +156,7 @@ void CMglBitmapData::Set(int x, int y, D3DCOLOR color)
 
 //	塗りつぶし
 void CMglBitmapData::Fill(D3DCOLOR color){
+	InitChk();
 	Fill(color,Rect(0,0,m_nWidth,m_nHeight));
 	/*Lock();
 	for(int i=0; i<m_nHeight; i++)
@@ -158,18 +164,9 @@ void CMglBitmapData::Fill(D3DCOLOR color){
 	Unlock();*/
 }
 
-#define MEMSET4_TYPE	unsigned long
-
-void *memset4(MEMSET4_TYPE *s, MEMSET4_TYPE ul, size_t n){
-	MEMSET4_TYPE *p = s;
-	//for(; p-s != n*sizeof(MEMSET4_TYPE); p++)
-	for(; p-s != n; p++)
-		*p = ul;
-	return s;
-}
-
 //	塗りつぶし
 void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
+	InitChk();
 	CMglBitmapDataLocker locker(*this);
 
 	if ( rect.left >= m_nWidth || rect.top >= m_nHeight )

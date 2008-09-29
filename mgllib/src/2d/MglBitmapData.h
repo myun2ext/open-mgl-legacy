@@ -65,10 +65,24 @@ protected:
 		m_bLocked = FALSE;
 	}
 
+	void InitChk(){
+		if ( m_pSurface == NULL )
+			MyuThrow(0,"CMglBitmapData: 引数なしコンストラクタ呼び出しの場合は Init() メソッドを呼んでください。");
+	}
+
 public:
 	//	コンストラクタ・デストラクタ
-	CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/);
+	CMglBitmapData(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/){
+		Init(pMglTex,pTargetRect);
+	}
 	CMglBitmapData(_MGL_IDirect3DSurface *pSurface,
+		int nWidth, int nHeight, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/){
+		Init(pSurface,nWidth,nHeight,pTargetRect);
+	}
+	CMglBitmapData(){ _Init(NULL,NULL,-1,-1,NULL); }
+
+	void Init(CMglTexture *pMglTex, CONST RECT* pTargetRect=NULL);
+	void Init(_MGL_IDirect3DSurface *pSurface,
 		int nWidth, int nHeight, CONST RECT* pTargetRect=NULL/*, DWORD dwFlags=0*/);
 	/*
 	//	コンストラクタ・デストラクタ
