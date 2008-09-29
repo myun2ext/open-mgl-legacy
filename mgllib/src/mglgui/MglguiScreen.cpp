@@ -51,7 +51,7 @@ bool CMglguiScreen::DoFrame()
 {
 	try{
 		//	イベント処理
-		OnFrameInput();
+		OnFrameMouseInput();
 
 		//	フレーム処理 (CMglEzGameFrame)
 		if ( CMglEzGameFrame::DoFpsWait() == FALSE )
@@ -66,16 +66,28 @@ bool CMglguiScreen::DoFrame()
 	return true;
 }
 
-bool CMglguiScreen::OnFrameInput()
+bool CMglguiScreen::OnFrameMouseInput()
 {
-	//	マウスイベント
-	if ( m_mouse.GetXMoveCount() > 0 ||
-		 m_mouse.GetYMoveCount() > 0)
-		CScreenBase::OnMouseMove(
-			m_mouse.GetCursorPosX(),
-			m_mouse.GetCursorPosY(),
-			m_mouse.GetXMoveCount(),
-			m_mouse.GetYMoveCount());
+	int x = m_mouse.GetCursorPosX();
+	int y = m_mouse.GetCursorPosX();
+	int nMoveX = m_mouse.GetXMoveCount();
+	int nMoveY = m_mouse.GetYMoveCount();
+
+	//	マウス移動
+	if ( nMoveX > 0 || nMoveY > 0)
+		CScreenBase::OnMouseMove(x, y, nMoveX, nMoveY);
+
+	//	真中ボタンを押した
+	if ( m_mouse.IsPressCenterButton() )
+		CScreenBase::OnCButtonDown(x,y);
+
+	//	左ボタンを押した
+	if ( m_mouse.IsPressLeftButton() )
+		CScreenBase::OnLButtonDown(x,y);
+
+	//	右ボタンを押した
+	if ( m_mouse.IsPressRightButton() )
+		CScreenBase::OnRButtonDown(x,y);
 
 	return true;
 }

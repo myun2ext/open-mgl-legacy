@@ -53,7 +53,7 @@ public:
 
 private:
 	bool ThreadFunc();
-	bool OnFrameInput();
+	bool OnFrameMouseInput();
 };
 
 #endif//__MglguiScreen_H__

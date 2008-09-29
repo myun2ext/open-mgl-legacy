@@ -9,6 +9,8 @@
 
 #include "agh.h"
 
+class DLL_EXP agh::CImageBase;
+
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////
 class DLL_EXP CMglAglImage : public agh::CImageBase
 {
