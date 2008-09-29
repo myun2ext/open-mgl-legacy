@@ -107,7 +107,7 @@ D3DCOLOR CMglBitmapData::Get(int x,int y)
 
 	D3DCOLOR *p = GetPtr(x,y);
 	if ( p == NULL )
-		MyuThrow( MSGMSLNO_BITMAP_DATA_INVALID_POS,
+		MyuThrow( MGLMSGNO_BITMAP_DATA_INVALID_POS,
 			"CMglInternalBitmapData::Get(%d,%d) ÇÕé∏îsÇµÇ‹ÇµÇΩÅB",x,y);
 
 	D3DCOLOR work = *p;

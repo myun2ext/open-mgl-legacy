@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MglMouseInput.h"
 
+const int CMglMouseInput::RGB_BUTTON_OFFSET = 12;
+
 //	コンストラクタ
 CMglMouseInput::CMglMouseInput()
 {

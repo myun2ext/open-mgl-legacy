@@ -243,7 +243,7 @@ void CMglGraphicManager::Direct3DCreate()
 	//	D3Dオブジェクトの生成
 	m_pD3d = Direct3DCreate8( D3D_SDK_VERSION );
 	if ( NULL == m_pD3d )
-		MyuThrow2( 0, MSGMSLNO_GRP_MANAGER_D3DCREATE_FAILED,
+		MyuThrow2( 0, MGLMSGNO_GRP_MANAGER_D3DCREATE_FAILED,
 			"CMglGraphicManager::Direct3DCreate()  Direct3DCreate8()に失敗。" );
 }
 
@@ -695,7 +695,7 @@ CMglGraphicManager* GetDefaultGd()
 	CMglStackInstance("CMglGraphicManager::GetDefaultGd");
 	if ( g_pDefaultGd == NULL )
 	{
-		MyuThrow2( 0, MSGMSLNO_GRP_MANAGER_MULTI_INSTANCE,
+		MyuThrow2( 0, MGLMSGNO_GRP_MANAGER_MULTI_INSTANCE,
 			"CMglGraphicManager のインスタンスが存在しないか複数存在するため省略する事は出来ません。" );
 	}
 	return g_pDefaultGd;

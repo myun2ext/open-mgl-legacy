@@ -78,7 +78,7 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
                                                   0, FVF_MYU_VERTEX,
                                                   D3DPOOL_DEFAULT, &pVertexBuffer ) ) )
     {
-        MyuThrow( MSGMSLNO_DRAW_LINE_DRAW_FAILED,
+        MyuThrow( MGLMSGNO_DRAW_LINE_DRAW_FAILED,
 			"CMglDrawLine::Draw()  m_d3d->CreateVertexBuffer()‚ÉŽ¸”s" );
     }
 
@@ -87,11 +87,11 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
     // buffers may be in device memory.
     BYTE* pVertices = NULL;
     if( FAILED( pVertexBuffer->Lock( 0, MGL_VERTEXES_SIZE, &pVertices, 0 ) ) )
-        MyuThrow( MSGMSLNO_DRAW_LINE_DRAW_FAILED,
+        MyuThrow( MGLMSGNO_DRAW_LINE_DRAW_FAILED,
 			"CMglDrawLine::Draw()  pVertexBuffer->Lock()‚ÉŽ¸”s" );
 
 	if ( pVertices == NULL )
-        MyuThrow( MSGMSLNO_DRAW_LINE_DRAW_FAILED,
+        MyuThrow( MGLMSGNO_DRAW_LINE_DRAW_FAILED,
 			"CMglDrawLine::Draw()  pVertices is NULL." );
 
     memcpy( pVertices, vertices, MGL_VERTEXES_SIZE );
