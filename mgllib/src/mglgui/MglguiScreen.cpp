@@ -139,6 +139,8 @@ bool CMglguiScreen::ThreadFunc()
 	return true;
 }
 
+/////////////////////////////////////////////////////////////
+
 DWORD CMglguiWindow_ThreadFunc(CMglguiWindow *pWindow){ return (bool)pWindow->__ThreadFunc(); }
 
 bool CMglguiWindow::__ThreadFunc()

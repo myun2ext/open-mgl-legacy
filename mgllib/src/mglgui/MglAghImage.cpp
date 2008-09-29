@@ -1,23 +1,30 @@
 //////////////////////////////////////////////////////////
 //
-//	MglAglImage
+//	MglAghImage
 //		- MglGraphicManager レイヤークラス
 //
 //////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "MglAglImage.h"
+#include "MglAghImage.h"
 
 /*
 //	コンストラクタ
-CMglAglImage::CMglAglImage()
+CMglAghImage::CMglAghImage()
 {
 }
 
 //	デストラクタ
-CMglAglImage::~CMglAglImage()
+CMglAghImage::~CMglAghImage()
 {
 }
 */
 
 
+bool CMglAghImage::Load(const char* szImageFilePath)
+{
+	m_strLayerName = szImageFilePath;
+	m_strFilePath = szImageFilePath;
+
+	return true;
+}

@@ -1,26 +1,24 @@
 //////////////////////////////////////////////////////////
 //
-//	MglAglImage
+//	MglAghImage
 //
 //////////////////////////////////////////////////////////
 
-#ifndef __MglAglImage_H__
-#define __MglAglImage_H__
+#ifndef __MglAghImage_H__
+#define __MglAghImage_H__
 
 #include "agh.h"
 
 class DLL_EXP agh::CImageBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CMglAglImage : public agh::CImageBase
+class DLL_EXP CMglAghImage : public agh::CImageBase
 {
-public:
-
 protected:
-
+	std::string m_strLayerName;
+	std::string m_strFilePath;
 public:
-	//	コンストラクタ
-
+	bool Load(const char* szImageFilePath);
 };
 
-#endif//__MglAglImage_H__
+#endif//__MglAghImage_H__

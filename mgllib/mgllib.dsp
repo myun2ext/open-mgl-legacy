@@ -249,11 +249,11 @@ SOURCE=..\AGH\include\agh.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\mglgui\MglAglImage.cpp
+SOURCE=.\src\mglgui\MglAghImage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\mglgui\MglAglImage.h
+SOURCE=.\src\mglgui\MglAghImage.h
 # End Source File
 # Begin Source File
 
