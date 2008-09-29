@@ -2,8 +2,9 @@
 //
 
 #include "stdafx.h"
+#include "MglguiScreen.h"
 
-CMglEzGameFrame g_frame;
+CMglguiScreen g_frame;
 BOOL WINAPI MainThread(CMglEzGameFrame *pFrame);
 
 int APIENTRY WinMain(HINSTANCE hInstance,
