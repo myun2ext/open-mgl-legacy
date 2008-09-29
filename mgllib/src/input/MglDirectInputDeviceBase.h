@@ -2,6 +2,7 @@
 //
 //	MglDirectInputDeviceBase - マウス入力クラス
 //
+//	2008/09/29 古いバッファ記憶対応
 //////////////////////////////////////////////////////////
 
 #ifndef __MglDirectInputDeviceBase_H__
@@ -16,6 +17,7 @@ protected:
 	_MGL_IDirectInputDevice *m_pDevice;
 	//BYTE m_stateBuf[STATEBUF_SIZE];
 	BYTE *m_pStateBuf;
+	BYTE *m_pOldStateBuf;	//	2008/09/29 古いバッファ記憶対応
 	int m_nStateBufSize;
 	HWND m_hWnd;
 
@@ -27,6 +29,7 @@ protected:
 		if ( m_pDevice == NULL )
 			MyuThrow(20, "CMglDirectInputDeviceBase: Init()を呼び出してください。");
 	}
+	int GetStateChanged(int nIndex); //	0:変化なし  正の値:押された  負の値:離された
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -40,6 +43,7 @@ public:
 
 	BYTE* UpdateStateBuf();
 	BYTE* GetStateBuf(){ return m_pStateBuf; }
+	BYTE* GetOldStateBuf(){ return m_pOldStateBuf; }
 	//BYTE* GetStateBuf(){ return UpdateStateBuf(); }
 };
 

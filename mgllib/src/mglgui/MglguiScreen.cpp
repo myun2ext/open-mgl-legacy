@@ -89,6 +89,7 @@ bool CMglguiScreen::OnFrameMouseInput()
 	if ( m_mouse.IsPressRightButton() )
 		CScreenBase::OnRButtonDown(x,y);
 
+	//m_mouse.
 	return true;
 }
 
