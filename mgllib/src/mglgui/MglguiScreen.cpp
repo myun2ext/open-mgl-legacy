@@ -139,3 +139,18 @@ bool CMglguiScreen::ThreadFunc()
 	return true;
 }
 
+DWORD CMglguiWindow_ThreadFunc(CMglguiWindow *pWindow){ return (bool)pWindow->__ThreadFunc(); }
+
+bool CMglguiWindow::__ThreadFunc()
+{
+	Init(GetWindowHandle(), 640, 480);
+
+	return ThreadFunc();
+}
+
+int CMglguiWindow::StartWindow( int nWinWidthSize, int nWinHeightSize,
+	const char *szWindowTitle, BOOL bFullscreen )
+{
+	return StartWindowEx(nWinWidthSize, nWinHeightSize, (LPTHREAD_START_ROUTINE)CMglguiWindow_ThreadFunc,
+		this, szWindowTitle, bFullscreen);
+}

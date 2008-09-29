@@ -196,7 +196,7 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 				"\r\n"
 				"%s",
 				except.nErrCode, except.szErrMsg,
-				g_stackTrace.Dump() );
+				g_stackTrace.Dump().c_str() );
 			::MessageBox( NULL, work, NULL, MB_ICONERROR );
 		}
 #ifndef _DEBUG

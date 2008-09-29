@@ -59,9 +59,23 @@ public:
 
 	void SetBackgroundColor(D3DCOLOR color){ m_rgbBackground = color; }
 
-private:
+protected:
 	bool ThreadFunc();
+public:
 	bool OnFrameMouseInput();
+};
+
+
+//	asfsdasfasfda
+class DLL_EXP CMglguiWindow : public CMglguiScreen
+{
+private:
+public:
+	bool __ThreadFunc();
+
+public:
+	int StartWindow( int nWinWidthSize, int nWinHeightSize,
+		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );
 };
 
 #endif//__MglguiScreen_H__

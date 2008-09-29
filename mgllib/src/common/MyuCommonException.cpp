@@ -129,7 +129,7 @@ void MyuThrow( int nErrCode, const char* szErrMsg, ... )
 	sprintf( szDebugLogStr, "%s", tExcep.szErrMsg );
 	_MGL_DEBUGLOG("");
 	_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
-	_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump() );
+	_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump().c_str() );
 
 	throw tExcep;
 }
@@ -150,7 +150,7 @@ void MyuAssert( long nResult, long nOK, const char* szErrMsg, ... )
 		sprintf( szDebugLogStr, "%s", tExcep.szErrMsg );
 		_MGL_DEBUGLOG("");
 		_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
-		_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump() );
+		_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump().c_str() );
 
 		throw tExcep;
 	}
