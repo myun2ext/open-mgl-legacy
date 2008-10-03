@@ -55,7 +55,10 @@ bool CMglguiScreen::DoFrame()
 		//	イベント処理
 		OnFrameMouseInput();
 
-		//	フレーム処理 (CMglEzGameFrame)
+		//	描画処理
+		ScreenUpdate();
+
+		//	フレームレート制御＋α処理 (CMglEzGameFrame)
 		if ( CMglEzGameFrame::DoFpsWait() == FALSE )
 			return false;
 	}
@@ -139,9 +142,19 @@ bool CMglguiScreen::ThreadFunc()
 	return true;
 }
 
+void CMglguiScreen::RegistControl(CMglAghImage* pImage)
+{
+	const char* szFilePath = pImage->m_strFilePath.c_str();
+	const char* szAlias = pImage->m_strLayerName.c_str();
+	
+	m_imgPool.Cache(szFilePath);
+	m_layer.RegistBegin( new CMglImageLayer(m_imgPool[szFilePath]), true );
+
+}
+
 /////////////////////////////////////////////////////////////
 
-DWORD CMglguiWindow_ThreadFunc(CMglguiWindow *pWindow){ return (bool)pWindow->__ThreadFunc(); }
+DWORD WINAPI CMglguiWindow_ThreadFunc(CMglguiWindow *pWindow){ return (bool)pWindow->__ThreadFunc(); }
 
 bool CMglguiWindow::__ThreadFunc()
 {

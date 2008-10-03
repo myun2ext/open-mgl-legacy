@@ -24,7 +24,8 @@ public:
 	//	予めキャッシュしておく（無ければ）
 	void Cache( const char* szImageFile ){
 		if ( m_buffers.IsExist( szImageFile ) != TRUE )
-			CMglImageManager::Add( szImageFile );
+			CMglImageManager::Add( szImageFile )->Create(szImageFile);
+			//CMglImageManager::Add( szImageFile );
 	}
 
 	//	キャッシュを消す

@@ -9,7 +9,7 @@ CMglDirectInputDeviceBase::CMglDirectInputDeviceBase()
 	m_pDevice = NULL;
 	//ZeroMemory( m_stateBuf, sizeof(m_stateBuf) );
 	m_pStateBuf = NULL;
-	m_pOldStateBuf = NULL;
+	m_pStateBuf2 = NULL;
 	m_nStateBufSize = 0;
 	m_hWnd = NULL;
 }
@@ -17,9 +17,11 @@ CMglDirectInputDeviceBase::CMglDirectInputDeviceBase()
 //	デストラクタ
 CMglDirectInputDeviceBase::~CMglDirectInputDeviceBase()
 {
-	SAFE_DELETE_ARY(m_pStateBuf);
-	SAFE_DELETE_ARY(m_pOldStateBuf);
 	Release();
+	//if ( m_pStateBuf != m_pStateBuf2 )
+	//	SAFE_DELETE_ARY(m_pStateBuf2);
+	SAFE_DELETE_ARY(m_pStateBuf);
+	SAFE_DELETE_ARY(m_pStateBuf2);
 }
 
 //	初期化
@@ -43,10 +45,10 @@ void CMglDirectInputDeviceBase::Init( REFGUID rguid, LPCDIDATAFORMAT dataFormat,
 
 	//	ステートバッファ確保
 	m_pStateBuf = new BYTE[nStateBufSize];
-	m_pOldStateBuf = new BYTE[nStateBufSize];
+	m_pStateBuf2 = new BYTE[nStateBufSize];
 	m_nStateBufSize = nStateBufSize;
 	ZeroMemory(m_pStateBuf,nStateBufSize);		//	2008/06/29  初期化してなかったんですけど！！
-	ZeroMemory(m_pOldStateBuf,nStateBufSize);	//	2008/06/29  初期化してなかったんですけど！！
+	ZeroMemory(m_pStateBuf2,nStateBufSize);
 
 	Acquire();
 
@@ -87,7 +89,9 @@ void CMglDirectInputDeviceBase::Unacquire()
 BYTE* CMglDirectInputDeviceBase::UpdateStateBuf()
 {
 	//	2008/09/29  古いバッファを記憶
-	m_pOldStateBuf = m_pStateBuf;
+	/*SAFE_DELETE_ARY(m_pStateBuf2);
+	m_pStateBuf2 = m_pStateBuf;*/
+	SwapStateBuf();
 
 	InitCheck();
 	ZeroMemory( m_pStateBuf, m_nStateBufSize );
@@ -115,5 +119,5 @@ BYTE* CMglDirectInputDeviceBase::UpdateStateBuf()
 //	0:変化なし  正の値:押された  負の値:離された
 int CMglDirectInputDeviceBase::GetStateChanged(int nIndex)
 {
-	return m_pStateBuf[nIndex] - m_pOldStateBuf[nIndex];
+	return m_pStateBuf[nIndex] - m_pStateBuf2[nIndex];
 }

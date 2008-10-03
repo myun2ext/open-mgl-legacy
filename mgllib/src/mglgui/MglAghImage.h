@@ -14,6 +14,7 @@ class DLL_EXP agh::CImageBase;
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////
 class DLL_EXP CMglAghImage : public agh::CImageBase
 {
+	friend class CMglguiScreen;
 protected:
 	std::string m_strLayerName;
 	std::string m_strFilePath;

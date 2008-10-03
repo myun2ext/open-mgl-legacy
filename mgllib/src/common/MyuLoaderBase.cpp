@@ -35,8 +35,11 @@ TEMPLATE_T bool CMyuLoaderBase<T>::Add( const char* szFilename )
 	if ( IsExist( szFilename ) == true )
 		return false;
 
+	//	’Ç‰Á
 	//(*p_map)[szFilename] = T();
 	m_map[szFilename] = T();
+
+	return TLoad( m_map[szFilename], szFilename );
 }
 
 //	Žæ“¾

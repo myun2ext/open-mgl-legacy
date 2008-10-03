@@ -9,7 +9,10 @@
 
 #include "agh.h"
 #include "MglLayers4.h"
+#include "MglImageCacher.h"
+#include "MglImageLayer.h"
 #include "MglEzGameFrame.h"
+#include "MglAghImage.h"
 //#include "MglMouseInput.h"
 
 class DLL_EXP agh::CScreenBase;
@@ -20,7 +23,7 @@ class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, pu
 {
 public:
 	CMglGraphicManager m_grp;
-	CMglImageLoader m_imgPool;
+	CMglImageCacher m_imgPool;
 
 protected:
 	HWND m_hWnd;
@@ -35,6 +38,10 @@ public:
 		m_rgbBackground = D3DCOLOR_WHITE;
 	}
 	void Init( HWND hWnd, int nDispX, int nDispY );
+
+	//////////////////////////////////////////////////////
+
+	void RegistControl(CMglAghImage* pImage);
 
 	//////////////////////////////////////////////////////
 

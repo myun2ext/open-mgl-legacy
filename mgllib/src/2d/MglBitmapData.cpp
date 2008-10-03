@@ -91,6 +91,7 @@ void CMglBitmapData::Lock(DWORD dwMode)
 void CMglBitmapData::Unlock()
 {
 	InitChk();
+
 	if ( m_bLocked == FALSE )
 		return;
 

@@ -17,7 +17,7 @@ protected:
 	_MGL_IDirectInputDevice *m_pDevice;
 	//BYTE m_stateBuf[STATEBUF_SIZE];
 	BYTE *m_pStateBuf;
-	BYTE *m_pOldStateBuf;	//	2008/09/29 古いバッファ記憶対応
+	BYTE *m_pStateBuf2;	//	2008/09/29 古いバッファ記憶対応
 	int m_nStateBufSize;
 	HWND m_hWnd;
 
@@ -30,6 +30,11 @@ protected:
 			MyuThrow(20, "CMglDirectInputDeviceBase: Init()を呼び出してください。");
 	}
 	int GetStateChanged(int nIndex); //	0:変化なし  正の値:押された  負の値:離された
+	void SwapStateBuf(){
+		BYTE* pSwapWork = m_pStateBuf;
+		m_pStateBuf = m_pStateBuf2;
+		m_pStateBuf2 = pSwapWork;
+	}
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -43,7 +48,7 @@ public:
 
 	BYTE* UpdateStateBuf();
 	BYTE* GetStateBuf(){ return m_pStateBuf; }
-	BYTE* GetOldStateBuf(){ return m_pOldStateBuf; }
+	BYTE* GetOldStateBuf(){ return m_pStateBuf2; }
 	//BYTE* GetStateBuf(){ return UpdateStateBuf(); }
 };
 

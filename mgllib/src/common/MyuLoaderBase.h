@@ -37,7 +37,7 @@ private:
 	char m_szGetErrMsg[256];*/
 
 protected:
-	virtual void TLoad( typename T& t, const char* szFilename )=0;
+	virtual bool TLoad( typename T& t, const char* szFilename )=0;
 
 public:
 	//	コンストラクタ/デストラクタ

@@ -94,6 +94,9 @@ public:
 	}
 	*/
 	virtual ~CMglBitmapData(){
+		//	2008/10/03  デストラクタで呼ばれて落ちる・・・。初期化されてないなら使われてないわけで、なにもしないでいくない？
+		if ( m_pSurface == NULL )
+			return;
 		Release();
 	}
 	void Release();
