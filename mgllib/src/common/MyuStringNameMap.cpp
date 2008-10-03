@@ -10,6 +10,7 @@
 #include "MyuStringNameMap.h"
 
 //	テンプレートのインスタンスをDLL側に明示的に生成
+#include "MglImage.h"
 template class DLL_EXP CMyuStringNameMap<CMglImage>;
 
 //	マクロ化

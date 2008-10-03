@@ -9,95 +9,70 @@
 
 #include "MyuLoaderBase.h"
 
-//	テンプレートのインスタンスをDLL側に明示的に生成
-template class DLL_EXP CMyuLoaderBase<CMglImage>;
-
 //	マクロ化
 #define TEMPLATE_T template <typename T>
-
-//	チェックしてなかったら確保
-#define CHKN_ALLOC()		if ( p_map == NULL ) { p_map = new T_MAP; }
 
 //	コンストラクタ
 TEMPLATE_T CMyuLoaderBase<T>::CMyuLoaderBase()
 {
-	p_map = NULL;
-	SetMessage(
-		"CMyuLoaderBase::Add()  既に\"%s\"の名前のオブジェクトは存在します。",
-		"CMyuLoaderBase::Get()  \"%s\"の名前のオブジェクトは存在しません。" );
 }
 
 //	デストラクタ
 TEMPLATE_T CMyuLoaderBase<T>::~CMyuLoaderBase()
 {
-	DeleteAll();
 }
 
 //	全てをクリア
 TEMPLATE_T void CMyuLoaderBase<T>::DeleteAll()
 {
-	SAFE_DELETE( p_map );
+	m_map.clear();
 }
 
 //	追加
-TEMPLATE_T void CMyuLoaderBase<T>::Add( const char* in_szName, typename T& object )
+TEMPLATE_T bool CMyuLoaderBase<T>::Add( const char* szFilename )
 {
-	CHKN_ALLOC();
-
 	//	既に無いかチェック
-	if ( IsExist( in_szName ) == TRUE )
-		MyuThrow( 0, m_szAddErrMsg, in_szName );
+	if ( IsExist( szFilename ) == true )
+		return false;
 
-	(*p_map)[in_szName] = object;
+	//(*p_map)[szFilename] = T();
+	m_map[szFilename] = T();
 }
 
 //	取得
-TEMPLATE_T typename T* CMyuLoaderBase<T>::Get( const char* in_szName )
+TEMPLATE_T typename T* CMyuLoaderBase<T>::Get( const char* szFilename )
 {
-	CHKN_ALLOC();
-
 	//	本当にあるかチェック
-	if ( IsExist( in_szName ) == FALSE )
-		MyuThrow( 0, m_szGetErrMsg, in_szName );
+	if ( IsExist( szFilename ) == false )
+		return false;
 
-	return &(*p_map)[in_szName];
+	//return &(*p_map)[szFilename];
+	return &m_map[szFilename];
 }
 
 //	削除
-TEMPLATE_T typename void CMyuLoaderBase<T>::Delete( const char* in_szName )
+TEMPLATE_T typename bool CMyuLoaderBase<T>::Delete( const char* szFilename )
 {
-	CHKN_ALLOC();
-
 	//	本当にあるかチェック
-	if ( IsExist( in_szName ) == FALSE )
-		MyuThrow( 0, m_szGetErrMsg, in_szName );
+	if ( IsExist( szFilename ) == false )
+		return false;
 
-	(*p_map).erase( in_szName );
+	m_map.erase( szFilename );
 }
 
 //	存在するかチェック
-TEMPLATE_T BOOL CMyuLoaderBase<T>::IsExist( const char* in_szName )
+TEMPLATE_T bool CMyuLoaderBase<T>::IsExist( const char* szFilename )
 {
-	CHKN_ALLOC();
-
-	T_MAP::iterator itr = p_map->find( in_szName );
-	if ( itr == p_map->end() )
-		return FALSE;
+	MAP_ITR itr = m_map.find( szFilename );
+	if ( itr == m_map.end() )
+		return false;
 	else
-		return TRUE;
+		return true;
 }
 
 //	サイズ取得
 TEMPLATE_T size_t CMyuLoaderBase<T>::Size()
 {
-	CHKN_ALLOC();
-
-	return p_map->size();
-}
-
-//	メッセージ設定
-TEMPLATE_T void CMyuLoaderBase<T>::SetMessage( const char* in_szAddErrMsg, const char* in_szGetErrMsg )
-{
-	strcpy( m_szAddErrMsg, in_szAddErrMsg );
-	strcpy( m_szGetErrMsg, in_szGetErrMsg );
+	//return p_map->size();
+	return m_map.size();
 }

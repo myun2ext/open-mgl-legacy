@@ -15,8 +15,6 @@
 #ifndef __MyuStringNameMap_H__
 #define __MyuStringNameMap_H__
 
-#include "MglImage.h"
-
 //	ƒNƒ‰ƒXéŒ¾
 template <typename T>
 class DLL_EXP CMyuStringNameMap

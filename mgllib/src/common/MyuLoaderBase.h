@@ -15,20 +15,29 @@
 #ifndef __MyuLoaderBase_H__
 #define __MyuLoaderBase_H__
 
-#include "MglImage.h"
+#include <string>
+#include <map>
 
 //	クラス宣言
-template <typename T>
-class DLL_EXP CMyuLoaderBase
+template <typename T> class DLL_EXP CMyuLoaderBase
 {
 private:
 	//	データ
 	typedef map<string,typename T> T_MAP;
-	T_MAP *p_map;
+	typedef map<string,typename T>::iterator MAP_ITR;
+	//T_MAP *p_map;	<- なんでこれ動的確保にしてるん？
+	//（あ、STLのメモリ領域の問題でか？でもエクスポートすれば問題ないような・・・
+	//　つーかヘッダに書けば案外問題なかったりするんじゃね
 
+	T_MAP m_map;
+
+	/*
 	//	メッセージ
 	char m_szAddErrMsg[256];
-	char m_szGetErrMsg[256];
+	char m_szGetErrMsg[256];*/
+
+protected:
+	virtual void TLoad( typename T& t, const char* szFilename )=0;
 
 public:
 	//	コンストラクタ/デストラクタ
@@ -36,23 +45,18 @@ public:
 	virtual ~CMyuLoaderBase();
 
 	//	追加/取得
-	void Add( const char* in_szName, typename T& object );
-	typename T* Get( const char* in_szName );
-	void Delete( const char* in_szName );
+	bool Add( const char* szFilename );
+	typename T* Get( const char* szFilename );
+	bool Delete( const char* szFilename );
 
 	//	存在するかチェック
-	BOOL IsExist( const char* in_szName );
+	bool IsExist( const char* szFilename );
 
 	//	全てをクリア
 	void DeleteAll();
 
 	//	その他
 	size_t Size();
-
-	//	メッセージ設定
-	void SetMessage( const char* in_szAddErrMsg, const char* in_szGetErrMsg );
 };
-
-//extern template<> class __declspec(dllimport) CMyuLoaderBase<CMglImage>;
 
 #endif//__MyuLoaderBase_H__
