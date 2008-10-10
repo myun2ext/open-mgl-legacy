@@ -117,6 +117,10 @@ SOURCE=.\StdAfx.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\MSL\include\auto_fp.h
 # End Source File
 # Begin Source File
@@ -221,11 +225,19 @@ SOURCE=..\include\mgl_header\mgl2d.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\mgl_common.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\mgl_global.h
 # End Source File
 # Begin Source File
 
 SOURCE=..\include\mgl_header\mglafx.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglAghImage.h
 # End Source File
 # Begin Source File
 
@@ -290,6 +302,10 @@ SOURCE=..\include\mgl_header\MglGraphicManager.h
 # Begin Source File
 
 SOURCE=..\include\mgl_header\MglGraphicUtil.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglguiScreen.h
 # End Source File
 # Begin Source File
 
@@ -401,6 +417,10 @@ SOURCE=..\MSL\include\msl_stlcommon.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\MSL\include\mslcharset.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\MSL\include\mslcommon.h
 # End Source File
 # Begin Source File
@@ -457,6 +477,10 @@ SOURCE=..\MWL\include\mwlfile.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\MWL\include\MwlFileUtil.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\MWL\include\mwlmsg.h
 # End Source File
 # Begin Source File
@@ -466,6 +490,14 @@ SOURCE=..\MWL\include\mwlstd.h
 # Begin Source File
 
 SOURCE=..\MWL\include\mwlstd_ofn.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\myu_dynamic_string.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\myu_super_stream.h
 # End Source File
 # Begin Source File
 
@@ -521,7 +553,15 @@ SOURCE=..\MWL\include\MyuProcessManager.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\MWL\include\MyuRegReader.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MyuReleaseBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuSimpleStackTrace.h
 # End Source File
 # Begin Source File
 
@@ -530,6 +570,10 @@ SOURCE=..\MWL\include\MyuSpecialIniReader.h
 # Begin Source File
 
 SOURCE=..\include\mgl_header\MyuStringNameMap.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuThreadBase.h
 # End Source File
 # Begin Source File
 

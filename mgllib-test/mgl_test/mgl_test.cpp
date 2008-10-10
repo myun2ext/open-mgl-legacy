@@ -3,9 +3,33 @@
 
 #include "stdafx.h"
 #include "MglguiScreen.h"
+#include "MglAghImage.h"
 
-CMglguiScreen g_frame;
-BOOL WINAPI MainThread(CMglEzGameFrame *pFrame);
+class CMglTestFrame : public CMglguiWindow
+{
+private:
+	CMglAghImage m_img;
+	CMglBitmapData m_bitmap;
+public:
+	CMglTestFrame(){}
+	void OnInit(){
+		m_img.Load("font_big.tga");
+		CMglguiWindow::RegistControl(&m_img);
+		/*m_bitmap.Init(&m_img);*/
+	}
+	void OnBackgroundLButtonDown(int x, int y)
+	{
+		MessageBox("aaa");
+		//inBitmap.Set(point.x, point.y, D3DCOLOR_WHITE);
+		//inBitmap.Set(point.x, point.y, D3DCOLOR_RED);
+		/*if ( D3DCOLOR_GETA(m_bitmap.Get(x, y)) != 0 )
+			m_bitmap.Fill(D3DCOLOR_RED,Rect(x, y, x+3, y+3));*/
+	}
+
+};
+CMglTestFrame g_frame;
+
+///////////////////////////////////////////////////
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -13,49 +37,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      int       nCmdShow )
 {
 	g_frame.EnableEscEnd();
-	g_frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread,
-			"hgoe", FALSE );
+	//g_frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread,
+	g_frame.StartWindow( 640, 480, "hgoe", FALSE );
 
 	return 0;
-}
-
-//	メインスレッド
-BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
-{
-	CMglImage img;
-	//img.Create("C:\\Documents and Settings\\智章\\My Documents\\shana_36-1.jpg");
-	img.Create("font_big.tga");
-	//img.Create();
-	//CMglBitmapData *pBitmap = img.GetIternalBitmapData();
-	CMglBitmapData inBitmap(&img);
-	//inBitmap.Get(20,29);
-	//inBitmap.Fill(D3DCOLOR_WHITE);
-	//inBitmap.Release();
-
-	int i=0;
-	for(;;){
-		i++;
-		//inBitmap.Set(i,i,D3DCOLOR_WHITE);
-		//inBitmap.Fill(D3DCOLOR_WHITE, Rect(i*4,i*4,i*4+4,i*4*4));
-		img.Draw();
-
-		if ( pFrame->input.mouse.IsPressLeftButton() )
-		{
-			POINT point = pFrame->input.mouse.GetCursorPos();
-			//inBitmap.Set(point.x, point.y, D3DCOLOR_WHITE);
-			//inBitmap.Set(point.x, point.y, D3DCOLOR_RED);
-			try {
-				if ( D3DCOLOR_GETA(inBitmap.Get(point.x, point.y)) != 0 )
-					inBitmap.Fill(D3DCOLOR_RED,Rect(point.x, point.y, point.x+3, point.y+3));
-			}
-			catch(MyuCommonException e){
-				if ( e.nErrCode != MSGMSLNO_BITMAP_DATA_INVALID_POS )
-					throw e;
-			}
-		}
-
-		if ( !pFrame->DoFpsWait() )
-			return TRUE;
-	}
-	return TRUE;
 }
