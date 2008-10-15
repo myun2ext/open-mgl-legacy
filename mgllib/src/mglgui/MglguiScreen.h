@@ -19,7 +19,7 @@ class DLL_EXP agh::CScreenBase;
 class DLL_EXP CMyuThreadBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, public CMglEzGameFrame
+class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, protected CMglEzGameFrame
 {
 public:
 	//CMglGraphicManager m_grp;
@@ -31,25 +31,8 @@ protected:
 	CMglMouseInput &m_mouse;
 	D3DCOLOR m_rgbBackground;
 
-public:
-	//	コンストラクタ
-	CMglguiScreen() : m_mouse(input.mouse) {
-		m_hWnd = NULL;
-		m_rgbBackground = D3DCOLOR_WHITE;
-	}
-	void Init( HWND hWnd, int nDispX, int nDispY );
+	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////////
-
-	void RegistControl(CMglAghImage* pImage);
-
-	//////////////////////////////////////////////////////
-
-	void ScreenUpdate();
-	bool DoFrame();
-	void AutoLoopThreadStart();
-
-	void OnLButtonDown(int x, int y);
 	virtual void OnBackgroundLButtonDown(int x, int y){}
 	virtual void OnBackgroundRButtonDown(int x, int y){}
 	virtual void OnBackgroundCButtonDown(int x, int y){}
@@ -57,9 +40,30 @@ public:
 	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
 	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
 
-	BOOL IsExistPool(const char* szAlias);
+private:
+	//	なんでPublic？（Privateではないのか・・・？）
+	void OnLButtonDown(int x, int y);
+
+	void ScreenUpdate();
+	bool DoFrame();
+
+	void Init( HWND hWnd, int nDispX, int nDispY );
+
+public:
+	//	コンストラクタ
+	CMglguiScreen() : m_mouse(input.mouse) {
+		m_hWnd = NULL;
+		m_rgbBackground = D3DCOLOR_WHITE;
+	}
+	void AutoLoopThreadStart();
+
+	///// コントロールの登録 /////////////////////////////////////////////////
+
+	void RegistControl(CMglAghImage* pImage);
 
 	//////////////////////////////////////////////////////
+
+	//BOOL IsExistPool(const char* szAlias); <- ?
 
 	/*BOOL InsertImage(IMGLIST_ITR it);
 	BOOL InsertImage(){ return InsertImage(GetScene()->m_images.begin()); }*/
@@ -72,8 +76,17 @@ public:
 	bool OnFrameMouseInput();
 };
 
+//////////// ウインドウ作成もやってくれるクラス ////////////////////
 
-//	asfsdasfasfda
+/*class CMglguiWindowOnCreateExtend : public CCreateWindowInfoExtendBase
+{
+
+};*/
+typedef struct : agh::CREATE_WINDOW_EXTEND_BASE
+{
+	BOOL bFullScreen;
+} MGLGUI_WINDOW_ON_CREATE_EXTEND;
+
 class DLL_EXP CMglguiWindow : public CMglguiScreen
 {
 private:
@@ -81,8 +94,9 @@ public:
 	bool __ThreadFunc();
 
 public:
-	int StartWindow( int nWinWidthSize, int nWinHeightSize,
-		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );
+	void Start();
+	/*int StartWindow( int nWinWidthSize, int nWinHeightSize,
+		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );*/
 };
 
 #endif//__MglguiScreen_H__
