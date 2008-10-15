@@ -32,13 +32,20 @@ private:
 
 	static BOOL m_bFpsShow;
 	*/
+	string m_strDebugText;
+	string m_strWindowClassName;
+	LPTHREAD_START_ROUTINE m_userMainThread;
 
+	BOOL m_bFpsShow;
+	BOOL m_bBreak;
+	BOOL m_bEscEnd;
+	BOOL m_bFullscreen;
+
+protected:
 	//	ÉNÉâÉX
 	CMyuEzWindow m_window;
 	CMglText m_txtDebug;
 	CMglText m_txtFps;
-	string m_strDebugText;
-	string m_strWindowClassName;
 	//string m_strWindowTitle;
 	//CMglGraphicText m_text;	-> ñàâÒçÏÇÈ
 
@@ -46,13 +53,7 @@ private:
 	int m_nWidth;
 	int m_nHeight;
 	//MGL_EZGAME_FRAME_FUNCPTR m_userMainThread;
-	LPTHREAD_START_ROUTINE m_userMainThread;
 	//string m_strCaption;
-
-	BOOL m_bFpsShow;
-	BOOL m_bBreak;
-	BOOL m_bEscEnd;
-	BOOL m_bFullscreen;
 
 public:
 	/*static CMglGraphicManager grp;

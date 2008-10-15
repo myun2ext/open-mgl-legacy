@@ -133,6 +133,8 @@ void CMglguiScreen::AutoLoopThreadStart()
 bool CMglguiScreen::ThreadFunc()
 {
 	try{
+		Init(GetWindowHandle(), CMglEzGameFrame::m_nWidth, CMglEzGameFrame::m_nHeight);
+
 		for(;;){
 			if ( DoFrame() == false )
 				return true;
@@ -155,7 +157,6 @@ void CMglguiScreen::RegistControl(CMglAghImage* pImage)
 	
 	m_imgPool.Cache(szFilePath);
 	m_layer.RegistBegin( new CMglImageLayer(m_imgPool[szFilePath]), true );
-
 }
 
 /////////////////////////////////////////////////////////////
@@ -164,8 +165,7 @@ DWORD WINAPI CMglguiWindow_ThreadFunc(CMglguiWindow *pWindow){ return (bool)pWin
 
 bool CMglguiWindow::__ThreadFunc()
 {
-	Init(GetWindowHandle(), 640, 480);
-
+	//Init(GetWindowHandle(), 640, 480);
 	return ThreadFunc();
 }
 
