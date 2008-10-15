@@ -13,6 +13,9 @@ private:
 public:
 	CMglTestFrame(){}
 	void OnInit(){
+		//	2008/10/15
+		EnableEscEnd();
+
 		m_img.Load("font_big.tga");
 		CMglguiWindow::RegistControl(&m_img);
 		/*m_bitmap.Init(&m_img);*/
@@ -36,7 +39,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow )
 {
-	g_frame.EnableEscEnd();
+	//g_frame.EnableEscEnd();
 	//g_frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread,
 	g_frame.StartWindow( 640, 480, "hgoe", FALSE );
 

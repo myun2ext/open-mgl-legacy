@@ -34,6 +34,8 @@ BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
 	int i=0;
 	for(;;){
 		i++;
+		//pFrame->grp.Clear(D3DCOLOR_WHITE);
+
 		//inBitmap.Set(i,i,D3DCOLOR_WHITE);
 		//inBitmap.Fill(D3DCOLOR_WHITE, Rect(i*4,i*4,i*4+4,i*4*4));
 		img.Draw();
@@ -48,7 +50,7 @@ BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
 					inBitmap.Fill(D3DCOLOR_RED,Rect(point.x, point.y, point.x+3, point.y+3));
 			}
 			catch(MyuCommonException e){
-				if ( e.nErrCode != MSGMSLNO_BITMAP_DATA_INVALID_POS )
+				if ( e.nErrCode != MGLMSGNO_BITMAP_DATA_INVALID_POS )
 					throw e;
 			}
 		}
