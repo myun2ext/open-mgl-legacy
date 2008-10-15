@@ -84,19 +84,23 @@ bool CMglguiScreen::OnFrameMouseInput()
 
 	//	マウス移動
 	if ( nMoveX > 0 || nMoveY > 0)
-		CScreenBase::OnMouseMove(x, y, nMoveX, nMoveY);
+		//CScreenBase::OnMouseMove(x, y, nMoveX, nMoveY); <- これじゃあ継承した方が呼ばれないぢゃない・・・
+		OnMouseMove(x, y, nMoveX, nMoveY);
 
 	//	真中ボタンを押した
 	if ( m_mouse.IsOnDownCenterButton() )
-		CScreenBase::OnCButtonDown(x,y);
+		//CScreenBase::OnCButtonDown(x,y);
+		OnCButtonDown(x,y);
 
 	//	左ボタンを押した
 	if ( m_mouse.IsOnDownLeftButton() )
-		CScreenBase::OnLButtonDown(x,y);
+		//CScreenBase::OnLButtonDown(x,y);
+		OnLButtonDown(x,y);
 
 	//	右ボタンを押した
 	if ( m_mouse.IsOnDownRightButton() )
-		CScreenBase::OnRButtonDown(x,y);
+		//CScreenBase::OnRButtonDown(x,y);
+		OnRButtonDown(x,y);
 
 	return true;
 }
