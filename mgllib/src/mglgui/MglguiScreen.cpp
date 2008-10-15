@@ -32,7 +32,10 @@ void CMglguiScreen::Init( HWND hWnd, int nDispX, int nDispY )
 	m_layer.Init(&grp);
 
 	m_hWnd = hWnd;
-	ScreenUpdate();
+
+	//	virtual‚È
+	OnInit();
+	//ScreenUpdate();
 }
 
 //////////////////////////////////////////////////
@@ -142,6 +145,8 @@ bool CMglguiScreen::ThreadFunc()
 
 	return true;
 }
+
+/////////////////////////////////////////////////////////////
 
 void CMglguiScreen::RegistControl(CMglAghImage* pImage)
 {
