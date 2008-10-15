@@ -143,6 +143,10 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 
 			_MGL_DEBUGLOG("grp.Init()..." );
 			grp.Init( m_window.GetWindowHandle(), m_nWidth, m_nHeight, m_bFullscreen );
+			grp.Clear();
+
+			//	2008/10/14
+			OnGraphicInitializeEnded();
 
 			_MGL_DEBUGLOG("input.Init()..." );
 			input.Init( m_window.GetWindowHandle() );
@@ -150,7 +154,7 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			m_txtDebug.InitAndEzCreate( &grp, 14 );
 			m_txtFps.InitAndEzCreate( &grp, 14 );
 			//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
-			grp.Clear();
+			//grp.Clear();
 
 			//	MGL S3.1からは呼び出すだけにする（ループはこの中でやってもらう）- 2006/11/25
 			_MGL_DEBUGLOG("Call User MainMethod." );

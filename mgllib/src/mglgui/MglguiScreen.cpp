@@ -25,11 +25,11 @@ CMglguiScreen::~CMglguiScreen()
 //	初期化
 void CMglguiScreen::Init( HWND hWnd, int nDispX, int nDispY )
 {
-	m_grp.Init(hWnd, nDispX, nDispY, FALSE );
+	//m_grp.Init(hWnd, nDispX, nDispY, FALSE );
 
 	//	複数のインスタンスを作成する事になるのでInit()が必要
-	m_imgPool.Init(&m_grp);
-	m_layer.Init(&m_grp);
+	m_imgPool.Init(&grp);
+	m_layer.Init(&grp);
 
 	m_hWnd = hWnd;
 	ScreenUpdate();
@@ -41,11 +41,12 @@ void CMglguiScreen::Init( HWND hWnd, int nDispX, int nDispY )
 void CMglguiScreen::ScreenUpdate()
 {
 	//if ( m_grp.GetD3dDevPtr() != NULL ) {
-	m_grp.Clear(m_rgbBackground);
+	grp.Clear(m_rgbBackground);
+	//grp.Clear(D3DCOLOR_BLUE);
 
 	m_layer.Draw();
 
-	m_grp.UpdateScreen();
+	//m_grp.UpdateScreen(); -> DoFpsWait()ん中でやってるんですわ。
 }
 
 //	フレーム処理

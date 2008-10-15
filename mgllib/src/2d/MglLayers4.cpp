@@ -158,7 +158,7 @@ void CMglLayers4::Rendering()
 			break;*/
 	}
 
-	m_myudg->UpdateScreen();
+	//m_myudg->UpdateScreen(); -> DoFpsとかで走っちゃうから、とりあえずここではやらないよ・・・
 }
 
 //	レイヤー単体の描画

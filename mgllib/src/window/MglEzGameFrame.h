@@ -156,6 +156,9 @@ public:
 	char Getc(){ return input.GetOnKey(); }
 	char GetChar(){ return input.GetOnKey(); }
 	char GetKey(){ return input.GetOnKey(); }
+
+protected:
+	virtual void OnGraphicInitializeEnded(){}
 };
 
 typedef CMglEzGameFrame CMglEzFramework;

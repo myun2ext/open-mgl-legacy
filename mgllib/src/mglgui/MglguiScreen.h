@@ -22,7 +22,7 @@ class DLL_EXP CMyuThreadBase;
 class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, public CMglEzGameFrame
 {
 public:
-	CMglGraphicManager m_grp;
+	//CMglGraphicManager m_grp;
 	CMglImageCacher m_imgPool;
 
 protected:
