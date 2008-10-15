@@ -41,7 +41,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 {
 	//g_frame.EnableEscEnd();
 	//g_frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread,
-	g_frame.StartWindow( 640, 480, "hgoe", FALSE );
+	//g_frame.StartWindow( 640, 480, (LPTHREAD_START_ROUTINE)MainThread );
+	g_frame.Start();
 
 	return 0;
 }
