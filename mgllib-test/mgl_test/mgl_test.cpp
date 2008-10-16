@@ -15,14 +15,14 @@ public:
 	void OnInit(){
 		//	2008/10/15
 		EnableEscEnd();
-
+		m_img.EnableDragMovable();
 		m_img.Load("font_big.tga");
 		CMglguiWindow::RegistControl(&m_img);
 		/*m_bitmap.Init(&m_img);*/
 	}
 	void OnBackgroundLButtonDown(int x, int y)
 	{
-		MessageBox("aaa");
+		//MessageBox("aaa");
 		//inBitmap.Set(point.x, point.y, D3DCOLOR_WHITE);
 		//inBitmap.Set(point.x, point.y, D3DCOLOR_RED);
 		/*if ( D3DCOLOR_GETA(m_bitmap.Get(x, y)) != 0 )
@@ -30,8 +30,9 @@ public:
 	}
 	void OnMouseMove(int nPosX, int nPosY, int nMoveX, int nMoveY){
 		//MessageBox("aaa");
-		m_img.m_rect.top = nPosY;
-		m_img.m_rect.left = nPosX;
+		/*m_img.m_rect.top = nPosY;
+		m_img.m_rect.left = nPosX;*/
+		//m_img.SetPos(nPosX, nPosY);
 	}
 
 
