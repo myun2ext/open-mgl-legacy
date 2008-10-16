@@ -22,7 +22,7 @@ class DLL_EXP CMyuThreadBase;
 class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, protected CMglEzGameFrame
 {
 public:
-	//CMglGraphicManager m_grp;
+	CMglGraphicManager m_grp;
 	CMglImageCacher m_imgPool;
 
 protected:
@@ -51,7 +51,7 @@ private:
 
 public:
 	//	コンストラクタ
-	CMglguiScreen() : m_mouse(input.mouse) {
+	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp) {
 		m_hWnd = NULL;
 		m_rgbBackground = D3DCOLOR_WHITE;
 	}

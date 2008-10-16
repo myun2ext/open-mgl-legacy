@@ -18,7 +18,9 @@ CMglMouseInput::~CMglMouseInput()
 POINT CMglMouseInput::GetCursorPos()
 {
 	POINT point;
-	::GetCursorPos( &point );
-	ScreenToClient( this->m_hWnd, &point);
+	if ( ::GetCursorPos( &point ) != TRUE )
+		MyuThrow(0, "GetCursorPos() ‚ÉŽ¸”s" );
+	if ( ::ScreenToClient( this->m_hWnd, &point) != TRUE )
+		MyuThrow(0, "ScreenToClient() ‚ÉŽ¸”s" );
 	return point;
 }
