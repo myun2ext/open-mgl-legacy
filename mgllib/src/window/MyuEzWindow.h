@@ -44,6 +44,8 @@ private:
 	BOOL m_bAlive;
 	HWND m_hWnd;
 
+protected:
+	//virtual BOOL OnDestroyWindow(){}
 public:
 	CMyuEzWindow();
 	virtual ~CMyuEzWindow();

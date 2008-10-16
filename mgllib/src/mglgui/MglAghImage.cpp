@@ -28,3 +28,9 @@ bool CMglAghImage::Load(const char* szImageFilePath)
 
 	return true;
 }
+
+void CMglAghImage::OnDraw()
+{
+	_Img()->Draw();
+}
+

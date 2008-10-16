@@ -28,8 +28,8 @@ void CMglguiScreen::Init( HWND hWnd, int nDispX, int nDispY )
 	//m_grp.Init(hWnd, nDispX, nDispY, FALSE );
 
 	//	複数のインスタンスを作成する事になるのでInit()が必要
-	m_imgPool.Init(&grp);
-	m_layer.Init(&grp);
+	m_imgCache.Init(&grp);
+	//m_layer.Init(&grp);
 
 	m_hWnd = hWnd;
 
@@ -47,9 +47,17 @@ void CMglguiScreen::ScreenUpdate()
 	grp.Clear(m_rgbBackground);
 	//grp.Clear(D3DCOLOR_BLUE);
 
-	m_layer.Draw();
+	//m_layer.Draw();
+	OnDraw();
 
 	//m_grp.UpdateScreen(); -> DoFpsWait()ん中でやってるんですわ。
+}
+void CMglguiScreen::OnDraw()
+{
+	for(int i=0; i<m_ctrlPtrAry.size(); i++)
+	{
+		m_ctrlPtrAry[i]->OnDraw();
+	}
 }
 
 //	フレーム処理
@@ -110,12 +118,15 @@ bool CMglguiScreen::OnFrameMouseInput()
 
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x > CMglEzGameFrame::m_nWidth || y > CMglEzGameFrame::m_nHeight )
-			return false;
-
-		//CScreenBase::OnLButtonDown(x,y);
-		OnLButtonDown(x,y);
-		ret = true;
+			 x >= CMglEzGameFrame::m_nWidth || y >= CMglEzGameFrame::m_nHeight )
+		{
+		}
+		else
+		{
+			//CScreenBase::OnLButtonDown(x,y);
+			OnLButtonDown(x,y);
+			ret = true;
+		}
 	}
 
 	//	右ボタンを押した
@@ -181,9 +192,20 @@ void CMglguiScreen::RegistControl(CMglAghImage* pImage)
 {
 	const char* szFilePath = pImage->m_strFilePath.c_str();
 	const char* szAlias = pImage->m_strLayerName.c_str();
+
+	//	せっとあっぷ
+	pImage->_Setup(&m_grp, &m_imgCache);
 	
-	m_imgPool.Cache(szFilePath);
-	m_layer.RegistBegin( new CMglImageLayer(m_imgPool[szFilePath]), true );
+	//	きゃっしゅ
+	m_imgCache.Cache(szFilePath);
+
+	//	そして登録
+	_RegistControl(pImage);
+	//m_layer.RegistBegin( new CMglImageLayer(m_imgCache[szFilePath]), true );
+}
+void CMglguiScreen::_RegistControl(agh::CControlBase* pCtrl)
+{
+	m_ctrlPtrAry.push_back(pCtrl);
 }
 
 /////////////////////////////////////////////////////////////

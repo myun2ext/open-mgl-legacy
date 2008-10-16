@@ -23,13 +23,15 @@ class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, pr
 {
 public:
 	CMglGraphicManager m_grp;
-	CMglImageCacher m_imgPool;
+	CMglImageCacher m_imgCache;
 
 protected:
 	HWND m_hWnd;
-	CMglLayers4 m_layer;
+	//CMglLayers4 m_layer;
 	CMglMouseInput &m_mouse;
 	D3DCOLOR m_rgbBackground;
+
+	std::vector<agh::CControlBase*> m_ctrlPtrAry;
 
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
@@ -48,6 +50,9 @@ private:
 	bool DoFrame();
 
 	void Init( HWND hWnd, int nDispX, int nDispY );
+	void OnDraw();
+
+	void _RegistControl(agh::CControlBase* pCtrl);
 
 public:
 	//	コンストラクタ
