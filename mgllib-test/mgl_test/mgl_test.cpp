@@ -28,6 +28,12 @@ public:
 		/*if ( D3DCOLOR_GETA(m_bitmap.Get(x, y)) != 0 )
 			m_bitmap.Fill(D3DCOLOR_RED,Rect(x, y, x+3, y+3));*/
 	}
+	void OnMouseMove(int nPosX, int nPosY, int nMoveX, int nMoveY){
+		//MessageBox("aaa");
+		m_img.m_rect.top = nPosY;
+		m_img.m_rect.left = nPosX;
+	}
+
 
 };
 CMglTestFrame g_frame;
