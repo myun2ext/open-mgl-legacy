@@ -32,6 +32,8 @@ private:
 	CMglImage* _Img(){
 		return (*m_pCacher)[m_strFilePath.c_str()];
 	}
+protected:
+	void OnDraw();
 
 protected:
 	std::string m_strLayerName;
@@ -44,7 +46,6 @@ public:
 	}
 
 	bool Load(const char* szImageFilePath);
-	void OnDraw();
 };
 
 #endif//__MglAghImage_H__

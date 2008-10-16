@@ -56,7 +56,7 @@ void CMglguiScreen::OnDraw()
 {
 	for(int i=0; i<m_ctrlPtrAry.size(); i++)
 	{
-		m_ctrlPtrAry[i]->OnDraw();
+		m_ctrlPtrAry[i]->Draw();
 	}
 }
 
@@ -100,7 +100,7 @@ bool CMglguiScreen::OnFrameMouseInput()
 	bool ret = false;
 
 	//	マウス移動
-	if ( nMoveX > 0 || nMoveY > 0 ){
+	if ( nMoveX != 0 || nMoveY != 0 ){
 		//CScreenBase::OnMouseMove(x, y, nMoveX, nMoveY); <- これじゃあ継承した方が呼ばれないぢゃない・・・
 		OnMouseMove(x, y, nMoveX, nMoveY);
 		ret = true;

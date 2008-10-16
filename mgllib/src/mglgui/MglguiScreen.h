@@ -42,6 +42,8 @@ protected:
 	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
 	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
 
+	virtual void OnDraw();
+
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
 	void OnLButtonDown(int x, int y);
@@ -50,7 +52,6 @@ private:
 	bool DoFrame();
 
 	void Init( HWND hWnd, int nDispX, int nDispY );
-	void OnDraw();
 
 	void _RegistControl(agh::CControlBase* pCtrl);
 
