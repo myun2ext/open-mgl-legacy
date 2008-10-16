@@ -31,6 +31,6 @@ bool CMglAghImage::Load(const char* szImageFilePath)
 
 void CMglAghImage::OnDraw()
 {
-	_Img()->Draw( m_rect.left, m_rect.top );
+	_Img()->Draw( GetRect().left, GetRect().top );
 }
 

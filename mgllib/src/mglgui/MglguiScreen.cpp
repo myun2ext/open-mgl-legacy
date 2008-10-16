@@ -146,7 +146,7 @@ void CMglguiScreen::OnLButtonDown(int x, int y)
 	for(int i=0; i<m_controlPtrAry.size(); i++)
 	{
 		CControlBase *p = m_controlPtrAry[i];
-		_AGL_RECT& rect = p->m_rect;
+		_AGL_RECT& rect = p->GetRect();
 
 		if ( IsRectInternal((_MSL_RECT*)&rect, x, y) ){
 			OnControlLButtonDown(p,x,y);
