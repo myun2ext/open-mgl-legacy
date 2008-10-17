@@ -31,22 +31,20 @@ protected:
 	CMglMouseInput &m_mouse;
 	D3DCOLOR m_rgbBackground;
 
-	std::vector<agh::CControlBase*> m_ctrlPtrAry;
-
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
-	virtual void OnBackgroundLButtonDown(int x, int y){}
+	/*virtual void OnBackgroundLButtonDown(int x, int y){}
 	virtual void OnBackgroundRButtonDown(int x, int y){}
 	virtual void OnBackgroundCButtonDown(int x, int y){}
 	virtual void OnControlLButtonDown(agh::CControlBase *pControl, int x, int y){}
 	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}*/
 
 	virtual void OnDraw();
 
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
-	void OnLButtonDown(int x, int y);
+	//void OnLButtonDown(int x, int y);
 
 	void ScreenUpdate();
 	bool DoFrame();
