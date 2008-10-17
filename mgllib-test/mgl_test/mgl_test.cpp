@@ -20,9 +20,10 @@ public:
 		CMglguiWindow::RegistControl(&m_img);
 		/*m_bitmap.Init(&m_img);*/
 	}
-	void OnBackgroundLButtonDown(int x, int y)
+	//void OnBackgroundLButtonDown(int x, int y)
+	void OnLButtonDown(int x, int y)
 	{
-		//MessageBox("aaa");
+		MessageBox("aaa");
 		//inBitmap.Set(point.x, point.y, D3DCOLOR_WHITE);
 		//inBitmap.Set(point.x, point.y, D3DCOLOR_RED);
 		/*if ( D3DCOLOR_GETA(m_bitmap.Get(x, y)) != 0 )
@@ -32,7 +33,7 @@ public:
 		//MessageBox("aaa");
 		/*m_img.m_rect.top = nPosY;
 		m_img.m_rect.left = nPosX;*/
-		//m_img.SetPos(nPosX, nPosY);
+		m_img.SetPos(nPosX, nPosY);
 	}
 
 
