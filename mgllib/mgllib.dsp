@@ -271,6 +271,10 @@ SOURCE=.\src\mglgui\MglguiScreen.cpp
 
 SOURCE=.\src\mglgui\MglguiScreen.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiScreen_Events.cpp
+# End Source File
 # End Group
 # Begin Source File
 
