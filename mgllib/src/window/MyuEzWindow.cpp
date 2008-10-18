@@ -10,6 +10,8 @@
 #include "MyuFunctions.h"
 #include "MglManager.h"		//	デバッグログ
 
+BOOL* m_pAlive = NULL;
+
 LRESULT WINAPI MyuEzWindowMsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam );
 
 //	コンストラクタ
@@ -110,6 +112,7 @@ int CMyuEzWindow::StartWindow( const char* szAppCaption, const char* szWinClassN
 	DWORD id;
 	m_hWnd = hWnd;
 	m_bAlive = TRUE;
+	m_pAlive = &m_bAlive;	//	2008/10/18
 	//hMainThread = CreateThread( NULL, 0, threadFunc, &threadFuncParam, 0, &id );
 	_MGL_DEBUGLOG("CreateThread()..." );
 	hMainThread = CreateThread( NULL, 0, threadFunc, threadFuncParam, 0, &id );
@@ -196,6 +199,11 @@ LRESULT WINAPI MyuEzWindowMsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 	static int nMoveMouseCounter = 0;
     switch( msg )
     {
+		case WM_CLOSE:
+			*m_pAlive = FALSE;
+			//return DefWindowProc( hWnd, msg, wParam, lParam );
+			return 0;
+
         case WM_DESTROY:
             PostQuitMessage( 0 );
             return 0;
