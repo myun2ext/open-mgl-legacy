@@ -38,7 +38,63 @@ protected:
 	virtual void OnBackgroundCButtonDown(int x, int y){}
 	virtual void OnControlLButtonDown(agh::CControlBase *pControl, int x, int y){}
 	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}*/
+	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
+
+	//	左クリック系 : Left Click Events
+	virtual void OnLButtonClick(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnLButtonDblClk(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnLButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnLButtonUp(agh::CControlBase *pControl, int x, int y){}
+
+	//	右クリック系 : Right Click Events
+	virtual void OnRButtonClick(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnRButtonDblClk(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnRButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnRButtonUp(agh::CControlBase *pControl, int x, int y){}
+
+	//	マウス移動 : Move Mouse Events
+	virtual void OnMouseMove(agh::CControlBase *pControl, int nPosX, int nPosY, int nMoveX, int nMoveY){}
+
+	//	ホイール : Wheel Events
+	virtual void OnWheelUp(agh::CControlBase *pControl, int count){}
+	virtual void OnWheelDown(agh::CControlBase *pControl, int count){}
+	virtual void OnCButtonClick(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnCButtonDblClk(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnCButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnCButtonUp(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnMButtonClick(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnMButtonDblClk(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnMButtonDown(agh::CControlBase *pControl, int x, int y){}
+	virtual void OnMButtonUp(agh::CControlBase *pControl, int x, int y){}*/
+
+	/*
+	//	左クリック系 : Left Click Events
+	virtual void OnBackgroundLButtonClick(int x, int y){}
+	virtual void OnBackgroundLButtonDblClk(int x, int y){}
+	virtual void OnBackgroundLButtonDown(int x, int y){}
+	virtual void OnBackgroundLButtonUp(int x, int y){}
+
+	//	右クリック系 : Right Click Events
+	virtual void OnBackgroundRButtonClick(int x, int y){}
+	virtual void OnBackgroundRButtonDblClk(int x, int y){}
+	virtual void OnBackgroundRButtonDown(int x, int y){}
+	virtual void OnBackgroundRButtonUp(int x, int y){}
+
+	//	マウス移動 : Move Mouse Events
+	virtual void OnBackgroundMouseMove(int nPosX, int nPosY, int nMoveX, int nMoveY){}
+
+	//	ホイール : Wheel Events
+	virtual void OnBackgroundWheelUp(int count){}
+	virtual void OnBackgroundWheelDown(int count){}
+	virtual void OnBackgroundCButtonClick(int x, int y){}
+	virtual void OnBackgroundCButtonDblClk(int x, int y){}
+	virtual void OnBackgroundCButtonDown(int x, int y){}
+	virtual void OnBackgroundCButtonUp(int x, int y){}
+	virtual void OnBackgroundMButtonClick(int x, int y){}
+	virtual void OnBackgroundMButtonDblClk(int x, int y){}
+	virtual void OnBackgroundMButtonDown(int x, int y){}
+	virtual void OnBackgroundMButtonUp(int x, int y){}
+	*/
 
 	virtual void OnDraw();
 
