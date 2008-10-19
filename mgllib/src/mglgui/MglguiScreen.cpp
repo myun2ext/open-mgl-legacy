@@ -107,7 +107,17 @@ bool CMglguiScreen::ThreadFunc()
 	}
 	catch( MyuCommonException e )
 	{
-		EzErrBox(e.szErrMsg);
+		//EzErrBox(this->m_hWnd, );
+		MyuMessageBox(this->m_hWnd, "Application Error", MB_ICONSTOP,
+			"次のエラーが発生したためアプリケーションを終了します。\r\n\r\n"
+			"%s", e.szErrMsg);
+	}
+	catch( agh::CAghException e )
+	{
+		//EzErrBox(this->m_hWnd, e.GetMessage());
+		MyuMessageBox(this->m_hWnd, "Application Error", MB_ICONSTOP,
+			"次のエラーが発生したためアプリケーションを終了します。\r\n\r\n"
+			"AGH : %s", e.GetMessage());
 	}
 
 	return true;
