@@ -30,7 +30,15 @@ protected:
 	//CMglLayers4 m_layer;
 	CMglMouseInput &m_mouse;
 	D3DCOLOR m_rgbBackground;
+	POINT m_nCachedCurPos;
+	int m_nCachedCurPosX;
+	int m_nCachedCurPosY;
 
+	agh::_AGH_POINT GetCurPos(){
+		return *((agh::_AGH_POINT*)&m_nCachedCurPos);
+	}
+
+_AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
 	/*virtual void OnBackgroundLButtonDown(int x, int y){}

@@ -249,6 +249,10 @@ SOURCE=..\AGH\include\agh.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\AGH\include\agh_ScreenBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\mglgui\MglAghImage.cpp
 # End Source File
 # Begin Source File

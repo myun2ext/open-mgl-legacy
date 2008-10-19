@@ -10,6 +10,8 @@
 
 using namespace agh;
 
+class DLL_EXP agh::CScreenBase;
+
 /*
 //	コンストラクタ
 CMglguiScreen::CMglguiScreen()
@@ -115,8 +117,14 @@ bool CMglguiScreen::ThreadFunc()
 
 bool CMglguiScreen::OnFrameMouseInput()
 {
-	int x = m_mouse.GetCursorPosX();
-	int y = m_mouse.GetCursorPosY();
+	/*int x = m_mouse.GetCursorPosX();
+	int y = m_mouse.GetCursorPosY();*/
+	//POINT point = m_mouse.GetCursorPos();
+	m_nCachedCurPos = m_mouse.GetCursorPos();
+	int x = m_nCachedCurPos.x;
+	int y = m_nCachedCurPos.y;
+	m_nCachedCurPosX = x;
+	m_nCachedCurPosY = y;
 	int nMoveX = m_mouse.GetXMoveCount();
 	int nMoveY = m_mouse.GetYMoveCount();
 
