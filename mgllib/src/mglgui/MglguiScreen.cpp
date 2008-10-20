@@ -164,9 +164,18 @@ bool CMglguiScreen::OnFrameMouseInput()
 
 	//	真中ボタンを押した
 	if ( m_mouse.IsOnDownCenterButton() ){
-		//CScreenBase::OnCButtonDown(x,y);
-		_P->OnCButtonDown(x,y);
-		ret = true;
+		//	ウインドウの範囲外ならイベント範囲外とする
+		if ( x < 0 || y < 0 ||
+			 x >= CMglEzGameFrame::m_nWidth || y >= CMglEzGameFrame::m_nHeight )
+		{
+			//	何もしない。（if文条件反転にすべきだったね...）
+		}
+		else
+		{
+			//CScreenBase::OnCButtonDown(x,y);
+			_P->OnCButtonDown(x,y);
+			ret = true;
+		}
 	}
 
 	//	左ボタンを押した
@@ -188,8 +197,41 @@ bool CMglguiScreen::OnFrameMouseInput()
 
 	//	右ボタンを押した
 	if ( m_mouse.IsOnDownRightButton() ){
-		//CScreenBase::OnRButtonDown(x,y);
-		_P->OnRButtonDown(x,y);
+
+		//	ウインドウの範囲外ならイベント範囲外とする
+		if ( x < 0 || y < 0 ||
+			 x >= CMglEzGameFrame::m_nWidth || y >= CMglEzGameFrame::m_nHeight )
+		{
+			//	何もしない。（if文条件反転にすべきだったね...）
+		}
+		else
+		{
+			//CScreenBase::OnRButtonDown(x,y);
+			_P->OnRButtonDown(x,y);
+			ret = true;
+		}
+	}
+
+	//// 離した ////////////////////////////
+
+	//	真中ボタンを離した
+	if ( m_mouse.IsOnUpCenterButton() ){
+		//CScreenBase::OnCButtonUp(x,y);
+		_P->OnCButtonUp(x,y);
+		ret = true;
+	}
+
+	//	左ボタンを離した
+	if ( m_mouse.IsOnUpLeftButton() ){
+		//CScreenBase::OnLButtonUp(x,y);
+		_P->OnLButtonUp(x,y);
+		ret = true;
+	}
+
+	//	右ボタンを離した
+	if ( m_mouse.IsOnUpRightButton() ){
+		//CScreenBase::OnRButtonUp(x,y);
+		_P->OnRButtonUp(x,y);
 		ret = true;
 	}
 
