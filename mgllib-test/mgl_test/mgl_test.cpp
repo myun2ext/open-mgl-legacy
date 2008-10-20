@@ -23,11 +23,11 @@ public:
 		//CMglguiWindow::RegistControl(&m_img2);
 		/*m_bitmap.Init(&m_img);*/
 	}
-	void OnControlLButtonDown(agh::CControlBase* p, int x, int y)
+	/*void OnControlLButtonDown(agh::CControlBase* p, int x, int y)
 	{
 		//MessageBox("bbb");
 		p->OnLButtonDown(x,y);
-	}
+	}*/
 	void OnBackgroundLButtonDown(int x, int y)
 	//void OnLButtonDown(int x, int y)
 	{

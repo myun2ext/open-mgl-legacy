@@ -105,6 +105,14 @@ SOURCE=.\StdAfx.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
+SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_ScreenBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\StdAfx.h
 # End Source File
 # End Group
@@ -115,10 +123,6 @@ SOURCE=.\StdAfx.h
 # Begin Group "IS Files"
 
 # PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\AGH\include\agh.h
-# End Source File
 # Begin Source File
 
 SOURCE=..\MSL\include\auto_fp.h
