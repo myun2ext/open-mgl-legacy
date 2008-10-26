@@ -5,23 +5,29 @@
 #include "MglguiScreen.h"
 #include "MglAghImage.h"
 
+//	メインフレームクラス
 class CMglTestFrame : public CMglguiWindow
 {
 private:
 	CMglAghImage m_img;
 public:
-	CMglTestFrame(){}
+	//	初期化時に呼ばれる
 	void OnInit(){
 		EnableEscEnd();
 		m_img.EnableDragMovable();
 		m_img.Load("font_big.tga");
 		CMglguiWindow::RegistControl(&m_img);
 	}
+	//	ウインドウ生成前に呼ばれる
+	void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
+		pWindowInfo->nWinWidthSize = 640;
+		pWindowInfo->nWinHeightSize = 480;
+		pWindowInfo->strWindowTitle = "August Framework Test";
+	}
 };
 CMglTestFrame g_frame;
 
-///////////////////////////////////////////////////
-
+//	WinMain
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpCmdLine,
