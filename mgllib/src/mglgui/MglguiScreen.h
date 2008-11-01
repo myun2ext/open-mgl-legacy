@@ -21,14 +21,15 @@ class DLL_EXP CMyuThreadBase;
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, protected CMglEzGameFrame
 {
-public:
-	CMglGraphicManager m_grp;
-	CMglImageCacher m_imgCache;
-
 protected:
+	//CMglGraphicManager m_grp; <- 間違いでは・・・？
+	CMglGraphicManager &m_grp;	//	Alias
+	CMglInput &m_input;			//	Alias
+	CMglMouseInput &m_mouse;	//	Alias
+
 	HWND m_hWnd;
 	//CMglLayers4 m_layer;
-	CMglMouseInput &m_mouse;
+	CMglImageCacher m_imgCache;
 	D3DCOLOR m_rgbBackground;
 	POINT m_nCachedCurPos;
 	int m_nCachedCurPosX;
@@ -119,7 +120,7 @@ private:
 
 public:
 	//	コンストラクタ
-	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp) {
+	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp), m_input(input) {
 		m_hWnd = NULL;
 		m_rgbBackground = D3DCOLOR_WHITE;
 	}
