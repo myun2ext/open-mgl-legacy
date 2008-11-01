@@ -12,7 +12,7 @@
 
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////
 //class CMglImageCacher : public CMglSurfaceLoader
-class CMglImageCacher : public CMglImageManager
+class DLL_EXP CMglImageCacher : public CMglImageManager
 {
 protected:
 
