@@ -107,6 +107,9 @@ _AGH_EVENT_ACCESS_MODIFIER:
 
 	virtual void OnDraw();
 
+	//	このクラスから
+	virtual void OnFrameDoUser(){}
+
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
 	//void OnLButtonDown(int x, int y);
@@ -161,11 +164,23 @@ typedef struct : agh::CREATE_WINDOW_EXTEND_BASE
 class DLL_EXP CMglguiWindow : public CMglguiScreen
 {
 private:
+protected:
+	HINSTANCE m_hInstance;
+	HINSTANCE m_hPrevInstance;
+	LPSTR m_lpCmdLine;
+	int m_nCmdShow;
 public:
 	bool __ThreadFunc();
 
 public:
 	void Start();
+	void Start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
+		m_hInstance = hInstance;
+		m_hPrevInstance = m_hPrevInstance;
+		m_lpCmdLine = lpCmdLine;
+		m_nCmdShow = nCmdShow;
+		Start();
+	}
 	/*int StartWindow( int nWinWidthSize, int nWinHeightSize,
 		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );*/
 };

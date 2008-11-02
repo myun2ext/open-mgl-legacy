@@ -69,6 +69,9 @@ bool CMglguiScreen::DoFrame()
 		//	イベント処理
 		OnFrameMouseInput();
 
+		//	2008/11/02 ユーザイベント処理
+		OnFrameDoUser();
+
 		//	描画処理
 		ScreenUpdate();
 
