@@ -447,6 +447,10 @@ SOURCE=.\src\common\mglheads.h
 
 SOURCE=.\src\common\mglmsg.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglStandardTypes.h
+# End Source File
 # End Group
 # Begin Group "Window Files"
 
@@ -676,7 +680,7 @@ SOURCE=.\src\audio\MglOgg.cpp
 SOURCE=.\src\audio\MglOgg.h
 # End Source File
 # End Group
-# Begin Group "Exile Files"
+# Begin Group "’Ç•ú Files"
 
 # PROP Default_Filter ""
 # Begin Source File

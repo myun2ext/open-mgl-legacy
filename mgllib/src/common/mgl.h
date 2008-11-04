@@ -8,6 +8,8 @@
 #include "mglinput.h"
 #include "mglframe.h"
 
+#include "MglStandardTypes.h"
+
 #include "MglguiScreen.h"
 
 #endif//__MGL_MyuGameLibrary_H__
