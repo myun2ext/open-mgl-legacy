@@ -161,7 +161,11 @@ typedef struct : agh::CREATE_WINDOW_EXTEND_BASE
 	int nNotMoveHideCursolTimeMs;
 } MGLGUI_WINDOW_ON_CREATE_EXTEND;
 
-class DLL_EXP CMglguiWindow : public CMglguiScreen
+//	2008/11/13  CWindowBaseのDLLエクスポート
+class DLL_EXP agh::CWindowBase;
+
+//class DLL_EXP CMglguiWindow : public CMglguiScreen
+class DLL_EXP CMglguiWindow : public CMglguiScreen, public agh::CWindowBase
 {
 private:
 protected:
