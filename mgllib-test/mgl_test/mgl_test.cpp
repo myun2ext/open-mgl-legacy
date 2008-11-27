@@ -27,6 +27,7 @@ public:
 	//	初期化時に呼ばれる
 	void OnInit(){
 		CMglguiWindow::RegistControl(&m_img);
+		RegistKbHandler(0,0,OnKbA);
 	}
 	//	ウインドウ生成前に呼ばれる
 	void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
@@ -35,6 +36,10 @@ public:
 	//	クリック時に呼ばれる
 	void OnLButtonDown(int x, int y){
 		::MessageBox(NULL,"想定の範囲外です。","想定していましたか？",NULL);
+	}
+	bool OnKbA(){
+		::MessageBox(NULL,"test","test",NULL);
+		return true;
 	}
 };
 CMglTestFrame g_frame;
