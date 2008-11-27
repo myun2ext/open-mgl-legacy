@@ -46,6 +46,9 @@ public:
 	}
 
 	bool Load(const char* szImageFilePath);
+	bool SetImageFilePath(const char* szImageFilePath){ return Load(szImageFilePath); }
 };
+
+typedef CMglAghImage CMglAghImageCtrl;
 
 #endif//__MglAghImage_H__

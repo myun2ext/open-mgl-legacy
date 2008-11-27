@@ -243,14 +243,26 @@ SOURCE=.\src\2d\MglTextLayer.h
 
 # PROP Default_Filter ""
 # End Group
+# Begin Group "AGH"
+
+# PROP Default_Filter ""
 # Begin Source File
 
 SOURCE=..\AGH\include\agh.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\AGH\include\agh_ControlBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_Events.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\AGH\include\agh_ScreenBase.h
 # End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\mglgui\MglAghImage.cpp

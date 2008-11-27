@@ -27,6 +27,14 @@ protected:
 	CMglInput &m_input;			//	Alias
 	CMglMouseInput &m_mouse;	//	Alias
 
+	//	2008/11/26 Add. デフォルトのイメージ配列
+	map<std::string,CMglAghImage> m_imgAry;
+
+	//	2008/11/26 Add. デフォルトのイメージ配列
+	//list<(*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
+
+	/////////////////////////////////////////////////////////
+
 	HWND m_hWnd;
 	//CMglLayers4 m_layer;
 	CMglImageCacher m_imgCache;
@@ -108,7 +116,9 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnDraw();
 
 	//	このクラスから
-	virtual void OnFrameDoUser(){}
+	virtual bool OnFrameDoUser(){return true;}
+	virtual bool OnFrameKeyboardInput(){return true;}
+	virtual bool OnFrameMouseInput();
 
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
@@ -145,7 +155,7 @@ public:
 protected:
 	bool ThreadFunc();
 public:
-	bool OnFrameMouseInput();
+	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
 
 //////////// ウインドウ作成もやってくれるクラス ////////////////////

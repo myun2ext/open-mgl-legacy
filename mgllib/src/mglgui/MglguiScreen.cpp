@@ -56,9 +56,11 @@ void CMglguiScreen::ScreenUpdate()
 }
 void CMglguiScreen::OnDraw()
 {
-	for(int i=0; i<m_ctrlPtrAry.size(); i++)
+	//for(int i=0; i<m_ctrlPtrAry.size(); i++)
+	for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
 	{
-		m_ctrlPtrAry[i]->Draw();
+		//m_ctrlPtrAry[i]->Draw();
+		GetVCtrlPtr(i)->Draw();
 	}
 }
 
@@ -67,10 +69,14 @@ bool CMglguiScreen::DoFrame()
 {
 	try{
 		//	イベント処理
-		OnFrameMouseInput();
+		if ( OnFrameMouseInput() != true )
+			return true;
+		if ( OnFrameKeyboardInput() != true )
+			return true;
 
 		//	2008/11/02 ユーザイベント処理
-		OnFrameDoUser();
+		if ( OnFrameDoUser() != true )
+			return true;
 
 		//	描画処理
 		ScreenUpdate();
@@ -141,8 +147,9 @@ bool CMglguiScreen::OnFrameMouseInput()
 	int nMoveX = m_mouse.GetXMoveCount();
 	int nMoveY = m_mouse.GetYMoveCount();
 
-#define _P this
-	agh::CControlBase *pControl = GetPosControl(x,y);
+//#define _P this
+#define _P pControl
+	agh::CVisualControlBase *pControl = GetPosControl(x,y);
 	if ( pControl == NULL )
 		pControl = this;
 
