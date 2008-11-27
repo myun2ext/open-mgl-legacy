@@ -18,6 +18,20 @@
 class DLL_EXP agh::CScreenBase;
 class DLL_EXP CMyuThreadBase;
 
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN	(1)
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP		(2)
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP	(3)
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PUSH		(3)
+
+class CMglTestFrame;
+
+typedef bool (CMglTestFrame::*MGL_KB_EVT_HANDLER_CALLBACK)();
+typedef struct {
+	MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc;
+	BYTE keyCode;
+	short evtType;
+} MGL_KB_EVT_HANDLER;
+
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, protected CMglEzGameFrame
 {
@@ -31,7 +45,9 @@ protected:
 	map<std::string,CMglAghImage> m_imgAry;
 
 	//	2008/11/26 Add. デフォルトのイメージ配列
-	//list<(*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
+	//list<bool (*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
+	//list<MGL_KB_EVT_HANDLER_CALLBACK> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
+	list<MGL_KB_EVT_HANDLER> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 
 	/////////////////////////////////////////////////////////
 
@@ -119,6 +135,23 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual bool OnFrameDoUser(){return true;}
 	virtual bool OnFrameKeyboardInput(){return true;}
 	virtual bool OnFrameMouseInput();
+
+	void RegistKbHandler(MGL_KB_EVT_HANDLER &evt){
+		m_kbEventHandlers.push_back(evt);
+	}
+	void RegistKbHandler(
+		short evtType,
+		BYTE keyCode,		
+		MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc)
+	{
+		MGL_KB_EVT_HANDLER evt;
+		evt.pCallbackFunc = pCallbackFunc;
+		evt.keyCode = keyCode;
+		evt.evtType = evtType;
+		m_kbEventHandlers.push_back(evt);
+	}
+
+protected:
 
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
