@@ -69,15 +69,16 @@ bool CMglguiScreen::DoFrame()
 {
 	try{
 		//	イベント処理
-		if ( OnFrameMouseInput() != true )
-			return true;
+		OnFrameMouseInput();	//	なんか拾わないとfalseを返す仕様になってるっぽい・・・
+		/*if ( OnFrameMouseInput() != true )
+			return false;*/
 
 		if ( OnFrameKeyboardInput() != true )
-			return true;
+			return false;
 
 		//	2008/11/02 ユーザイベント処理
 		if ( OnFrameDoUser() != true )
-			return true;
+			return false;
 
 		//	描画処理
 		ScreenUpdate();
