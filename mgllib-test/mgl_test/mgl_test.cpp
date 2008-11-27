@@ -2,31 +2,39 @@
 //
 
 #include "stdafx.h"
-#include "MglguiScreen.h"
-#include "MglAghImage.h"
+
+//	soutei.bmpの画像クラス
+class CImgSoutei : public CMglAghImage
+{
+public:
+	//	コンストラクタ内にて画像ファイルをロードするようにしてみた。
+	CImgSoutei(){
+		Load("soutei.bmp");
+	}
+	//	クリック時に呼ばれる
+	void OnLButtonDown(int x, int y){
+		::MessageBox(NULL,"想定の範囲内です。","想定していましたか？",NULL);
+	}
+};
 
 //	メインフレームクラス
 class CMglTestFrame : public CMglguiWindow
 {
 private:
-	CMglAghImage m_img;
+	//CMglAghImage m_img;
+	CImgSoutei m_img;
 public:
 	//	初期化時に呼ばれる
 	void OnInit(){
-		EnableEscEnd();
-		m_img.EnableDragMovable();
-		m_img.Load("font_big.tga");
 		CMglguiWindow::RegistControl(&m_img);
 	}
 	//	ウインドウ生成前に呼ばれる
 	void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
-		pWindowInfo->nWinWidthSize = 640;
-		pWindowInfo->nWinHeightSize = 480;
-		pWindowInfo->strWindowTitle = "August Framework Test";
+		pWindowInfo->strWindowTitle = "ライ○ドアプログラム";
 	}
 	//	クリック時に呼ばれる
 	void OnLButtonDown(int x, int y){
-		::MessageBox(NULL,"test","test",NULL);
+		::MessageBox(NULL,"想定の範囲外です。","想定していましたか？",NULL);
 	}
 };
 CMglTestFrame g_frame;
