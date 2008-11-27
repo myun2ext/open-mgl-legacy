@@ -20,17 +20,19 @@ class DLL_EXP CMyuThreadBase;
 
 #define MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN	(1)
 #define MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP		(2)
-#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP	(3)
-#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PUSH		(3)
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS		(3)
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP	(8)
+#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PUSH		(MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP)
 
-class CMglTestFrame;
+class CMglguiScreen;
 
-typedef bool (CMglTestFrame::*MGL_KB_EVT_HANDLER_CALLBACK)();
+typedef bool (CMglguiScreen::*MGL_KB_EVT_HANDLER_CALLBACK)();
 typedef struct {
 	MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc;
 	BYTE keyCode;
 	short evtType;
 } MGL_KB_EVT_HANDLER;
+typedef list<MGL_KB_EVT_HANDLER> t_MGL_KB_EVT_HANDLERS;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, protected CMglEzGameFrame
@@ -65,6 +67,116 @@ protected:
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
+
+	/**
+	  ここにあった OnControl, OnBackground は下に移動しといたよ。
+	**/
+
+	virtual void OnDraw();
+
+	//	このクラスから
+	virtual bool OnFrameDoUser(){return true;}
+	virtual bool OnFrameKeyboardInput();
+	virtual bool OnFrameMouseInput();
+
+protected:
+
+private:
+	//	なんでPublic？（Privateではないのか・・・？）
+	//void OnLButtonDown(int x, int y);
+
+	void ScreenUpdate();
+	bool DoFrame();
+
+	void Init( HWND hWnd, int nDispX, int nDispY );
+
+	void _RegistControl(agh::CControlBase* pCtrl);
+
+public:
+	//	コンストラクタ
+	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp), m_input(input) {
+		m_hWnd = NULL;
+		m_rgbBackground = D3DCOLOR_WHITE;
+	}
+	void AutoLoopThreadStart();
+
+	///// コントロールの登録 /////////////////////////////////////////////////
+
+	void RegistControl(CMglAghImage* pImage);
+
+	//////////////////////////////////////////////////////
+
+	//BOOL IsExistPool(const char* szAlias); <- ?
+
+	/*BOOL InsertImage(IMGLIST_ITR it);
+	BOOL InsertImage(){ return InsertImage(GetScene()->m_images.begin()); }*/
+
+	void SetBackgroundColor(D3DCOLOR color){ m_rgbBackground = color; }
+
+	//	キーボードハンドラの登録
+	void RegistKbHandler(MGL_KB_EVT_HANDLER &evt){
+		m_kbEventHandlers.push_back(evt);
+	}
+	void RegistKbHandler(
+		short evtType,
+		BYTE keyCode,		
+		MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc)
+	{
+		MGL_KB_EVT_HANDLER evt;
+		evt.pCallbackFunc = pCallbackFunc;
+		evt.keyCode = keyCode;
+		evt.evtType = evtType;
+		m_kbEventHandlers.push_back(evt);
+	}
+
+protected:
+	bool ThreadFunc();
+public:
+	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
+};
+
+//////////// ウインドウ作成もやってくれるクラス ////////////////////
+
+/*class CMglguiWindowOnCreateExtend : public CCreateWindowInfoExtendBase
+{
+
+};*/
+typedef struct : agh::CREATE_WINDOW_EXTEND_BASE
+{
+	BOOL bFullScreen;
+	BOOL bEscKeyExit;
+	int nNotMoveHideCursolTimeMs;
+} MGLGUI_WINDOW_ON_CREATE_EXTEND;
+
+//	2008/11/13  CWindowBaseのDLLエクスポート
+class DLL_EXP agh::CWindowBase;
+
+//class DLL_EXP CMglguiWindow : public CMglguiScreen
+class DLL_EXP CMglguiWindow : public CMglguiScreen, public agh::CWindowBase
+{
+private:
+protected:
+	HINSTANCE m_hInstance;
+	HINSTANCE m_hPrevInstance;
+	LPSTR m_lpCmdLine;
+	int m_nCmdShow;
+public:
+	bool __ThreadFunc();
+
+public:
+	void Start();
+	void Start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
+		m_hInstance = hInstance;
+		m_hPrevInstance = m_hPrevInstance;
+		m_lpCmdLine = lpCmdLine;
+		m_nCmdShow = nCmdShow;
+		Start();
+	}
+	/*int StartWindow( int nWinWidthSize, int nWinHeightSize,
+		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );*/
+};
+
+
 
 	/*virtual void OnBackgroundLButtonDown(int x, int y){}
 	virtual void OnBackgroundRButtonDown(int x, int y){}
@@ -128,108 +240,5 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnBackgroundMButtonDown(int x, int y){}
 	virtual void OnBackgroundMButtonUp(int x, int y){}
 	*/
-
-	virtual void OnDraw();
-
-	//	このクラスから
-	virtual bool OnFrameDoUser(){return true;}
-	virtual bool OnFrameKeyboardInput(){return true;}
-	virtual bool OnFrameMouseInput();
-
-	void RegistKbHandler(MGL_KB_EVT_HANDLER &evt){
-		m_kbEventHandlers.push_back(evt);
-	}
-	void RegistKbHandler(
-		short evtType,
-		BYTE keyCode,		
-		MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc)
-	{
-		MGL_KB_EVT_HANDLER evt;
-		evt.pCallbackFunc = pCallbackFunc;
-		evt.keyCode = keyCode;
-		evt.evtType = evtType;
-		m_kbEventHandlers.push_back(evt);
-	}
-
-protected:
-
-private:
-	//	なんでPublic？（Privateではないのか・・・？）
-	//void OnLButtonDown(int x, int y);
-
-	void ScreenUpdate();
-	bool DoFrame();
-
-	void Init( HWND hWnd, int nDispX, int nDispY );
-
-	void _RegistControl(agh::CControlBase* pCtrl);
-
-public:
-	//	コンストラクタ
-	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp), m_input(input) {
-		m_hWnd = NULL;
-		m_rgbBackground = D3DCOLOR_WHITE;
-	}
-	void AutoLoopThreadStart();
-
-	///// コントロールの登録 /////////////////////////////////////////////////
-
-	void RegistControl(CMglAghImage* pImage);
-
-	//////////////////////////////////////////////////////
-
-	//BOOL IsExistPool(const char* szAlias); <- ?
-
-	/*BOOL InsertImage(IMGLIST_ITR it);
-	BOOL InsertImage(){ return InsertImage(GetScene()->m_images.begin()); }*/
-
-	void SetBackgroundColor(D3DCOLOR color){ m_rgbBackground = color; }
-
-protected:
-	bool ThreadFunc();
-public:
-	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
-};
-
-//////////// ウインドウ作成もやってくれるクラス ////////////////////
-
-/*class CMglguiWindowOnCreateExtend : public CCreateWindowInfoExtendBase
-{
-
-};*/
-typedef struct : agh::CREATE_WINDOW_EXTEND_BASE
-{
-	BOOL bFullScreen;
-	BOOL bEscKeyExit;
-	int nNotMoveHideCursolTimeMs;
-} MGLGUI_WINDOW_ON_CREATE_EXTEND;
-
-//	2008/11/13  CWindowBaseのDLLエクスポート
-class DLL_EXP agh::CWindowBase;
-
-//class DLL_EXP CMglguiWindow : public CMglguiScreen
-class DLL_EXP CMglguiWindow : public CMglguiScreen, public agh::CWindowBase
-{
-private:
-protected:
-	HINSTANCE m_hInstance;
-	HINSTANCE m_hPrevInstance;
-	LPSTR m_lpCmdLine;
-	int m_nCmdShow;
-public:
-	bool __ThreadFunc();
-
-public:
-	void Start();
-	void Start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
-		m_hInstance = hInstance;
-		m_hPrevInstance = m_hPrevInstance;
-		m_lpCmdLine = lpCmdLine;
-		m_nCmdShow = nCmdShow;
-		Start();
-	}
-	/*int StartWindow( int nWinWidthSize, int nWinHeightSize,
-		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );*/
-};
 
 #endif//__MglguiScreen_H__
