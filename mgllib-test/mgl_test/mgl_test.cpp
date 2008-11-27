@@ -24,6 +24,10 @@ public:
 		pWindowInfo->nWinHeightSize = 480;
 		pWindowInfo->strWindowTitle = "August Framework Test";
 	}
+	//	ƒNƒŠƒbƒNŽž‚ÉŒÄ‚Î‚ê‚é
+	void OnLButtonDown(int x, int y){
+		::MessageBox(NULL,"test","test",NULL);
+	}
 };
 CMglTestFrame g_frame;
 
