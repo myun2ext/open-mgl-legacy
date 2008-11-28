@@ -27,7 +27,10 @@ public:
 	//	初期化時に呼ばれる
 	void OnInit(){
 		CMglguiWindow::RegistControl(&m_img);
-		RegistKbHandler(0,0,OnKbA);
+		RegistKbHandler(
+			MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
+			DIK_A,
+			(MGL_KB_EVT_HANDLER_CALLBACK)OnKbA);
 	}
 	//	ウインドウ生成前に呼ばれる
 	void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
