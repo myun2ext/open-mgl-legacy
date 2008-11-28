@@ -137,6 +137,15 @@ public:
 
 //////////// ウインドウ作成もやってくれるクラス ////////////////////
 
+
+
+
+#include "MglGraphicManager.h"
+#include "MglText.h"
+#include "MyuFPS.h"
+#include "MglInput.h"
+#include "MglAudio.h"
+
 /*class CMglguiWindowOnCreateExtend : public CCreateWindowInfoExtendBase
 {
 
@@ -160,6 +169,12 @@ protected:
 	HINSTANCE m_hPrevInstance;
 	LPSTR m_lpCmdLine;
 	int m_nCmdShow;
+
+	//	DirectX（MGL）系
+	/*CMglGraphicManager m__grp;
+	CMyuFPS m__fps;
+	CMglInput m__input;
+	CMglAudio m__audio;*/
 public:
 	bool __ThreadFunc();
 

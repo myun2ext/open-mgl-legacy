@@ -11,5 +11,6 @@
 #include "MglStandardTypes.h"
 
 #include "MglguiScreen.h"
+#include "MglguiWindow.h"
 
 #endif//__MGL_MyuGameLibrary_H__
