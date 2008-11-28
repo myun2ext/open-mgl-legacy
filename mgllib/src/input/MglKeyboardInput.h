@@ -74,6 +74,8 @@ public:
 	}
 
 	BYTE GetDik( char c ){ return m_kbFastRtAry[c]; }
+	BYTE GetAsciiToDik( char c ){ return m_kbFastRtAry[c]; }
+	BYTE GetAscii2Dik( char c ){ return m_kbFastRtAry[c]; }
 
 	//	オーバーライド
 	void UpdateStateBuf(){
