@@ -3,9 +3,15 @@
 
 #define PRESSKEY(DIK_CODE)	(DIK_CODE & 0x80)
 
+int CMglKeyboardInput::m_kbFastRtAry[FAST_RT_ARY_SIZE];
+bool CMglKeyboardInput::m_kbFastRtAryInited = false;
+
 //	関連付け配列の生成
 void CMglKeyboardInput::GenRtAry()
 {
+	if ( m_kbFastRtAryInited == true )
+		return;
+
 	ZeroMemory( m_kbFastRtAry, sizeof(m_kbFastRtAry) );
 
 	//	配列の生成
@@ -52,7 +58,41 @@ void CMglKeyboardInput::GenRtAry()
 	m_kbFastRtAry[','] = DIK_COMMA;
 	m_kbFastRtAry['.'] = DIK_PERIOD;
 	m_kbFastRtAry['/'] = DIK_SLASH;
+	m_kbFastRtAry[';'] = DIK_SEMICOLON;
+	m_kbFastRtAry[':'] = DIK_COLON;
+	m_kbFastRtAry['@'] = DIK_AT;
+	m_kbFastRtAry['['] = DIK_LBRACKET;
+	m_kbFastRtAry[']'] = DIK_RBRACKET;
+	m_kbFastRtAry['\\'] = DIK_YEN;
+	m_kbFastRtAry['^'] = DIK_CIRCUMFLEX;
 	//m_kbFastRtAry['?'] = DIK_SLASH;	//	ダミー
+
+	m_kbFastRtAry['a'] = DIK_A;
+	m_kbFastRtAry['b'] = DIK_B;
+	m_kbFastRtAry['c'] = DIK_C;
+	m_kbFastRtAry['d'] = DIK_D;
+	m_kbFastRtAry['e'] = DIK_E;
+	m_kbFastRtAry['f'] = DIK_F;
+	m_kbFastRtAry['g'] = DIK_G;
+	m_kbFastRtAry['h'] = DIK_H;
+	m_kbFastRtAry['i'] = DIK_I;
+	m_kbFastRtAry['j'] = DIK_J;
+	m_kbFastRtAry['k'] = DIK_K;
+	m_kbFastRtAry['l'] = DIK_L;
+	m_kbFastRtAry['m'] = DIK_M;
+	m_kbFastRtAry['n'] = DIK_N;
+	m_kbFastRtAry['o'] = DIK_O;
+	m_kbFastRtAry['p'] = DIK_P;
+	m_kbFastRtAry['q'] = DIK_Q;
+	m_kbFastRtAry['r'] = DIK_R;
+	m_kbFastRtAry['s'] = DIK_S;
+	m_kbFastRtAry['t'] = DIK_T;
+	m_kbFastRtAry['u'] = DIK_U;
+	m_kbFastRtAry['v'] = DIK_V;
+	m_kbFastRtAry['w'] = DIK_W;
+	m_kbFastRtAry['x'] = DIK_X;
+	m_kbFastRtAry['y'] = DIK_Y;
+	m_kbFastRtAry['z'] = DIK_Z;
 
 	//	小文字はどうする・・・？
 	/*
@@ -78,6 +118,8 @@ void CMglKeyboardInput::GenRtAry()
 	//m_kbFastRtAry[ASCII_SP] =	DIK_SPACE;
 	m_kbFastRtAry[' '] =		DIK_SPACE;
 	m_kbFastRtAry[ASCII_DELETE]=DIK_DELETE;
+
+	m_kbFastRtAryInited = true;
 }
 
 //	押されているキーのリストを取得（DIK版）

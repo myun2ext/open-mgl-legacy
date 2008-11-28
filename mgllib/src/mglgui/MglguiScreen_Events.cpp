@@ -134,7 +134,8 @@ bool CMglguiScreen::OnFrameKeyboardInput()
 	{
 		MGL_KB_EVT_HANDLER &r = *it;
 		if ( m_input.IsPressKey(r.keyCode) )
-			(this->*r.pCallbackFunc)();
+			if ( (this->*r.pCallbackFunc)() != true )
+				return false;
 	}
 
 	return true;

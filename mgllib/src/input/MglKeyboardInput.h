@@ -48,7 +48,7 @@ class DLL_EXP CMglKeyboardInput : public CMglKeyboardInputBase
 {
 private:
 	//	m_kbFastRtAry 生成
-	void GenRtAry();
+	static void GenRtAry();
 
 	//	OnEvent系用
 	//BYTE m_prevStateBuf[STATEBUF_SIZE];
@@ -57,7 +57,8 @@ private:
 
 protected:
 	//	キーボードのコード関連配列
-	int m_kbFastRtAry[FAST_RT_ARY_SIZE];	//	本当は CMglKeyboardInput にあるべきな気が…
+	static int m_kbFastRtAry[FAST_RT_ARY_SIZE];	//	本当は CMglKeyboardInput にあるべきな気が…
+	static bool m_kbFastRtAryInited;
 	//	↑本当はstaticであるべきなんだがとりあえず保留・・・
 
 public:
@@ -71,16 +72,16 @@ public:
 	//	初期化
 	void Init( HWND hWnd, DWORD dwCooperativeFlag=DISCL_NONEXCLUSIVE|DISCL_FOREGROUND ){
 		CMglKeyboardInputBase::Init( hWnd, dwCooperativeFlag );
-		GenRtAry();
+		//GenRtAry();
 	}
 
-	BYTE GetDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
-	BYTE GetAsciiToDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
-	BYTE GetAscii2Dik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
-	BYTE AsciiToDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
-	BYTE Ascii2Dik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
-	BYTE ASCII_TO_DIK( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
-	BYTE ASCII2DIK( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE GetDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE GetAsciiToDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE GetAscii2Dik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE AsciiToDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE Ascii2Dik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE ASCII_TO_DIK( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	static BYTE ASCII2DIK( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
 
 	//	オーバーライド
 	/*void UpdateStateBuf(){
