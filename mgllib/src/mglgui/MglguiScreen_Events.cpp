@@ -133,9 +133,27 @@ bool CMglguiScreen::OnFrameKeyboardInput()
 	for(; it!=m_kbEventHandlers.end(); it++)
 	{
 		MGL_KB_EVT_HANDLER &r = *it;
-		if ( m_input.IsPressKey(r.keyCode) )
-			if ( (this->*r.pCallbackFunc)() != true )
-				return false;
+
+		switch(r.evtType)
+		{
+		case MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
+			if ( m_input.IsPressKey(r.keyCode) )
+				if ( (this->*r.pCallbackFunc)() != true )
+					return false;
+			break;
+
+		case MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+			if ( m_input.IsOnDownKey(r.keyCode) )
+				if ( (this->*r.pCallbackFunc)() != true )
+					return false;
+			break;
+
+		case MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+			if ( m_input.IsOnUpKey(r.keyCode) )
+				if ( (this->*r.pCallbackFunc)() != true )
+					return false;
+			break;
+		}
 	}
 
 	return true;

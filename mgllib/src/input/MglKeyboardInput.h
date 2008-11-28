@@ -108,12 +108,12 @@ public:
 	int GetOnKey( char cAsciiKeyCode );
 
 	//	*****
-	int GetOnDikey(BYTE nDik){ return IsOnDownButton(nDik); }
+	int GetOnDikey(BYTE nDik){ return IsOnDownKey(nDik); }
 
 	/////////////////////////////////////////////////////////////////////
 	
 	//	押されたイベント
-	BOOL IsOnDownButton(BYTE nDik){
+	BOOL IsOnDownKey(BYTE nDik){
 		if( GetStateChanged(nDik) > 0 ) 
 			return TRUE;
 		else
@@ -121,7 +121,7 @@ public:
 	}
 
 	//	離されたイベント
-	BOOL IsOnUpButton(BYTE nDik){
+	BOOL IsOnUpKey(BYTE nDik){
 		if( GetStateChanged(nDik) < 0 ) 
 			return TRUE;
 		else
