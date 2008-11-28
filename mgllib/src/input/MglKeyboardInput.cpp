@@ -129,7 +129,7 @@ int CMglKeyboardInput::GetPressKeyList( vector<char> &keyListOut )
 }
 
 //	押された瞬間を取得（DIK）
-int CMglKeyboardInput::GetOnDikey( BYTE bDik )
+/*int CMglKeyboardInput::GetOnDikey( BYTE bDik )
 {
 	//	Updateしてはだめ！
 
@@ -141,7 +141,7 @@ int CMglKeyboardInput::GetOnDikey( BYTE bDik )
 			return bDik;
 	}
 	return DIK_ERR;
-}
+}*/
 
 //	押された瞬間を取得（DIK）
 int CMglKeyboardInput::GetOnDikey()

@@ -51,19 +51,20 @@ private:
 	void GenRtAry();
 
 	//	OnEvent系用
-	BYTE m_prevStateBuf[STATEBUF_SIZE];
+	//BYTE m_prevStateBuf[STATEBUF_SIZE];
 	//CMglTimer m_timers[STATEBUF_SIZE];	<-- やっぱメモリとか食いすぎですよネー…
-	DWORD m_dwTimes[STATEBUF_SIZE];
+	//DWORD m_dwTimes[STATEBUF_SIZE];
 
 protected:
 	//	キーボードのコード関連配列
 	int m_kbFastRtAry[FAST_RT_ARY_SIZE];	//	本当は CMglKeyboardInput にあるべきな気が…
+	//	↑本当はstaticであるべきなんだがとりあえず保留・・・
 
 public:
 	//	コンストラクタ・デストラクタ
 	CMglKeyboardInput(){
-		ZeroMemoryAS( m_kbFastRtAry );
-		ZeroMemoryAS( m_prevStateBuf );
+		/*ZeroMemoryAS( m_kbFastRtAry );
+		ZeroMemoryAS( m_prevStateBuf );*/
 	}
 	virtual ~CMglKeyboardInput(){}
 
@@ -73,15 +74,19 @@ public:
 		GenRtAry();
 	}
 
-	BYTE GetDik( char c ){ return m_kbFastRtAry[c]; }
-	BYTE GetAsciiToDik( char c ){ return m_kbFastRtAry[c]; }
-	BYTE GetAscii2Dik( char c ){ return m_kbFastRtAry[c]; }
+	BYTE GetDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	BYTE GetAsciiToDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	BYTE GetAscii2Dik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	BYTE AsciiToDik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	BYTE Ascii2Dik( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	BYTE ASCII_TO_DIK( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
+	BYTE ASCII2DIK( char c ){GenRtAry(); return m_kbFastRtAry[c]; }
 
 	//	オーバーライド
-	void UpdateStateBuf(){
+	/*void UpdateStateBuf(){
 		memcpy( m_prevStateBuf, m_stateBuf, sizeof(m_stateBuf) );
 		CMglKeyboardInputBase::UpdateStateBuf();
-	}
+	}*/
 	void Update(){ UpdateStateBuf(); }
 
 	//	入力取得
@@ -97,9 +102,30 @@ public:
 
 	//	Update()必要
 	int GetOnDikey();
-	int GetOnDikey( BYTE nDik );
+	//int GetOnDikey( BYTE nDik );
 	int GetOnKey();
 	int GetOnKey( char cAsciiKeyCode );
+
+	//	*****
+	int GetOnDikey(BYTE nDik){ return IsOnDownButton(nDik); }
+
+	/////////////////////////////////////////////////////////////////////
+	
+	//	押されたイベント
+	BOOL IsOnDownButton(BYTE nDik){
+		if( GetStateChanged(nDik) > 0 ) 
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	//	離されたイベント
+	BOOL IsOnUpButton(BYTE nDik){
+		if( GetStateChanged(nDik) < 0 ) 
+			return TRUE;
+		else
+			return FALSE;
+	}
 };
 
 

@@ -24,38 +24,32 @@
 
 #include "msl.h"
 #include "MglDirectInputBase.h"
+#include "MglDirectInputDeviceBase.h"
 
-#define STATEBUF_SIZE	(256)
+#define KB_STATEBUF_SIZE	(256)
+#define STATEBUF_SIZE		(256)
 
 //	クラス宣言
-class DLL_EXP CMglKeyboardInputBase : public CMglDirectInputBase
+//class DLL_EXP CMglKeyboardInputBase : public CMglDirectInputBase
+class DLL_EXP CMglKeyboardInputBase : public CMglDirectInputDeviceBase
 {
 protected:
-	_MGL_IDirectInputDevice *m_pDevice;
-	BYTE m_stateBuf[STATEBUF_SIZE];
-
-	void Acquire();
-	void Unacquire();
-
-	void InitCheck()
+	/*void InitCheck()	2008/11/28 いらなくない・・・？
 	{
 		if ( m_pDevice == NULL )
 			Init();
-	}
+	}*/
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMglKeyboardInputBase();
-	virtual ~CMglKeyboardInputBase();
+	//CMglKeyboardInputBase();
+	//virtual ~CMglKeyboardInputBase();
 
 	//	初期化と開放
 	void Init( HWND hWnd=NULL, DWORD dwCooperativeFlag=DISCL_NONEXCLUSIVE|DISCL_FOREGROUND );
-	void Release();
 
-	void UpdateStateBuf();
 	BOOL IsPressKey( BYTE keyCode );		//	Is???
 	BOOL IsPressDikey( BYTE keyCode ){ return IsPressKey(keyCode); }
 };
-
 
 #endif//__MglKeyboardInputBase_H__

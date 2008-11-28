@@ -13,11 +13,11 @@
 class DLL_EXP CMglMouseInputBase : public CMglDirectInputDeviceBase
 {
 protected:
-	void InitCheck()
+	/*void InitCheck()	2008/11/28 いらなくない・・・？
 	{
 		if ( m_pDevice == NULL )
 			Init();
-	}
+	}*/
 
 public:
 	//	コンストラクタ・デストラクタ
