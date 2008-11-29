@@ -17,6 +17,7 @@ class DLL_EXP agh::CImageBase;
 class DLL_EXP CMglAghImage : public agh::CImageBase
 {
 	friend class CMglguiScreen;
+	friend class CAugustScreen;
 private:
 	CMglGraphicManager *m_pGrp;
 	CMglImageCacher *m_pCacher;

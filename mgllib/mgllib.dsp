@@ -263,6 +263,26 @@ SOURCE=..\AGH\include\agh_Events.h
 SOURCE=..\AGH\include\agh_ScreenBase.h
 # End Source File
 # End Group
+# Begin Group "August"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\mglgui\AugustScreen.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\AugustScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\AugustWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\AugustWindow.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\mglgui\MglAghImage.cpp
