@@ -39,7 +39,7 @@ class DLL_EXP CAugustWindow : public agh::CWindowBase, public CMyuThreadBase, pu
 private:
 	CAugustScreen *m_pActiveScreen;
 
-	CAugustGlobalCommon g_;
+	//CAugustGlobalCommon g_;
 //protected:
 	HINSTANCE m_hInstance;
 	HINSTANCE m_hPrevInstance;

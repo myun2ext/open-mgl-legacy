@@ -17,6 +17,9 @@ CMglMouseInput::~CMglMouseInput()
 
 POINT CMglMouseInput::GetCursorPos()
 {
+	if ( this->m_hWnd == NULL )
+		MyuThrow(0, "CMglMouseInput::GetCursorPos()  m_hWnd Ç™NULLÇ≈Ç∑ÅB" );
+
 	POINT point;
 	if ( ::GetCursorPos( &point ) != TRUE )
 		MyuThrow(0, "GetCursorPos() Ç…é∏îs" );

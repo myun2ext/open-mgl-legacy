@@ -4,9 +4,10 @@
 using namespace agh;
 
 //	コンストラクタ
-CAugustWindow::CAugustWindow()
+CAugustWindow::CAugustWindow()	//	デフォルトスクリーンとか搭載してみるか・・・。
 {
 	m_pActiveScreen = NULL;
+	//m_pActiveScreen = &m_defaultScreen;	//	デフォルトスクリーンとか搭載してみるか・・・。
 
 	m_hInstance = NULL;
 	m_hPrevInstance = NULL;
@@ -61,7 +62,12 @@ bool CAugustWindow::DoFrame()
 bool CAugustWindow::ThreadFunc()
 {
 	try{
-		Init(GetWindowHandle(), g_.m_nWindowWidth, g_.m_nWindowHeight);
+		//	2008/11/29 デフォルトスクリーンとか搭載してみるか・・・。
+		CAugustScreen m_defaultScreen(*this);
+		if ( m_pActiveScreen == NULL )
+			m_pActiveScreen = &m_defaultScreen;
+
+		Init(GetWindowHandle(), m_nWindowWidth, m_nWindowHeight);
 
 		for(;;){
 			if ( DoFrame() == false )
@@ -92,7 +98,7 @@ void CAugustWindow::Init( HWND hWnd, int nDispX, int nDispY )
 	//m_grp.Init(hWnd, nDispX, nDispY, FALSE );
 
 	//	複数のインスタンスを作成する事になるのでInit()が必要
-	g_.imgCache.Init(&grp);
+	imgCache.Init(&grp);
 	//m_layer.Init(&grp);
 
 	m_hWnd = hWnd;
