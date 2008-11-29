@@ -46,7 +46,7 @@ class CAugustGlobalCommon
 public:
 	CMglGraphicManager grp;
 	CMglInput input;
-	CMglMouseInput mouse;
+	//CMglMouseInput mouse;
 	CMglAudio audio;
 
 	HWND m_hWnd;
@@ -127,7 +127,7 @@ private:
 public:
 	//	コンストラクタ
 	CAugustScreen(CAugustGlobalCommon &g_in) : g_(g_in),
-		m_mouse(g_in.mouse), m_grp(g_in.grp), m_input(g_in.input), m_audio(g_in.audio),
+		m_mouse(g_in.input.mouse), m_grp(g_in.grp), m_input(g_in.input), m_audio(g_in.audio),
 		m_imgCache(g_in.imgCache)
 	{
 		//m_hWnd = NULL;
