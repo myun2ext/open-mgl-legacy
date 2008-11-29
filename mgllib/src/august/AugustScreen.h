@@ -22,21 +22,21 @@ class DLL_EXP agh::CScreenBase;
 
 //	キーボードイベントハンドラ系
 
-#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS		(1)	//	押されている間
-#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN	(2)	//	キーボードが押された瞬間
-#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP		(3)	//	キーボードが離された瞬間
+#define AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS		(1)	//	押されている間
+#define AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN	(2)	//	キーボードが押された瞬間
+#define AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP		(3)	//	キーボードが離された瞬間
 /*#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP	(8)	//	押した後話した（クリック的な）
 #define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PUSH		(MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP)*/
 
 //	キーボードイベントハンドラ構造体
 class CAugustScreen;
-typedef bool (CAugustScreen::*MGL_KB_EVT_HANDLER_CALLBACK)();
+typedef bool (CAugustScreen::*AUGUST_KB_EVT_HANDLER_CALLBACK)();
 typedef struct {
-	MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc;
+	AUGUST_KB_EVT_HANDLER_CALLBACK pCallbackFunc;
 	BYTE keyCode;
 	short evtType;
-} MGL_KB_EVT_HANDLER;
-typedef list<MGL_KB_EVT_HANDLER> t_MGL_KB_EVT_HANDLERS;
+} AUGUST_KB_EVT_HANDLER;
+typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -82,7 +82,7 @@ protected:
 	//	2008/11/26 Add. デフォルトのイメージ配列
 	//list<bool (*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 	//list<MGL_KB_EVT_HANDLER_CALLBACK> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
-	list<MGL_KB_EVT_HANDLER> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
+	list<AUGUST_KB_EVT_HANDLER> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 
 	/////////////////////////////////////////////////////////
 
@@ -148,15 +148,15 @@ public:
 	void SetBackgroundColor(D3DCOLOR color){ m_rgbBackground = color; }
 
 	//	キーボードハンドラの登録
-	void RegistKbHandler(MGL_KB_EVT_HANDLER &evt){
+	void RegistKbHandler(AUGUST_KB_EVT_HANDLER &evt){
 		m_kbEventHandlers.push_back(evt);
 	}
 	void RegistKbHandler(
 		short evtType,
 		BYTE keyCode,		
-		MGL_KB_EVT_HANDLER_CALLBACK pCallbackFunc)
+		AUGUST_KB_EVT_HANDLER_CALLBACK pCallbackFunc)
 	{
-		MGL_KB_EVT_HANDLER evt;
+		AUGUST_KB_EVT_HANDLER evt;
 		evt.pCallbackFunc = pCallbackFunc;
 		evt.keyCode = keyCode;
 		evt.evtType = evtType;

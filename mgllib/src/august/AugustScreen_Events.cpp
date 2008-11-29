@@ -129,26 +129,26 @@ bool CAugustScreen::OnFrameMouseInput()
 
 bool CAugustScreen::OnFrameKeyboardInput()
 {
-	t_MGL_KB_EVT_HANDLERS::iterator it=m_kbEventHandlers.begin();
+	t_AUGUST_KB_EVT_HANDLERS::iterator it=m_kbEventHandlers.begin();
 	for(; it!=m_kbEventHandlers.end(); it++)
 	{
-		MGL_KB_EVT_HANDLER &r = *it;
+		AUGUST_KB_EVT_HANDLER &r = *it;
 
 		switch(r.evtType)
 		{
-		case MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
+		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
 			if ( m_input.IsPressKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;
 
-		case MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
 			if ( m_input.IsOnDownKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;
 
-		case MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
 			if ( m_input.IsOnUpKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;

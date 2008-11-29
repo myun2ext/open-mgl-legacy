@@ -123,7 +123,7 @@ bool CAugustWindow::__ThreadFunc()
 void CAugustWindow::Start()
 {
 	CREATE_WINDOW_INFO winInfo;
-	MGLGUI_WINDOW_ON_CREATE_EXTEND extendInfo;
+	AUGUST_WINDOW_ON_CREATE_EXTEND extendInfo;
 
 	winInfo.nWinWidthSize = 640;
 	winInfo.nWinHeightSize = 480;

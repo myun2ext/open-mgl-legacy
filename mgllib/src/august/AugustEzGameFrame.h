@@ -167,6 +167,4 @@ protected:
 	virtual void OnGraphicInitializeEnded(){}
 };
 
-typedef CAugustEzGameFrame CMglEzFramework;
-
 #endif//__AugustEzGameFrame_H__
