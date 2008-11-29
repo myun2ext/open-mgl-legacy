@@ -254,6 +254,7 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 
 	//	↓try-catch内でなくていいのか…？
 	//	ここで開放しとかないとスレッド外で開放されて落ちる
+	audio.Release();
 	input.Release();
 	input.FinalRelease();
 	m_txtDebug.Release();
