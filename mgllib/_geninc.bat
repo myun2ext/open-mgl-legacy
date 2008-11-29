@@ -5,6 +5,7 @@ mkdir %EXTERNAL_DIR%
 xcopy src\2d\*.h %EXTERNAL_DIR%
 xcopy src\graphic_extends\*.h %EXTERNAL_DIR%
 xcopy src\audio\*.h %EXTERNAL_DIR%
+xcopy src\august\*.h %EXTERNAL_DIR%
 xcopy src\common\*.h %EXTERNAL_DIR%
 xcopy src\game\*.h %EXTERNAL_DIR%
 xcopy src\input\*.h %EXTERNAL_DIR%
