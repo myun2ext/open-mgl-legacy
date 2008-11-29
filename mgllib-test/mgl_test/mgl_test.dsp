@@ -125,6 +125,26 @@ SOURCE=.\StdAfx.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=..\AGH\include\agh_ControlBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_Events.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\AugustEzGameFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\AugustScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\AugustWindow.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\MSL\include\auto_fp.h
 # End Source File
 # Begin Source File
@@ -249,6 +269,10 @@ SOURCE=..\include\mgl_header\MglAnimationLayer.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\MglAudio.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MglBitmapData.h
 # End Source File
 # Begin Source File
@@ -274,6 +298,10 @@ SOURCE=..\include\mgl_header\MglDirectInputBase.h
 # Begin Source File
 
 SOURCE=..\include\mgl_header\MglDirectInputDeviceBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglDirectMusicBase.h
 # End Source File
 # Begin Source File
 
@@ -310,6 +338,10 @@ SOURCE=..\include\mgl_header\MglGraphicUtil.h
 # Begin Source File
 
 SOURCE=..\include\mgl_header\MglguiScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglguiWindow.h
 # End Source File
 # Begin Source File
 
@@ -386,6 +418,10 @@ SOURCE=..\include\mgl_header\mglmsg.h
 # Begin Source File
 
 SOURCE=..\include\mgl_header\MglSprite.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglStandardTypes.h
 # End Source File
 # Begin Source File
 
