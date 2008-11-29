@@ -13,8 +13,6 @@ CAugustWindow::CAugustWindow()	//	デフォルトスクリーンとか搭載してみるか・・・。
 	m_hPrevInstance = NULL;
 	m_lpCmdLine = NULL;
 	m_nCmdShow = -1;
-
-	m_hWnd = NULL;
 }
 
 //	画面を更新
@@ -63,11 +61,11 @@ bool CAugustWindow::ThreadFunc()
 {
 	try{
 		//	2008/11/29 デフォルトスクリーンとか搭載してみるか・・・。
-		CAugustScreen m_defaultScreen(*this);
+		CAugustScreen m_defaultScreen;
 		if ( m_pActiveScreen == NULL )
 			m_pActiveScreen = &m_defaultScreen;
 
-		Init(GetWindowHandle(), m_nWindowWidth, m_nWindowHeight);
+		Init(GetWindowHandle(), g_->nWindowWidth, g_->nWindowHeight);
 
 		for(;;){
 			if ( DoFrame() == false )
@@ -76,15 +74,15 @@ bool CAugustWindow::ThreadFunc()
 	}
 	catch( MyuCommonException e )
 	{
-		//EzErrBox(this->m_hWnd, );
-		MyuMessageBox(this->m_hWnd, "Application Error", MB_ICONSTOP,
+		//EzErrBox(g_->hWnd, );
+		MyuMessageBox(g_->hWnd, "Application Error", MB_ICONSTOP,
 			"次のエラーが発生したためアプリケーションを終了します。\r\n\r\n"
 			"%s", e.szErrMsg);
 	}
 	catch( agh::CAghException e )
 	{
-		//EzErrBox(this->m_hWnd, e.GetMessage());
-		MyuMessageBox(this->m_hWnd, "Application Error", MB_ICONSTOP,
+		//EzErrBox(g_->hWnd, e.GetMessage());
+		MyuMessageBox(g_->hWnd, "Application Error", MB_ICONSTOP,
 			"次のエラーが発生したためアプリケーションを終了します。\r\n\r\n"
 			"AGH : %s", e.GetMessage());
 	}
@@ -98,10 +96,10 @@ void CAugustWindow::Init( HWND hWnd, int nDispX, int nDispY )
 	//m_grp.Init(hWnd, nDispX, nDispY, FALSE );
 
 	//	複数のインスタンスを作成する事になるのでInit()が必要
-	imgCache.Init(&grp);
+	m_imgCache.Init(&grp);
 	//m_layer.Init(&grp);
 
-	m_hWnd = hWnd;
+	//m_hWnd = hWnd;
 
 	if ( m_pActiveScreen == NULL)
 		MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");

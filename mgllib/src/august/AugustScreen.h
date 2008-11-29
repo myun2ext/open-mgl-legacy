@@ -44,22 +44,29 @@ typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 class CAugustGlobalCommon
 {
 public:
-	CMglGraphicManager grp;
-	CMglInput input;
+	CMglGraphicManager *grp;
+	CMglInput *input;
 	//CMglMouseInput mouse;
-	CMglAudio audio;
+	CMglMouseInput *mouse;
+	CMglAudio *audio;
 
-	HWND m_hWnd;
-	int m_nWindowWidth;
-	int m_nWindowHeight;
+	HWND hWnd;
+	int nWindowWidth;
+	int nWindowHeight;
 
-	CMglImageCacher imgCache;
+	CMglImageCacher *imgCache;
 public:
 	CAugustGlobalCommon(){
-		m_hWnd = NULL;
-		m_nWindowWidth = -1;
-		m_nWindowHeight = -1;
+		hWnd = NULL;
+		nWindowWidth = -1;
+		nWindowHeight = -1;
+		grp = NULL;
+		input = NULL;
+		mouse = NULL;
+		audio = NULL;
+		imgCache = NULL;
 	}
+	void Setup(){}
 };
 typedef CAugustGlobalCommon CAugustGloba;
 typedef CAugustGlobalCommon CAugustCommon;
@@ -69,12 +76,12 @@ typedef CAugustGlobalCommon CAugustCommon;
 class DLL_EXP CAugustScreen : public agh::CScreenBase
 {
 protected:
-	CAugustGlobalCommon &g_;
+	CAugustGlobalCommon *g_;
 	//CMglGraphicManager m_grp; <- 間違いでは・・・？
-	CMglGraphicManager &m_grp;	//	Alias
-	CMglInput &m_input;			//	Alias
-	CMglMouseInput &m_mouse;	//	Alias
-	CMglAudio &m_audio;			//	Alias
+	/*CMglGraphicManager *m_grp;	//	Alias
+	CMglInput *m_input;			//	Alias
+	CMglMouseInput *m_mouse;	//	Alias
+	CMglAudio *m_audio;			//	Alias*/
 
 	//	2008/11/26 Add. デフォルトのイメージ配列
 	map<std::string,CMglAghImage> m_imgAry;
@@ -89,7 +96,7 @@ protected:
 	//HWND m_hWnd;
 	//CMglLayers4 m_layer;
 	//CMglImageCacher m_imgCache;
-	CMglImageCacher &m_imgCache;
+	//CMglImageCacher &m_imgCache;
 	D3DCOLOR m_rgbBackground;
 	POINT m_nCachedCurPos;
 	int m_nCachedCurPosX;
@@ -126,12 +133,25 @@ private:
 
 public:
 	//	コンストラクタ
-	CAugustScreen(CAugustGlobalCommon &g_in) : g_(g_in),
+	/*CAugustScreen(CAugustGlobalCommon &g_in) : g_(g_in),
 		m_mouse(g_in.input.mouse), m_grp(g_in.grp), m_input(g_in.input), m_audio(g_in.audio),
 		m_imgCache(g_in.imgCache)
 	{
 		//m_hWnd = NULL;
 		m_rgbBackground = D3DCOLOR_WHITE;
+	}*/
+	//	コンストラクタ
+	CAugustScreen()
+	{
+		//m_hWnd = NULL;
+		m_rgbBackground = D3DCOLOR_WHITE;
+		g_ = NULL;
+		ZeroMemory(&m_nCachedCurPos, sizeof(m_nCachedCurPos));
+		m_nCachedCurPosX = -1;
+		m_nCachedCurPosY = -1;
+	}
+	void Setup(CAugustGlobalCommon *g_in){
+		g_ = g_in;
 	}
 
 	///// コントロールの登録 /////////////////////////////////////////////////

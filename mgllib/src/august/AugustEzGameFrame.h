@@ -1,7 +1,7 @@
 #ifndef __AugustEzGameFrame_H__
 #define __AugustEzGameFrame_H__
 
-#include "AugustScreen.h"
+//#include "AugustScreen.h"
 #include "MyuEzWindow.h"
 #include "MglGraphicManager.h"
 #include "MglText.h"
@@ -11,31 +11,15 @@
 
 //typedef int (WINAPI *MGL_EZGAME_FRAME_FUNCPTR)();
 
-class DLL_EXP CAugustGlobalCommon;
+//class DLL_EXP CAugustGlobalCommon;
 
 //	クラス宣言
-class DLL_EXP CAugustEzGameFrame : public CAugustGlobalCommon
+class DLL_EXP CAugustEzGameFrame// : public CAugustGlobalCommon
 {
 private:
 	//	インスタンスの数をカウント (多重インスタンス抑止)
 	static int ms_nInstanceCount;
 
-	/*
-	//	クラス
-	static CMyuEzWindow m_window;
-	static CMglText m_txtDebug;
-	static CMglText m_txtFps;
-	static string m_strDebugText;
-
-	//	ウインドウ関連
-	static int m_nWidth;
-	static int m_nHeight;
-	//static MGL_EZGAME_FRAME_FUNCPTR m_userMainThread;
-	static LPTHREAD_START_ROUTINE m_userMainThread;
-	static string m_strCaption;
-
-	static BOOL m_bFpsShow;
-	*/
 	string m_strDebugText;
 	string m_strWindowClassName;
 	LPTHREAD_START_ROUTINE m_userMainThread;
@@ -54,18 +38,15 @@ protected:
 	//CMglGraphicText m_text;	-> 毎回作る
 
 	//	ウインドウ関連
-	/*int m_nWidth;
-	int m_nHeight;*/
+	int m_nWidth;
+	int m_nHeight;
 	//MGL_EZGAME_FRAME_FUNCPTR m_userMainThread;
 	//string m_strCaption;
 
 public:
-	/*static CMglGraphicManager grp;
-	static CMyuFPS fps;
-	static CMglInput input;*/
-	/*CMglGraphicManager grp;
+	CMglGraphicManager grp;
 	CMglInput input;
-	CMglAudio audio;*/
+	CMglAudio audio;
 	CMyuFPS fps;
 
 	//	コンストラクタ・デストラクタ
@@ -78,8 +59,6 @@ public:
 	//
 
 	//	ウインドウの開始
-	/*int StartWindow( int nWinWidthSize, int nWinHeightSize,
-		MGL_EZGAME_FRAME_FUNCPTR mainThreadFuncPtr );*/
 	int StartWindow( int nWinWidthSize, int nWinHeightSize,
 		LPTHREAD_START_ROUTINE mainThreadFuncPtr,
 		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE )

@@ -13,8 +13,8 @@ CMyuFPS				CAugustEzGameFrame::fps;
 CMglInput			CAugustEzGameFrame::input;
 string	CAugustEzGameFrame::m_strCaption;
 string	CAugustEzGameFrame::m_strDebugText;
-int		CAugustEzGameFrame::m_nWindowWidth=0;
-int		CAugustEzGameFrame::m_nWindowHeight=0;
+int		CAugustEzGameFrame::m_nWidth=0;
+int		CAugustEzGameFrame::m_nHeight=0;
 BOOL	CAugustEzGameFrame::m_bFpsShow = TRUE;
 */
 int		CAugustEzGameFrame::ms_nInstanceCount=0;
@@ -77,8 +77,8 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 		return -1;
 	}
 	
-	m_nWindowWidth = nWinWidthSize;
-	m_nWindowHeight = nWinHeightSize;
+	m_nWidth = nWinWidthSize;
+	m_nHeight = nWinHeightSize;
 	m_userMainThread = mainThreadFuncPtr;
 	m_bFullscreen = bFullscreen;
 	m_bBreak = FALSE;
@@ -90,8 +90,8 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 	int nWinStartPosY=150;
 	if ( GetScreenSize( &nScreenWidth, &nScreenHeight ) == TRUE )
 	{
-		nWinStartPosX = (nScreenWidth/2)-(m_nWindowWidth/2);
-		nWinStartPosY = (nScreenHeight/2)-(m_nWindowHeight/2)-16;
+		nWinStartPosX = (nScreenWidth/2)-(m_nWidth/2);
+		nWinStartPosY = (nScreenHeight/2)-(m_nHeight/2)-16;
 	}
 
 	if ( m_strWindowClassName == "" ){
@@ -110,7 +110,7 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 	_MGL_DEBUGLOG("m_window.StartWindow()" );
 	return m_window.StartWindow(
 		szWindowTitle, m_strWindowClassName.c_str(),
-		nWinStartPosX, nWinStartPosY, m_nWindowWidth, m_nWindowHeight,
+		nWinStartPosX, nWinStartPosY, m_nWidth, m_nHeight,
 		WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
 		(LPTHREAD_START_ROUTINE)August_CallMainThreadEx, &param );
 //		(LPTHREAD_START_ROUTINE)CallMainThread, (DWORD)(this) );
@@ -142,7 +142,7 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			CoInitialize(NULL);
 
 			_MGL_DEBUGLOG("grp.Init()..." );
-			grp.Init( m_window.GetWindowHandle(), m_nWindowWidth, m_nWindowHeight, m_bFullscreen );
+			grp.Init( m_window.GetWindowHandle(), m_nWidth, m_nHeight, m_bFullscreen );
 			grp.Clear();
 
 			//	2008/10/14

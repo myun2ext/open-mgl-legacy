@@ -13,16 +13,16 @@ using namespace agh;
 //	マウス入力
 bool CAugustScreen::OnFrameMouseInput()
 {
-	/*int x = m_mouse.GetCursorPosX();
-	int y = m_mouse.GetCursorPosY();*/
-	//POINT point = m_mouse.GetCursorPos();
-	m_nCachedCurPos = m_mouse.GetCursorPos();
+	/*int x = g_->mouse->GetCursorPosX();
+	int y = g_->mouse->GetCursorPosY();*/
+	//POINT point = g_->mouse->GetCursorPos();
+	m_nCachedCurPos = g_->mouse->GetCursorPos();
 	int x = m_nCachedCurPos.x;
 	int y = m_nCachedCurPos.y;
 	m_nCachedCurPosX = x;
 	m_nCachedCurPosY = y;
-	int nMoveX = m_mouse.GetXMoveCount();
-	int nMoveY = m_mouse.GetYMoveCount();
+	int nMoveX = g_->mouse->GetXMoveCount();
+	int nMoveY = g_->mouse->GetYMoveCount();
 
 //#define _P this
 #define _P pControl
@@ -50,10 +50,10 @@ bool CAugustScreen::OnFrameMouseInput()
 	}
 
 	//	真中ボタンを押した
-	if ( m_mouse.IsOnDownCenterButton() ){
+	if ( g_->mouse->IsOnDownCenterButton() ){
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x >= g_.m_nWindowWidth || y >= g_.m_nWindowHeight )
+			 x >= g_->nWindowWidth || y >= g_->nWindowHeight )
 		{
 			//	何もしない。（if文条件反転にすべきだったね...）
 		}
@@ -66,11 +66,11 @@ bool CAugustScreen::OnFrameMouseInput()
 	}
 
 	//	左ボタンを押した
-	if ( m_mouse.IsOnDownLeftButton() ){
+	if ( g_->mouse->IsOnDownLeftButton() ){
 
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x >= g_.m_nWindowWidth || y >= g_.m_nWindowHeight )
+			 x >= g_->nWindowWidth || y >= g_->nWindowHeight )
 		{
 			//	何もしない。（if文条件反転にすべきだったね...）
 		}
@@ -83,11 +83,11 @@ bool CAugustScreen::OnFrameMouseInput()
 	}
 
 	//	右ボタンを押した
-	if ( m_mouse.IsOnDownRightButton() ){
+	if ( g_->mouse->IsOnDownRightButton() ){
 
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x >= g_.m_nWindowWidth || y >= g_.m_nWindowHeight )
+			 x >= g_->nWindowWidth || y >= g_->nWindowHeight )
 		{
 			//	何もしない。（if文条件反転にすべきだったね...）
 		}
@@ -102,21 +102,21 @@ bool CAugustScreen::OnFrameMouseInput()
 	//// 離した ////////////////////////////
 
 	//	真中ボタンを離した
-	if ( m_mouse.IsOnUpCenterButton() ){
+	if ( g_->mouse->IsOnUpCenterButton() ){
 		//CScreenBase::OnCButtonUp(x,y);
 		_P->OnCButtonUp(x,y);
 		ret = true;
 	}
 
 	//	左ボタンを離した
-	if ( m_mouse.IsOnUpLeftButton() ){
+	if ( g_->mouse->IsOnUpLeftButton() ){
 		//CScreenBase::OnLButtonUp(x,y);
 		_P->OnLButtonUp(x,y);
 		ret = true;
 	}
 
 	//	右ボタンを離した
-	if ( m_mouse.IsOnUpRightButton() ){
+	if ( g_->mouse->IsOnUpRightButton() ){
 		//CScreenBase::OnRButtonUp(x,y);
 		_P->OnRButtonUp(x,y);
 		ret = true;
@@ -137,19 +137,19 @@ bool CAugustScreen::OnFrameKeyboardInput()
 		switch(r.evtType)
 		{
 		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
-			if ( m_input.IsPressKey(r.keyCode) )
+			if ( g_->input->IsPressKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;
 
 		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
-			if ( m_input.IsOnDownKey(r.keyCode) )
+			if ( g_->input->IsOnDownKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;
 
 		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
-			if ( m_input.IsOnUpKey(r.keyCode) )
+			if ( g_->input->IsOnUpKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;

@@ -29,7 +29,7 @@ CAugustScreen::~CAugustScreen()
 
 void CAugustScreen::OnDraw()
 {
-	m_grp.Clear(m_rgbBackground);	//	2008/11/29 CAugustScreen‘Î‰ž
+	g_->grp->Clear(m_rgbBackground);	//	2008/11/29 CAugustScreen‘Î‰ž
 
 	//for(int i=0; i<m_ctrlPtrAry.size(); i++)
 	for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
@@ -70,13 +70,13 @@ void CAugustScreen::RegistControl(CMglAghImage* pImage)
 	const char* szAlias = pImage->m_strLayerName.c_str();
 
 	//	‚¹‚Á‚Æ‚ ‚Á‚Õ
-	pImage->_Setup(&m_grp, &m_imgCache);
+	pImage->_Setup(g_->grp, g_->imgCache);
 	
 	//	‚«‚á‚Á‚µ‚ã
-	m_imgCache.Cache(szFilePath);
+	g_->imgCache->Cache(szFilePath);
 
-	pImage->SetRect(0,0,m_imgCache.Get(szFilePath)->GetBmpWidth(),
-		m_imgCache.Get(szFilePath)->GetBmpHeight());
+	pImage->SetRect(0,0,g_->imgCache->Get(szFilePath)->GetBmpWidth(),
+		g_->imgCache->Get(szFilePath)->GetBmpHeight());
 
 	//	‚»‚µ‚Ä“o˜^
 	_RegistControl(pImage);
