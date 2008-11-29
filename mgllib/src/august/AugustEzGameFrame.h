@@ -158,11 +158,6 @@ public:
 		DrawText( work, x, y, hFont, color );
 	}
 
-	//	ƒL[“ü—Í
-	char Getc(){ return input.GetOnKey(); }
-	char GetChar(){ return input.GetOnKey(); }
-	char GetKey(){ return input.GetOnKey(); }
-
 protected:
 	virtual void OnGraphicInitializeEnded(){}
 };

@@ -42,6 +42,7 @@ protected:
 	CMglGraphicManager &m_grp;	//	Alias
 	CMglInput &m_input;			//	Alias
 	CMglMouseInput &m_mouse;	//	Alias
+	CMglAudio &m_audio;			//	Alias
 
 	//	2008/11/26 Add. デフォルトのイメージ配列
 	map<std::string,CMglAghImage> m_imgAry;
@@ -94,7 +95,7 @@ private:
 
 public:
 	//	コンストラクタ
-	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp), m_input(input) {
+	CMglguiScreen() : m_mouse(input.mouse), m_grp(grp), m_input(input), m_audio(audio) {
 		m_hWnd = NULL;
 		m_rgbBackground = D3DCOLOR_WHITE;
 	}
