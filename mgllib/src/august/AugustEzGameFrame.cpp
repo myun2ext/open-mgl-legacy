@@ -2,21 +2,6 @@
 #include "AugustEzGameFrame.h"
 #include "MyuFunctions.h"
 
-/*
-//	staticïœêîÇÃé¿ëÃ
-MGL_EZGAME_FRAME_FUNCPTR	CAugustEzGameFrame::m_userMainThread;
-CMyuEzWindow		CAugustEzGameFrame::m_window;
-CMglText	CAugustEzGameFrame::m_txtFps;
-CMglText	CAugustEzGameFrame::m_txtDebug;
-CMglGraphicManager		CAugustEzGameFrame::grp;
-CMyuFPS				CAugustEzGameFrame::fps;
-CMglInput			CAugustEzGameFrame::input;
-string	CAugustEzGameFrame::m_strCaption;
-string	CAugustEzGameFrame::m_strDebugText;
-int		CAugustEzGameFrame::m_nWidth=0;
-int		CAugustEzGameFrame::m_nHeight=0;
-BOOL	CAugustEzGameFrame::m_bFpsShow = TRUE;
-*/
 int		CAugustEzGameFrame::ms_nInstanceCount=0;
 
 //	MainMethodÇåƒÇ—èoÇ∑

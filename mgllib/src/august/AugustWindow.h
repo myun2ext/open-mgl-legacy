@@ -24,8 +24,11 @@ typedef struct : agh::CREATE_WINDOW_EXTEND_BASE
 {
 	BOOL bFullScreen;
 	BOOL bEscKeyExit;
-	int nNotMoveHideCursolTimeMs;
+	int nNotMoveHideCursolTimeMs;	//	非移動でカーソルを消すまでの時間
+	std::string strWindowClassName;
 } AUGUST_WINDOW_ON_CREATE_EXTEND;
+
+////////////////////////////////////////////////////////////////////////////////////
 
 //	2008/11/13  CWindowBaseのDLLエクスポート
 class DLL_EXP agh::CWindowBase;

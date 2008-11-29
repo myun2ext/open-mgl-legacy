@@ -83,7 +83,6 @@ public:
 	void SetFpsShow( BOOL bFpsShow ){ m_bFpsShow = bFpsShow; }
 	void EnableEscEnd(){ m_bEscEnd = TRUE; }
 	void DisableEscEnd(){ m_bEscEnd = FALSE; }
-	void SetWindowClassName(const char* szWindowClass){ m_strWindowClassName = szWindowClass; }
 	void SetWindowTitle(const char* szWindowTitle){
 		/*if ( m_window.GetWindowHandle() == NULL )
 			m_strWindowTitle = szWindowTitle;
