@@ -41,18 +41,28 @@ typedef list<MGL_KB_EVT_HANDLER> t_MGL_KB_EVT_HANDLERS;
 /////////////////////////////////////////////////////////////////////////
 
 
-typedef struct {
+class CAugustGlobalCommon
+{
+public:
 	CMglGraphicManager grp;
 	CMglInput input;
 	CMglMouseInput mouse;
 	CMglAudio audio;
 
 	HWND hWnd;
+	int m_nWindowWidth;
+	int m_nWindowHeight;
 
 	CMglImageCacher imgCache;
-} CAugustGlobal;
-typedef CAugustGlobal CAugustGlobalCommon;
-typedef CAugustGlobal CAugustCommon;
+public:
+	CAugustGlobalCommon(){
+		hWnd = NULL;
+		m_nWindowWidth = -1;
+		m_nWindowHeight = -1;
+	}
+};
+typedef CAugustGlobalCommon CAugustGloba;
+typedef CAugustGlobalCommon CAugustCommon;
 
 
 //	クラス宣言  /////////////////////////////////////////////////////////
@@ -97,6 +107,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	**/
 
 	virtual void OnDraw();
+	bool DoFrame();
 
 	//	このクラスから
 	virtual bool OnFrameDoUser(){return true;}
@@ -110,7 +121,6 @@ private:
 	//void OnLButtonDown(int x, int y);
 
 	//void ScreenUpdate();
-	//bool DoFrame();
 
 	void _RegistControl(agh::CControlBase* pCtrl);
 

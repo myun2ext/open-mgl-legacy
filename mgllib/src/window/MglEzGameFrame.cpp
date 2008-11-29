@@ -151,6 +151,10 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			_MGL_DEBUGLOG("input.Init()..." );
 			input.Init( m_window.GetWindowHandle() );
 
+			//	2008/11/29
+			_MGL_DEBUGLOG("audio.Init()..." );
+			audio.Init( m_window.GetWindowHandle() );
+
 			m_txtDebug.InitAndEzCreate( &grp, 14 );
 			m_txtFps.InitAndEzCreate( &grp, 14 );
 			//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし

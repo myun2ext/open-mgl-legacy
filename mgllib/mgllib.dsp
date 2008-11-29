@@ -276,6 +276,10 @@ SOURCE=.\src\mglgui\AugustScreen.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\mglgui\AugustScreen_Events.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\mglgui\AugustWindow.cpp
 # End Source File
 # Begin Source File

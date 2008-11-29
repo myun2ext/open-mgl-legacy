@@ -32,32 +32,35 @@ class DLL_EXP CMyuThreadBase;
 
 //class DLL_EXP CAugustWindow : public CAugustScreen
 //class DLL_EXP CAugustWindow : public CMyuThreadBase, public agh::CWindowBase
-class DLL_EXP CAugustWindow : public CMyuThreadBase, public agh::CWindowBase, public CMglEzGameFrame
+class DLL_EXP CAugustWindow : public agh::CWindowBase, public CMyuThreadBase, public CMglEzGameFrame
 {
-	friend class CAugustScreen;
 private:
-protected:
+	CAugustScreen *m_pActiveScreen;
+
+	CAugustGlobalCommon g_;
+//protected:
 	HINSTANCE m_hInstance;
 	HINSTANCE m_hPrevInstance;
 	LPSTR m_lpCmdLine;
 	int m_nCmdShow;
 
 	//	DirectX（MGL）系
-	CMglGraphicManager m_grp;
+	/*CMglGraphicManager m_grp;
 	CMyuFPS m_fps;
 	CMglInput m_input;
-	CMglAudio m_audio;
+	CMglAudio m_audio;*/
+	//CMglImageCacher m_imgCache;
 
-	//	FPSで待つ
-	BOOL DoFpsWait();
-	BOOL DoEvent(){ return DoFpsWait(); }	//	VB風
-	BOOL DoFrameEnd(){ return DoFpsWait(); }
-	void SetBreak(){ m_bBreak = TRUE; }
+	//HWND m_hWnd;
 
 public:
 	bool __ThreadFunc();
 
 public:
+	//	コンストラクタ・デストラクタ
+	CAugustWindow();
+	virtual ~CAugustWindow(){}
+
 	void Start();
 	void Start(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow){
 		m_hInstance = hInstance;
@@ -70,13 +73,9 @@ public:
 		const char *szWindowTitle="MGL Application", BOOL bFullscreen=FALSE );*/
 	void AutoLoopThreadStart();
 
-	//	各種設定
-	/*void SetWindowTitle( const char *szCaption );	//	ウインドウのタイトル*/
-	void SetFPS( int nFps ){ fps.SetFPS(nFps); }	//	FPSの設定
-	void SetFps( int nFps ){ fps.SetFPS(nFps); }	//	FPSの設定
-	void SetFpsShow( BOOL bFpsShow ){ m_bFpsShow = bFpsShow; }
-	void EnableEscEnd(){ m_bEscEnd = TRUE; }
-	void DisableEscEnd(){ m_bEscEnd = FALSE; }
+	void SetActiveScreenControl(CAugustScreen *pScreen){
+		m_pActiveScreen = pScreen;
+	}
 
 private:
 	void Init( HWND hWnd, int nDispX, int nDispY );

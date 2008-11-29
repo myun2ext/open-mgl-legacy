@@ -6,6 +6,7 @@
 #include "MglText.h"
 #include "MyuFPS.h"
 #include "MglInput.h"
+#include "MglAudio.h"
 
 //typedef int (WINAPI *MGL_EZGAME_FRAME_FUNCPTR)();
 
@@ -62,6 +63,7 @@ public:
 	CMglGraphicManager grp;
 	CMyuFPS fps;
 	CMglInput input;
+	CMglAudio audio;
 
 	//	コンストラクタ・デストラクタ
 	CMglEzGameFrame();
