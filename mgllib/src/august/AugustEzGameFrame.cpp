@@ -13,8 +13,8 @@ CMyuFPS				CAugustEzGameFrame::fps;
 CMglInput			CAugustEzGameFrame::input;
 string	CAugustEzGameFrame::m_strCaption;
 string	CAugustEzGameFrame::m_strDebugText;
-int		CAugustEzGameFrame::m_nWidth=0;
-int		CAugustEzGameFrame::m_nHeight=0;
+int		CAugustEzGameFrame::m_nWindowWidth=0;
+int		CAugustEzGameFrame::m_nWindowHeight=0;
 BOOL	CAugustEzGameFrame::m_bFpsShow = TRUE;
 */
 int		CAugustEzGameFrame::ms_nInstanceCount=0;
@@ -27,7 +27,7 @@ int		CAugustEzGameFrame::ms_nInstanceCount=0;
 }*/
 
 //	自分自身のメインスレッドを呼び出す
-DWORD CallMainThread( CAugustEzGameFrame *pFrameInstance )
+DWORD August_CallMainThread( CAugustEzGameFrame *pFrameInstance )
 {
 	return (DWORD)( pFrameInstance->PrivateMainMethod() );
 }
@@ -37,10 +37,10 @@ typedef struct {
 	CAugustEzGameFrame *pFrameInstance;
 	DWORD dwUserParam;
 }
-CALL_THREAD_EX_PARAM;
+AUGUST_CALL_THREAD_EX_PARAM;
 
 //
-DWORD CallMainThreadEx( CALL_THREAD_EX_PARAM *pParam )
+DWORD August_CallMainThreadEx( AUGUST_CALL_THREAD_EX_PARAM *pParam )
 {
 	return (DWORD)( pParam->pFrameInstance->PrivateMainMethod(pParam->dwUserParam) );
 }
@@ -77,8 +77,8 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 		return -1;
 	}
 	
-	m_nWidth = nWinWidthSize;
-	m_nHeight = nWinHeightSize;
+	m_nWindowWidth = nWinWidthSize;
+	m_nWindowHeight = nWinHeightSize;
 	m_userMainThread = mainThreadFuncPtr;
 	m_bFullscreen = bFullscreen;
 	m_bBreak = FALSE;
@@ -90,8 +90,8 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 	int nWinStartPosY=150;
 	if ( GetScreenSize( &nScreenWidth, &nScreenHeight ) == TRUE )
 	{
-		nWinStartPosX = (nScreenWidth/2)-(m_nWidth/2);
-		nWinStartPosY = (nScreenHeight/2)-(m_nHeight/2)-16;
+		nWinStartPosX = (nScreenWidth/2)-(m_nWindowWidth/2);
+		nWinStartPosY = (nScreenHeight/2)-(m_nWindowHeight/2)-16;
 	}
 
 	if ( m_strWindowClassName == "" ){
@@ -102,7 +102,7 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 		strWindowClassName += szWindowTitle;*/
 	}
 
-	CALL_THREAD_EX_PARAM param;
+	AUGUST_CALL_THREAD_EX_PARAM param;
 	param.pFrameInstance = this;
 	param.dwUserParam = (DWORD)threadFuncParam;
 
@@ -110,9 +110,9 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 	_MGL_DEBUGLOG("m_window.StartWindow()" );
 	return m_window.StartWindow(
 		szWindowTitle, m_strWindowClassName.c_str(),
-		nWinStartPosX, nWinStartPosY, m_nWidth, m_nHeight,
+		nWinStartPosX, nWinStartPosY, m_nWindowWidth, m_nWindowHeight,
 		WS_SYSMENU | WS_MINIMIZEBOX | WS_VISIBLE,
-		(LPTHREAD_START_ROUTINE)CallMainThreadEx, &param );
+		(LPTHREAD_START_ROUTINE)August_CallMainThreadEx, &param );
 //		(LPTHREAD_START_ROUTINE)CallMainThread, (DWORD)(this) );
 }
 
@@ -122,7 +122,7 @@ int CAugustEzGameFrame::PrivateMainMethod(){
 }
 
 //構造化例外が発生すると、この関数が呼ばれる
-void se_translator_function(unsigned int code, struct _EXCEPTION_POINTERS* ep)
+void _MglAugust_se_translator_function(unsigned int code, struct _EXCEPTION_POINTERS* ep)
 {
 	throw ep; //標準C++の例外を発生させる
 }
@@ -130,7 +130,7 @@ void se_translator_function(unsigned int code, struct _EXCEPTION_POINTERS* ep)
 //	スレッド - 2008/01/22
 int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 {
-	_set_se_translator(se_translator_function);
+	_set_se_translator(_MglAugust_se_translator_function);
 
 	//__try{
 		try	//	例外処理受け付け開始
@@ -142,7 +142,7 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			CoInitialize(NULL);
 
 			_MGL_DEBUGLOG("grp.Init()..." );
-			grp.Init( m_window.GetWindowHandle(), m_nWidth, m_nHeight, m_bFullscreen );
+			grp.Init( m_window.GetWindowHandle(), m_nWindowWidth, m_nWindowHeight, m_bFullscreen );
 			grp.Clear();
 
 			//	2008/10/14

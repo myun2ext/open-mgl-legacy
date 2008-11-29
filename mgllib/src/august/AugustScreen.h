@@ -49,14 +49,14 @@ public:
 	CMglMouseInput mouse;
 	CMglAudio audio;
 
-	HWND hWnd;
+	HWND m_hWnd;
 	int m_nWindowWidth;
 	int m_nWindowHeight;
 
 	CMglImageCacher imgCache;
 public:
 	CAugustGlobalCommon(){
-		hWnd = NULL;
+		m_hWnd = NULL;
 		m_nWindowWidth = -1;
 		m_nWindowHeight = -1;
 	}
@@ -69,7 +69,7 @@ typedef CAugustGlobalCommon CAugustCommon;
 class DLL_EXP CAugustScreen : public agh::CScreenBase
 {
 protected:
-	CAugustGlobalCommon *_g;
+	CAugustGlobalCommon &g_;
 	//CMglGraphicManager m_grp; <- 間違いでは・・・？
 	CMglGraphicManager &m_grp;	//	Alias
 	CMglInput &m_input;			//	Alias
@@ -126,9 +126,9 @@ private:
 
 public:
 	//	コンストラクタ
-	CAugustScreen(CAugustGlobalCommon *g_in) : _g(g_in),
-		m_mouse(g_in->mouse), m_grp(g_in->grp), m_input(g_in->input), m_audio(g_in->audio),
-		m_imgCache(g_in->imgCache)
+	CAugustScreen(CAugustGlobalCommon &g_in) : g_(g_in),
+		m_mouse(g_in.mouse), m_grp(g_in.grp), m_input(g_in.input), m_audio(g_in.audio),
+		m_imgCache(g_in.imgCache)
 	{
 		//m_hWnd = NULL;
 		m_rgbBackground = D3DCOLOR_WHITE;

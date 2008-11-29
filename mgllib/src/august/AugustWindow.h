@@ -13,7 +13,8 @@
 #include "MyuFPS.h"
 #include "MglInput.h"
 #include "MglAudio.h"
-#include "MglEzGameFrame.h"
+//#include "MglEzGameFrame.h"
+#include "AugustEzGameFrame.h"
 
 /*class CAugustWindowOnCreateExtend : public CCreateWindowInfoExtendBase
 {
@@ -32,7 +33,8 @@ class DLL_EXP CMyuThreadBase;
 
 //class DLL_EXP CAugustWindow : public CAugustScreen
 //class DLL_EXP CAugustWindow : public CMyuThreadBase, public agh::CWindowBase
-class DLL_EXP CAugustWindow : public agh::CWindowBase, public CMyuThreadBase, public CMglEzGameFrame
+//class DLL_EXP CAugustWindow : public agh::CWindowBase, public CMyuThreadBase, public CMglEzGameFrame
+class DLL_EXP CAugustWindow : public agh::CWindowBase, public CMyuThreadBase, public CAugustEzGameFrame
 {
 private:
 	CAugustScreen *m_pActiveScreen;

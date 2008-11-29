@@ -53,7 +53,7 @@ bool CAugustScreen::OnFrameMouseInput()
 	if ( m_mouse.IsOnDownCenterButton() ){
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x >= CMglEzGameFrame::m_nWidth || y >= CMglEzGameFrame::m_nHeight )
+			 x >= g_.m_nWindowWidth || y >= g_.m_nWindowHeight )
 		{
 			//	何もしない。（if文条件反転にすべきだったね...）
 		}
@@ -70,7 +70,7 @@ bool CAugustScreen::OnFrameMouseInput()
 
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x >= CMglEzGameFrame::m_nWidth || y >= CMglEzGameFrame::m_nHeight )
+			 x >= g_.m_nWindowWidth || y >= g_.m_nWindowHeight )
 		{
 			//	何もしない。（if文条件反転にすべきだったね...）
 		}
@@ -87,7 +87,7 @@ bool CAugustScreen::OnFrameMouseInput()
 
 		//	ウインドウの範囲外ならイベント範囲外とする
 		if ( x < 0 || y < 0 ||
-			 x >= CMglEzGameFrame::m_nWidth || y >= CMglEzGameFrame::m_nHeight )
+			 x >= g_.m_nWindowWidth || y >= g_.m_nWindowHeight )
 		{
 			//	何もしない。（if文条件反転にすべきだったね...）
 		}

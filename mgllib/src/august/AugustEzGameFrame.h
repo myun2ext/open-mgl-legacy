@@ -1,6 +1,7 @@
 #ifndef __AugustEzGameFrame_H__
 #define __AugustEzGameFrame_H__
 
+#include "AugustScreen.h"
 #include "MyuEzWindow.h"
 #include "MglGraphicManager.h"
 #include "MglText.h"
@@ -10,8 +11,10 @@
 
 //typedef int (WINAPI *MGL_EZGAME_FRAME_FUNCPTR)();
 
+class DLL_EXP CAugustGlobalCommon;
+
 //	クラス宣言
-class DLL_EXP CAugustEzGameFrame
+class DLL_EXP CAugustEzGameFrame : public CAugustGlobalCommon
 {
 private:
 	//	インスタンスの数をカウント (多重インスタンス抑止)
@@ -51,8 +54,8 @@ protected:
 	//CMglGraphicText m_text;	-> 毎回作る
 
 	//	ウインドウ関連
-	int m_nWidth;
-	int m_nHeight;
+	/*int m_nWidth;
+	int m_nHeight;*/
 	//MGL_EZGAME_FRAME_FUNCPTR m_userMainThread;
 	//string m_strCaption;
 
@@ -60,10 +63,10 @@ public:
 	/*static CMglGraphicManager grp;
 	static CMyuFPS fps;
 	static CMglInput input;*/
-	CMglGraphicManager grp;
-	CMyuFPS fps;
+	/*CMglGraphicManager grp;
 	CMglInput input;
-	CMglAudio audio;
+	CMglAudio audio;*/
+	CMyuFPS fps;
 
 	//	コンストラクタ・デストラクタ
 	CAugustEzGameFrame();

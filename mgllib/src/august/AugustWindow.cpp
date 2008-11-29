@@ -44,7 +44,7 @@ bool CAugustWindow::DoFrame()
 		ScreenUpdate();
 
 		//	フレームレート制御＋α処理 (CMglEzGameFrame)
-		if ( CMglEzGameFrame::DoFpsWait() == FALSE )
+		if ( DoFpsWait() == FALSE )
 			return false;
 	}
 	catch( MyuCommonException e )
@@ -61,7 +61,7 @@ bool CAugustWindow::DoFrame()
 bool CAugustWindow::ThreadFunc()
 {
 	try{
-		Init(GetWindowHandle(), CMglEzGameFrame::m_nWidth, CMglEzGameFrame::m_nHeight);
+		Init(GetWindowHandle(), g_.m_nWindowWidth, g_.m_nWindowHeight);
 
 		for(;;){
 			if ( DoFrame() == false )
@@ -92,7 +92,7 @@ void CAugustWindow::Init( HWND hWnd, int nDispX, int nDispY )
 	//m_grp.Init(hWnd, nDispX, nDispY, FALSE );
 
 	//	複数のインスタンスを作成する事になるのでInit()が必要
-	m_imgCache.Init(&grp);
+	g_.imgCache.Init(&grp);
 	//m_layer.Init(&grp);
 
 	m_hWnd = hWnd;
