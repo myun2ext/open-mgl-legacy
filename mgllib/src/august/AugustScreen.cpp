@@ -53,6 +53,8 @@ bool CAugustScreen::DoFrame()
 	//	2008/11/02 ユーザイベント処理
 	if ( OnFrameDoUser() != true )
 		return false;
+
+	return true;
 }
 
 

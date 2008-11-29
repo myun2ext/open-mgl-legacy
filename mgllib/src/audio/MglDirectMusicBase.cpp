@@ -78,6 +78,9 @@ void CMglDirectMusicBase::InitEx( HWND hWnd, const char *szBaseDirectory,
 //	ŠJ•ú
 void CMglDirectMusicBase::Release()
 {
+	if ( m_pLoader == NULL )
+		return;
+
 	/*for( SEG_ITR it=m_segments.begin(); it != m_segments.end(); it++ )
 		StopSegment( it->second );*/
     m_pPerformance->Stop(
@@ -89,8 +92,10 @@ void CMglDirectMusicBase::Release()
 
 	m_pPerformance->CloseDown();
 
-	m_pLoader->Release(); 
-    m_pPerformance->Release();
+	/*m_pLoader->Release(); 
+    m_pPerformance->Release();*/
+	SAFE_RELEASE(m_pLoader); 
+    SAFE_RELEASE(m_pPerformance);
 
 	for( SEG_ITR it=m_segments.begin(); it != m_segments.end(); it++ )
 		SAFE_RELEASE( it->second );
