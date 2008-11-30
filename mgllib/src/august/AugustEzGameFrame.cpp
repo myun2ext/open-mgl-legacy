@@ -30,6 +30,7 @@ DWORD August_CallMainThreadEx( AUGUST_CALL_THREAD_EX_PARAM *pParam )
 	return (DWORD)( pParam->pFrameInstance->PrivateMainMethod(pParam->dwUserParam) );
 }
 
+////////////////////////////////////////////////////////////////////////////
 
 //	コンストラクタ
 #ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
@@ -46,6 +47,7 @@ CAugustEzGameFrame::CAugustEzGameFrame()
 	m_bEscEnd = FALSE;
 	m_bFpsShow = FALSE;	//	2007/01/02 無かったのだけれど…
 	m_bFullscreen = FALSE;
+	m_bEnabledAudio = FALSE;
 }
 
 //	デストラクタ
@@ -149,7 +151,8 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 
 			//	2008/11/29
 			_MGL_DEBUGLOG("audio.Init()..." );
-			audio.Init( m_window.GetWindowHandle() );
+			if ( m_bEnabledAudio )
+				InitAudio();
 
 			m_txtDebug.InitAndEzCreate( &grp, 14 );
 			m_txtFps.InitAndEzCreate( &grp, 14 );
@@ -250,6 +253,7 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 
 	//	↓try-catch内でなくていいのか…？
 	//	ここで開放しとかないとスレッド外で開放されて落ちる
+	//if ( m_bEnabledAudio )	<- 別にInitしてないならしてないでReleaseしても問題ないんでね・・・？
 	audio.Release();
 	input.Release();
 	input.FinalRelease();
