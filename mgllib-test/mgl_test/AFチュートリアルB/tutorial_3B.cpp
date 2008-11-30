@@ -1,38 +1,38 @@
 #include "stdafx.h"
 
 //	メインフレームクラス
-class CMglTestFrame : public CMglguiWindow
+class CMglTestFrame : public CAugustWindow
 {
 private:
 	CMglAghImage m_img;
 public:
 	void OnInit(){
 		m_img.Load("test.jpg");
-		CMglguiWindow::RegistControl(&m_img);
+		RegistControl(&m_img);
 
 		//	キーボードイベントハンドラ登録（左）- 押している間移動
 		RegistKbHandler(
-			MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
+			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
 			DIK_LEFT,
-			(MGL_KB_EVT_HANDLER_CALLBACK)MoveLeft);
+			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveLeft);
 
 		//	キーボードイベントハンドラ登録（右）- 押している間移動
 		RegistKbHandler(
-			MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
+			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
 			DIK_RIGHT,
-			(MGL_KB_EVT_HANDLER_CALLBACK)MoveRight);
+			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveRight);
 
 		//	キーボードイベントハンドラ登録（上）- 離した瞬間だけ移動
 		RegistKbHandler(
-			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP,
+			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP,
 			DIK_UP,
-			(MGL_KB_EVT_HANDLER_CALLBACK)MoveUp);
+			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveUp);
 
 		//	キーボードイベントハンドラ登録（下）- 押した瞬間だけ移動
 		RegistKbHandler(
-			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
+			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
 			DIK_DOWN,
-			(MGL_KB_EVT_HANDLER_CALLBACK)MoveDown);
+			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveDown);
 	}
 	bool MoveLeft(){
 		m_img.Move(-1,0);
