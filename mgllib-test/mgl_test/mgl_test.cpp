@@ -4,8 +4,13 @@
 class CMglTestFrame : public CMglguiWindow
 {
 private:
+	CMglAghImage m_img;
 public:
 	void OnInit(){
+		m_img.Load("test.jpg");
+		CMglguiWindow::RegistControl(&m_img);
+
+
 		m_audio.Load("D2 HH2-005.wav");
 		m_audio.Load("tr909closed05.wav");
 

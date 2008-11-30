@@ -1,25 +1,15 @@
 #include "stdafx.h"
 
-class CTestScreen : public CAugustScreen
+class CMglTestFrame : public CAugustWindow
 {
 private:
 	CMglAghImage m_img;
 public:
 	//	初期化時に呼ばれる
 	void OnInit(){
+		EnableEscEnd();
 		m_img.Load("test.jpg");
 		RegistControl(&m_img);
-	}
-};
-
-class CTestWindow : public CAugustWindow
-{
-private:
-	CTestScreen m_testScreen;
-public:
-	CTestWindow(){
-		EnableEscEnd();
-		SetActiveScreenControl(&m_testScreen);
 	}
 	//	ウインドウ生成前に呼ばれる
 	void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
@@ -35,7 +25,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow )
 {
-	CTestWindow window;
-	window.Start();
+	CMglTestFrame frame;
+	frame.Start();
 	return 0;
 }
