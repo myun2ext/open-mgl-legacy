@@ -1,7 +1,11 @@
 #ifndef __AugustEzGameFrame_H__
 #define __AugustEzGameFrame_H__
 
-//#include "AugustScreen.h"
+#define _USE_INHERIT_AUGUST_GLOBAL_COMMON
+
+#ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
+	#include "AugustScreen.h"
+#endif
 #include "MyuEzWindow.h"
 #include "MglGraphicManager.h"
 #include "MglText.h"
@@ -11,10 +15,16 @@
 
 //typedef int (WINAPI *MGL_EZGAME_FRAME_FUNCPTR)();
 
-//class DLL_EXP CAugustGlobalCommon;
+#ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
+	class DLL_EXP CAugustGlobalCommon;
+#endif
 
 //	クラス宣言
-class DLL_EXP CAugustEzGameFrame// : public CAugustGlobalCommon
+#ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
+	class DLL_EXP CAugustEzGameFrame : public CAugustGlobalCommon
+#else
+	class DLL_EXP CAugustEzGameFrame
+#endif
 {
 private:
 	//	インスタンスの数をカウント (多重インスタンス抑止)
@@ -38,15 +48,22 @@ protected:
 	//CMglGraphicText m_text;	-> 毎回作る
 
 	//	ウインドウ関連
+#ifndef _USE_INHERIT_AUGUST_GLOBAL_COMMON
 	int m_nWidth;
 	int m_nHeight;
+#else
+	int &m_nWidth;
+	int &m_nHeight;
+#endif
 	//MGL_EZGAME_FRAME_FUNCPTR m_userMainThread;
 	//string m_strCaption;
 
 public:
+#ifndef _USE_INHERIT_AUGUST_GLOBAL_COMMON
 	CMglGraphicManager grp;
 	CMglInput input;
 	CMglAudio audio;
+#endif
 	CMyuFPS fps;
 
 	//	コンストラクタ・デストラクタ

@@ -40,31 +40,57 @@ typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 
 /////////////////////////////////////////////////////////////////////////
 
-
+//#define AUGUST_GLOBAL_COMMON_PTR
 class CAugustGlobalCommon
 {
 public:
+
+#ifdef AUGUST_GLOBAL_COMMON_PTR
 	CMglGraphicManager *grp;
 	CMglInput *input;
 	//CMglMouseInput mouse;
 	CMglMouseInput *mouse;
 	CMglAudio *audio;
 
+	CMglImageCacher *imgCache;
+#else
+	CMglGraphicManager grp;
+	CMglInput input;
+	//CMglMouseInput mouse;
+	CMglMouseInput *mouse;
+	CMglAudio audio;
+
+	CMglImageCacher imgCache;
+
+
+	CMglGraphicManager *pGrp;
+	CMglInput *pInput;
+	//CMglMouseInput *pMouse;
+	CMglAudio *pAudio;
+
+	CMglImageCacher *pImgCache;
+#endif
+
 	HWND hWnd;
 	int nWindowWidth;
 	int nWindowHeight;
 
-	CMglImageCacher *imgCache;
 public:
-	CAugustGlobalCommon(){
+	CAugustGlobalCommon() {
 		hWnd = NULL;
 		nWindowWidth = -1;
 		nWindowHeight = -1;
-		grp = NULL;
+		/*grp = NULL;
 		input = NULL;
 		mouse = NULL;
 		audio = NULL;
-		imgCache = NULL;
+		imgCache = NULL;*/
+
+		mouse = &input.mouse;
+		pGrp = &grp;
+		pInput = &input;
+		pAudio = &audio;
+		pImgCache = &imgCache;
 	}
 	void Setup(){}
 };

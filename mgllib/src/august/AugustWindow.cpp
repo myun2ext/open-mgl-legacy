@@ -61,9 +61,10 @@ bool CAugustWindow::ThreadFunc()
 {
 	try{
 		//	2008/11/29 デフォルトスクリーンとか搭載してみるか・・・。
-		CAugustScreen m_defaultScreen;
-		if ( m_pActiveScreen == NULL )
-			m_pActiveScreen = &m_defaultScreen;
+		if ( m_pActiveScreen == NULL ){
+			m_pActiveScreen = this;
+			this->g_ = this;
+		}
 
 		Init(GetWindowHandle(), g_->nWindowWidth, g_->nWindowHeight);
 

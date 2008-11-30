@@ -137,19 +137,19 @@ bool CAugustScreen::OnFrameKeyboardInput()
 		switch(r.evtType)
 		{
 		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
-			if ( g_->input->IsPressKey(r.keyCode) )
+			if ( g_->pInput->IsPressKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;
 
 		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
-			if ( g_->input->IsOnDownKey(r.keyCode) )
+			if ( g_->pInput->IsOnDownKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;
 
 		case AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
-			if ( g_->input->IsOnUpKey(r.keyCode) )
+			if ( g_->pInput->IsOnUpKey(r.keyCode) )
 				if ( (this->*r.pCallbackFunc)() != true )
 					return false;
 			break;

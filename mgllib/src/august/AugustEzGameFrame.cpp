@@ -32,7 +32,13 @@ DWORD August_CallMainThreadEx( AUGUST_CALL_THREAD_EX_PARAM *pParam )
 
 
 //	コンストラクタ
+#ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
+CAugustEzGameFrame::CAugustEzGameFrame() :
+	m_nWidth(CAugustGlobalCommon::nWindowWidth),
+	m_nHeight(CAugustGlobalCommon::nWindowHeight)
+#else
 CAugustEzGameFrame::CAugustEzGameFrame()
+#endif
 {
 	ms_nInstanceCount++;
 	//m_strCaption = "MGL Apprication";
@@ -62,8 +68,13 @@ int CAugustEzGameFrame::StartWindowEx( int nWinWidthSize, int nWinHeightSize,
 		return -1;
 	}
 	
+#ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
+	CAugustGlobalCommon::nWindowWidth = nWinWidthSize;
+	CAugustGlobalCommon::nWindowHeight = nWinHeightSize;
+#else
 	m_nWidth = nWinWidthSize;
 	m_nHeight = nWinHeightSize;
+#endif
 	m_userMainThread = mainThreadFuncPtr;
 	m_bFullscreen = bFullscreen;
 	m_bBreak = FALSE;
