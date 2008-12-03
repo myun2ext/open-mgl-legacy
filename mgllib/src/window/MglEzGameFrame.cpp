@@ -55,6 +55,7 @@ CMglEzGameFrame::CMglEzGameFrame()
 	m_bEscEnd = FALSE;
 	m_bFpsShow = FALSE;	//	2007/01/02 無かったのだけれど…
 	m_bFullscreen = FALSE;
+	m_bEnabledAudio = FALSE;
 }
 
 //	デストラクタ

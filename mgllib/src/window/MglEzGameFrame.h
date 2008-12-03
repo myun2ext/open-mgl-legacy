@@ -41,6 +41,7 @@ private:
 	BOOL m_bBreak;
 	BOOL m_bEscEnd;
 	BOOL m_bFullscreen;
+	BOOL m_bEnabledAudio;	//	2008/11/30
 
 protected:
 	//	ƒNƒ‰ƒX
@@ -159,6 +160,13 @@ public:
 	char Getc(){ return input.GetOnKey(); }
 	char GetChar(){ return input.GetOnKey(); }
 	char GetKey(){ return input.GetOnKey(); }
+
+
+	void InitAudio(){
+		audio.Init( m_window.GetWindowHandle() );
+		m_bEnabledAudio = TRUE;
+	}
+	void EnableAudio(){ InitAudio(); }
 
 protected:
 	virtual void OnGraphicInitializeEnded(){}

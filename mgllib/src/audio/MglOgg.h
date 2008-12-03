@@ -61,5 +61,6 @@ public:
 
 //typedef CMglOgg CMglOgg;
 //class CMglOgg : public CMglOgg{};
+//typedef CMglOgg CMglMusic;
 
 #endif//__MglOgg_H__

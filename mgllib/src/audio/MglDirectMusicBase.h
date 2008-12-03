@@ -63,6 +63,8 @@ public:
 	void Load( const char* szAudioFile, const char* szAlias=NULL );
 	void PlaySegment( const char* szSegmentName );
 	void Play( const char* szSegmentName ){PlaySegment(szSegmentName);}
+	void LoopPlay( const char* szSegmentName, DWORD dwLoopCount=DMUS_SEG_REPEAT_INFINITE ){
+		LoopPlaySegment(szSegmentName,dwLoopCount); }
 	void LoopPlaySegment( const char* szSegmentName, DWORD dwLoopCount=DMUS_SEG_REPEAT_INFINITE );
 	void StopSegment( const char* szSegmentName );
 	void StopSegment( IDirectMusicSegment* pSegment );
