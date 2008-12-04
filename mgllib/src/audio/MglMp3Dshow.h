@@ -8,12 +8,6 @@
 #ifndef __MglMp3Dshow_H__
 #define __MglMp3Dshow_H__
 
-#include "Vox.h"
-
-#define VOX_DLL_NAME		"Vox.dll"
-#define VOX_LOOP_MAX		(0x7fffffff)
-#define VOX_DEFAULT_VOLUME	(1.0f)
-
 //	ÉNÉâÉXêÈåæ
 class DLL_EXP CMglMp3Dshow
 {

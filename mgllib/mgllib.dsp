@@ -711,6 +711,42 @@ SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
 # Begin Group "Audio Files"
 
 # PROP Default_Filter ""
+# Begin Group "2G"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudioBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudioBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglBgm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglBgm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectShowBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectShowBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglMp3Dshow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglMp3Dshow.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\audio\MglAudio.cpp

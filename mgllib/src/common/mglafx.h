@@ -153,8 +153,16 @@ using namespace std;
 
 //	DirectMusicån
 //#include <dsound.h>		//	dsound.lib
-#pragma comment(lib, "dxguid.lib")
 #include <dmusici.h>
+#pragma comment(lib, "dxguid.lib")
+
+//	DirectShow
+#include <DShow.h>
+#ifdef _DEBUG
+	#pragma comment(lib, "Strmbasd.lib")
+#else
+	#pragma comment(lib, "Strmbase.lib")
+#endif//_DEBUG
 
 #endif//_MGL_NOUSE_DIRECTX
 

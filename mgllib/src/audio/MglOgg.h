@@ -47,6 +47,9 @@ public:
 
 	//	çƒê∂ëÄçÏån
 	void Play( int nLoopCnt=VOX_LOOP_MAX );
+	void LoopPlay( int nLoopCnt=VOX_LOOP_MAX ){
+		Play(nLoopCnt);
+	}
 	void StopLoop();
 	void Pause();
 	void SetVolume( float fVolume=VOX_DEFAULT_VOLUME );

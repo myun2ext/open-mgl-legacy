@@ -12,4 +12,17 @@ public:
 
 typedef CMglAudioBase IMglAudioBase;
 
+/////////////////////////////////////////////////////
+
+#define VOX_LOOP_MAX		(0x7fffffff)
+
+//	ƒNƒ‰ƒXéŒ¾
+class DLL_EXP CMglBgmBase
+{
+private:
+
+public:
+
+};
+
 #endif//__MglAudioBase_H__
