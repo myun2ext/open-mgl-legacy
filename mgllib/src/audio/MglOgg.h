@@ -8,6 +8,7 @@
 #ifndef __MglOgg_H__
 #define __MglOgg_H__
 
+#include "MglBgmBase.h"
 #include "Vox.h"
 
 #define VOX_DLL_NAME		"Vox.dll"
@@ -15,7 +16,7 @@
 #define VOX_DEFAULT_VOLUME	(1.0f)
 
 //	ÉNÉâÉXêÈåæ
-class DLL_EXP CMglOgg
+class DLL_EXP CMglOgg : public CMglBgmBase
 {
 private:
 	HINSTANCE m_hDll;

@@ -8,15 +8,16 @@
 #ifndef __MglMp3Dshow_H__
 #define __MglMp3Dshow_H__
 
+#include "MglBgmBase.h"
+
 //	クラス宣言
-class DLL_EXP CMglMp3Dshow
+class DLL_EXP CMglMp3Dshow : public CMglBgmBase
 {
 private:
-	HINSTANCE m_hDll;
-	Vox* m_pDriver;
-	BOOL m_loadFlg;
-	BOOL m_useFlg;
-	float m_fNowVolume;
+	// DirectShowのインスタンス宣言
+	IGraphBuilder *p_graph;
+	IMediaControl *p_control;
+	IMediaEvent   *p_event;
 
 	//	初期化チェック
 	void InitCheck() {
@@ -50,7 +51,6 @@ public:
 
 	void Enable() { m_useFlg = TRUE; }
 	void Disable() { m_useFlg = FALSE; }
-	Vox* GetVoxPtr() { return m_pDriver; }
 };
 
 //typedef CMglMp3Dshow CMglMp3Dshow;

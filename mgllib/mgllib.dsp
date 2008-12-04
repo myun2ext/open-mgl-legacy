@@ -724,6 +724,18 @@ SOURCE=.\src\audio\MglAudioBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\audio\MglDirectShowBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectShowBase.h
+# End Source File
+# End Group
+# Begin Group "BGM"
+
+# PROP Default_Filter ""
+# Begin Source File
+
 SOURCE=.\src\audio\MglBgm.cpp
 # End Source File
 # Begin Source File
@@ -732,11 +744,11 @@ SOURCE=.\src\audio\MglBgm.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\audio\MglDirectShowBase.cpp
+SOURCE=.\src\audio\MglBgmBase.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\audio\MglDirectShowBase.h
+SOURCE=.\src\audio\MglBgmBase.h
 # End Source File
 # Begin Source File
 
@@ -745,6 +757,14 @@ SOURCE=.\src\audio\MglMp3Dshow.cpp
 # Begin Source File
 
 SOURCE=.\src\audio\MglMp3Dshow.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglOgg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglOgg.h
 # End Source File
 # End Group
 # Begin Source File
@@ -762,14 +782,6 @@ SOURCE=.\src\audio\MglDirectMusicBase.cpp
 # Begin Source File
 
 SOURCE=.\src\audio\MglDirectMusicBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglOgg.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglOgg.h
 # End Source File
 # End Group
 # Begin Group "’Ç•ú Files"

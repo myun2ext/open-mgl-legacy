@@ -164,6 +164,7 @@ using namespace std;
 	#pragma comment(lib, "Strmbase.lib")
 #endif//_DEBUG
 
+
 #endif//_MGL_NOUSE_DIRECTX
 
 
