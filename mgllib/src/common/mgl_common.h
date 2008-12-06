@@ -23,5 +23,10 @@ public:
 		CMyuStackInstance(&g_stackTrace,szFunctionName){}
 };
 
+class CMglInterfaceBase
+{
+public:
+	void Delete();	//	mgl_global.cpp‚É
+};
 
 #endif//__mgl_common_H__

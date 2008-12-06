@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "mgl_common.h"
 #include "mgl_global.h"
 
 /*	Šù‚É MglGraphicManager ‚É’è‹`Ï‚Å‚ ‚Á‚½c
@@ -34,4 +35,8 @@ HWND GetDefaultHwnd()
 		MyuThrow2( 0, MGLMSGNO_GLOBAL_HWND_DEFAULT, "g_hWndDefault ‚ª–¢İ’è‚Å‚·B" );
 	}
 	return g_hWndDefault;
+}
+
+void CMglInterfaceBase::Delete(){
+	delete this;
 }

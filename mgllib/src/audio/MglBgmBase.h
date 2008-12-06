@@ -22,7 +22,7 @@ protected:
 
 public:
 	//	èâä˙âª/èIí[ån
-	virtual void Init()=0;
+	//virtual void Init()=0;
 	virtual void Release()=0;
 	virtual void Load( const char* szAudioFile )=0;
 	virtual void Unload()=0;
@@ -55,5 +55,6 @@ class DLL_EXP CMglBgmBase : public CMglAudioItem
 };
 
 typedef CMglBgmBase IMglBgmBase;
+typedef CMglBgmBase IMglBgm;
 
 #endif//__MglBgmBase_H__

@@ -47,7 +47,8 @@ public:
 	void Unload(){ UnLoad(); }
 
 	//	çƒê∂ëÄçÏån
-	void Play( int nLoopCnt=VOX_LOOP_MAX );
+	void Play( int nLoopCnt );
+	void Play(){ Play(VOX_LOOP_MAX); }
 	void LoopPlay( int nLoopCnt=VOX_LOOP_MAX ){
 		Play(nLoopCnt);
 	}

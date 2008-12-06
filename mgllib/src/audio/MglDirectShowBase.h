@@ -17,7 +17,7 @@
 #include "MglBgmBase.h"
 
 //	クラス宣言
-class DLL_EXP CMglDirectShowBase : public CMglBgmBase
+class DLL_EXP CMglDirectShowBase : public IMglBgmBase
 {
 private:
 	// DirectShowのインスタンス宣言
@@ -59,6 +59,11 @@ public:
 	/*	別に要らないしEnableAudioExControl()呼ぶのも必要・・・
 	IBaseFilter* GetBaseFilterPtr(){ return m_pAudioRendererFilter; }
 	IBasicAudio* GetBasicAudioPtr(){ return m_pBasicAudio; }*/
+
+	//	* NotImplemented *
+	void LoopPlay( int nLoopCnt=MGL_AUDIO_LOOP_MAX ){}
+	void SetLastLoop(){}
+	void Unload(){}
 };
 
 #endif//__MglDirectShowBase_H__

@@ -3,6 +3,7 @@
 
 //#include "MglAudioBase.h"
 #include "MglDirectMusicBase.h"
+#include "MglDirectShowBase.h"
 
 //	ÉNÉâÉXêÈåæ
 class DLL_EXP CMglAudio : public CMglDirectMusicBase
@@ -13,6 +14,8 @@ private:
 public:
 
 };
+
+typedef CMglDirectMusicBase CMglSound;
 
 //typedef CMglAudio CMglAudio;
 //HYPER_CLASS_TYPEDEF(CMglAudio, CMglAudio)

@@ -423,6 +423,14 @@ SOURCE=.\src\common\MyuCommonException.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\src\common\MglClassBuilder.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\common\MglClassBuilder.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\common\MglClassMsg.h
 # End Source File
 # Begin Source File
