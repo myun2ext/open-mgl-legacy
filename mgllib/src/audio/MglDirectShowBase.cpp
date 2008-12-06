@@ -58,6 +58,8 @@ void CMglDirectShowBase::Init( HWND hWnd )
 	//	フィルタグラフからIMediaEventを取得する
 	MyuAssert( m_pGraph->QueryInterface(IID_IMediaEvent, (void **)&m_pEvent), S_OK,
 		"CMglDirectShowBase::Init()  QueryInterface(IMediaEvent)に失敗。" );
+
+	EnableAudioExControl();
 }
 
 //	読み込み
@@ -151,7 +153,20 @@ inline void CMglDirectShowBase::Pause()
 }
 
 //	ボリュームの設定
-void CMglDirectShowBase::SetVolume( int nVolume )
+inline void CMglDirectShowBase::SetVolume( int nVolume )
+{
+	EnableAudioExControl();
+	m_pBasicAudio->put_Volume(nVolume*100-10000);
+}
+
+//	パン設定
+inline void CMglDirectShowBase::SetBalance( int nBalance )
+{
+	EnableAudioExControl();
+	m_pBasicAudio->put_Balance(nBalance*100);
+}
+
+inline void CMglDirectShowBase::EnableAudioExControl()
 {
 	if ( m_pAudioRendererFilter == NULL )
 		// 音声レンダラフィルター所得
@@ -163,7 +178,4 @@ void CMglDirectShowBase::SetVolume( int nVolume )
 		// IBasicAudioインターフェースの所得
 		MyuAssert( m_pAudioRendererFilter->QueryInterface(IID_IBasicAudio, (void**)&m_pBasicAudio), S_OK,
 			"CMglDirectShowBase::SetVolume()  QueryInterface(IID_IBasicAudio)に失敗。" );
-
-	// ボリュームセット
-	m_pBasicAudio->put_Volume(nVolume*100-10000);
 }

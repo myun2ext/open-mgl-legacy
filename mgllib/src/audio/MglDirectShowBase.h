@@ -32,6 +32,7 @@ private:
 		if ( m_pGraph == NULL || m_pControl == NULL || m_pEvent == NULL )
 			Init();
 	}
+	void EnableAudioExControl();
 
 public:
 	CMglDirectShowBase();
@@ -42,11 +43,14 @@ public:
 
 	void Load( const char* szMediaFile );
 	void Play();
-	void LoopPlay(DWORD dwLoopCount=MGL_BGM_LOOP_MAX );
+	void LoopPlay(DWORD dwLoopCount=MGL_AUDIO_LOOP_MAX );
 	void Stop();
 	void Pause();
 
-	void SetVolume( int nVolume );
+	void SetVolume( int nVolume=MGL_VOLUME_MAX );	//	100ï™ó¶
+	void SetBalance( int nBalance=MGL_PAN_CENTER );	//	-100Å`100
+
+	//void EnableAudioExControl();
 
 	//	ì‡ïîDirectXïœêîÇÃéÊìæ
 	IGraphBuilder* GetGraphBuilderPtr(){ return m_pGraph; }
