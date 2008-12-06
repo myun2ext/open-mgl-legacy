@@ -56,6 +56,9 @@ public:
 	IGraphBuilder* GetGraphBuilderPtr(){ return m_pGraph; }
 	IMediaControl* GetMediaControlPtr(){ return m_pControl; }
 	IMediaEvent* GetMediaEventPtr(){ return m_pEvent; }
+	/*	別に要らないしEnableAudioExControl()呼ぶのも必要・・・
+	IBaseFilter* GetBaseFilterPtr(){ return m_pAudioRendererFilter; }
+	IBasicAudio* GetBasicAudioPtr(){ return m_pBasicAudio; }*/
 };
 
 #endif//__MglDirectShowBase_H__

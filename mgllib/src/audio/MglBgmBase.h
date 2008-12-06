@@ -47,15 +47,13 @@ public:
 typedef CMglAudioSegment IMglAudioSegment;
 typedef CMglAudioSegment CMglAudioItem;
 
-//////////////////////////////////////
+////////////////////////////////////////////////////////////////////
 
 //	ÉNÉâÉXêÈåæ
 class DLL_EXP CMglBgmBase : public CMglAudioItem
 {
-public:
 };
 
 typedef CMglBgmBase IMglBgmBase;
-
 
 #endif//__MglBgmBase_H__
