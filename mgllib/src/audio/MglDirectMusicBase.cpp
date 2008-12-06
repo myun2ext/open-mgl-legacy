@@ -130,7 +130,7 @@ void CMglDirectMusicBase::Load( const char* szAudioFile, const char* szAlias )
 		MyuThrow( hret, "CMglDirectMusicBase::Load()  ファイル \"%s\" が見つかりません。", szAudioFile );
 	*/
 
-	WCHAR wstrFileName[MAX_PATH+1];
+	WCHAR wstrFileName[32000*2+1];
 	ZeroMemory( wstrFileName, sizeof(wstrFileName) );
 
 	m_segments[szAlias] = NULL;

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "MglMp3Dshow.h"
 
-typedef Vox* __stdcall CreateVox();
 #define USE_CHK()		if(m_useFlg!=TRUE)return;
 
 //	コンストラクタ

@@ -16,10 +16,11 @@
 //	コンストラクタ
 CMglDirectShowBase::CMglDirectShowBase()
 {
-	m_pLoader = NULL;
-	m_pPerformance = NULL;
-	//m_segments = NULL;
-	m_flgEnable = TRUE;
+	m_pGraph = NULL;
+	m_pControl = NULL;
+	m_pEvent = NULL;
+	m_pAudioRendererFilter = NULL;
+	m_pBasicAudio = NULL;
 }
 
 //	デストラクタ
@@ -28,206 +29,141 @@ CMglDirectShowBase::~CMglDirectShowBase()
 	Release();
 }
 
-//	初期化
-void CMglDirectShowBase::InitEx( HWND hWnd, const char *szBaseDirectory,
-								  DWORD dwDefaultPathType, DWORD dwPerformanceChannelCount, DWORD dwFlags )
-{
-	//ENBL_CHK(); <-- コレここにはダメじゃないか…？(2007/02/18)
-
-	if ( hWnd == NULL )
-		hWnd = GetDefaultHwnd();
-
-	/*
-	MyuAssert( CoInitialize(NULL), S_OK,
-		"CMglDirectShowBase::Init()  CoInitialize()に失敗。" );
-	*/
-
-	MyuAssert( CoCreateInstance(CLSID_DirectMusicLoader, NULL, 
-                     CLSCTX_INPROC, IID_IDirectMusicLoader8,
-                     (void**)&m_pLoader), S_OK,
-		"CMglDirectShowBase::Init()  CoCreateInstance(DirectMusicLoader)に失敗。" );
-
-    MyuAssert( CoCreateInstance(CLSID_DirectMusicPerformance, NULL,
-                     CLSCTX_INPROC, IID_IDirectMusicPerformance8,
-                     (void**)&m_pPerformance ), S_OK,
-		"CMglDirectShowBase::Init()  CoCreateInstance(DirectMusicPerformance)に失敗。" );
-
-	MyuAssert( m_pPerformance->InitAudio( 
-			NULL,                  // IDirectMusic インターフェイスは不要。
-			NULL,                  // IDirectSound インターフェイスは不要。
-			hWnd,                  // ウィンドウのハンドル。
-			dwDefaultPathType,	   // デフォルトのオーディオパス タイプ
-//			DMUS_APATH_DYNAMIC_STEREO,  // デフォルトのオーディオパス タイプ
-//			DMUS_APATH_SHARED_STEREOPLUSREVERB,  // デフォルトのオーディオパス タイプ
-			dwPerformanceChannelCount, // パフォーマンス チャンネルの数。
-			dwFlags,       // シンセサイザの機能。
-			NULL                   // オーディオ パラメータにはデフォルトを使用。
-		), S_OK,
-		"CMglDirectShowBase::Init()  m_pPerformance->InitAudio()に失敗。" ); 
-
- 
-	// Unicode に変換する。
-	WCHAR wstrSearchPath[MAX_PATH];
-	MultiByteToWideChar( CP_ACP, 0, szBaseDirectory, -1, wstrSearchPath, MAX_PATH );
- 
-	// 検索ディレクトリを設定する。
-	MyuAssert( m_pLoader->SetSearchDirectory( GUID_DirectMusicAllTypes, wstrSearchPath, FALSE ), S_OK,
-		"CMglDirectShowBase::Init()  m_pLoader->SetSearchDirectory()に失敗。" ); 
-}
-
 //	開放
 void CMglDirectShowBase::Release()
 {
-	if ( m_pLoader == NULL )
-		return;
+	SAFE_RELEASE(m_pGraph);
+	SAFE_RELEASE(m_pControl);
+	SAFE_RELEASE(m_pEvent);
+	SAFE_RELEASE(m_pAudioRendererFilter);
+	SAFE_RELEASE(m_pBasicAudio);
+}
 
-	/*for( SEG_ITR it=m_segments.begin(); it != m_segments.end(); it++ )
-		StopSegment( it->second );*/
-    m_pPerformance->Stop(
-        NULL,   // すべてのセグメントを停止する。
-        NULL,   // すべてのセグメント状態を停止する。
-        0,      // 直ちに実行する。
-        0       // フラグ。
-    );
+//	初期化
+void CMglDirectShowBase::Init( HWND hWnd )
+{
+	if ( hWnd == NULL )
+		hWnd = GetDefaultHwnd();
 
-	m_pPerformance->CloseDown();
+	//	フィルタグラフのインスタンスを生成
+	MyuAssert( CoCreateInstance(CLSID_FilterGraph, NULL, 
+                     CLSCTX_INPROC_SERVER, IID_IGraphBuilder,
+                     (void**)&m_pGraph), S_OK,
+		"CMglDirectShowBase::Init()  CoCreateInstance(IGraphBuilder)に失敗。" );
 
-	/*m_pLoader->Release(); 
-    m_pPerformance->Release();*/
-	SAFE_RELEASE(m_pLoader); 
-    SAFE_RELEASE(m_pPerformance);
+	//	フィルタグラフからIMediaControlを取得する
+	MyuAssert( m_pGraph->QueryInterface(IID_IMediaControl, (void **)&m_pControl), S_OK,
+		"CMglDirectShowBase::Init()  QueryInterface(IMediaControl)に失敗。" );
 
-	for( SEG_ITR it=m_segments.begin(); it != m_segments.end(); it++ )
-		SAFE_RELEASE( it->second );
-	m_segments.clear();
- 
-    //CoUninitialize();
-
-	/*
-	//	開放処理多分必要
-	for( SEG_ITR it=m_segments.begin(); it != m_segments.end(); it++ )
-		m_pLoader->ReleaseObject( it->second );
-	*/
+	//	フィルタグラフからIMediaEventを取得する
+	MyuAssert( m_pGraph->QueryInterface(IID_IMediaEvent, (void **)&m_pEvent), S_OK,
+		"CMglDirectShowBase::Init()  QueryInterface(IMediaEvent)に失敗。" );
 }
 
 //	読み込み
-void CMglDirectShowBase::Load( const char* szAudioFile, const char* szAlias )
+void CMglDirectShowBase::Load( const char* szMediaFile )
 {
-	//ENBL_CHK(); <-- コレここにはダメじゃないか…？(2007/02/18)
-
 	InitCheck();
 
-	if ( szAlias == NULL )
-		szAlias = szAudioFile;
-
-	//	既に無いかチェック
-	if ( IsExist(szAlias) == TRUE )
-		MyuThrow( 0, "CMglDirectShowBase::Load()  既に\"%s\"の名前のセグメントは存在します。", szAlias );
-
-	/* <-- szBaseDirectoryを記憶しないといけない。めんどいので後回し
-	//	ファイルの存在を事前チェック
-	if ( exist_file( szAudioFile ) == false )
-		MyuThrow( hret, "CMglDirectShowBase::Load()  ファイル \"%s\" が見つかりません。", szAudioFile );
-	*/
-
-	WCHAR wstrFileName[MAX_PATH+1];
+	WCHAR wstrFileName[32000*2+1];
 	ZeroMemory( wstrFileName, sizeof(wstrFileName) );
+	MultiByteToWideChar(CP_ACP, 0, szMediaFile, strlen(szMediaFile), wstrFileName, sizeof(wstrFileName));
 
-	m_segments[szAlias] = NULL;
-	MultiByteToWideChar(CP_ACP, 0, szAudioFile, strlen(szAudioFile), wstrFileName, sizeof(wstrFileName));
-	//mbsrtowcs( wstrFileName, &szAlias, MAX_PATH+1, ps != 0 ? ps : &internal );
+	//	再生するファイルを指定する
+	HRESULT hRet = m_pGraph->RenderFile(wstrFileName, NULL);
 
-    /*MyuAssert( m_pLoader->LoadObjectFromFile(
-        CLSID_DirectMusicSegment,   // クラス識別子。
-        IID_IDirectMusicSegment8,   // 目的のインターフェイスの ID。
-        wstrFileName,               // ファイル名。
-        (LPVOID*) &m_segments[szAlias]       // インターフェイスを受け取るポインタ。
-		), S_OK,
-		"Audioファイル %s (name:%s)の読み込みに失敗。", szAudioFile, szAlias );*/
-
-    HRESULT hret = m_pLoader->LoadObjectFromFile(
-        CLSID_DirectMusicSegment,   // クラス識別子。
-        IID_IDirectMusicSegment8,   // 目的のインターフェイスの ID。
-        wstrFileName,               // ファイル名。
-        (LPVOID*) &m_segments[szAlias]       // インターフェイスを受け取るポインタ。
-		);
-	switch( hret )
+	switch( hRet )
 	{
 	case S_OK:
 		break;
-	case DMUS_E_LOADER_FAILEDOPEN:
-		MyuThrow( hret, "CMglDirectShowBase::Load()  ファイル \"%s\" は見つからないか有効なMediaファイルではありません。", szAudioFile );
-		//MyuThrow( hret, "CMglDirectShowBase::Load()  ファイル \"%s\" は有効なMediaファイルではありません。", szAudioFile );
-	case DMUS_E_LOADER_FORMATNOTSUPPORTED:
-	case DMUS_E_UNSUPPORTED_STREAM:
-		MyuThrow( hret, "CMglDirectShowBase::Load()  ファイル \"%s\" はサポートされていないAudio形式です。", szAudioFile );
-	default:
-		MyuThrow( hret, "Audioファイル \"%s\" の読み込みに失敗。", szAudioFile );
-	}
+	case VFW_S_AUDIO_NOT_RENDERED:	//	オーディオ ストリームを再生できない。適切なレンダラが見つからなかった。
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" はサポートしていないオーディオストリームです。", szMediaFile );
 
-    MyuAssert( m_segments[szAlias]->Download( m_pPerformance ), S_OK,
-		"CMglDirectShowBase::Load()  m_segments[szAlias]->Download()に失敗。" );
+	case VFW_S_VIDEO_NOT_RENDERED:	//	ビデオ ストリームを再生できない。適切なレンダラが見つからなかった。
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" はサポートしていないビデオストリームです。", szMediaFile );
+
+	case VFW_S_PARTIAL_RENDER:		//	このムービーにサポートされないフォーマットのストリームが含まれている。
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" はサポートしていないムービーストリームを含みます。", szMediaFile );
+
+	case E_INVALIDARG:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  引数が異常です。" );
+
+	case E_OUTOFMEMORY:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" を再生するのに十分なメモリがありません。", szMediaFile );
+
+	case VFW_E_CANNOT_CONNECT:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" 接続を確立する中間フィルタの組み合わせが見つからなかった。", szMediaFile );
+
+	case VFW_E_CANNOT_LOAD_SOURCE_FILTER:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" のソース フィルタをロードできない。", szMediaFile );
+
+	case VFW_E_CANNOT_RENDER:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" ストリームをレンダリングするフィルタの組み合わせが見つからなかった。", szMediaFile );
+
+	case VFW_E_INVALID_FILE_FORMAT:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイルフォーマットが無効です。 %s", szMediaFile );
+
+	case VFW_E_NOT_FOUND:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" が見つかりません。", szMediaFile );
+
+	case VFW_E_NOT_IN_GRAPH:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" フィルタ グラフに存在しないオブジェクトに要求された関数を実行できない。", szMediaFile );
+
+	case VFW_E_UNKNOWN_FILE_TYPE:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" のメディアタイプが認識出来ません。", szMediaFile );
+
+	case VFW_E_UNSUPPORTED_STREAM:
+		MyuThrow( hRet, "CMglDirectShowBase::Load()  ファイル \"%s\" はサポートされていないメディア形式です。", szMediaFile );
+
+	default:
+		MyuThrow( hRet, "ファイル \"%s\" の読み込みに失敗。", szMediaFile );
+	}
 }
 
 //	再生
-inline void CMglDirectShowBase::PlaySegment( const char* szAliasName )
+inline void CMglDirectShowBase::Play()
 {
-	ENBL_CHK();
-	LoopPlaySegment( szAliasName, 0 );
+	InitCheck();
+	//ENBL_CHK();
+	
+	MyuAssert( m_pControl->Run(), S_OK,
+		"CMglDirectShowBase::Play()  m_pControl->Run()に失敗。" );
 }
 
-//	ループ再生
-void CMglDirectShowBase::LoopPlaySegment( const char* szAliasName, DWORD dwLoopCount )
+//	停止
+inline void CMglDirectShowBase::Stop()
 {
-	ENBL_CHK();
 	InitCheck();
-	ExistChk(szAliasName);
-
-	m_segments[szAliasName]->SetRepeats( dwLoopCount );
-	MyuAssert( m_pPerformance->PlaySegmentEx(
-        m_segments[szAliasName],  // 再生するセグメント。
-        NULL,        // ソングに使用するパラメータ。実装されていない。
-        NULL,        // トランジションに関するパラメータ。 
-        DMUS_SEGF_SECONDARY,           // フラグ。
-        0,           // 開始タイム。0 は直ちに開始。
-        NULL,        // セグメント状態を受け取るポインタ。
-        NULL,        // 停止するオブジェクト。
-        NULL )       // デフォルトでない場合はオーディオパス。
-		,S_OK, "CMglDirectShowBase::PlaySegment()  m_pPerformance->PlaySegmentEx()に失敗。" );
+	//ENBL_CHK();
+	
+	MyuAssert( m_pControl->Stop(), S_OK,
+		"CMglDirectShowBase::Stop()  m_pControl->Stop()に失敗。" );
 }
 
-//	止める
-void CMglDirectShowBase::Stop( const char* szAliasName )
+//	一時停止
+inline void CMglDirectShowBase::Pause()
 {
-	ENBL_CHK();
 	InitCheck();
-	ExistChk(szAliasName);
-	StopSegment( m_segments[szAliasName] );
-}
-
-//	止める2
-void CMglDirectShowBase::StopSegment( IDirectMusicSegment* pSegment )
-{
-	ENBL_CHK();
-	InitCheck();
-
-	MyuAssert( m_pPerformance->StopEx( pSegment, 0, 0 ),
-		S_OK, "CMglDirectShowBase::StopSegment()  m_pPerformance->StopEx()に失敗。" );
+	//ENBL_CHK();
+	
+	MyuAssert( m_pControl->Pause(), S_OK,
+		"CMglDirectShowBase::Pause()  m_pControl->Pause()に失敗。" );
 }
 
 //	ボリュームの設定
 void CMglDirectShowBase::SetVolume( int nVolume )
-{    
-	//ENBL_CHK(); <-- コレここにはダメじゃないか…？(2007/02/18)
-	InitCheck();
-	MyuAssert( m_pPerformance->SetGlobalParam( GUID_PerfMasterVolume, (VOID*)&nVolume, sizeof(long) ), S_OK,
-		"CMglDirectShowBase::SetVolume()  m_pPerformance->SetGlobalParam()に失敗。" );
-}
-
-//	ポインタ取得
-IDirectMusicSegment8* CMglDirectShowBase::GetSegmentPtr( const char* szAliasName )
 {
-	InitCheck();
-	ExistChk(szAliasName);
-	return m_segments[szAliasName];
+	if ( m_pAudioRendererFilter == NULL )
+		// 音声レンダラフィルター所得
+		MyuAssert( CoCreateInstance(CLSID_AudioRender, NULL,
+			CLSCTX_INPROC_SERVER, IID_IBaseFilter, (void**)&m_pAudioRendererFilter), S_OK,
+			"CMglDirectShowBase::SetVolume()  CoCreateInstance(IBaseFilter)に失敗。" );
+	
+	if ( m_pBasicAudio == NULL )
+		// IBasicAudioインターフェースの所得
+		MyuAssert( m_pAudioRendererFilter->QueryInterface(IID_IBasicAudio, (void**)&m_pBasicAudio), S_OK,
+			"CMglDirectShowBase::SetVolume()  QueryInterface(IID_IBasicAudio)に失敗。" );
+
+	// ボリュームセット
+	m_pBasicAudio->put_Volume(nVolume*100-10000);
 }

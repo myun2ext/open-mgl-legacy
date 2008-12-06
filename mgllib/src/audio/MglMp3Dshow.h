@@ -8,26 +8,14 @@
 #ifndef __MglMp3Dshow_H__
 #define __MglMp3Dshow_H__
 
+#include "MglDirectShowBase.h"
 #include "MglBgmBase.h"
 
 //	クラス宣言
-class DLL_EXP CMglMp3Dshow : public CMglBgmBase
+class DLL_EXP CMglMp3Dshow : public CMglDirectShowBase, public CMglBgmBase
 {
 private:
-	// DirectShowのインスタンス宣言
-	IGraphBuilder *p_graph;
-	IMediaControl *p_control;
-	IMediaEvent   *p_event;
-
-	//	初期化チェック
-	void InitCheck() {
-		if ( m_pDriver == NULL )
-			Init();
-	}	
-	void LoadCheck() {
-		if ( m_loadFlg != TRUE )
-			MyuThrow( 0, "CMglMp3Dshow  Load()を先に実行してください。" );
-	}	
+	
 
 public:
 	CMglMp3Dshow();
