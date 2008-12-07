@@ -54,10 +54,17 @@ public:
 	}
 	void StopLoop();
 	void Pause();
-	void SetVolume( float fVolume=VOX_DEFAULT_VOLUME );
+	void SetVolume( float fVolume );
 	void Fade( float fTargetVolume, int nFadeTimeMs );
 	void FadeIn( int nFadeTimeMs ) { SetVolume(0); Fade( 1.0f, nFadeTimeMs ); }
 	void FadeOut( int nFadeTimeMs ) { Fade( 0, nFadeTimeMs ); }
+
+
+	void Stop(){ Pause(); }
+	void SetLastLoop(){ StopLoop(); }
+	void SetVolume( int nVolume=MGL_VOLUME_MAX ){ SetVolume(nVolume/100.0f); }
+	void SetBalance( int nBalance=MGL_PAN_CENTER ){}
+
 
 	void Enable() { m_useFlg = TRUE; }
 	void Disable() { m_useFlg = FALSE; }

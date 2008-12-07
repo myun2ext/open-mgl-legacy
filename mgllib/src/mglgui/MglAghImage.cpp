@@ -21,7 +21,7 @@ CMglAghImage::~CMglAghImage()
 */
 
 
-bool CMglAghImage::Load(const char* szImageFilePath)
+bool CMglAghImage::SetImageFilePath(const char* szImageFilePath)
 {
 	m_strLayerName = szImageFilePath;
 	m_strFilePath = szImageFilePath;

@@ -46,10 +46,11 @@ public:
 		m_pCacher = NULL;
 	}
 
-	bool Load(const char* szImageFilePath);
-	bool SetImageFilePath(const char* szImageFilePath){ return Load(szImageFilePath); }
+	bool SetImageFilePath(const char* szImageFilePath);
+	bool Load(const char* szImageFilePath){ return SetImageFilePath(szImageFilePath); }
 };
 
 typedef CMglAghImage CMglAghImageCtrl;
+typedef CMglAghImage CAugustImage;
 
 #endif//__MglAghImage_H__
