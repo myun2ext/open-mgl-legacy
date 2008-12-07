@@ -60,7 +60,7 @@ public:
 	IBaseFilter* GetBaseFilterPtr(){ return m_pAudioRendererFilter; }
 	IBasicAudio* GetBasicAudioPtr(){ return m_pBasicAudio; }*/
 
-	//	* NotImplemented *
+	//	* NotImplemented!! *
 	void LoopPlay( int nLoopCnt=MGL_AUDIO_LOOP_MAX ){}
 	void SetLastLoop(){}
 	void Unload(){}
