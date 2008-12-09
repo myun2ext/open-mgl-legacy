@@ -22,15 +22,25 @@ CMglBgm::~CMglBgm()
 
 void CMglBgm::Init()
 {
-
+	m_pMp3Dshow->Init();
+	m_pOgg->Init();
 }
 
 void CMglBgm::Release()
 {
-
+	m_pMp3Dshow->Release();
+	m_pOgg->Release();
 }
 
 void CMglBgm::Load( const char* szAudioFile )
 {
+	CMyuFilePath fp(szAudioFile);
+	const char *szExt = fp.GetExt();
 
+	if ( strcmp(szExt,"ogg") == 0 )
+		m_pBgm = m_pOgg;
+	else
+		m_pBgm = m_pMp3Dshow;
+
+	m_pBgm->Load(szAudioFile);
 }

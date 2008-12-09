@@ -661,7 +661,23 @@ SOURCE=.\src\input\MglMouseInputBase.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\audevcod.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\auto_fp.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\BaseTsd.h"
+# End Source File
+# Begin Source File
+
 SOURCE=C:\dxsdk90b\Include\d3d8.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8.h"
 # End Source File
 # Begin Source File
 
@@ -669,7 +685,15 @@ SOURCE=C:\dxsdk90b\Include\d3d8caps.h
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
+# End Source File
+# Begin Source File
+
 SOURCE=C:\dxsdk90b\Include\d3d8types.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
 # End Source File
 # Begin Source File
 
@@ -677,7 +701,15 @@ SOURCE=C:\dxsdk90b\Include\d3dx8.h
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8.h"
+# End Source File
+# Begin Source File
+
 SOURCE=C:\dxsdk90b\Include\d3dx8core.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
 # End Source File
 # Begin Source File
 
@@ -685,7 +717,15 @@ SOURCE=C:\dxsdk90b\Include\d3dx8effect.h
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8effect.h"
+# End Source File
+# Begin Source File
+
 SOURCE=C:\dxsdk90b\Include\d3dx8math.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.h"
 # End Source File
 # Begin Source File
 
@@ -693,7 +733,15 @@ SOURCE=C:\dxsdk90b\Include\d3dx8math.inl
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
+# End Source File
+# Begin Source File
+
 SOURCE=C:\dxsdk90b\Include\d3dx8mesh.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8mesh.h"
 # End Source File
 # Begin Source File
 
@@ -701,7 +749,67 @@ SOURCE=C:\dxsdk90b\Include\d3dx8shape.h
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
+# End Source File
+# Begin Source File
+
 SOURCE=C:\dxsdk90b\Include\d3dx8tex.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dls1.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmdls.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmerror.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmplugin.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmusbuff.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmusicc.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dmusici.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\DShow.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dxfile.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Guiddef.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\int_string.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msl_ra_list.h
 # End Source File
 # Begin Source File
 
@@ -709,11 +817,171 @@ SOURCE=..\..\MSL\trunk\MSL\header\msl_ra_list.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\MSL\include\msl_stlcommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslcharset.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslcommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslfile2.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslnet.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslrand.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstd.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstr.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\mslstr2.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\msltime.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwl_filedlg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlcommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlfile.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MwlFileUtil.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlmsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\mwlstd.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\myu_dynamic_string.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\myu_super_stream.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuCharbuf.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuCharCnv.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuDynamicArray.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuDynamicDll.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuFgets.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\MWL\include\MyuIniReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuIniWriter.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuProcessManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuRegReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\MyuSimpleStackTrace.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuSpecialIniReader.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuThreadBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\MWL\include\MyuThreadManager.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\PropIdl.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Reason.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\MSL\include\StlSerializer.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\StrAlign.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Tvout.h"
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\WinEFS.h"
 # End Source File
 # End Group
 # Begin Group "Audio Files"
