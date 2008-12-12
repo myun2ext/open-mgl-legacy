@@ -302,6 +302,22 @@ SOURCE=.\src\august\AugustWindow.cpp
 
 SOURCE=.\src\august\AugustWindow.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAghImage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAghImage.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiControl.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiControl.h
+# End Source File
 # End Group
 # Begin Group "old"
 
@@ -327,22 +343,6 @@ SOURCE=.\src\mglgui\MglguiWindow.cpp
 SOURCE=.\src\mglgui\MglguiWindow.h
 # End Source File
 # End Group
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglAghImage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglAghImage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiControl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiControl.h
-# End Source File
 # End Group
 # Begin Source File
 

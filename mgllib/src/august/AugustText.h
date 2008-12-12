@@ -9,18 +9,17 @@
 
 #include "agh.h"
 #include "MglGraphicManager.h"
-#include "MglImageCacher.h"
+#include "MglText.h"
 
-class DLL_EXP agh::CImageBase;
+class DLL_EXP agh::CTextBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustText : public agh::CImageBase
+class DLL_EXP CAugustText : public agh::CTextBase
 {
 	friend class CMglguiScreen;
 	friend class CAugustScreen;
 private:
 	CMglGraphicManager *m_pGrp;
-	CMglImageCacher *m_pCacher;
 
 	//	friend Access
 	void _Setup(CMglGraphicManager *pGrp, CMglImageCacher *pCacher){
@@ -34,11 +33,11 @@ private:
 		return (*m_pCacher)[m_strFilePath.c_str()];
 	}
 protected:
+	CMglText m_text;
+
+	// ---- Event Handlers ----
 	void OnDraw();
 
-protected:
-	std::string m_strLayerName;
-	std::string m_strFilePath;
 public:
 	//	コンストラクタ
 	CAugustText(){
@@ -46,11 +45,8 @@ public:
 		m_pCacher = NULL;
 	}
 
-	bool SetImageFilePath(const char* szImageFilePath);
-	bool Load(const char* szImageFilePath){ return SetImageFilePath(szImageFilePath); }
 };
 
-typedef CAugustText CAugustTextCtrl;
-typedef CAugustText CAugustImage;
+typedef CAugustText CMglguiText;
 
 #endif//__AugustText_H__
