@@ -8,12 +8,12 @@
 #define __AugustScreen_H__
 
 #include "agh.h"
-#include "MglLayers4.h"
 #include "MglImageCacher.h"
 #include "MglImageLayer.h"
 #include "MglInput.h"
 #include "MglAudio.h"
 #include "MglAghImage.h"
+#include "AugustCommon.h"
 //#include "MglMouseInput.h"
 
 class DLL_EXP agh::CScreenBase;
@@ -39,64 +39,6 @@ typedef struct {
 typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 
 /////////////////////////////////////////////////////////////////////////
-
-//#define AUGUST_GLOBAL_COMMON_PTR
-class CAugustGlobalCommon
-{
-public:
-
-#ifdef AUGUST_GLOBAL_COMMON_PTR
-	CMglGraphicManager *grp;
-	CMglInput *input;
-	//CMglMouseInput mouse;
-	CMglMouseInput *mouse;
-	CMglAudio *audio;
-
-	CMglImageCacher *imgCache;
-#else
-	CMglGraphicManager grp;
-	CMglInput input;
-	//CMglMouseInput mouse;
-	CMglMouseInput *mouse;
-	CMglAudio audio;
-
-	CMglImageCacher imgCache;
-
-
-	CMglGraphicManager *pGrp;
-	CMglInput *pInput;
-	//CMglMouseInput *pMouse;
-	CMglAudio *pAudio;
-
-	CMglImageCacher *pImgCache;
-#endif
-
-	HWND hWnd;
-	int nWindowWidth;
-	int nWindowHeight;
-
-public:
-	CAugustGlobalCommon() {
-		hWnd = NULL;
-		nWindowWidth = -1;
-		nWindowHeight = -1;
-		/*grp = NULL;
-		input = NULL;
-		mouse = NULL;
-		audio = NULL;
-		imgCache = NULL;*/
-
-		mouse = &input.mouse;
-		pGrp = &grp;
-		pInput = &input;
-		pAudio = &audio;
-		pImgCache = &imgCache;
-	}
-	void Setup(){}
-};
-typedef CAugustGlobalCommon CAugustGloba;
-typedef CAugustGlobalCommon CAugustCommon;
-
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
 class DLL_EXP CAugustScreen : public agh::CScreenBase

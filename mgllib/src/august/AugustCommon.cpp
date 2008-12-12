@@ -1,20 +1,20 @@
 //////////////////////////////////////////////////////////
 //
-//	MglguiControl
+//	AugustCommon
 //
 //////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "MglguiControl.h"
+#include "AugustCommon.h"
 
 /*
 //	コンストラクタ
-CMglguiControl::CMglguiControl()
+CAugustCommon::CAugustCommon()
 {
 }
 
 //	デストラクタ
-CMglguiControl::~CMglguiControl()
+CAugustCommon::~CAugustCommon()
 {
 }
 */

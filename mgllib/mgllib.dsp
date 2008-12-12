@@ -256,6 +256,10 @@ SOURCE=..\AGH\include\agh_ControlBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\AGH\include\agh_defs.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\AGH\include\agh_Events.h
 # End Source File
 # Begin Source File
@@ -266,6 +270,14 @@ SOURCE=..\AGH\include\agh_ScreenBase.h
 # Begin Group "August"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\august\AugustCommon.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustCommon.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\src\august\AugustEzGameFrame.cpp
@@ -304,19 +316,11 @@ SOURCE=.\src\august\AugustWindow.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\mglgui\MglAghImage.cpp
+SOURCE=.\src\august\MglAghImage.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\mglgui\MglAghImage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiControl.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiControl.h
+SOURCE=.\src\august\MglAghImage.h
 # End Source File
 # End Group
 # Begin Group "old"
