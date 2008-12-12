@@ -20,6 +20,7 @@ class DLL_EXP CAugustText : public agh::CTextBase, public CAugustControlBase
 private:
 	//BOOL bBold, bItalic, bUnderLine, bStrikeOut;
 	void ReCreateFont();
+	DWORD GetDrawInternalOption();
 
 protected:
 	CMglGraphicManager *m_pGrp;
