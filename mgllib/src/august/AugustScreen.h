@@ -97,7 +97,7 @@ private:
 
 	//void ScreenUpdate();
 
-	void _RegistControl(agh::CControlBase* pCtrl);
+	void _RegistControlInternal(agh::CControlBase* pCtrl);// <- なんのためにあるの・・・？旧時代の遺物か？ 
 
 public:
 	//	コンストラクタ
@@ -124,7 +124,8 @@ public:
 
 	///// コントロールの登録 /////////////////////////////////////////////////
 
-	void RegistControl(CMglAghImage* pImage);
+	//void RegistControl(CMglAghImage* pImage);
+	void RegistControl(CAugustControlBase* pControl);
 
 	//////////////////////////////////////////////////////
 

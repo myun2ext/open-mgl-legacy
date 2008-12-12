@@ -79,14 +79,17 @@ class DLL_EXP CAugustControlBase
 protected:
 	CAugustGlobalCommon *m_pGlobal;
 
-	void OnRegist(CAugustGlobalCommon *pGlobal){
-		m_pGlobal = pGlobal;
-	}
 public:
 	//	コンストラクタ
 	CAugustControlBase(){
 		m_pGlobal = NULL;
 	}
+
+	//	公開イベントハンドラ
+	void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+	}
+	//agh::CControlBase* _GetThisControl(){ return 
 };
 
 /*

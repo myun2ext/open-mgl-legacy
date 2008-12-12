@@ -64,6 +64,7 @@ bool CAugustScreen::DoFrame()
 
 /////////////////////////////////////////////////////////////
 
+/*
 void CAugustScreen::RegistControl(CMglAghImage* pImage)
 {
 	const char* szFilePath = pImage->m_strFilePath.c_str();
@@ -82,7 +83,15 @@ void CAugustScreen::RegistControl(CMglAghImage* pImage)
 	_RegistControl(pImage);
 	//m_layer.RegistBegin( new CMglImageLayer(m_imgCache[szFilePath]), true );
 }
-void CAugustScreen::_RegistControl(agh::CControlBase* pCtrl)
+*/
+void CAugustScreen::RegistControl(CAugustControlBase* pControl)
+{
+	pControl->OnRegist(g_);
+
+	_RegistControlInternal(pControl);
+}
+
+void CAugustScreen::_RegistControlInternal(agh::CControlBase* pCtrl)
 {
 	m_ctrlPtrAry.push_back(pCtrl);
 }

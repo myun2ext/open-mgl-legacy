@@ -8,13 +8,14 @@
 #define __MglAghImage_H__
 
 #include "agh.h"
+#include "AugustCommon.h"
 #include "MglGraphicManager.h"
 #include "MglImageCacher.h"
 
 class DLL_EXP agh::CImageBase;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
-class DLL_EXP CMglAghImage : public agh::CImageBase
+class DLL_EXP CMglAghImage : public agh::CImageBase, public CAugustControlBase
 {
 	friend class CMglguiScreen;
 	friend class CAugustScreen;
