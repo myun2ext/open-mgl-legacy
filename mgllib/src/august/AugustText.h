@@ -12,10 +12,13 @@
 #include "MglGraphicManager.h"
 #include "MglText.h"
 
-class DLL_EXP agh::CTextBase;
+//class DLL_EXP agh::CTextBase;
+//class DLL_EXP agh::CTextBase< CAugustVisualControlBase >;
+template class DLL_EXP agh::CTextBaseT< CAugustVisualControlBase >;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustText : public agh::CTextBase, public CAugustControlBase
+//class DLL_EXP CAugustText : public agh::CTextBase, public CAugustControlBase
+class DLL_EXP CAugustText : public agh::CTextBaseT< CAugustVisualControlBase >
 {
 private:
 	//BOOL bBold, bItalic, bUnderLine, bStrikeOut;

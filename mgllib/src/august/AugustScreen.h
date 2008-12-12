@@ -125,7 +125,7 @@ public:
 	///// ƒRƒ“ƒgƒ[ƒ‹‚Ì“o˜^ /////////////////////////////////////////////////
 
 	//void RegistControl(CMglAghImage* pImage);
-	void RegistControl(CAugustControlBase* pControl);
+	void RegistControl(CAugustVisualControlBase* pControl);
 
 	//////////////////////////////////////////////////////
 

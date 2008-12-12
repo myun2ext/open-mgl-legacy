@@ -84,7 +84,7 @@ void CAugustScreen::RegistControl(CMglAghImage* pImage)
 	//m_layer.RegistBegin( new CMglImageLayer(m_imgCache[szFilePath]), true );
 }
 */
-void CAugustScreen::RegistControl(CAugustControlBase* pControl)
+void CAugustScreen::RegistControl(CAugustVisualControlBase* pControl)
 {
 	pControl->OnRegist(g_);
 

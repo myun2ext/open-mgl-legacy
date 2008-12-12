@@ -15,7 +15,7 @@
 class DLL_EXP agh::CImageBase;
 
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////
-class DLL_EXP CMglAghImage : public agh::CImageBase, public CAugustControlBase
+class DLL_EXP CMglAghImage : public agh::CImageBase
 {
 	friend class CMglguiScreen;
 	friend class CAugustScreen;

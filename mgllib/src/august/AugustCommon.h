@@ -74,7 +74,7 @@ typedef CAugustGlobalCommon AUGUST_GLOBAL_PARAM;
 
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustControlBase
+/*class DLL_EXP CAugustControlBase
 {
 protected:
 	CAugustGlobalCommon *m_pGlobal;
@@ -82,6 +82,28 @@ protected:
 public:
 	//	コンストラクタ
 	CAugustControlBase(){
+		m_pGlobal = NULL;
+	}
+
+	//	公開イベントハンドラ
+	void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+	}
+	//agh::CControlBase* _GetThisControl(){ return 
+};
+*/
+
+class DLL_EXP agh::CVisualControlBase;
+
+//	クラス宣言
+class DLL_EXP CAugustVisualControlBase : public agh::CVisualControlBase
+{
+protected:
+	CAugustGlobalCommon *m_pGlobal;
+
+public:
+	//	コンストラクタ
+	CAugustVisualControlBase(){
 		m_pGlobal = NULL;
 	}
 

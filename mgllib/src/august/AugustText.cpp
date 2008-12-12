@@ -8,10 +8,15 @@
 #include "stdafx.h"
 #include "AugustText.h"
 
+//	2008/12/13	「agh::CTextBase< CAugustVisualControlBase >::SetOption(dwOption);」
+//				がこうしないとコンパイルエラーになってしまう・・・（どうもVC++6.0のバグだという噂が・・・
+using namespace agh;
+
+
 //	登録されたとき。色々する
 void CAugustText::OnRegist(CAugustGlobalCommon *pGlobal)
 {
-	CAugustControlBase::OnRegist(pGlobal);
+	CAugustVisualControlBase::OnRegist(pGlobal);
 
 	m_pGrp = &(pGlobal->grp);
 	ReCreateFont();	//	デフォルトフォントの作成
@@ -62,7 +67,7 @@ DWORD CAugustText::GetDrawInternalOption()
 //	オプション設定
 void CAugustText::SetOption(agh::AGHDWORD dwOption)
 {
-	CTextBase::SetOption(dwOption);
+	CTextBaseT< CAugustVisualControlBase >::SetOption(dwOption);
 	//if ( dwOption & 
 	ReCreateFont();
 }
