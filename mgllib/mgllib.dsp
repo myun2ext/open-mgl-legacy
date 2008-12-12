@@ -288,6 +288,14 @@ SOURCE=.\src\august\AugustScreen_Events.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\august\AugustText.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustText.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\august\AugustWindow.cpp
 # End Source File
 # Begin Source File
