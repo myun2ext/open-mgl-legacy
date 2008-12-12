@@ -14,6 +14,6 @@
 #include "MglguiWindow.h"
 #include "AugustWindow.h"
 
-#include "MglOgg.h"
+#include "MglBgm.h"
 
 #endif//__MGL_MyuGameLibrary_H__

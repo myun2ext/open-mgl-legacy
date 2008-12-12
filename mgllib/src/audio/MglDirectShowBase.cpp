@@ -21,6 +21,7 @@ CMglDirectShowBase::CMglDirectShowBase()
 	m_pEvent = NULL;
 	m_pAudioRendererFilter = NULL;
 	m_pBasicAudio = NULL;
+	m_bRunReady = FALSE;
 }
 
 //	ÉfÉXÉgÉâÉNÉ^
@@ -128,8 +129,23 @@ inline void CMglDirectShowBase::Play()
 	InitCheck();
 	//ENBL_CHK();
 	
-	MyuAssert( m_pControl->Run(), S_OK,
-		"CMglDirectShowBase::Play()  m_pControl->Run()Ç…é∏îsÅB" );
+	/*MyuAssert( m_pControl->Run(), S_OK,
+		"CMglDirectShowBase::Play()  m_pControl->Run()Ç…é∏îsÅB" );*/
+	if ( m_pControl->Run() != S_OK ){
+		/*OAFilterState fs;
+		HRESULT hRet = S_FALSE;
+		for(int i=0; i<50; i++, Sleep(100)){
+			hRet = m_pControl->GetState(200,&fs);
+			if ( hRet != S_OK )
+				continue;
+		}
+		if ( hRet != S_OK ){
+			MyuThrow( hRet, "CMglDirectShowBase::Play()  m_pControl->Run()Ç…é∏îsÅB(GetState() failed.)" );
+		}*/
+		/*MyuAssert( m_pControl->GetState(1000,&fs), S_OK,
+			"CMglDirectShowBase::Play()  m_pControl->GetState()Ç…é∏îsÅB" );*/
+		//MyuThrow( 0, "CMglDirectShowBase::Play()  m_pControl->Run()Ç…é∏îsÅB" );
+	}
 }
 
 //	í‚é~

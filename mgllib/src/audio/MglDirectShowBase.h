@@ -26,6 +26,7 @@ private:
 	IMediaEvent *m_pEvent;
 	IBaseFilter* m_pAudioRendererFilter;
 	IBasicAudio* m_pBasicAudio;
+	BOOL m_bRunReady;
 
 	//	存在チェック
 	void InitCheck() {
