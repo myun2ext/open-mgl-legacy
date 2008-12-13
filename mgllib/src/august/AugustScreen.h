@@ -82,7 +82,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	**/
 
 	virtual void OnDraw();
-	bool DoFrame();
+	virtual bool DoFrame();
 
 	//	‚±‚ÌƒNƒ‰ƒX‚©‚ç
 	virtual bool OnFrameDoUser(){return true;}

@@ -12,10 +12,12 @@
 #include "MglGraphicManager.h"
 #include "MglImageCacher.h"
 
-class DLL_EXP agh::CImageBase;
+template class DLL_EXP agh::CImageBaseT< CAugustVisualControlBase >;
+//class DLL_EXP agh::CImageBase;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
-class DLL_EXP CMglAghImage : public agh::CImageBase
+//class DLL_EXP CMglAghImage : public agh::CImageBase
+class DLL_EXP CMglAghImage : public agh::CImageBaseT< CAugustVisualControlBase >
 {
 	friend class CMglguiScreen;
 	friend class CAugustScreen;
@@ -35,7 +37,8 @@ private:
 		return (*m_pCacher)[m_strFilePath.c_str()];
 	}
 protected:
-	void OnDraw();
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
+	virtual void OnDraw();
 
 protected:
 	std::string m_strLayerName;
