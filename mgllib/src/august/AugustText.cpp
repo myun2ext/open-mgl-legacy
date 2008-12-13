@@ -18,6 +18,9 @@ void CAugustText::OnRegist(CAugustGlobalCommon *pGlobal)
 {
 	CAugustVisualControlBase::OnRegist(pGlobal);
 
+	//	2008/12/14  色のデフォルトは黒にしておこう…
+	m_color = 0xff000000;
+
 	//m_pGrp = &(pGlobal->grp);
 	ReCreateFont();	//	デフォルトフォントの作成
 }
@@ -46,6 +49,7 @@ void CAugustText::OnDraw()
 	m_text.Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }
 
+//	オプションのDWORD取得
 DWORD CAugustText::GetDrawInternalOption()
 {
 	DWORD dwOption = 0;
@@ -68,6 +72,17 @@ DWORD CAugustText::GetDrawInternalOption()
 void CAugustText::SetOption(agh::AGHDWORD dwOption)
 {
 	CTextBaseT< CAugustVisualControlBase >::SetOption(dwOption);
-	//if ( dwOption & 
+	ReCreateFont();
+}
+void CAugustText::SetFontName(const char* szFontName){
+	CTextBaseT< CAugustVisualControlBase >::SetFontName(szFontName);
+	ReCreateFont();
+}
+void CAugustText::SetFontPoint(int point){
+	CTextBaseT< CAugustVisualControlBase >::SetFontPoint(point);
+	ReCreateFont();
+}
+void CAugustText::SetColor(AGHCOLOR color){
+	CTextBaseT< CAugustVisualControlBase >::SetColor(color);
 	ReCreateFont();
 }

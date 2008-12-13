@@ -92,6 +92,8 @@ void CMglText::Release()
 	DELREF();
 
 	SAFE_RELEASE( m_text );
+
+	bCreateFlg = FALSE;
 }
 
 

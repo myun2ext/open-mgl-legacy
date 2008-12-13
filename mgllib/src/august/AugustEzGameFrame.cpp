@@ -36,10 +36,11 @@ DWORD August_CallMainThreadEx( AUGUST_CALL_THREAD_EX_PARAM *pParam )
 #ifdef _USE_INHERIT_AUGUST_GLOBAL_COMMON
 CAugustEzGameFrame::CAugustEzGameFrame() :
 	m_nWidth(CAugustGlobalCommon::nWindowWidth),
-	m_nHeight(CAugustGlobalCommon::nWindowHeight)
+	m_nHeight(CAugustGlobalCommon::nWindowHeight),
 #else
-CAugustEzGameFrame::CAugustEzGameFrame()
+CAugustEzGameFrame::CAugustEzGameFrame() :
 #endif
+	 m_mouse(input.mouse), m_grp(grp), m_input(input), m_audio(audio)
 {
 	ms_nInstanceCount++;
 	//m_strCaption = "MGL Apprication";

@@ -48,6 +48,11 @@ protected:
 	//string m_strWindowTitle;
 	//CMglGraphicText m_text;	-> 毎回作る
 
+	CMglGraphicManager &m_grp;	//	Alias
+	CMglInput &m_input;			//	Alias
+	CMglMouseInput &m_mouse;	//	Alias
+	CMglAudio &m_audio;			//	Alias
+
 	//	ウインドウ関連
 #ifndef _USE_INHERIT_AUGUST_GLOBAL_COMMON
 	int m_nWidth;
@@ -64,6 +69,7 @@ public:
 	CMglGraphicManager grp;
 	CMglInput input;
 	CMglAudio audio;
+	CMglBgm m_bgm;
 #endif
 	CMyuFPS fps;
 
