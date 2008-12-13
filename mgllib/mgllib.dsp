@@ -288,6 +288,14 @@ SOURCE=.\src\august\AugustEzGameFrame.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\august\AugustImage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustImage.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\august\AugustScreen.cpp
 # End Source File
 # Begin Source File
@@ -314,18 +322,18 @@ SOURCE=.\src\august\AugustWindow.cpp
 
 SOURCE=.\src\august\AugustWindow.h
 # End Source File
-# Begin Source File
-
-SOURCE=.\src\august\MglAghImage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\MglAghImage.h
-# End Source File
 # End Group
 # Begin Group "old"
 
 # PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAghImage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAghImage.h
+# End Source File
 # Begin Source File
 
 SOURCE=.\src\mglgui\MglguiScreen.cpp
