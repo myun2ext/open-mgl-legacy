@@ -96,6 +96,7 @@ public:
 class DLL_EXP agh::CVisualControlBase;
 
 //	クラス宣言
+//template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
 class DLL_EXP CAugustVisualControlBase : public agh::CVisualControlBase
 {
 protected:
