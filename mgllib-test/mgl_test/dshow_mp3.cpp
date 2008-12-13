@@ -1,60 +1,9 @@
-#include "stdafx.h"
-void Mp3Test();
+#include  "stdafx.h"
+#include  <DShow.h>
 
-//	メインフレームクラス
-class CMglTestFrame : public CMglguiWindow
+void  main()
 {
-private:
-	CMglAghImage m_img;
-public:
-	void OnInit(){
-		m_img.Load("test.jpg");
-		CMglguiWindow::RegistControl(&m_img);
-
-		Mp3Test();
-
-		m_audio.Load("hoge.wav");
-		m_audio.Load("hoge2.wav");
-
-		//	キーボードイベントハンドラ登録
-		RegistKbHandler(
-			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
-			DIK_Z,
-			(MGL_KB_EVT_HANDLER_CALLBACK)PlaySoundZ);
-
-		//	キーボードイベントハンドラ登録
-		RegistKbHandler(
-			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
-			DIK_X,
-			(MGL_KB_EVT_HANDLER_CALLBACK)PlaySoundX);
-	}
-	bool PlaySoundZ(){
-		m_audio.Play("hoge.wav");
-		return true;
-	}
-
-	bool PlaySoundX(){
-		m_audio.Play("hoge2.wav");
-		return true;
-	}
-};
-CMglTestFrame g_frame;
-
-//	WinMain
-int APIENTRY WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPSTR     lpCmdLine,
-                     int       nCmdShow )
-{
-
-	g_frame.Start();
-	return 0;
-}
-
-
-void Mp3Test(){
-
-		// DirectShowのインスタンス宣言
+	// DirectShowのインスタンス宣言
 	IGraphBuilder *p_graph=NULL;
 	IMediaControl *p_control=NULL;
 	IMediaEvent   *p_event=NULL;
@@ -62,6 +11,9 @@ void Mp3Test(){
 	HRESULT hr;   // 処理結果
 
 	long event_code;   // イベントコード
+
+	// COMライブラリの初期化
+	hr=CoInitialize(NULL);
 
 	// フィルタグラフのインスタンスを生成
 	hr=CoCreateInstance(
@@ -83,7 +35,7 @@ void Mp3Test(){
 
 	// 再生するファイルを指定する
 	hr=p_graph->RenderFile(
-			L"kanon_lstrgt_org.mp3",  // メディアファイル名
+			L"C:\\workdir\\testh.mp3",  // メディアファイル名
 			NULL);								// 予約(NULL固定)
 
 	// ファイルのレンダリングに成功したらグラフを実行する
@@ -99,8 +51,6 @@ void Mp3Test(){
 			INFINITE,				 // イベントタイマー(無期限)
 			&event_code);			 // イベント結果コード
 	  }
-	 else
-		 MessageBox(NULL,"sdfsdfd",NULL,NULL);
 	}
 
 	// IMediaControlを開放する
@@ -111,4 +61,7 @@ void Mp3Test(){
 
 	// フィルタグラフを開放する
 	p_graph->Release();
+
+	// COMライブラリを開放する
+	CoUninitialize();
 }

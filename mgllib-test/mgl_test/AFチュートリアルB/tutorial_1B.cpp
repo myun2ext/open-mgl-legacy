@@ -3,13 +3,13 @@
 class CMglTestFrame : public CAugustWindow
 {
 private:
-	CMglAghImage m_img;
+	CAugustImage m_img;
 public:
 	//	初期化時に呼ばれる
 	void OnInit(){
 		EnableEscEnd();
-		m_img.Load("test.jpg");
 		RegistControl(&m_img);
+		m_img.Load("test.jpg");
 	}
 	//	ウインドウ生成前に呼ばれる
 	void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
