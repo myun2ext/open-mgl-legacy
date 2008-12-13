@@ -18,9 +18,6 @@ void CAugustText::OnRegist(CAugustGlobalCommon *pGlobal)
 {
 	CAugustVisualControlBase::OnRegist(pGlobal);
 
-	//	2008/12/14  色のデフォルトは黒にしておこう…
-	m_color = 0xff000000;
-
 	//m_pGrp = &(pGlobal->grp);
 	ReCreateFont();	//	デフォルトフォントの作成
 }
