@@ -55,6 +55,6 @@ public:
 };
 
 typedef CMglAghImage CMglAghImageCtrl;
-typedef CMglAghImage CAugustImage;
+//typedef CMglAghImage CAugustImage;
 
 #endif//__MglAghImage_H__

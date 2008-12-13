@@ -322,6 +322,10 @@ SOURCE=.\src\august\AugustWindow.cpp
 
 SOURCE=.\src\august\AugustWindow.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\august\mglaugust.h
+# End Source File
 # End Group
 # Begin Group "old"
 

@@ -19,31 +19,18 @@ template class DLL_EXP agh::CImageBaseT< CAugustVisualControlBase >;
 //class DLL_EXP CAugustImage : public agh::CImageBase
 class DLL_EXP CAugustImage : public agh::CImageBaseT< CAugustVisualControlBase >
 {
-	friend class CMglguiScreen;	//	CMguigui用にまだ必要・・・
-	friend class CAugustScreen;	//	CMguigui用にまだ必要・・・
 private:
 	CMglGraphicManager *m_pGrp;
 	CMglImageCacher *m_pCacher;
+protected:
 	CMglImage* m_pImg;
+	std::string m_strFilePath;
 
-	//	friend Access	//	CMguigui用にまだ必要・・・
-	void _Setup(CMglGraphicManager *pGrp, CMglImageCacher *pCacher){
-		m_pGrp = pGrp;
-		m_pCacher = pCacher;
-	}
-	
-	///////////////////////////////////////////
-
-	CMglImage* _Img(){
-		return (*m_pCacher)[m_strFilePath.c_str()];
-	}
 protected:
 	//virtual void OnRegist(CAugustGlobalCommon *pGlobal);
 	virtual void OnDraw();
 
-protected:
-	std::string m_strAlias;
-	std::string m_strFilePath;
+
 public:
 	//	コンストラクタ
 	CAugustImage(){
@@ -52,8 +39,7 @@ public:
 	}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
-	virtual bool Load(const char* szImageFilePath){ Load(szImageFilePath,szImageFilePath); }
-	virtual bool Load(const char* szImageFilePath, const char* szAlias);
+	virtual bool Load(const char* szImageFilePath);
 };
 
 typedef CAugustImage CAugustImageCtrl;

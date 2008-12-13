@@ -40,9 +40,8 @@ CAugustImage::~CAugustImage()
 		m_pCacher->Get(szFilePath)->GetBmpHeight());
 }*/
 
-bool CAugustImage::Load(const char* szImageFilePath, const char* szAlias)
+bool CAugustImage::Load(const char* szImageFilePath)
 {
-	m_strAlias = szAlias;
 	m_strFilePath = szImageFilePath;
 	
 	if ( m_pCacher == NULL ){
@@ -51,7 +50,7 @@ bool CAugustImage::Load(const char* szImageFilePath, const char* szAlias)
 
 	//	“Ç‚Ýž‚Ý
 	m_pCacher->Cache(szImageFilePath);
-	m_pImg = m_pCacher->Get(szFilePath);
+	m_pImg = m_pCacher->Get(szImageFilePath);
 
 	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
 

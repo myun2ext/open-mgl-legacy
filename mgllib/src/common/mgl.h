@@ -7,12 +7,9 @@
 #include "mgl2d.h"
 #include "mglinput.h"
 #include "mglframe.h"
+#include "mglaugust.h"
 
 #include "MglStandardTypes.h"
-
-#include "MglguiScreen.h"
-#include "MglguiWindow.h"
-#include "AugustWindow.h"
 
 #include "MglBgm.h"
 
