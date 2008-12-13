@@ -12,6 +12,7 @@
 #include "MglGraphicManager.h"
 #include "MglImageCacher.h"
 
+#pragma warning( disable : 4660 ) 
 template class DLL_EXP agh::CImageBaseT< CAugustVisualControlBase >;
 //class DLL_EXP agh::CImageBase;
 

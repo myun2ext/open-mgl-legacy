@@ -45,7 +45,8 @@ typedef IDirect3D8			MGL_D3D;
 #define D3DCOLOR_BLACK			((D3DCOLOR)0xff000000)
 #define D3DCOLOR_FULLWHITE		((D3DCOLOR)0xffffffff)	//	D3DCOLOR_WHITEに同じ
 
-#pragma message("メッセージ: D3DCOLOR_* マクロは D3DCOLOR_NA* マクロへ置換されています。(2007/01/01)")
+//	2008/12/14  もう過去の遺物だ。いい加減消してもいいだろう・・・
+//#pragma message("メッセージ: D3DCOLOR_* マクロは D3DCOLOR_NA* マクロへ置換されています。(2007/01/01)")
 
 #define D3DCOLOR_NABLUE			((D3DCOLOR)0x000000ff)
 #define D3DCOLOR_NAGREEN		((D3DCOLOR)0x0000ff00)

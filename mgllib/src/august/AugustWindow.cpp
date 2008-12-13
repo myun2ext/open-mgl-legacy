@@ -36,8 +36,9 @@ bool CAugustWindow::DoFrame()
 			MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");
 
 		//	2008/11/29 Screen側のDoFrame()を呼び出す仕様に
-		if ( m_pActiveScreen->DoFrame() == false )
-			return false;
+		if ( m_pActiveScreen != this )
+			if ( m_pActiveScreen->DoFrame() == false )
+				return false;
 
 		//	描画処理
 		ScreenUpdate();

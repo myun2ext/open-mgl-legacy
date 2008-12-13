@@ -110,7 +110,7 @@ public:
 	}
 
 	//	公開イベントハンドラ
-	void OnRegist(CAugustGlobalCommon *pGlobal){
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
 		m_pGlobal = pGlobal;
 		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
 	}

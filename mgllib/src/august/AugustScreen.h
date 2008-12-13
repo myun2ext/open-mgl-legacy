@@ -52,7 +52,7 @@ protected:
 	CMglAudio *m_audio;			//	Alias*/
 
 	//	2008/11/26 Add. デフォルトのイメージ配列
-	map<std::string,CMglAghImage> m_imgAry;
+	//map<std::string,CAugustImage> m_imgAry;
 
 	//	2008/11/26 Add. デフォルトのイメージ配列
 	//list<bool (*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
