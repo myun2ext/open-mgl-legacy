@@ -101,6 +101,7 @@ class DLL_EXP CAugustVisualControlBase : public agh::CVisualControlBase
 {
 protected:
 	CAugustGlobalCommon *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
 
 public:
 	//	コンストラクタ
@@ -111,6 +112,7 @@ public:
 	//	公開イベントハンドラ
 	void OnRegist(CAugustGlobalCommon *pGlobal){
 		m_pGlobal = pGlobal;
+		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
 	}
 	//agh::CControlBase* _GetThisControl(){ return 
 };

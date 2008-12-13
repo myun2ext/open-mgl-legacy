@@ -18,7 +18,7 @@ void CAugustText::OnRegist(CAugustGlobalCommon *pGlobal)
 {
 	CAugustVisualControlBase::OnRegist(pGlobal);
 
-	m_pGrp = &(pGlobal->grp);
+	//m_pGrp = &(pGlobal->grp);
 	ReCreateFont();	//	デフォルトフォントの作成
 }
 

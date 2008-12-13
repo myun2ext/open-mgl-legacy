@@ -27,7 +27,7 @@ protected:
 	std::string m_strFilePath;
 
 protected:
-	//virtual void OnRegist(CAugustGlobalCommon *pGlobal);
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
 	virtual void OnDraw();
 
 

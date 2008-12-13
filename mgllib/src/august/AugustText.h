@@ -26,7 +26,6 @@ private:
 	DWORD GetDrawInternalOption();
 
 protected:
-	CMglGraphicManager *m_pGrp;
 	CMglText m_text;
 
 	// ---- Event Handlers ----
