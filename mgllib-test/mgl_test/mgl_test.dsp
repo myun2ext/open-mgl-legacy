@@ -92,12 +92,12 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\StdAfx.cpp
-# ADD CPP /Yc"stdafx.h"
+SOURCE=.\mgl_test.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=".\AFチュートリアルB\tutorial_1B.cpp"
+SOURCE=.\StdAfx.cpp
+# ADD CPP /Yc"stdafx.h"
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -129,7 +129,19 @@ SOURCE=..\AGH\include\agh_ControlBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\AGH\include\agh_defs.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\AGH\include\agh_Events.h
+# End Source File
+# Begin Source File
+
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\audevcod.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\AugustCommon.h
 # End Source File
 # Begin Source File
 
@@ -137,7 +149,15 @@ SOURCE=..\include\mgl_header\AugustEzGameFrame.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\AugustImage.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\AugustScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\AugustText.h
 # End Source File
 # Begin Source File
 
@@ -225,6 +245,10 @@ SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\DShow.h"
+# End Source File
+# Begin Source File
+
 SOURCE="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dxfile.h"
 # End Source File
 # Begin Source File
@@ -273,6 +297,18 @@ SOURCE=..\include\mgl_header\MglAudio.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\mglaugust.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglBgm.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglBgmBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\MglBitmapData.h
 # End Source File
 # Begin Source File
@@ -302,6 +338,10 @@ SOURCE=..\include\mgl_header\MglDirectInputDeviceBase.h
 # Begin Source File
 
 SOURCE=..\include\mgl_header\MglDirectMusicBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglDirectShowBase.h
 # End Source File
 # Begin Source File
 
@@ -413,7 +453,15 @@ SOURCE=..\include\mgl_header\MglMouseInputBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\include\mgl_header\MglMp3Dshow.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\include\mgl_header\mglmsg.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\MglOgg.h
 # End Source File
 # Begin Source File
 
@@ -638,6 +686,10 @@ SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\StrAlign.h"
 # Begin Source File
 
 SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Tvout.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\include\mgl_header\Vox.h
 # End Source File
 # End Group
 # End Target
