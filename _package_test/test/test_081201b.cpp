@@ -2,53 +2,53 @@
 //
 
 #include "stdafx.h"
+#include "MglOgg.h"
 
-class CMglTestFrame : public CAugustWindow
+class CMglTestFrame : public CMglguiWindow
 {
 private:
-	CAugustImage m_img;
-	CMglBgm m_music;
+	CMglAghImage m_img;
+	CMglOgg m_music;
 public:
 	//	初期化時に呼ばれる
 	void OnInit(){
 		EnableEscEnd();
-		RegistControl(&m_img);
 		m_img.Load("test.jpg");
+		CMglguiWindow::RegistControl(&m_img);
 
 		//	キーボードイベントハンドラ登録（左）- 押している間移動
 		RegistKbHandler(
-			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
+			MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
 			DIK_LEFT,
-			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveLeft);
+			(MGL_KB_EVT_HANDLER_CALLBACK)MoveLeft);
 
 		//	キーボードイベントハンドラ登録（右）- 押している間移動
 		RegistKbHandler(
-			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
+			MGL_KB_EVT_HANDLER_EVTTYPE_ON_PRESS,
 			DIK_RIGHT,
-			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveRight);
+			(MGL_KB_EVT_HANDLER_CALLBACK)MoveRight);
 
 		//	キーボードイベントハンドラ登録（上）- 離した瞬間だけ移動
 		RegistKbHandler(
-			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP,
+			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP,
 			DIK_UP,
-			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveUp);
+			(MGL_KB_EVT_HANDLER_CALLBACK)MoveUp);
 
 		//	キーボードイベントハンドラ登録（下）- 押した瞬間だけ移動
 		RegistKbHandler(
-			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
+			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
 			DIK_DOWN,
-			(AUGUST_KB_EVT_HANDLER_CALLBACK)MoveDown);
+			(MGL_KB_EVT_HANDLER_CALLBACK)MoveDown);
 
 
 		m_audio.Load("pwr_snr2.wav","a");
 		//	キーボードイベントハンドラ登録
 		RegistKbHandler(
-			AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
+			MGL_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN,
 			DIK_Z,
-			(AUGUST_KB_EVT_HANDLER_CALLBACK)PlaySoundZ);
+			(MGL_KB_EVT_HANDLER_CALLBACK)PlaySoundZ);
 
-		//m_music.Load("dante.ogg");
-		m_music.Load("71.mp3");
+		m_music.Load("dante.ogg");
 		m_music.Play();
 	}
 	bool MoveLeft(){
