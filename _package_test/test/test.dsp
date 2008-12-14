@@ -121,6 +121,10 @@ SOURCE=..\openmgl\include\agh_ControlBase.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\openmgl\include\agh_defs.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\openmgl\include\agh_Events.h
 # End Source File
 # Begin Source File
@@ -129,11 +133,27 @@ SOURCE=..\openmgl\include\agh_ScreenBase.h
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\audevcod.h"
+# End Source File
+# Begin Source File
+
+SOURCE=..\openmgl\include\AugustCommon.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\openmgl\include\AugustEzGameFrame.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\openmgl\include\AugustImage.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\openmgl\include\AugustScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\openmgl\include\AugustText.h
 # End Source File
 # Begin Source File
 
@@ -221,6 +241,10 @@ SOURCE="..\..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 20
 # End Source File
 # Begin Source File
 
+SOURCE="..\..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\DShow.h"
+# End Source File
+# Begin Source File
+
 SOURCE="..\..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\dxfile.h"
 # End Source File
 # Begin Source File
@@ -261,6 +285,18 @@ SOURCE=..\openmgl\include\MglAudio.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\openmgl\include\mglaugust.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\openmgl\include\MglBgm.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\openmgl\include\MglBgmBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\openmgl\include\MglBitmapData.h
 # End Source File
 # Begin Source File
@@ -290,6 +326,10 @@ SOURCE=..\openmgl\include\MglDirectInputDeviceBase.h
 # Begin Source File
 
 SOURCE=..\openmgl\include\MglDirectMusicBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\openmgl\include\MglDirectShowBase.h
 # End Source File
 # Begin Source File
 
@@ -398,6 +438,10 @@ SOURCE=..\openmgl\include\MglMouseInput.h
 # Begin Source File
 
 SOURCE=..\openmgl\include\MglMouseInputBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\openmgl\include\MglMp3Dshow.h
 # End Source File
 # Begin Source File
 

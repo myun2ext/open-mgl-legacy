@@ -7,13 +7,19 @@ class CMglTestFrame : public CAugustWindow
 {
 private:
 	CAugustImage m_img;
+	CAugustText m_text;
 	CMglBgm m_music;
 public:
 	//	初期化時に呼ばれる
 	void OnInit(){
 		EnableEscEnd();
 		RegistControl(&m_img);
+		RegistControl(&m_text);
+
 		m_img.Load("test.jpg");
+		m_text.SetText("ほげ。");
+		m_text.SetFontSize(43);
+		m_text.SetColor(0x90000000);
 
 		//	キーボードイベントハンドラ登録（左）- 押している間移動
 		RegistKbHandler(
