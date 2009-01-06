@@ -45,6 +45,7 @@ CMglGraphicManager::CMglGraphicManager()
 
 	//	2007/01/11  なんかスプライトとかSurfaceごとにいちいち作んなくてもインデネ
 	m_pSprite = NULL;
+	m_bSpriteBegun = FALSE;
 	EnableSupportSprite(); //m_bUseSprite = TRUE;
 	//m_bSpriteCenterDraw = FALSE;
 
@@ -612,6 +613,9 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	if ( pTexture->GetDirect3dTexturePtr() == NULL )
 		MyuThrow( 99, "CMglGraphicManage::SpriteDraw()  IDirect3DTexture8 がNULLです。テクスチャが初期化されていない可能性があります。" );
 
+	//	2009/01/07
+	SpriteBegin();
+
 	////// 計算処理 /////////////////////////////////
 
 	//	srcRectにNULLを指定された場合はBMP全てをRECTに指定
@@ -682,9 +686,30 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	//////////////////////////////////////////////////////////////////////////////
 
 	//	絵画
-	MyuAssert( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, &vctScale, &vctRtCenter, fRad, &vctPos, color ), D3D_OK,
-		"CMglImage::Draw()  m_pSprite->Draw()に失敗" );
+	MyuAssert( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(),
+		pSrcRect, &vctScale, &vctRtCenter, fRad, &vctPos, color ), D3D_OK,
+		"CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
 }
+
+//	スプライトのBegin()
+void CMglGraphicManager::SpriteBegin()
+{
+	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
+		MyuAssert( m_pSprite->Begin(), D3D_OK,
+			"CMglGraphicManager::SpriteBegin()  m_pSprite->Begin()に失敗" );
+		m_bSpriteBegun = TRUE;
+	}
+}
+//	スプライトのEnd()
+void CMglGraphicManager::SpriteEnd()
+{
+	if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){
+		MyuAssert( m_pSprite->End(), D3D_OK,
+			"CMglGraphicManager::SpriteEnd()  m_pSprite->End()に失敗" );
+		m_bSpriteBegun = FALSE;
+	}
+}
+
 
 ////////////////////////////////////////////////////////////
 //

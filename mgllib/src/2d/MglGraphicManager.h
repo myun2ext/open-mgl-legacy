@@ -116,6 +116,7 @@ protected:
 	//	2007/01/11  なんかスプライトとかSurfaceごとにいちいち作んなくてもインデネ
 	ID3DXSprite* m_pSprite;			//	スプライト
 	BOOL m_bUseSprite;
+	BOOL m_bSpriteBegun;
 	//BOOL m_bSpriteCenterDraw;
 
 	//////////////////////////////////////////////////////////////////////////
@@ -186,8 +187,10 @@ public:
 	//	float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=-1, float fRotationCenterY=-1, float fAngle=0.0f );
 	/*void EnableCenterDraw() {	m_bSpriteCenterDraw = TRUE; }
 	void DisableCenterDraw() {	m_bSpriteCenterDraw = FALSE; }*/
-	void SpriteBegin(){ if( m_pSprite != NULL ) m_pSprite->Begin(); }
-	void SpriteEnd(){ if( m_pSprite != NULL ) m_pSprite->End(); }
+	/*void SpriteBegin(){ if( m_pSprite != NULL ) m_pSprite->Begin(); }
+	void SpriteEnd(){ if( m_pSprite != NULL ) m_pSprite->End(); }*/
+	void SpriteBegin();
+	void SpriteEnd();
 
 	//	シーン系メソッド
 	void UpdateScreen();
