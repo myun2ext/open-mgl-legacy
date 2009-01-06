@@ -260,6 +260,10 @@ SOURCE=..\AGH\include\agh_defs.h
 # End Source File
 # Begin Source File
 
+SOURCE=..\AGH\include\agh_EffectControl.h
+# End Source File
+# Begin Source File
+
 SOURCE=..\AGH\include\agh_Events.h
 # End Source File
 # Begin Source File
@@ -349,6 +353,14 @@ SOURCE=.\src\mglgui\MglguiScreen.h
 # Begin Source File
 
 SOURCE=.\src\mglgui\MglguiScreen_Events.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiText.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiText.h
 # End Source File
 # Begin Source File
 
