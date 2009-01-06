@@ -61,6 +61,9 @@ private:
 public:
 	bool __ThreadFunc();
 
+_AGH_EVENT_ACCESS_MODIFIER:
+	bool DoFrame();
+
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustWindow();
@@ -87,7 +90,6 @@ public:
 
 private:
 	void Init( HWND hWnd, int nDispX, int nDispY );
-	bool DoFrame();
 	void ScreenUpdate();
 
 protected:

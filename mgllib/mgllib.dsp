@@ -426,6 +426,14 @@ SOURCE=.\src\2d\MglTexture.cpp
 SOURCE=.\src\2d\MglTexture.h
 # End Source File
 # End Group
+# Begin Group "3D Graphics Files"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\3d\mgl3d.h
+# End Source File
+# End Group
 # Begin Group "Common Files"
 
 # PROP Default_Filter ""
