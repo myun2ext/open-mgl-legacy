@@ -433,6 +433,10 @@ SOURCE=.\src\2d\MglTexture.h
 
 SOURCE=.\src\3d\mgl3d.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\mgl3d_work.cpp
+# End Source File
 # End Group
 # Begin Group "Common Files"
 
@@ -965,11 +969,11 @@ SOURCE=..\MSL\include\MyuFgets.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
+SOURCE=..\MWL\include\MyuIniReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\MWL\include\MyuIniReader.h
+SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
 # End Source File
 # Begin Source File
 
@@ -989,11 +993,11 @@ SOURCE=..\MSL\include\MyuSimpleStackTrace.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
+SOURCE=..\MWL\include\MyuSpecialIniReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\MWL\include\MyuSpecialIniReader.h
+SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
 # End Source File
 # Begin Source File
 
