@@ -437,6 +437,14 @@ SOURCE=.\src\3d\mgl3d.h
 
 SOURCE=.\src\3d\mgl3d_work.cpp
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dManager.h
+# End Source File
 # End Group
 # Begin Group "Common Files"
 
