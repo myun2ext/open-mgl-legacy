@@ -3,6 +3,7 @@ set EXTERNAL_DIR=..\include\mgl_header
 del %EXTERNAL_DIR% /Q /F /S
 mkdir %EXTERNAL_DIR%
 xcopy src\2d\*.h %EXTERNAL_DIR%
+xcopy src\3d\*.h %EXTERNAL_DIR%
 xcopy src\graphic_extends\*.h %EXTERNAL_DIR%
 xcopy src\audio\*.h %EXTERNAL_DIR%
 xcopy src\august\*.h %EXTERNAL_DIR%

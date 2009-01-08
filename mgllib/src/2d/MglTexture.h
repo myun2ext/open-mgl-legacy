@@ -190,7 +190,8 @@ public:
 	/////////////////////////////////////////////////////////////////////////
 
 	//	ŒÃ‚¢•`‰æ•ûŽ®
-	void TextureDraw( float x=0.0f, float y=0.0f, RECT* srcRect=NULL, float fScaleX=1.0f, float fScaleY=1.0f, D3DCOLOR color=D3DCOLOR_WHITE, DWORD dwAlphaOption=MGL_ALPHA_OPT_DEFAULT )
+	void TextureDraw( float x=0.0f, float y=0.0f, RECT* srcRect=NULL, float fScaleX=1.0f, float fScaleY=1.0f,
+		D3DCOLOR color=D3DCOLOR_WHITE, DWORD dwAlphaOption=MGL_ALPHA_OPT_DEFAULT )
 	{
 		VERTEX_COLORS tVertexColors;
 		GenerateEqVertexColors( &tVertexColors, color );
@@ -219,5 +220,6 @@ public:
 	void Unlock(){ m_bLocked = FALSE; }
 };
 
+typedef CMglTexture CMglSquareTexture;
 
 #endif//__MglTexture_H__

@@ -8,19 +8,23 @@
 typedef struct
 {
 	float		x,y,z;				//位置情報
+	//D3DXVECTOR3 pos;		// ←こっちの方が色々関数ついてるっぽくて良いかもね・・・
 	float		rhw;				//頂点変換値
 	D3DCOLOR	color;				//ポリゴンカラー
 	float		tu,tv;				//テクスチャ座標
 }MYU_VERTEX;
-typedef struct
+
+//	↓使ってねっす・・・
+/*typedef struct
 {
 	float		drawX,drawY,drawZ;	//位置情報
 	float		rhw;				//頂点変換値
 	D3DCOLOR	color;				//ポリゴンカラー
 	float		textureX,textureY;
-}MYU_VERTEX2;
+}MYU_VERTEX2;*/
+
 typedef MYU_VERTEX	MGL_VERTEX;
-typedef MYU_VERTEX2	MGL_VERTEX2;
+//typedef MYU_VERTEX2	MGL_VERTEX2;
 
 //	四角形の頂点
 typedef struct
