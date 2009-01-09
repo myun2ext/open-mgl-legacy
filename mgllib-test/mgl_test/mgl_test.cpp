@@ -246,7 +246,10 @@ public:
 
 		g_pD3DDevice = grp.GetD3dDevPtr();
 		//GameMain(m_img2.GetDirect3dTexturePtr());
-		GameMain2(&m_img2);
+
+		
+		GameMain(&m_img2);
+		//GameMain2(&m_img2);
 
 
 		//m_img2.Draw3d();
@@ -302,6 +305,15 @@ void GameMain(CMglTexture* pTexture)
 	vertexs.rt.color = color;
 	vertexs.lb.color = color;
 	vertexs.rb.color = color;
+	
+	vertexs.lt.x /= 100;
+	vertexs.rt.x /= 100;
+	vertexs.lb.x /= 100;
+	vertexs.rb.x /= 100;
+	vertexs.lt.y /= 100;
+	vertexs.rt.y /= 100;
+	vertexs.lb.y /= 100;
+	vertexs.rb.y /= 100;
 
 	/////////////////////////////////////////////////////
 
@@ -316,7 +328,7 @@ void GameMain(CMglTexture* pTexture)
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &g_WorldFrame.mat);	// ワールドマトリックスセット
 
 	// 頂点バッファを使用せず直接データを渡して描画する
-	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, &vertexs, sizeof(D3DLVERTEX));
+	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, &vertexs, sizeof(MGL_VERTEX));
 }
 
 
