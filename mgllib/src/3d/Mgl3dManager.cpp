@@ -12,7 +12,7 @@
 CMgl3DManager::CMgl3DManager()
 {
 	m_myudg = NULL;
-	d3d = NULL;
+	m_pD3dDev = NULL;
 }
 
 //	デストラクタ
@@ -29,7 +29,28 @@ void CMgl3DManager::Release()
 void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 {
 	m_myudg = in_myudg;
-	d3d = m_myudg->GetD3dDevPtr();
+	m_pD3dDev = m_myudg->GetD3dDevPtr();
+
+	//	Projectionの設定
+	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());
+}
+
+//	Projectionの設定
+void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, float fClipNear, float fClipFar )
+{
+	D3DXMATRIX matPrj;
+	D3DXMatrixPerspectiveFovLH(&matPrj,		// 作成プロジェクションマトリックスへのポインタ
+					D3DXToRadian(fViewingAngle),		// 視野角
+					fAspectRatio,		// アスペクト比（縦、横比率）
+					fClipNear,				// Near クリップ
+					fClipFar);				// Far  クリップ
+	/*				D3DXToRadian(45.0),		// 視野角
+					640.0f / 480.0f,		// アスペクト比（縦、横比率）
+					clip_near,				// Near クリップ
+					clip_far);				// Far  クリップ*/
+
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &matPrj), D3D_OK,
+		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );
 }
 
 ////////////////////////////////////////////////////////////
@@ -44,7 +65,7 @@ void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTarg
 					,&D3DXVECTOR3(fTargetX, fTargetY, fTargetZ)		// カメラの注目点
 					,&D3DXVECTOR3(0,1,0)		// 上の向き
 					);
-	d3d->SetTransform(D3DTS_VIEW, &mView);
+	m_pD3dDev->SetTransform(D3DTS_VIEW, &mView);
 }
 /*
 //	カメラの注目点設定
