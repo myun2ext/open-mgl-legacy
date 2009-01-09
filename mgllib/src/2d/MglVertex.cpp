@@ -2,13 +2,19 @@
 #include "MglVertex.h"
 
 //	’¸“_î•ñ(MGL_VERTEX) ‚Ì¶¬
-void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv, D3DCOLOR color, float z, float rhw )
+#ifdef _MGLVERTEX_USE_RHW
+	void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv, D3DCOLOR color, float z, float rhw )
+#else
+	void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv, D3DCOLOR color, float z )
+#endif
 {
 	ZeroMemory( pVertexOut, sizeof(MGL_VERTEX) );
 	pVertexOut->x = x;
 	pVertexOut->y = y;
 	pVertexOut->z = z;
+#ifdef _MGLVERTEX_USE_RHW
 	pVertexOut->rhw = rhw;
+#endif
 	pVertexOut->color = color;
 	pVertexOut->tu = tu;
 	pVertexOut->tv = tv;

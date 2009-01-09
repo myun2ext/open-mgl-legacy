@@ -50,21 +50,29 @@ void CMglDrawLine::Draw(float fStartX, float fStartY, float fEndX, float fEndY, 
 	//	始点
 	vertices[VERTEXNO_LT].x = fStartX;
 	vertices[VERTEXNO_LT].y = fStartY;
+#ifdef _MGLVERTEX_USE_RHW
 	vertices[VERTEXNO_LT].rhw = 1.0f;
+#endif
 	vertices[VERTEXNO_LT].color = startColor;
 	vertices[VERTEXNO_RT].x = fStartX+width;
 	vertices[VERTEXNO_RT].y = fStartY-width;
+#ifdef _MGLVERTEX_USE_RHW
 	vertices[VERTEXNO_RT].rhw = 1.0f;
+#endif
 	vertices[VERTEXNO_RT].color = startColor;
 	
 	//	終点
 	vertices[VERTEXNO_LB].x = fEndX;
 	vertices[VERTEXNO_LB].y = fEndY;
+#ifdef _MGLVERTEX_USE_RHW
 	vertices[VERTEXNO_LB].rhw = 1.0f;
+#endif
 	vertices[VERTEXNO_LB].color = endColor;
 	vertices[VERTEXNO_RB].x = fEndX+width;
 	vertices[VERTEXNO_RB].y = fEndY-width;
+#ifdef _MGLVERTEX_USE_RHW
 	vertices[VERTEXNO_RB].rhw = 1.0f;
+#endif
 	vertices[VERTEXNO_RB].color = endColor;
 
 
