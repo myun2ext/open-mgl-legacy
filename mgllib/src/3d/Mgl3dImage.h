@@ -10,7 +10,7 @@
 class DLL_EXP CMgl3dImage : public CMglTexture
 {
 public:
-	void Draw3d();
+	void Draw();
 
 	void GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fScaleX, float fScaleY );
 };

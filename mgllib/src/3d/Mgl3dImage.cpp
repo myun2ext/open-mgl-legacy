@@ -38,7 +38,7 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 }
 
 
-void CMgl3dImage::Draw3d()
+void CMgl3dImage::Draw()
 {
  	static int i=0;
 	i++;

@@ -156,11 +156,11 @@ public:
 	void Create( int x, int y, BOOL bRenderTarget );
 
 	//	描画
-	void Draw(float x=0.0f, float y=0.0f, D3DCOLOR color=D3DCOLOR_WHITE );
+	void DrawTexture(float x=0.0f, float y=0.0f, D3DCOLOR color=D3DCOLOR_WHITE );
 
 	//	頂点データで書く
-	void Draw( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise=TRUE );
-	void Draw( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount=2, BOOL bVertexRevise=TRUE );
+	void DrawTexture( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise=TRUE );
+	void DrawTexture( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount=2, BOOL bVertexRevise=TRUE );
 
 	//	PrimitiveUP
 	void DrawPrimitiveUP( D3DPRIMITIVETYPE primitiveType, UINT nPrimitiveCount,

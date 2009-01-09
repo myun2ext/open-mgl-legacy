@@ -173,7 +173,7 @@ void CMglTexture::Create( int x, int y, BOOL bRenderTarget )
 //////////////////////////////////////////////////////////////////////////////////////
 
 //	新・描画方式
-void CMglTexture::Draw(float x, float y, D3DCOLOR color )
+void CMglTexture::DrawTexture(float x, float y, D3DCOLOR color )
 {
 	//	頂点初期情報取得
 	MGL_SQUARE_VERTEXS vertexs;
@@ -189,17 +189,17 @@ void CMglTexture::Draw(float x, float y, D3DCOLOR color )
 	vertexs.rb.color = color;
 
 	//	描画
-	Draw( &vertexs );
+	DrawTexture( &vertexs );
 }
 
 //	描画（二次元固定）
-void CMglTexture::Draw( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise )
+void CMglTexture::DrawTexture( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise )
 {
-	Draw( (MYU_VERTEX*)pMglSqVertexs, 2, bVertexRevise );
+	DrawTexture( (MYU_VERTEX*)pMglSqVertexs, 2, bVertexRevise );
 }
 
 //	描画（頂点数不定）
-void CMglTexture::Draw( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOOL bVertexRevise )
+void CMglTexture::DrawTexture( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOOL bVertexRevise )
 {
 	CreateCheck();	//	Createチェック
 	LockedCheck();
@@ -465,7 +465,7 @@ void CMglTexture::TextureDraw(
 	m_myudg->SetAlphaMode( dwAlphaOption );
 
 	//	描画
-	Draw( vertices );
+	DrawTexture( vertices );
 }
 
 //	イテレータ ////////////////////////////////////////////////
