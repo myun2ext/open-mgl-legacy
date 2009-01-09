@@ -3,16 +3,7 @@
 
 #include "mglafx.h"
 
-/////////////////////////////////////////////////////////////////////////
-
-#include "MglImage.h"
-
-class DLL_EXP CMgl3dImage : public CMglTexture
-{
-public:
-	void Draw3d();
-
-	void GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fScaleX, float fScaleY );
-};
+#include "Mgl3dImage.h"
+#include "Mgl3dManager.h"
 
 #endif//__mgl3d_H__
