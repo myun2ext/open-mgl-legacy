@@ -208,9 +208,12 @@ void CMglTexture::DrawTexture( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOO
 	if ( bVertexRevise )
 		MglMoveVertexs( pMyuVertex, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ, 2+nPrimitiveCount );
 
+	/*
 	//	テクスチャの設定
 	MyuAssert( d3d->SetTexture(0, m_pTexture), D3D_OK,
 		"CMglImage::TextureDrawPrimitive()  SetTexture()に失敗" );
+	*/
+	SetD3dStageTexture();
 
 	DrawPrimitiveUP( D3DPT_TRIANGLEFAN, nPrimitiveCount, pMyuVertex, sizeof(MYU_VERTEX) );
 	//	絵画
@@ -230,7 +233,13 @@ void CMglTexture::DrawPrimitiveUP( D3DPRIMITIVETYPE primitiveType, UINT nPrimiti
 		"CMglImage::TextureDrawPrimitive()  DrawPrimitiveUP()に失敗" );
 }
 
-   
+void CMglTexture::SetD3dStageTexture(DWORD nStage)
+{
+	//	テクスチャの設定
+	MyuAssert( d3d->SetTexture(nStage, m_pTexture), D3D_OK,
+		"CMglTexture::SetD3dTexture()  d3d->SetTexture()に失敗" );
+}
+
 ///////////////////////////////////////////////////////////////////////////
 
 //	BMPの頂点情報取得

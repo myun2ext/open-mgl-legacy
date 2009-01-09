@@ -161,6 +161,7 @@ public:
 	//	頂点データで書く
 	void DrawTexture( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise=TRUE );
 	void DrawTexture( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount=2, BOOL bVertexRevise=TRUE );
+	void SetD3dStageTexture(DWORD nStage=0);
 
 	//	PrimitiveUP
 	void DrawPrimitiveUP( D3DPRIMITIVETYPE primitiveType, UINT nPrimitiveCount,

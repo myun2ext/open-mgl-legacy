@@ -51,6 +51,8 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &matPrj), D3D_OK,
 		"CMgl3DManager::SetupProjection()  SetTransform()‚ÉŽ¸”s" );
+
+//D3D_COORDINATE	g_WorldFrame(D3DXVECTOR3(1,1,1), D3DXVECTOR3(0,0,0), D3DXVECTOR3(0,0,0));
 }
 
 ////////////////////////////////////////////////////////////

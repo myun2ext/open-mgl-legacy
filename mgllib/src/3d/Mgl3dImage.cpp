@@ -15,8 +15,8 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 	else
 		nBmpMax = m_imgInfo.Height;
 
-	float fBmpSrcX = m_imgInfo.Width / nBmpMax;
-	float fBmpSrcY = m_imgInfo.Height / nBmpMax;
+	float fBmpSrcX = m_imgInfo.Width / nBmpMax * fScaleX;
+	float fBmpSrcY = m_imgInfo.Height / nBmpMax * fScaleY;
 
 	//	2007/01/10  スケール取得
 	//	# テクスチャ領域は2の倍数になる。その内の0.?fがBMPの領域かを算出する
@@ -36,9 +36,47 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 }
 
 //	描画
-void CMgl3dImage::Draw()
+void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fScaleX, float fScaleY, D3DCOLOR color)
 {
+	//	頂点初期情報取得
+	MGL_SQUARE_VERTEXS vertexs;
+	GetBmpVertexs3D( &vertexs, fScaleX, fScaleY );
 
+	//	x, yに移動
+	MglMoveVertexs( &vertexs, x, y );
+
+	//	頂点の色
+	vertexs.lt.color = color;
+	vertexs.rt.color = color;
+	vertexs.lb.color = color;
+	vertexs.rb.color = color;
+	
+	/*
+	vertexs.lt.x /= 100;
+	vertexs.rt.x /= 100;
+	vertexs.lb.x /= 100;
+	vertexs.rb.x /= 100;
+	vertexs.lt.y /= 100;
+	vertexs.rt.y /= 100;
+	vertexs.lb.y /= 100;
+	vertexs.rb.y /= 100;
+	*/
+
+	/////////////////////////////////////////////////////
+
+	//g_pD3DDevice->SetTexture(0, pTexture->GetDirect3dTexturePtr());	// テクスチャをセット
+	SetD3dStageTexture();
+
+	// デバイスに使用する頂点フォーマットをセットする（光源無し、座標変換有り）
+	d3d->SetVertexShader(FVF_MYU_VERTEX);
+	
+	// マトリックス生成
+	//g_WorldFrame.rotate.y += 0.01f;			// Ｙ軸回りに回転
+	//g_WorldFrame.SetMat();											// 座標変換用マトリックス作成
+	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &g_WorldFrame.mat);	// ワールドマトリックスセット
+
+	// 頂点バッファを使用せず直接データを渡して描画する
+	d3d->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, &vertexs, sizeof(MGL_VERTEX));
 }
 
 
