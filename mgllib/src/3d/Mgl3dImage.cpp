@@ -84,36 +84,8 @@ void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fTexScale
 {
 	SetupVertexes(x,y,z,srcRect,fTexScaleX,fTexScaleY,color);
 
-	/*
-	//	頂点初期情報取得
-	GetBmpVertexs3D( &vertexs, fScaleX, fScaleY );
-	SetupVertexes( &vertexs, fScaleX, fScaleY );
-
-	//	x, yに移動
-	MglMoveVertexs( &vertexs, x, y );
-
-	//	頂点の色
-	vertexs.lt.color = color;
-	vertexs.rt.color = color;
-	vertexs.lb.color = color;
-	vertexs.rb.color = color;
-	*/
-
-	/*
-	vertexs.lt.x /= 100;
-	vertexs.rt.x /= 100;
-	vertexs.lb.x /= 100;
-	vertexs.rb.x /= 100;
-	vertexs.lt.y /= 100;
-	vertexs.rt.y /= 100;
-	vertexs.lb.y /= 100;
-	vertexs.rb.y /= 100;
-	*/
-
-	/////////////////////////////////////////////////////
-
-	m_myudg->SetupMyuVertex();
 	SetD3dStageTexture();
+	m_myudg->SetupMyuVertex();
 	
 	// マトリックス生成
 	//g_WorldFrame.rotate.y += 0.01f;			// Ｙ軸回りに回転
