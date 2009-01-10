@@ -256,10 +256,10 @@ void CMglTexture::GetBmpVertexs( MGL_SQUARE_VERTEXS *pMglSqVertexs )
 	const float fBmpScaleY = (float)nBmpSrcY / (float)texDesc.Height;
 
 	//	’¸“_î•ñ¶¬
-	MglVertexGen( &pMglSqVertexs->lt, 0, 0,					0.0f, 0.0f );
-	MglVertexGen( &pMglSqVertexs->rt, nBmpSrcX,				0,	fBmpScaleX, 0.0f );
-	MglVertexGen( &pMglSqVertexs->lb, 0, nBmpSrcY,			0.0f, fBmpScaleY );
-	MglVertexGen( &pMglSqVertexs->rb, nBmpSrcX, nBmpSrcY,	fBmpScaleX, fBmpScaleY );
+	MglVertexGen( &pMglSqVertexs->lt, 0, 0, 0,					0.0f, 0.0f );
+	MglVertexGen( &pMglSqVertexs->rt, nBmpSrcX, 0,				0,	fBmpScaleX, 0.0f );
+	MglVertexGen( &pMglSqVertexs->lb, 0, nBmpSrcY, 0,			0.0f, fBmpScaleY );
+	MglVertexGen( &pMglSqVertexs->rb, nBmpSrcX, nBmpSrcY, 0,	fBmpScaleX, fBmpScaleY );
 
 	//	’¸“_‚ÌƒYƒ‰‚µ
 	//MglMoveVertexs( pMglSqVertexs, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ );

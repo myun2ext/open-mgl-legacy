@@ -26,10 +26,10 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 	const float fBmpScaleY = (float)nBmpSrcY / (float)texDesc.Height;
 
 	//	頂点情報生成
-	MglVertexGen( &pMglSqVertexs->lt, 0,        0,			0.0f, 0.0f );
-	MglVertexGen( &pMglSqVertexs->rt, fBmpSrcX, 0,			fBmpScaleX, 0.0f );
-	MglVertexGen( &pMglSqVertexs->lb, 0,        fBmpSrcY,	0.0f, fBmpScaleY );
-	MglVertexGen( &pMglSqVertexs->rb, fBmpSrcX, fBmpSrcY,	fBmpScaleX, fBmpScaleY );
+	MglVertexGen( &pMglSqVertexs->lt, 0,        0,			0, 0.0f, 0.0f );
+	MglVertexGen( &pMglSqVertexs->rt, fBmpSrcX, 0,			0, fBmpScaleX, 0.0f );
+	MglVertexGen( &pMglSqVertexs->lb, 0,        fBmpSrcY,	0, 0.0f, fBmpScaleY );
+	MglVertexGen( &pMglSqVertexs->rb, fBmpSrcX, fBmpSrcY,	0, fBmpScaleX, fBmpScaleY );
 
 	//	頂点のズラし
 	//MglMoveVertexs( pMglSqVertexs, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ );
@@ -37,7 +37,7 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 
 /*
 //	BMPの頂点情報取得
-void CMgl3dImage::GetBmpVertexs3D( float x, float y, float z, RECT* srcRect, float fTexScaleX, float fTexScaleY, D3DCOLOR color )
+void CMgl3dImage::SetupVertexes( float x, float y, float z, RECT* srcRect, float fTexScaleX, float fTexScaleY, D3DCOLOR color )
 {
 	//GetBmpVertexs(pMglSqVertexs);
 
@@ -61,14 +61,15 @@ void CMgl3dImage::GetBmpVertexs3D( float x, float y, float z, RECT* srcRect, flo
 	const float fBmpScaleY = (float)nBmpSrcY / (float)texDesc.Height;
 
 	//	頂点情報生成
-	MglVertexGen( &pMglSqVertexs->lt, 0+x,        0+y,			0.0f, 0.0f, color );
-	MglVertexGen( &pMglSqVertexs->rt, fBmpSrcX+x, 0+y,			fBmpScaleX, 0.0f, color );
-	MglVertexGen( &pMglSqVertexs->lb, 0+x,        fBmpSrcY+y,	0.0f, fBmpScaleY, color );
-	MglVertexGen( &pMglSqVertexs->rb, fBmpSrcX+x, fBmpSrcY+y,	fBmpScaleX, fBmpScaleY, color );
+	MglVertexGen( &pMglSqVertexs->lt, 0+x,        0+y,			z, 0.0f, 0.0f, color );
+	MglVertexGen( &pMglSqVertexs->rt, fBmpSrcX+x, 0+y,			z, fBmpScaleX, 0.0f, color );
+	MglVertexGen( &pMglSqVertexs->lb, 0+x,        fBmpSrcY+y,	z, 0.0f, fBmpScaleY, color );
+	MglVertexGen( &pMglSqVertexs->rb, fBmpSrcX+x, fBmpSrcY+y,	z, fBmpScaleX, fBmpScaleY, color );
 
 	//	頂点のズラし
 	//MglMoveVertexs( pMglSqVertexs, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ );
-}*/
+}
+*/
 
 //	頂点情報の設定
 void CMgl3dImage::SetupVertexes(float x, float y, float z, RECT* srcRect, float fTexScaleX, float fTexScaleY, D3DCOLOR color)

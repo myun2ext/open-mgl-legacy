@@ -55,10 +55,10 @@ typedef MYU_VERTEX2	MGL_VERTEX_3D;
 //	四角形の頂点
 typedef struct
 {
-	MGL_VERTEX lt;	//	0
-	MGL_VERTEX rt;	//	1
-	MGL_VERTEX rb;	//	2
-	MGL_VERTEX lb;	//	3
+	MGL_VERTEX lt;	//	0 - Left Top: 左上
+	MGL_VERTEX rt;	//	1 - Right Top: 右上
+	MGL_VERTEX rb;	//	2 - Right Bottom: 右下
+	MGL_VERTEX lb;	//	3 - Left Bottom: 左下
 }
 MGL_SQUARE_VERTEXS;
 typedef MGL_SQUARE_VERTEXS MGL_SQ_VERTEXS;
@@ -79,11 +79,11 @@ typedef MGL_SQUARE_VERTEXS2 MGL_SQ_VERTEXS2;
 //// Methods //////////////////////////////////////////////////////////////////////////////
 
 #ifdef _MGLVERTEX_USE_RHW
-	DLL_EXP void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv,
-							  D3DCOLOR color=D3DCOLOR_WHITE, float z=0.0f, float rhw=1.0f );
+	DLL_EXP void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float z, float tu, float tv,
+							  D3DCOLOR color=D3DCOLOR_WHITE, float rhw=1.0f );
 #else
-	DLL_EXP void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv,
-							  D3DCOLOR color=D3DCOLOR_WHITE, float z=0.0f );
+	DLL_EXP void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float z, float tu, float tv,
+							  D3DCOLOR color=D3DCOLOR_WHITE );
 #endif
 
 //DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount );

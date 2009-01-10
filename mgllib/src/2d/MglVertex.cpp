@@ -3,9 +3,9 @@
 
 //	í∏ì_èÓïÒ(MGL_VERTEX) ÇÃê∂ê¨
 #ifdef _MGLVERTEX_USE_RHW
-	void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv, D3DCOLOR color, float z, float rhw )
+	void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float z, float tu, float tv, D3DCOLOR color, float rhw )
 #else
-	void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float tu, float tv, D3DCOLOR color, float z )
+	void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float z, float tu, float tv, D3DCOLOR color )
 #endif
 {
 	ZeroMemory( pVertexOut, sizeof(MGL_VERTEX) );
