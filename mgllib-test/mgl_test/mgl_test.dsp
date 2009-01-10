@@ -100,12 +100,12 @@ SOURCE=.\dx_graphic.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\mgl_test.cpp
+SOURCE=.\StdAfx.cpp
+# ADD CPP /Yc"stdafx.h"
 # End Source File
 # Begin Source File
 
-SOURCE=.\StdAfx.cpp
-# ADD CPP /Yc"stdafx.h"
+SOURCE=".\AFチュートリアル\tutorial_6A.cpp"
 # End Source File
 # End Group
 # Begin Group "Header Files"
