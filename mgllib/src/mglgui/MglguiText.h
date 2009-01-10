@@ -14,7 +14,6 @@
 
 //class DLL_EXP agh::CTextBase;
 //class DLL_EXP agh::CTextBase< CAugustVisualControlBase >;
-template class DLL_EXP agh::CTextBaseT< CAugustVisualControlBase >;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
 //class DLL_EXP CMglguiText : public agh::CTextBase, public CAugustControlBase
@@ -23,12 +22,10 @@ class DLL_EXP CMglguiText : public agh::CTextBaseT< CAugustVisualControlBase >
 	friend class CMglguiScreen;
 private:
 	CMglGraphicManager *m_pGrp;
-	CMglImageCacher *m_pCacher;
 
 	//	friend Access
-	void _Setup(CMglGraphicManager *pGrp, CMglImageCacher *pCacher){
+	void _Setup(CMglGraphicManager *pGrp){
 		m_pGrp = pGrp;
-		m_pCacher = pCacher;
 	}
 private:
 	//BOOL bBold, bItalic, bUnderLine, bStrikeOut;
@@ -67,6 +64,6 @@ public:
 	}
 };
 
-typedef CMglguiText CMglguiText;
+typedef CMglguiText CMglAghText;
 
 #endif//__MglguiText_H__

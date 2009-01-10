@@ -13,6 +13,7 @@
 #include "MglImageLayer.h"
 #include "MglEzGameFrame.h"
 #include "MglAghImage.h"
+#include "MglguiText.h"
 //#include "MglMouseInput.h"
 
 class DLL_EXP agh::CScreenBase;
@@ -104,6 +105,7 @@ public:
 	///// ÉRÉìÉgÉçÅ[ÉãÇÃìoò^ /////////////////////////////////////////////////
 
 	void RegistControl(CMglAghImage* pImage);
+	void RegistControl(CMglAghText* pText);
 
 	//////////////////////////////////////////////////////
 

@@ -57,6 +57,6 @@ public:
 	}
 };
 
-typedef CAugustText CMglguiText;
+//typedef CAugustText CMglguiText;
 
 #endif//__AugustText_H__

@@ -158,6 +158,16 @@ void CMglguiScreen::RegistControl(CMglAghImage* pImage)
 	_RegistControl(pImage);
 	//m_layer.RegistBegin( new CMglImageLayer(m_imgCache[szFilePath]), true );
 }
+
+void CMglguiScreen::RegistControl(CMglAghText* pText)
+{
+	//	‚¹‚Á‚Æ‚ ‚Á‚Õ
+	pText->_Setup(&m_grp);
+
+	//	‚»‚µ‚Ä“o˜^
+	_RegistControl(pText);
+}
+
 void CMglguiScreen::_RegistControl(agh::CControlBase* pCtrl)
 {
 	m_ctrlPtrAry.push_back(pCtrl);

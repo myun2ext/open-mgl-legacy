@@ -235,46 +235,6 @@ SOURCE=.\src\2d\MglTextLayer.h
 
 # PROP Default_Filter ""
 # End Group
-# Begin Group "old"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglAghImage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglAghImage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiScreen.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiScreen.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiScreen_Events.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiText.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiText.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiWindow.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\mglgui\MglguiWindow.h
-# End Source File
-# End Group
 # End Group
 # Begin Source File
 
@@ -729,6 +689,46 @@ SOURCE=..\AGH\include\agh_Events.h
 # Begin Source File
 
 SOURCE=..\AGH\include\agh_ScreenBase.h
+# End Source File
+# End Group
+# Begin Group "old"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAghImage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglAghImage.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiScreen.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiScreen_Events.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiText.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiText.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\mglgui\MglguiWindow.h
 # End Source File
 # End Group
 # Begin Source File
