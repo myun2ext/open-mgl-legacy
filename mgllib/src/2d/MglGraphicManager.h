@@ -88,6 +88,7 @@ extern int g_2dgCount;
 #define DELREF()	if( m_myudg != NULL && g_2dgCount > 0 ){ m_myudg->RmRefOfAutoRelease( this ); }else{}
 
 class CMglTexture;
+class CMgl3DManager;
 ///////////////////////////////////////
 //
 //		クラス宣言
@@ -98,6 +99,7 @@ protected:
 	//	DirectX系宣言
 	_MGL_IDirect3D* m_pD3d;			//	D3D
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
+	CMgl3DManager *p3d;
 
 	int m_nDispX, m_nDispY;		//	画面サイズ
 	D3DFORMAT m_formatTexture;	//	フォーマット
@@ -220,6 +222,7 @@ public:
 	DWORD GetAlphaMode() { return m_dwAlphaOption; }
 	void EnableSupportSprite(){ m_bUseSprite = TRUE; }
 	void DisableSupportSprite(){ m_bUseSprite = FALSE; }
+	void Enable3d();
 };
 
 ////////////////////////////////////////////////////////////

@@ -30,6 +30,12 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 {
 	m_myudg = in_myudg;
 	m_pD3dDev = m_myudg->GetD3dDevPtr();
+	if ( m_pD3dDev == NULL )
+		MyuThrow(36129115, "CMgl3DManager::Init()  Direct3DDevice ‚ª‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+
+	//	‚©‚è‚ñ‚®A‚ç‚¢‚Æ‚É‚ñ‚®
+	m_pD3dDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pD3dDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	//	Projection‚ÌÝ’è
 	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());

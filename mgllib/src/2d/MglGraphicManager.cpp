@@ -9,6 +9,7 @@
 #include "MglGraphicManager.h"
 #include "MglTexture.h"
 #include "MglD3dCapsDumper.h"
+#include "Mgl3dManager.h"
 
 /*
 //	VRAMサイズ取得用
@@ -33,6 +34,7 @@ CMglGraphicManager::CMglGraphicManager()
 
 	m_pD3d = NULL;
 	m_pD3dDev = NULL;
+	p3d = NULL;
 	m_nDispX = 0;
 	m_nDispY = 0;
 	ZeroMemory( &m_formatTexture, sizeof(m_formatTexture) ); 
@@ -331,6 +333,8 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 	//	バックバッファをクリアしておく
 	Clear();
 
+	//	一応デフォルト3D有効にしとくかー・・・
+	Enable3d();
 
 	_MGL_DEBUGLOG( "- CMglGraphicManager::InitEx()" );
 }
@@ -719,7 +723,13 @@ void CMglGraphicManager::DrawPrimitiveUpMyuVertex(MGL_VERTEX *pMglVertexs, int n
 	MyuAssert( m_pD3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, nVertexCount, pMglVertexs, sizeof(MGL_VERTEX)), D3D_OK,
 			"CMglGraphicManager::DrawPrimitiveUpMyuVertexSquare()  DrawPrimitiveUP()に失敗" );
 }
-														
+
+void CMglGraphicManager::Enable3d()
+{
+	p3d = new CMgl3DManager();
+	p3d->Init(this);
+}
+													
 
 ////////////////////////////////////////////////////////////
 //
@@ -735,3 +745,4 @@ CMglGraphicManager* GetDefaultGd()
 	}
 	return g_pDefaultGd;
 }
+
