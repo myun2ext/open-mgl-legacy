@@ -271,66 +271,6 @@ SOURCE=..\AGH\include\agh_Events.h
 SOURCE=..\AGH\include\agh_ScreenBase.h
 # End Source File
 # End Group
-# Begin Group "August"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\august\AugustCommon.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustCommon.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustEzGameFrame.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustEzGameFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustImage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustImage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustScreen.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustScreen.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustScreen_Events.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustText.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustText.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustWindow.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustWindow.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\mglaugust.h
-# End Source File
-# End Group
 # Begin Group "old"
 
 # PROP Default_Filter ""
@@ -720,6 +660,142 @@ SOURCE=.\src\input\MglMouseInputBase.cpp
 SOURCE=.\src\input\MglMouseInputBase.h
 # End Source File
 # End Group
+# Begin Group "Audio Files"
+
+# PROP Default_Filter ""
+# Begin Group "2G"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudioBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudioBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectShowBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectShowBase.h
+# End Source File
+# End Group
+# Begin Group "BGM"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\audio\MglBgm.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglBgm.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglBgmBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglBgmBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglMp3Dshow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglMp3Dshow.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglOgg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglOgg.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudio.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglAudio.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectMusicBase.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\audio\MglDirectMusicBase.h
+# End Source File
+# End Group
+# Begin Group "August Framework"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\august\AugustCommon.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustCommon.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustEzGameFrame.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustEzGameFrame.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustImage.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustImage.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustScreen.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustScreen_Events.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustText.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustText.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustWindow.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustWindow.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\mglaugust.h
+# End Source File
+# End Group
 # Begin Group "Intellisense Files"
 
 # PROP Default_Filter ""
@@ -1046,82 +1122,6 @@ SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\Tvout.h"
 # Begin Source File
 
 SOURCE="..\..\..\..\..\..\Program Files\Microsoft SDK\include\WinEFS.h"
-# End Source File
-# End Group
-# Begin Group "Audio Files"
-
-# PROP Default_Filter ""
-# Begin Group "2G"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\audio\MglAudioBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglAudioBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglDirectShowBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglDirectShowBase.h
-# End Source File
-# End Group
-# Begin Group "BGM"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=.\src\audio\MglBgm.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglBgm.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglBgmBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglBgmBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglMp3Dshow.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglMp3Dshow.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglOgg.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglOgg.h
-# End Source File
-# End Group
-# Begin Source File
-
-SOURCE=.\src\audio\MglAudio.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglAudio.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglDirectMusicBase.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\audio\MglDirectMusicBase.h
 # End Source File
 # End Group
 # Begin Group "’Ç•ú Files"

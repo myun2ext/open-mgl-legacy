@@ -99,7 +99,6 @@ protected:
 	//	DirectX系宣言
 	_MGL_IDirect3D* m_pD3d;			//	D3D
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
-	CMgl3DManager *p3d;
 
 	int m_nDispX, m_nDispY;		//	画面サイズ
 	D3DFORMAT m_formatTexture;	//	フォーマット
@@ -133,6 +132,7 @@ protected:
 public:
 	//	公開メンバ変数
 	D3DSURFACE_DESC backBufferDesc;		//	バックバッファ情報
+	CMgl3DManager *p3d;
 
 	//////////////////////////
 	//
