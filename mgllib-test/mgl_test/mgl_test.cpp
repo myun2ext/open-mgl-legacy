@@ -196,7 +196,7 @@ class CMglTestFrame : public CAugustWindow
 private:
 	CAugustImage m_img;
 	CAugustText m_text;
-	CMglImage3D m_img2;
+	CMgl3dImage m_img2;
 public:
 	void OnInit(){
 		RegistControl(&m_img);
@@ -240,8 +240,8 @@ public:
 		//Render2(grp.GetD3dDevPtr());
 
 	//	Vertexを設定
-	MyuAssert( grp.GetD3dDevPtr()->SetVertexShader( FVF_MYU_VERTEX ), D3D_OK,
-		"CMglGraphicManager::Init()  SetVertexShader()に失敗" );
+	/*MyuAssert( grp.GetD3dDevPtr()->SetVertexShader( FVF_MYU_VERTEX ), D3D_OK,
+		"CMglGraphicManager::Init()  SetVertexShader()に失敗" );*/
 
 
 		g_pD3DDevice = grp.GetD3dDevPtr();
@@ -252,7 +252,7 @@ public:
 		//GameMain2(&m_img2);
 
 
-		//m_img2.Draw3d();
+		m_img2.Draw();
 		grp.SpriteEnd();
 		grp.SpriteBegin();
 		//GetVCtrlPtr(0)->Draw();
@@ -298,7 +298,7 @@ void GameMain(CMglTexture* pTexture)
 	pTexture->GetBmpVertexs( &vertexs );
 
 	//	x, yに移動
-	MglMoveVertexs( &vertexs, 0, 0 );
+	//MglMoveVertexs( &vertexs, 0, 0 );
 
 	//	頂点の色
 	vertexs.lt.color = color;
@@ -324,8 +324,8 @@ void GameMain(CMglTexture* pTexture)
 	
 	// マトリックス生成
 	//g_WorldFrame.rotate.y += 0.01f;			// Ｙ軸回りに回転
-	g_WorldFrame.SetMat();											// 座標変換用マトリックス作成
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &g_WorldFrame.mat);	// ワールドマトリックスセット
+	//g_WorldFrame.SetMat();											// 座標変換用マトリックス作成
+	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &g_WorldFrame.mat);	// ワールドマトリックスセット
 
 	// 頂点バッファを使用せず直接データを渡して描画する
 	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, &vertexs, sizeof(MGL_VERTEX));

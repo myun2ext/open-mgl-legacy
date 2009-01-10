@@ -12,12 +12,6 @@
 // ダイレクトＸグラフィック系
 LPDIRECT3DDEVICE8			g_pD3DDevice  = NULL;	// ダイレクト３Ｄデバイス
 
-static LPDIRECT3D8			g_pD3DObject  = NULL;	// ダイレクト３Ｄオブジェクト
-static LPD3DXFONT			g_pFontObject = NULL;	// フォントオブジェクト
-static D3DVIEWPORT8			g_ViewPort;				// ビューポート
-
-static TEXTURE_DATA			g_TextureBuf[TEX_MAX];	// テクスチャバッファ
-
 // 座標変換マトリックス ----------------------------------------------------
 static D3DXMATRIX			g_ProjMat;				// 透視変換マトリックス
 static D3DXMATRIX			g_ViewMat;				// カメラマトリックス
@@ -30,35 +24,11 @@ static D3DLIGHT8			g_Light;
 //                     ファイル間インターフェース関数
 ////////////////////////////////////////////////////////////////////////////
 LPDIRECT3DDEVICE8  GetD3DDevice(void) { return g_pD3DDevice; }
-TEXTURE_DATA* GetTextureBuf(int idx) { return &g_TextureBuf[idx]; }
-
-////////////////////////////////////////////////////////////////////////////
-//                          プロトタイプ宣言
-////////////////////////////////////////////////////////////////////////////
-BOOL GrpInit(HWND hwnd);
-void GrpRelease(void);
-
-BOOL GrpLoadTexture(TEXTURE_DATA &texture, char *bmp_name, D3DCOLOR rgba = 0);
-void GrpReleseTexture(TEXTURE_DATA &texture);
-
-void GrpSprInit(void);
-void GrpSprRGBASet(BLEND_MODE mode, D3DCOLOR rgba);
-void GrpSprAngleSet(float angle, float cx, float cy);
-void GrpSprScaleSet(float sx, float sy);
-void GrpSprDraw(float x, float y, TEXTURE_DATA &texture, int u, int v, int w, int h);
-
-void GrpPolyDraw(float x, float y, float w, float h, D3DCOLOR rgba);
-void GrpFpsDisp(int x, int y);
-
-void GrpFontInit(int size);
-void GrpFontDisp(char *str, int x, int y, D3DCOLOR color);
 
 void GrpSetProjMat(float clip_near, float clip_far);
 void GrpSetViewMat(D3DXVECTOR3 eye, D3DXVECTOR3 pos);
-void GrpSetBillBoardMat(D3DXMATRIX &wmat, D3DXVECTOR3 &t);
 void GrpSetRotTransMat(D3DXMATRIX &wmat, D3DXVECTOR3 &s, D3DXVECTOR3 &t, D3DXVECTOR3 &r);
 void GrpSetLiht(D3DLIGHT_MODE mode);
-void GrpSetFog(float st, float end, D3DCOLOR col);
 inline void GrpTLVertexSet(D3DTLVERTEX *v, float x, float y, float z, float tu, float tv, D3DCOLOR rgba);
 inline void GrpLVertexSet(D3DLVERTEX *v, float x, float y, float z, float tu, float tv, D3DCOLOR rgba);
 inline void GrpVertexSet(D3DVERTEX *v, float x, float y, float z, float nx, float ny, float nz, float tu, float tv);
