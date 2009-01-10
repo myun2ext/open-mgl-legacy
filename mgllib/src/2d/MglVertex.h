@@ -7,9 +7,9 @@
 
 //	頂点構造体
 #ifdef _MGLVERTEX_USE_RHW
-	#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1 )
+	#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
 #else
-	#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_TEX1 )
+	#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
 #endif
 typedef struct
 {
@@ -18,8 +18,10 @@ typedef struct
 #ifdef _MGLVERTEX_USE_RHW
 	float		rhw;				//頂点変換値
 #endif
+	//float		nx, ny, nz;			// 法線ベクトル
 	D3DCOLOR	color;				//ポリゴンカラー
-	float		tu,tv;				//テクスチャ座標
+	DWORD		specular;			// スペキュラ色
+	float		tu,tv;				//テクスチャ座標 - D3DXVECTOR2
 }MYU_VERTEX;
 typedef MYU_VERTEX	MGL_VERTEX;
 
@@ -102,7 +104,6 @@ typedef struct
 	D3DCOLOR rightBottom;
 }
 MGL_VERTEX_COLORS;
-
 
 //// Methods //////////////////////////////////////////////////////////////////////////////
 
