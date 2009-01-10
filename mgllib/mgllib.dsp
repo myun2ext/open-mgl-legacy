@@ -165,14 +165,6 @@ SOURCE=.\src\2d\MglD3dCapsDumper.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\2d\MglDrawLine.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglDrawLine.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\2d\MglGraphicUtil.cpp
 # End Source File
 # Begin Source File
@@ -242,34 +234,6 @@ SOURCE=.\src\2d\MglTextLayer.h
 # Begin Group "MFC"
 
 # PROP Default_Filter ""
-# End Group
-# Begin Group "AGH"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\AGH\include\agh.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_ControlBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_defs.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_EffectControl.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_Events.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_ScreenBase.h
-# End Source File
 # End Group
 # Begin Group "old"
 
@@ -739,6 +703,34 @@ SOURCE=.\src\audio\MglDirectMusicBase.h
 # Begin Group "August Framework"
 
 # PROP Default_Filter ""
+# Begin Group "AGH"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_ControlBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_defs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_EffectControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_Events.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_ScreenBase.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\august\AugustCommon.cpp

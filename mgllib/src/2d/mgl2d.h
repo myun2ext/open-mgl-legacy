@@ -89,7 +89,7 @@ using namespace std;
 #include "MglLayers4.h"
 #include "MglBitmapText.h"
 #include "MglText.h"
-#include "MglDrawLine.h"
+//#include "MglDrawLine.h"
 
 #include "MglImageLayer.h"
 #include "MglTextLayer.h"

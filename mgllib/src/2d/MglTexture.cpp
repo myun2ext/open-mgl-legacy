@@ -173,7 +173,7 @@ void CMglTexture::Create( int x, int y, BOOL bRenderTarget )
 //////////////////////////////////////////////////////////////////////////////////////
 
 //	VE•`‰æ•û®
-void CMglTexture::DrawTexture(float x, float y, D3DCOLOR color )
+void CMglTexture::Draw(float x, float y, D3DCOLOR color )
 {
 	//	’¸“_‰Šúî•ñæ“¾
 	MGL_SQUARE_VERTEXS vertexs;
@@ -189,17 +189,17 @@ void CMglTexture::DrawTexture(float x, float y, D3DCOLOR color )
 	vertexs.rb.color = color;
 
 	//	•`‰æ
-	DrawTexture( &vertexs );
+	Draw( &vertexs );
 }
 
 //	•`‰æi“ñŸŒ³ŒÅ’èj
-void CMglTexture::DrawTexture( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise )
+void CMglTexture::Draw( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise )
 {
-	DrawTexture( (MYU_VERTEX*)pMglSqVertexs, 2, bVertexRevise );
+	Draw( (MYU_VERTEX*)pMglSqVertexs, 2, bVertexRevise );
 }
 
 //	•`‰æi’¸“_”•s’èj
-void CMglTexture::DrawTexture( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOOL bVertexRevise )
+void CMglTexture::Draw( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOOL bVertexRevise )
 {
 	CreateCheck();	//	Createƒ`ƒFƒbƒN
 	LockedCheck();
@@ -381,7 +381,7 @@ void CMglTexture::Paint( RECT* pRect, D3DCOLOR color )
 void CMglTexture::TextureDraw(
 	float x, float y, RECT* srcRect, float fScaleX, float fScaleY,
 	float fRotationCenterX, float fRotationCenterY, float fAngle,
-	VERTEX_COLORS* vertexColors, DWORD dwAlphaOption )
+	MGL_VERTEX_COLORS* vertexColors, DWORD dwAlphaOption )
 {
 	CreateCheck();	//	Createƒ`ƒFƒbƒN
 	LockedCheck();
@@ -404,12 +404,12 @@ void CMglTexture::TextureDraw(
 	//	“]‘—Œ³‚à‚Ç‚«‚Ìİ’è
 	if ( srcRect == NULL )
 	{
-		vertices[VERTEXNO_LT].tu = vertices[VERTEXNO_LB].tu = 0.0f;
-		vertices[VERTEXNO_LT].tv = vertices[VERTEXNO_RT].tv = 0.0f;
-		//vertices[VERTEXNO_RB].tu = vertices[VERTEXNO_RT].tu = 1.0f; - 2007/01/10 1.0f‰»‚â‚Á‚Ï”p~
-		//vertices[VERTEXNO_RB].tv = vertices[VERTEXNO_LB].tv = 1.0f;
-		vertices[VERTEXNO_RT].tu = vertices[VERTEXNO_RB].tu = fRealTexTu;
-		vertices[VERTEXNO_LB].tv = vertices[VERTEXNO_RB].tv = fRealTexTv;
+		vertices[MGL_VERTEXNO_LT].tu = vertices[MGL_VERTEXNO_LB].tu = 0.0f;
+		vertices[MGL_VERTEXNO_LT].tv = vertices[MGL_VERTEXNO_RT].tv = 0.0f;
+		//vertices[MGL_VERTEXNO_RB].tu = vertices[MGL_VERTEXNO_RT].tu = 1.0f; - 2007/01/10 1.0f‰»‚â‚Á‚Ï”p~
+		//vertices[MGL_VERTEXNO_RB].tv = vertices[MGL_VERTEXNO_LB].tv = 1.0f;
+		vertices[MGL_VERTEXNO_RT].tu = vertices[MGL_VERTEXNO_RB].tu = fRealTexTu;
+		vertices[MGL_VERTEXNO_LB].tv = vertices[MGL_VERTEXNO_RB].tv = fRealTexTv;
 	}
 	else
 	{
@@ -430,15 +430,15 @@ void CMglTexture::TextureDraw(
 		*/
 
 		/*
-		vertices[VERTEXNO_LT].tu = vertices[VERTEXNO_LB].tu = fLeftTu;
-		vertices[VERTEXNO_RT].tu = vertices[VERTEXNO_RB].tu = fRightTu;
-		vertices[VERTEXNO_LT].tv = vertices[VERTEXNO_RT].tv = fTopTv;
-		vertices[VERTEXNO_LB].tv = vertices[VERTEXNO_RB].tv = fBottomTv;
+		vertices[MGL_VERTEXNO_LT].tu = vertices[MGL_VERTEXNO_LB].tu = fLeftTu;
+		vertices[MGL_VERTEXNO_RT].tu = vertices[MGL_VERTEXNO_RB].tu = fRightTu;
+		vertices[MGL_VERTEXNO_LT].tv = vertices[MGL_VERTEXNO_RT].tv = fTopTv;
+		vertices[MGL_VERTEXNO_LB].tv = vertices[MGL_VERTEXNO_RB].tv = fBottomTv;
 		*/
-		vertices[VERTEXNO_LT].tu = vertices[VERTEXNO_LB].tu = fLeftTu;
-		vertices[VERTEXNO_RT].tu = vertices[VERTEXNO_RB].tu = fRightTu;
-		vertices[VERTEXNO_LT].tv = vertices[VERTEXNO_RT].tv = fTopTv;
-		vertices[VERTEXNO_LB].tv = vertices[VERTEXNO_RB].tv = fBottomTv;
+		vertices[MGL_VERTEXNO_LT].tu = vertices[MGL_VERTEXNO_LB].tu = fLeftTu;
+		vertices[MGL_VERTEXNO_RT].tu = vertices[MGL_VERTEXNO_RB].tu = fRightTu;
+		vertices[MGL_VERTEXNO_LT].tv = vertices[MGL_VERTEXNO_RT].tv = fTopTv;
+		vertices[MGL_VERTEXNO_LB].tv = vertices[MGL_VERTEXNO_RB].tv = fBottomTv;
 
 		nBmpSrcX = srcRect->right - srcRect->left;
 		nBmpSrcY = srcRect->bottom - srcRect->top;
@@ -455,26 +455,26 @@ void CMglTexture::TextureDraw(
 	*/
 
 	//	ŠG‰ææˆÊ’uA‹y‚ÑLk—¦‚Ìİ’è
-	vertices[VERTEXNO_LT].x = vertices[VERTEXNO_LB].x = x + TEXTURE_FLOAT_ADJ;	//	ŠG‰ææˆÊ’uX
-	vertices[VERTEXNO_LT].y = vertices[VERTEXNO_RT].y = y + TEXTURE_FLOAT_ADJ;	//	ŠG‰ææˆÊ’uY
-	vertices[VERTEXNO_RB].x = vertices[VERTEXNO_RT].x = x + TEXTURE_FLOAT_ADJ + nBmpSrcX * fScaleX;	//	Lk—¦X
-	vertices[VERTEXNO_RB].y = vertices[VERTEXNO_LB].y = y + TEXTURE_FLOAT_ADJ + nBmpSrcY * fScaleY;	//	Lk—¦Y
-	/*vertices[VERTEXNO_LT].x = vertices[VERTEXNO_LB].x = x + X_ADJ;//	ŠG‰ææˆÊ’uX
-	vertices[VERTEXNO_LT].y = vertices[VERTEXNO_RT].y = y + Y_ADJ;	//	ŠG‰ææˆÊ’uY
-	vertices[VERTEXNO_RB].x = vertices[VERTEXNO_RT].x = x + X_ADJ + nBmpSrcX * fScaleX;	//	Lk—¦X
-	vertices[VERTEXNO_RB].y = vertices[VERTEXNO_LB].y = y + Y_ADJ + nBmpSrcY * fScaleY;	//	Lk—¦Y*/
+	vertices[MGL_VERTEXNO_LT].x = vertices[MGL_VERTEXNO_LB].x = x + TEXTURE_FLOAT_ADJ;	//	ŠG‰ææˆÊ’uX
+	vertices[MGL_VERTEXNO_LT].y = vertices[MGL_VERTEXNO_RT].y = y + TEXTURE_FLOAT_ADJ;	//	ŠG‰ææˆÊ’uY
+	vertices[MGL_VERTEXNO_RB].x = vertices[MGL_VERTEXNO_RT].x = x + TEXTURE_FLOAT_ADJ + nBmpSrcX * fScaleX;	//	Lk—¦X
+	vertices[MGL_VERTEXNO_RB].y = vertices[MGL_VERTEXNO_LB].y = y + TEXTURE_FLOAT_ADJ + nBmpSrcY * fScaleY;	//	Lk—¦Y
+	/*vertices[MGL_VERTEXNO_LT].x = vertices[MGL_VERTEXNO_LB].x = x + X_ADJ;//	ŠG‰ææˆÊ’uX
+	vertices[MGL_VERTEXNO_LT].y = vertices[MGL_VERTEXNO_RT].y = y + Y_ADJ;	//	ŠG‰ææˆÊ’uY
+	vertices[MGL_VERTEXNO_RB].x = vertices[MGL_VERTEXNO_RT].x = x + X_ADJ + nBmpSrcX * fScaleX;	//	Lk—¦X
+	vertices[MGL_VERTEXNO_RB].y = vertices[MGL_VERTEXNO_LB].y = y + Y_ADJ + nBmpSrcY * fScaleY;	//	Lk—¦Y*/
 
 	//	F
-	vertices[VERTEXNO_LT].color = vertexColors->leftTop;
-	vertices[VERTEXNO_RT].color = vertexColors->rightTop;
-	vertices[VERTEXNO_LB].color = vertexColors->leftBottom;
-	vertices[VERTEXNO_RB].color = vertexColors->rightBottom;
+	vertices[MGL_VERTEXNO_LT].color = vertexColors->leftTop;
+	vertices[MGL_VERTEXNO_RT].color = vertexColors->rightTop;
+	vertices[MGL_VERTEXNO_LB].color = vertexColors->leftBottom;
+	vertices[MGL_VERTEXNO_RB].color = vertexColors->rightBottom;
 
 	//	ƒAƒ‹ƒtƒ@ƒIƒvƒVƒ‡ƒ“
 	m_myudg->SetAlphaMode( dwAlphaOption );
 
 	//	•`‰æ
-	DrawTexture( vertices );
+	Draw( vertices );
 }
 
 //	ƒCƒeƒŒ[ƒ^ ////////////////////////////////////////////////

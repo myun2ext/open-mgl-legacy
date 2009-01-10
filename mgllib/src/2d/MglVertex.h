@@ -76,8 +76,6 @@ MGL_SQUARE_VERTEXS2;
 typedef MGL_SQUARE_VERTEXS2 MGL_SQ_VERTEXS2;
 */
 
-//// Methods //////////////////////////////////////////////////////////////////////////////
-
 #ifdef _MGLVERTEX_USE_RHW
 	DLL_EXP void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float z, float tu, float tv,
 							  D3DCOLOR color=D3DCOLOR_WHITE, float rhw=1.0f );
@@ -85,6 +83,28 @@ typedef MGL_SQUARE_VERTEXS2 MGL_SQ_VERTEXS2;
 	DLL_EXP void MglVertexGen( MGL_VERTEX *pVertexOut, float x, float y, float z, float tu, float tv,
 							  D3DCOLOR color=D3DCOLOR_WHITE );
 #endif
+
+#define MGL_VERTEX_SIZE		(sizeof(MYU_VERTEX))
+#define MGL_VERTEXES_SIZE	(sizeof(MYU_VERTEX)*4)
+
+//	未だに使ってる部分があるので残しておく
+#define MGL_VERTEXNO_LT		(0)
+#define MGL_VERTEXNO_RT		(1)
+#define MGL_VERTEXNO_LB		(3)
+#define MGL_VERTEXNO_RB		(2)
+
+//	頂点色
+typedef struct
+{
+	D3DCOLOR leftTop;
+	D3DCOLOR leftBottom;
+	D3DCOLOR rightTop;
+	D3DCOLOR rightBottom;
+}
+MGL_VERTEX_COLORS;
+
+
+//// Methods //////////////////////////////////////////////////////////////////////////////
 
 //DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount );
 DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, float z, int vertexCount );
@@ -94,27 +114,5 @@ inline void MglMoveVertexs( MGL_SQUARE_VERTEXS *pVertexs, float x, float y, floa
 	MglMoveVertexs( (MGL_VERTEX*)pVertexs, x, y, z, 4 ); }
 inline void MglVertexsFillColor( MGL_SQUARE_VERTEXS *pVertexs, D3DCOLOR color ){
 	MglVertexsFillColor( (MGL_VERTEX*)pVertexs, color, 4 ); }
-
-
-#define MGL_VERTEX_SIZE		(sizeof(MYU_VERTEX))
-#define MGL_VERTEXES_SIZE		(sizeof(MYU_VERTEX)*4)
-
-/////////////////////////////////////////////
-
-//	 -> 削除予定
-#define VERTEXNO_LT		(0)
-#define VERTEXNO_RT		(1)
-#define VERTEXNO_LB		(3)
-#define VERTEXNO_RB		(2)
-
-//	頂点色 -> 削除予定
-typedef struct
-{
-	D3DCOLOR leftTop;
-	D3DCOLOR leftBottom;
-	D3DCOLOR rightTop;
-	D3DCOLOR rightBottom;
-}
-VERTEX_COLORS;
 
 #endif//__MglVertex_H__

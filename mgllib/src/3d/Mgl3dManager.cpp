@@ -48,7 +48,12 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, float fClipNear, float fClipFar )
 {
 	D3DXMATRIX matPrj;
-	D3DXMatrixPerspectiveFovLH(&matPrj,		// 作成プロジェクションマトリックスへのポインタ
+#if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
+	D3DXMatrixPerspectiveFovLH(
+#else
+	D3DXMatrixPerspectiveFovRH(
+#endif	
+					&matPrj,
 					D3DXToRadian(fViewingAngle),		// 視野角
 					fAspectRatio,		// アスペクト比（縦、横比率）
 					fClipNear,				// Near クリップ
@@ -70,7 +75,12 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
 {
 	D3DXMATRIX mView;
-	D3DXMatrixLookAtLH(&mView
+#if _MGL3D_COORDINATE_USE = _MGL3D_COORDINATE_LEFT_HAND
+	D3DXMatrixLookAtLH(
+#else
+	D3DXMatrixLookAtRH(
+#endif
+					&mView
 					,&D3DXVECTOR3(fPosX, fPosY, fPosZ)	// カメラ位置
 					,&D3DXVECTOR3(fTargetX, fTargetY, fTargetZ)		// カメラの注目点
 					,&D3DXVECTOR3(0,1,0)		// 上の向き

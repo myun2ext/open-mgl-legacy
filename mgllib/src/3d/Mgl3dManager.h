@@ -9,6 +9,10 @@
 
 #include "MglGraphicManager.h"
 
+#define _MGL3D_COORDINATE_LEFT_HAND		(0)	//	ç∂éËç¿ïWån
+#define _MGL3D_COORDINATE_RIGHT_HAND	(1)	//	âEéËç¿ïWån
+#define _MGL3D_COORDINATE_USE	_MGL3D_COORDINATE_LEFT_HAND;
+
 class DLL_EXP CMgl3DManager
 {
 protected:
