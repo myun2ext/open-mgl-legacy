@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "mgl3d.h"
 #include "dx_graphic.h"
+#include <math.h>
 
 LPDIRECT3DVERTEXBUFFER8 pVB = NULL; // 頂点バッファに使うオブジェクト
 #define PI (3.1415926535f)
@@ -133,6 +134,8 @@ void Render(LPDIRECT3DDEVICE8 lpD3DDEV)
 	static int i=0;
 	i++;
 
+
+
     D3DXMATRIX mWorld, mRotX, mRotY, mTrans;
 	float time = (float)timeGetTime();
 	//TODO: D3DXMatrixRotationY(&mRotY, time/600.0f);
@@ -143,8 +146,29 @@ void Render(LPDIRECT3DDEVICE8 lpD3DDEV)
 	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
 	mWorld = mRotX * mRotY * mTrans;
 	D3DXMATRIX mView, mProj;
+
+
+	/*
+	static POINT from;
+	D3DXMATRIX d3dm;
+
+	D3DXVECTOR3 view(0,2.0f,2.0f);
+	D3DXMatrixRotationY(&mView , D3DXToRadian(2);
+	mView = view;
+	view.x = mView.x * d3dm.m[0][0] +
+		mView.y * d3dm.m[1][0] + mView.z * d3dm.m[2][0];
+	view.y = mView.x * d3dm.m[0][1] + 
+		mView.y * d3dm.m[1][1] + mView.z * d3dm.m[2][1];
+	view.z = mView.x * d3dm.m[0][2] +
+		mView.y * d3dm.m[1][2] + mView.z * d3dm.m[2][2];
+	view.y += from.y - (lp >> 16);
+*/
+
 	D3DXMatrixLookAtLH(&mView
-					,&D3DXVECTOR3(0-(i/100.0f),2.0f,2.0f-(i/100.0f))	// カメラ位置
+					//,&D3DXVECTOR3(0-(i/100.0f),2.0f,2.0f-(i/100.0f))	// カメラ位置
+					,&D3DXVECTOR3(0-(i/100.0f),2.0f,2.0f)	// カメラ位置
+					//,&mView	// カメラ位置
+					//,&D3DXVECTOR3(0+(i/1000.0f),0,0)		// カメラの注目点
 					,&D3DXVECTOR3(0+(i/1000.0f),0,0)		// カメラの注目点
 					,&D3DXVECTOR3(0,1,0)		// 上の向き
 					);
@@ -190,6 +214,9 @@ void Render2(LPDIRECT3DDEVICE8 lpD3DDEV)
 }
 ///////////////////////////////////////////////////////////////////
 
+
+
+
 //	メインフレームクラス
 class CMglTestFrame : public CAugustWindow
 {
@@ -223,9 +250,11 @@ public:
 			DIK_X,
 			(AUGUST_KB_EVT_HANDLER_CALLBACK)PlaySoundX);
 
+		this->EnableEscEnd();
+
 		//////////////////////////////
 
-		InitRender(grp.GetD3dDevPtr());
+		//InitRender(grp.GetD3dDevPtr());
 		//InitRender2(grp.GetD3dDevPtr());
 	}
 	/*bool DoFrame(){
@@ -236,12 +265,21 @@ public:
 	void OnDraw(){
 		grp.Clear(0);
 
-		Render(grp.GetD3dDevPtr());
+		//Render(grp.GetD3dDevPtr());
 		//Render2(grp.GetD3dDevPtr());
 
-	//	Vertexを設定
-	/*MyuAssert( grp.GetD3dDevPtr()->SetVertexShader( FVF_MYU_VERTEX ), D3D_OK,
-		"CMglGraphicManager::Init()  SetVertexShader()に失敗" );*/
+		//	カメラ
+		static int i=0;
+		i++;
+		//grp.p3d->SetCamera( 0.0f+(sin(i/90.0f)*3), 0.0f, -3.0f+(1.0f-cos(i/90.0f))*3,    0,0,0 );
+		//grp.p3d->CameraRotation(MGL3D_Z, 1);
+		//grp.p3d->SetCameraAngle2(i/100.0f,0,0);
+		//grp.p3d->SetupProjection(
+		grp.p3d->MoveCamera(0.0015f,0.0005f,0.02f);
+		//grp.p3d->SetCamera( 0.0f+(sin(i/90.0f)*3), 0.0f, -3.0f+(sin((3.14159265/2)+i/90.0f))*3,    0,0,0 );
+		//grp.p3d->SetCamera( 0, 0.0f, -3.0f+(i/100.0f),    0,0,0 );
+		/*grp.p3d->SetCamera( 0-(i/100.0f),2.0f,2.0f-(i/100.0f),
+			0,0,0 );*/
 
 
 		g_pD3DDevice = grp.GetD3dDevPtr();
@@ -249,10 +287,9 @@ public:
 
 		
 		GameMain(&m_img2);
+		m_img2.Draw(0.05f,0.05f,-0.05f);
 		//GameMain2(&m_img2);
 
-
-		m_img2.Draw();
 		grp.SpriteEnd();
 		grp.SpriteBegin();
 		//GetVCtrlPtr(0)->Draw();
