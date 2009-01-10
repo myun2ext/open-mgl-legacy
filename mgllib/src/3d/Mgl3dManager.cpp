@@ -14,6 +14,11 @@ CMgl3DManager::CMgl3DManager()
 	m_myudg = NULL;
 	m_pD3dDev = NULL;
 
+	m_fAspectRatio = 640.0f/480;
+	m_fViewingAngle = 45.0f;
+	m_fClipNear = 0.01f;
+	m_fClipFar = 100.0f;
+
 	m_fCameraPosX = 0;
 	m_fCameraPosY = 0;
 	m_fCameraPosZ = 0;
@@ -76,6 +81,11 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &matPrj), D3D_OK,
 		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );
 
+	m_fAspectRatio = fAspectRatio;
+	m_fViewingAngle = fViewingAngle;
+	m_fClipNear = fClipNear;
+	m_fClipFar = fClipFar;
+
 //D3D_COORDINATE	g_WorldFrame(D3DXVECTOR3(1,1,1), D3DXVECTOR3(0,0,0), D3DXVECTOR3(0,0,0));
 }
 
@@ -83,7 +93,7 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 
 void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
 {
-	SetCameraWorking(fPosX, fPosY, fPosZ, fTargetX, fTargetY, fTargetZ);
+	CameraLockAt(fPosX, fPosY, fPosZ, fTargetX, fTargetY, fTargetZ);
 
 	m_fCameraPosX = fPosX;
 	m_fCameraPosY = fPosY;
@@ -95,7 +105,7 @@ void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTarg
 
 //	カメラ位置の設定
 //void CMgl3DManager::SetCameraPos(float x, float y, float z)
-void CMgl3DManager::SetCameraWorking(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
+void CMgl3DManager::CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
 {
 #if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
 	D3DXMatrixLookAtLH(
@@ -122,27 +132,52 @@ void CMgl3DManager::SetCameraViewTarget(float x, float y, float z)
 {
 	SetCamera(m_fCameraPosX, m_fCameraPosY, m_fCameraPosZ, x, y, z);
 }
+//	カメラを移動（シフト）
+void CMgl3DManager::MoveCamera(float x, float y, float z)
+{
+	SetCamera(
+		m_fCameraPosX+x, m_fCameraPosY+y, m_fCameraPosZ+z,
+		m_fCameraTargetX+x, m_fCameraTargetY+y, m_fCameraTargetZ+z);
+}
 
 //	カメラをX軸方向に回転
 void CMgl3DManager::CameraRotation(int direction, float fAngle)
 {
 	float rad;
-	D3DXMATRIX matView;
 
 	switch(direction){
+	//	横軸
 	case MGL3D_X:
 		m_fCameraRotationMemX += fAngle;
 		rad = D3DXToRadian(m_fCameraRotationMemX);
-		SetCameraWorking(
+		CameraLockAt(
 				m_fCameraPosX+(sin(rad)*(-m_fCameraPosZ)),
 				m_fCameraPosY,
 				m_fCameraPosZ+(1.0f-cos(rad))*(-m_fCameraPosZ),
 				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
 		break;
+
+	//	縦軸
 	case MGL3D_Y:
-		D3DXMatrixRotationY(&matView, D3DXToRadian(fAngle)); break;
+		m_fCameraRotationMemY += fAngle;
+		rad = D3DXToRadian(m_fCameraRotationMemY);
+		CameraLockAt(
+				m_fCameraPosX,
+				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
+				m_fCameraPosZ+(1.0f-cos(rad))*(-m_fCameraPosZ),
+				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+		break;
+
+	//	Z軸
 	case MGL3D_Z:
-		D3DXMatrixRotationZ(&matView, D3DXToRadian(fAngle)); break;
+		m_fCameraRotationMemY += fAngle;
+		rad = D3DXToRadian(m_fCameraRotationMemY);
+		CameraLockAt(
+				m_fCameraPosX+(1.0f-cos(rad))*(-m_fCameraPosZ),
+				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
+				m_fCameraPosZ,
+				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+		break;
 	}
 	/*
 	D3DXMATRIX matRotation;
@@ -170,3 +205,36 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 	*/
 }
 
+void CMgl3DManager::SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ)
+{
+	float radX = D3DXToRadian(fAngleX);
+	float radY = D3DXToRadian(fAngleY);
+	float radZ = D3DXToRadian(fAngleZ);
+
+	CameraLockAt(
+		m_fCameraPosX+(sin(radX)*(-m_fCameraPosZ)),
+		m_fCameraPosY+(sin(radY)*(-m_fCameraPosZ)),
+		m_fCameraPosZ+(1.0f-cos(radX))*(-m_fCameraPosZ),
+		m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+}
+
+/*	↓移動するだけで全然駄目・・・
+//	カメラをX軸方向に回転
+void CMgl3DManager::SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ)
+{
+	D3DXMATRIX matX;
+	D3DXMATRIX matY;
+	D3DXMATRIX matZ;
+	D3DXMatrixRotationX(&matX, D3DXToRadian(fAngleX));
+	D3DXMatrixRotationY(&matY, D3DXToRadian(fAngleY));
+	D3DXMatrixRotationZ(&matZ, D3DXToRadian(fAngleZ));
+
+	D3DXMATRIX mat = m_matView * matX * matY * matZ;
+	/*D3DXMatrixMultiply(&mat, &m_matView, &matRotation);
+	D3DXMatrixMultiply(&mat, &m_matView, &matRotation);
+	D3DXMatrixMultiply(&mat, &m_matView, &matRotation);*
+
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &mat), D3D_OK,
+		"CMgl3DManager::SetCamera()  SetTransform()に失敗" );
+}
+*/

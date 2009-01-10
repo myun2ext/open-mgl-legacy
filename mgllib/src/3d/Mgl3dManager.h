@@ -25,6 +25,11 @@ protected:
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
 	D3DXMATRIX m_matView;
 
+	float m_fAspectRatio;
+	float m_fViewingAngle;
+	float m_fClipNear;
+	float m_fClipFar;
+
 	float m_fCameraPosX;
 	float m_fCameraPosY;
 	float m_fCameraPosZ;
@@ -36,7 +41,9 @@ protected:
 	float m_fCameraRotationMemY;
 	float m_fCameraRotationMemZ;
 
-	void SetCameraWorking(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
+	void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
+	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
+	void SetCameraPos(float x, float y, float z);
 
 public:
 
@@ -53,12 +60,16 @@ public:
 	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd );
 	void Release();
 
+	/////////////////////////////////////////////////////////////////
+
+	//	Projection
 	void SetupProjection( float fAspectRatio, float fViewingAngle=45.0f, float fClipNear=0.01f, float fClipFar=100.0f );
-
-	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
-	void SetCameraPos(float x, float y, float z);
+	
+	//	カメラ
 	void SetCameraViewTarget(float x, float y, float z);
-
+	void MoveCamera(float x, float y, float z);
+	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
+	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
 	void CameraRotation(int direction, float fAngle);
 };
 
