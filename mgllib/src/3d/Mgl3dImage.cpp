@@ -15,8 +15,8 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 	else
 		nBmpMax = m_imgInfo.Height;
 
-	float fBmpSrcX = m_imgInfo.Width / nBmpMax * fScaleX;
-	float fBmpSrcY = m_imgInfo.Height / nBmpMax * fScaleY;
+	float fBmpSrcX = (m_imgInfo.Width*1.0f) / nBmpMax * fScaleX;
+	float fBmpSrcY = (m_imgInfo.Height*1.0f) / nBmpMax * fScaleY;
 
 	//	2007/01/10  スケール取得
 	//	# テクスチャ領域は2の倍数になる。その内の0.?fがBMPの領域かを算出する
@@ -120,7 +120,6 @@ void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fTexScale
 	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &g_WorldFrame.mat);	// ワールドマトリックスセット
 
 	// 頂点バッファを使用せず直接データを渡して描画する
-	//d3d->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, &m_vertexs, sizeof(MGL_VERTEX));
 	m_myudg->DrawPrimitiveUpMyuVertexSquare( &m_vertexs );
 }
 
