@@ -35,12 +35,22 @@ void CMgl3dImage::GetBmpVertexs3D( MGL_SQUARE_VERTEXS *pMglSqVertexs, float fSca
 	//MglMoveVertexs( pMglSqVertexs, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ );
 }
 
-//	描画
-void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fScaleX, float fScaleY, D3DCOLOR color)
+//	頂点情報の設定
+void CMgl3dImage::SetupVertexes(float x, float y, float z, RECT* srcRect, float fTexScaleX, float fTexScaleY, D3DCOLOR color)
 {
+	GetBmpVertexs3D( &m_vertexs, fTexScaleX, fTexScaleY );
+	MglMoveVertexs( &m_vertexs, x, y, z );
+}
+
+//	描画
+void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fTexScaleX, float fTexScaleY, D3DCOLOR color)
+{
+	SetupVertexes(x,y,z,srcRect,fTexScaleX,fTexScaleY,color);
+
+	/*
 	//	頂点初期情報取得
-	MGL_SQUARE_VERTEXS vertexs;
 	GetBmpVertexs3D( &vertexs, fScaleX, fScaleY );
+	SetupVertexes( &vertexs, fScaleX, fScaleY );
 
 	//	x, yに移動
 	MglMoveVertexs( &vertexs, x, y );
@@ -50,7 +60,8 @@ void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fScaleX, 
 	vertexs.rt.color = color;
 	vertexs.lb.color = color;
 	vertexs.rb.color = color;
-	
+	*/
+
 	/*
 	vertexs.lt.x /= 100;
 	vertexs.rt.x /= 100;
@@ -68,7 +79,8 @@ void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fScaleX, 
 	SetD3dStageTexture();
 
 	// デバイスに使用する頂点フォーマットをセットする（光源無し、座標変換有り）
-	d3d->SetVertexShader(FVF_MYU_VERTEX);
+	//d3d->SetVertexShader(FVF_MYU_VERTEX);
+	m_myudg->SetupMyuVertex();
 	
 	// マトリックス生成
 	//g_WorldFrame.rotate.y += 0.01f;			// Ｙ軸回りに回転
@@ -76,7 +88,7 @@ void CMgl3dImage::Draw(float x, float y, float z, RECT* srcRect, float fScaleX, 
 	//g_pD3DDevice->SetTransform(D3DTS_WORLD, &g_WorldFrame.mat);	// ワールドマトリックスセット
 
 	// 頂点バッファを使用せず直接データを渡して描画する
-	d3d->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, &vertexs, sizeof(MGL_VERTEX));
+	d3d->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, &m_vertexs, sizeof(MGL_VERTEX));
 }
 
 

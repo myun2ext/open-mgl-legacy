@@ -86,9 +86,10 @@ typedef MGL_SQUARE_VERTEXS2 MGL_SQ_VERTEXS2;
 							  D3DCOLOR color=D3DCOLOR_WHITE, float z=0.0f );
 #endif
 
-DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount );
-inline void MglMoveVertexs( MGL_SQUARE_VERTEXS *pVertexs, float x, float y ){
-	MglMoveVertexs( (MGL_VERTEX*)pVertexs, x, y, 4 ); }
+//DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount );
+DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, float z, int vertexCount );
+inline void MglMoveVertexs( MGL_SQUARE_VERTEXS *pVertexs, float x, float y, float z=0 ){
+	MglMoveVertexs( (MGL_VERTEX*)pVertexs, x, y, z, 4 ); }
 
 #define MGL_VERTEX_SIZE		(sizeof(MYU_VERTEX))
 #define MGL_VERTEXES_SIZE		(sizeof(MYU_VERTEX)*4)

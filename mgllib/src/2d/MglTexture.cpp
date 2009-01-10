@@ -206,7 +206,7 @@ void CMglTexture::DrawTexture( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount, BOO
 
 	//	頂点補正
 	if ( bVertexRevise )
-		MglMoveVertexs( pMyuVertex, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ, 2+nPrimitiveCount );
+		MglMoveVertexs( pMyuVertex, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ, 2+nPrimitiveCount );
 
 	/*
 	//	テクスチャの設定

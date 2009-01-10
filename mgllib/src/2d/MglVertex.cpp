@@ -30,12 +30,23 @@
 		pVertex->y += y;
 	}
 }*/
-DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount )
+/*DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount )
 {
 	for( int i=0; i<4; i++ )
 	{
 		MGL_VERTEX* p = &pVertexs[i];
 		p->x += x;
 		p->y += y;
+	}
+}*/
+
+DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, float z, int vertexCount )
+{
+	for( int i=0; i<4; i++ )
+	{
+		MGL_VERTEX* p = &pVertexs[i];
+		p->x += x;
+		p->y += y;
+		p->z += z;
 	}
 }

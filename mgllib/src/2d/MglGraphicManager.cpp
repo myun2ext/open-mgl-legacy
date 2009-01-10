@@ -314,10 +314,8 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 	m_nTexMem = m_pD3dDev->GetAvailableTextureMem();
 	_MGL_DEBUGLOG( "AvailableTextureMemory = %u KB", (int)(m_nTexMem/1024) );
 
-
 	//	Vertexを設定
-	MyuAssert( this->m_pD3dDev->SetVertexShader( FVF_MYU_VERTEX ), D3D_OK,
-		"CMglGraphicManager::Init()  SetVertexShader()に失敗" );
+	SetupMyuVertex();
 
 	//	バックバッファの情報を取得
 	MyuAssert( GetBackBuffer()->GetDesc( &backBufferDesc ), D3D_OK,
@@ -335,6 +333,12 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 
 
 	_MGL_DEBUGLOG( "- CMglGraphicManager::InitEx()" );
+}
+
+//	Vertexを設定
+void CMglGraphicManager::SetupMyuVertex(){
+	MyuAssert( this->m_pD3dDev->SetVertexShader( FVF_MYU_VERTEX ), D3D_OK,
+		"CMglGraphicManager::Init()  SetVertexShader()に失敗" );
 }
 
 //	Direct3D の CreateDevice()を独自フラグにより呼び出す

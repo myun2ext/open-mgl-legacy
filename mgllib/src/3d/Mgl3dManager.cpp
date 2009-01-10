@@ -33,6 +33,9 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 
 	//	Projectionの設定
 	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());
+
+	//	とりあえずデフォルトなカメラを設定
+	SetCamera(1.0f,1.0f,1.0f,0,0,0);
 }
 
 //	Projectionの設定
@@ -48,7 +51,6 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 					640.0f / 480.0f,		// アスペクト比（縦、横比率）
 					clip_near,				// Near クリップ
 					clip_far);				// Far  クリップ*/
-
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &matPrj), D3D_OK,
 		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );
 
@@ -67,7 +69,8 @@ void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTarg
 					,&D3DXVECTOR3(fTargetX, fTargetY, fTargetZ)		// カメラの注目点
 					,&D3DXVECTOR3(0,1,0)		// 上の向き
 					);
-	m_pD3dDev->SetTransform(D3DTS_VIEW, &mView);
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &mView), D3D_OK,
+		"CMgl3DManager::SetCamera()  SetTransform()に失敗" );
 }
 /*
 //	カメラの注目点設定
