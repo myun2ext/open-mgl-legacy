@@ -192,6 +192,9 @@ public:
 	void SpriteEnd(){ if( m_pSprite != NULL ) m_pSprite->End(); }*/
 	void SpriteBegin();
 	void SpriteEnd();
+	void DrawPrimitiveUpMyuVertex( MGL_VERTEX *pMglVertexs, int nVertexCount, D3DPRIMITIVETYPE primitiveType=D3DPT_TRIANGLEFAN );
+	void DrawPrimitiveUpMyuVertexSquare(MGL_SQUARE_VERTEXS *pMglSqVertexs){
+		DrawPrimitiveUpMyuVertex( (MGL_VERTEX*)pMglSqVertexs, 2 ); }
 
 	//	シーン系メソッド
 	void UpdateScreen();

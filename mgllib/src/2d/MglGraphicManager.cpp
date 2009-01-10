@@ -714,6 +714,12 @@ void CMglGraphicManager::SpriteEnd()
 	}
 }
 
+void CMglGraphicManager::DrawPrimitiveUpMyuVertex(MGL_VERTEX *pMglVertexs, int nVertexCount, D3DPRIMITIVETYPE primitiveType)
+{
+	MyuAssert( m_pD3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, nVertexCount, pMglVertexs, sizeof(MGL_VERTEX)), D3D_OK,
+			"CMglGraphicManager::DrawPrimitiveUpMyuVertexSquare()  DrawPrimitiveUP()‚ÉŽ¸”s" );
+}
+														
 
 ////////////////////////////////////////////////////////////
 //
