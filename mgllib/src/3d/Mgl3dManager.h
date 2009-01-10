@@ -36,6 +36,8 @@ protected:
 	float m_fCameraRotationMemY;
 	float m_fCameraRotationMemZ;
 
+	void SetCameraWorking(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
+
 public:
 
 	//////////////////////////
