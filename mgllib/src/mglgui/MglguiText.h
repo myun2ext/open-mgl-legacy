@@ -28,6 +28,7 @@ private:
 	//	friend Access
 	void _Setup(CMglGraphicManager *pGrp){
 		m_pGrp = pGrp;
+		ReCreateFont();	//	デフォルトフォントの作成
 	}
 private:
 	//BOOL bBold, bItalic, bUnderLine, bStrikeOut;
