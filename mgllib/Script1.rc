@@ -28,8 +28,8 @@ LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,7,0,0
- PRODUCTVERSION 0,7,0,0
+ FILEVERSION 0,7,2,0
+ PRODUCTVERSION 0,7,2,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -47,14 +47,14 @@ BEGIN
             VALUE "Comments", "http://sourceforge.jp/projects/open-mgl/wiki/\0"
             VALUE "CompanyName", "SourceForge.jp Open-MGL Project\0"
             VALUE "FileDescription", "Open-MGL (Myu Game Library)\0"
-            VALUE "FileVersion", "08/12/01 v0.7.0\0"
+            VALUE "FileVersion", "09/01/11 v0.7.2\0"
             VALUE "InternalName", "mgllib\0"
             VALUE "LegalCopyright", "Copyright (C) 2007-2009\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "mgllib.dll\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "myu mgllib\0"
-            VALUE "ProductVersion", "08/12/01 v0.7.0\0"
+            VALUE "ProductVersion", "09/01/11 v0.7.2\0"
             VALUE "SpecialBuild", "\0"
         END
     END
