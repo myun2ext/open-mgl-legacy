@@ -3,7 +3,7 @@
 
 #include "MglguiScreen.h"
 #include "MglguiWindow.h"
-#include "MglguiImage.h"
+#include "MglAghImage.h"
 #include "MglguiText.h"
 
 #include "AugustWindow.h"
