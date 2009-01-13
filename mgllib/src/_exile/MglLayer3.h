@@ -22,7 +22,7 @@ class DLL_EXP CMglLayer3
 {
 private:
 	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
-	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_d3d;			//	D3DDeviceへのポインタ
 
 	typedef struct {
 		BOOL bShow;			//	表示するか

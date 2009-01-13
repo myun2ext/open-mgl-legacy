@@ -238,3 +238,20 @@ void CMgl3DManager::SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ)
 		"CMgl3DManager::SetCamera()  SetTransform()‚ÉŽ¸”s" );
 }
 */
+
+void CMgl3DManager::ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector)
+{
+	_D3DVIEWPORTx vp;
+	vp.X = 0;
+	vp.Y = 0;
+	vp.Width = m_myudg->GetWidth();
+	vp.Height = m_myudg->GetHeight();
+	vp.MinZ = 0.0f;
+	vp.MaxZ = 1.0f;
+	
+	D3DXVec3Project(pOut, pInVector, &vp,
+		CONST D3DXMATRIX *pProjection,
+		&m_matView,
+		CONST D3DXMATRIX *pWorld);
+}
+

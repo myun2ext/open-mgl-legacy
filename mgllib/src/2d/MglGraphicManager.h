@@ -153,16 +153,24 @@ public:
 	void Release();
 
 	//	•Ö—˜Œnƒƒ\ƒbƒh
-	IDirect3DSurface8* GetBackBuffer()
+	_IDirect3DSurfaceX* GetBackBuffer()
 	{
-		IDirect3DSurface8* p;
+		_IDirect3DSurfaceX* p;
+#if _MGL_DXVER == 9
+		MyuAssert( m_pD3dDev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &p ), D3D_OK,
+#else
 		MyuAssert( m_pD3dDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &p ), D3D_OK,
+#endif
 			"CMglGraphicManager::GetBackBuffer()  GetBackBuffer()‚É¸”s" );
 		return p;
 	}
 
 	void SetRenderBackBuffer() {
+#if _MGL_DXVER == 9
+		m_pD3dDev->SetRenderTarget( 0, GetBackBuffer() );
+#else
 		m_pD3dDev->SetRenderTarget( GetBackBuffer(), NULL );
+#endif
 	}
 
 	/*	—Ç‚­•ª‚©‚ç‚ñ‚Ì‚Å”p~A‚à‚Æ‚¢ SetAlphaMode() ‚É“‡

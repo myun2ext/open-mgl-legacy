@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////
 
 //void CMglD3dCapsDumper::DumpAdapterInfo( D3DCAPS8* pCapsHal, D3DCAPS8* pCapsRef )
-void CMglD3dCapsDumper::DumpAdapterInfo( IDirect3D8* m_pD3d, D3DCAPS8* pCaps )
+void CMglD3dCapsDumper::DumpAdapterInfo( _IDirect3DX* m_pD3d, _D3DCAPSx* pCaps )
 {
 	_MGL_DEBUGLOG( "+ CMglD3dCapsDumper::DumpAdapterInfo()" );
 
@@ -22,9 +22,13 @@ void CMglD3dCapsDumper::DumpAdapterInfo( IDirect3D8* m_pD3d, D3DCAPS8* pCaps )
 	fprintf( fp, "==== AdapterInfo =================================\n\n" );
 	for( int i=0; i<m_pD3d->GetAdapterCount(); i++ )
 	{
-		D3DADAPTER_IDENTIFIER8 adapterInfo;
+		_D3DADAPTER_IDENTIFIERx adapterInfo;
 		//m_pD3d->GetAdapterIdentifier( i, 0, &adapterInfo );
+#if _MGL_DXVER == 9
+		m_pD3d->GetAdapterIdentifier( i, 0, &adapterInfo );
+#else
 		m_pD3d->GetAdapterIdentifier( i, D3DENUM_NO_WHQL_LEVEL, &adapterInfo );
+#endif
 
 		fprintf( fp, "Description :              %s\n", adapterInfo.Description );
 		fprintf( fp, "Driver :                   %s\n", adapterInfo.Driver );
@@ -44,7 +48,7 @@ void CMglD3dCapsDumper::DumpAdapterInfo( IDirect3D8* m_pD3d, D3DCAPS8* pCaps )
 	_MGL_DEBUGLOG( "- CMglD3dCapsDumper::DumpAdapterInfo()" );
 }
 
-void CMglD3dCapsDumper::DumpCaps( FILE *fp, D3DCAPS8* caps )
+void CMglD3dCapsDumper::DumpCaps( FILE *fp, _D3DCAPSx* caps )
 {
 	fprintf( fp, "DeviceType :               %u\n", caps->DeviceType );
 	fprintf( fp, "AdapterOrdinal :           %u\n\n", caps->AdapterOrdinal );

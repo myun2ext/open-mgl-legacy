@@ -132,7 +132,7 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 		"CMglGraphicManager::Init()  REFデバイス情報の取得に失敗。" );
 	DumpAdapterInfo( &capsHal, &capsRef );
 	*/
-	D3DCAPS8 caps;
+	_D3DCAPSx caps;
 	_MGL_DEBUGLOG( "HALデバイスの取得..." );
 	if ( m_pD3d->GetDeviceCaps( nAdapterNo, D3DDEVTYPE_HAL, &caps ) != D3D_OK )
 	{
@@ -244,7 +244,11 @@ void CMglGraphicManager::Direct3DCreate()
 		return;
 
 	//	D3Dオブジェクトの生成
+#if _MGL_DXVER == 9
+	m_pD3d = Direct3DCreate9( D3D_SDK_VERSION );
+#else
 	m_pD3d = Direct3DCreate8( D3D_SDK_VERSION );
+#endif
 	if ( NULL == m_pD3d )
 		MyuThrow2( 0, MGLMSGNO_GRP_MANAGER_D3DCREATE_FAILED,
 			"CMglGraphicManager::Direct3DCreate()  Direct3DCreate8()に失敗。" );
@@ -663,6 +667,46 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	}
 	*/
 
+
+	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+	//	DirectX 9
+	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+#if _MGL_DXVER == 9
+	//	DirectX9の場合はこーんな感じらしい。
+
+	//	拡大・縮小
+	D3DXMATRIX matrix_s;
+	D3DXMatrixScaling(&matrix_s, fScaleX, fScaleY, 1);
+
+	//	角度
+	D3DXMATRIX matrix_r;
+	D3DXMatrixRotationZ(&matrix_r, D3DXToRadian(fAngle));
+
+	//	回転の中心
+	float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX * fScaleX;
+	float fCenterY = (pSrcRect->right - pSrcRect->left) * fRotationCenterY * fScaleY;
+	D3DXMATRIX matrix_t;
+	D3DXMatrixTranslation(&matrix_t, fCenterX, fCenterY, 0);
+
+	//	結合
+	D3DXMATRIX matrix1;
+	D3DXMATRIX matrix;
+	D3DXMatrixMultiply(&matrix1, &matrix_r, &matrix_t);
+	D3DXMatrixMultiply(&matrix, &matrix1, &matrix_s);
+
+	//	トランスフォームとして反映
+	MyuAssert( m_pSprite->SetTransform(&matrix), D3D_OK,
+		"CMglGraphicManager::SpriteDraw()  m_pSprite->SetTransform()に失敗" );
+
+	MyuAssert( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, 
+					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
+					 &D3DXVECTOR3(x, y, 0), color), D3D_OK,
+		"CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
+
+	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+	//	DirectX 8
+	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
+#else
 	//	x, yをD3DXVECTOR2構造体に格納
 	D3DXVECTOR2 vctPos;
 	vctPos.x = x;
@@ -697,13 +741,18 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	MyuAssert( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(),
 		pSrcRect, &vctScale, &vctRtCenter, fRad, &vctPos, color ), D3D_OK,
 		"CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
+#endif
 }
 
 //	スプライトのBegin()
 void CMglGraphicManager::SpriteBegin()
 {
 	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
+#if _MGL_DXVER == 9
+		MyuAssert( m_pSprite->Begin(D3DRS_ALPHABLENDENABLE), D3D_OK,
+#else
 		MyuAssert( m_pSprite->Begin(), D3D_OK,
+#endif
 			"CMglGraphicManager::SpriteBegin()  m_pSprite->Begin()に失敗" );
 		m_bSpriteBegun = TRUE;
 	}

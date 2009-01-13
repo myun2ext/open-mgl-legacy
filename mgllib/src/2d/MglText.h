@@ -26,7 +26,7 @@ class DLL_EXP CMglText : public CMyuReleaseBase
 private:
 	//	一応両方保持しとくげま
 	CMglGraphicManager* m_myudg;			//	DGクラスへのポインタを格納
-	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_d3d;			//	D3DDeviceへのポインタ
 
 	//	インターフェース
 	ID3DXFont *m_text;

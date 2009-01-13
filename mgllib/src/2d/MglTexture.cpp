@@ -300,7 +300,7 @@ void CMglTexture::Clear__( D3DCOLOR color )
 	if ( m_bRenderTarget == TRUE )
 	{
 		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
-		IDirect3DSurface8* bkupRender;
+		_MGL_IDirect3DSurface* bkupRender;
 		d3d->GetRenderTarget( &bkupRender );
 
 		SetRender();
@@ -338,7 +338,7 @@ void CMglTexture::Paint( RECT* pRect, D3DCOLOR color )
 	if ( m_bRenderTarget == TRUE )
 	{
 		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
-		IDirect3DSurface8* bkupRender;
+		_MGL_IDirect3DSurface* bkupRender;
 		d3d->GetRenderTarget( &bkupRender );
 
 		SetRender();

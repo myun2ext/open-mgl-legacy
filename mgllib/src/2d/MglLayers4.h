@@ -26,7 +26,7 @@ class DLL_EXP CMglLayers4
 private:
 	typedef CMglLayerBase4 layer_t;
 	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
-	IDirect3DDevice8* m_d3d;		//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_d3d;		//	D3DDeviceへのポインタ
 	CMglLayers4HitTest *m_pHitTestMap;
 
 	typedef struct {

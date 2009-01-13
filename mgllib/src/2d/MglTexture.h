@@ -214,6 +214,7 @@ public:
 	*/
 
 	void SetRender();
+	void SetRenderTarget(){ SetRender(); }
 	void Clear(){ Clear( m_colorKey & 0x00ffffff ); } // m_colorKeyが関連するのでデフォルト引数には出来ないのでれす
 	void Clear( D3DCOLOR color );
 	void Clear__( D3DCOLOR color );

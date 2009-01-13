@@ -7,12 +7,12 @@
 class CMglD3dCapsDumper
 {
 private:
-	void DumpCaps( FILE *fp, D3DCAPS8* pCaps );
+	void DumpCaps( FILE *fp, _D3DCAPSx* pCaps );
 	void DumpFlagItem( FILE *fp, DWORD dwValue, DWORD dwMask, const char* szName );
 
 public:
 	//void DumpAdapterInfo( D3DCAPS8* pCapsHal, D3DCAPS8* pCapsRef );
-	void DumpAdapterInfo( IDirect3D8* m_pD3d, D3DCAPS8* pCaps );
+	void DumpAdapterInfo( _IDirect3DX* m_pD3d, _D3DCAPSx* pCaps );
 
 };
 

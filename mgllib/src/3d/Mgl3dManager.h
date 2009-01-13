@@ -71,6 +71,8 @@ public:
 	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
 	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
 	void CameraRotation(int direction, float fAngle);
+
+	void ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector);
 };
 
 #endif//__Mgl3DManager_H__

@@ -37,7 +37,7 @@ protected:
 	//	保護メンバ変数
 	//BOOL m_bInit;
 	CMglGraphicManager* m_myudg;	//	CMglGraphicManagerへのポインタを格納
-	IDirect3DDevice8* d3d;			//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* d3d;			//	D3DDeviceへのポインタ
 	string m_strRootDir;
 
 	//	保護メソッド

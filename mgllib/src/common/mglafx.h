@@ -83,56 +83,69 @@ using namespace std;
 //	VCïWèÄÇæÇ∆DWORD_PTRñ≥Ç¢Ç≠ÇπÅ[ÅB(ÅLÑD`;)
 #include <dplay.h>	//	ÉRÉCÉcÇÃíÜÇ…Ç†ÇÈèLÇ¢ÇÃÇ≈à¯Ç¡í£Ç¡ÇƒÇ≠ÇÈ
 
-/*
-//	Direct3Dån
-#pragma comment(lib, "D3d8.lib")
-#pragma comment(lib, "D3dx8.lib")
-#include <D3d8.h>
-#include <D3dx8core.h>
-*/
+#ifndef _MGL_DXVER
+	#define _MGL_DXVER 9
+#endif
 
-//	Direct3Dån
-#ifdef _MGL_USE_DXVER9
+//	DirectX 9
+//#ifdef _MGL_USE_DXVER9
+#if _MGL_DXVER == 9
 	#pragma comment(lib, "D3d9.lib")
 	#pragma comment(lib, "D3dx9.lib")
 	#include <D3d9.h>
 	#include <D3dx9core.h>
 
-#elif _MGL_USE_DXVER10
+	#pragma comment(lib, "dinput8.lib")
+	#define DIRECTINPUT_VERSION		(0x0800)
+	#define _MGL_IDirectInput IDirectInput8
+	#define _MGL_IDirectInputDevice IDirectInputDevice8
+	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice8
+
+	typedef IDirect3D9 _MGL_IDirect3D;
+	typedef IDirect3DDevice9 _MGL_IDirect3DDevice;
+	typedef IDirect3DSurface9 _MGL_IDirect3DSurface;
+	typedef IDirect3DTexture9 _MGL_IDirect3DTexture;
+	typedef IDirect3D9 _IDirect3DX;
+	typedef IDirect3DDevice9 _IDirect3DDeviceX;
+	typedef IDirect3DSurface9 _IDirect3DSurfaceX;
+	typedef IDirect3DTexture9 _IDirect3DTextureX;
+	typedef D3DVIEWPORT9 _D3DVIEWPORTx;
+	typedef D3DCAPS9 _D3DCAPSx;
+	typedef D3DADAPTER_IDENTIFIER9 _D3DADAPTER_IDENTIFIERx;
+
+//	DirectX10
+//#elif _MGL_USE_DXVER10
+#elif _MGL_DXVER == 10
 	#pragma comment(lib, "D3d10.lib")
 	#pragma comment(lib, "D3dx10.lib")
 	#include <D3d10.h>
 	#include <D3dx10core.h>
 
-#else
-	#pragma comment(lib, "D3d8.lib")
-	#pragma comment(lib, "D3dx8.lib")
-	#include <D3d8.h>
-	#include <D3dx8core.h>
-#endif
-
-/*
-//	DirectInputån
-#pragma comment(lib, "dinput8.lib")
-#define DIRECTINPUT_VERSION		(0x0800)
-#include <dinput.h>
-*/
-//	DirectInputån
-#ifdef _MGL_USE_DXVER9
-	#pragma comment(lib, "dinput9.lib")
-	#define DIRECTINPUT_VERSION		(0x0900)
-	#define _MGL_IDirectInput IDirectInput9
-	#define _MGL_IDirectInputDevice IDirectInputDevice9
-	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice9
-
-#elif _MGL_USE_DXVER10
 	#pragma comment(lib, "dinput10.lib")
 	#define DIRECTINPUT_VERSION		(0x1000)
 	#define _MGL_IDirectInput IDirectInput10
 	#define _MGL_IDirectInputDevice IDirectInputDevice10
 	//#define IID_IDIRECT_INPUT	IID_IDirectInputDevice10
+
+	typedef IDirect3D10 _MGL_IDirect3D;
+	typedef IDirect3DDevice10 _MGL_IDirect3DDevice;
+	typedef IDirect3DSurface10 _MGL_IDirect3DSurface;
+	typedef IDirect3DTexture10 _MGL_IDirect3DTexture;
+	typedef IDirect3D10 _IDirect3DX;
+	typedef IDirect3DDevice10 _IDirect3DDeviceX;
+	typedef IDirect3DSurface10 _IDirect3DSurfaceX;
+	typedef IDirect3DTexture10 _IDirect3DTextureX;
+	typedef D3DVIEWPORT10 _D3DVIEWPORTx;
+	typedef D3DCAPS10 _D3DCAPSx;
+	typedef D3DADAPTER_IDENTIFIER10 _D3DADAPTER_IDENTIFIERx;
 	
+//	DirectX8
 #else
+	#pragma comment(lib, "D3d8.lib")
+	#pragma comment(lib, "D3dx8.lib")
+	#include <D3d8.h>
+	#include <D3dx8core.h>
+
 	#pragma comment(lib, "dinput8.lib")
 	#define DIRECTINPUT_VERSION		(0x0800)
 	#define _MGL_IDirectInput IDirectInput8
@@ -147,6 +160,13 @@ using namespace std;
 	typedef IDirect3DDevice8 _MGL_IDirect3DDevice;
 	typedef IDirect3DSurface8 _MGL_IDirect3DSurface;
 	typedef IDirect3DTexture8 _MGL_IDirect3DTexture;
+	typedef IDirect3D8 _IDirect3DX;
+	typedef IDirect3DDevice8 _IDirect3DDeviceX;
+	typedef IDirect3DSurface8 _IDirect3DSurfaceX;
+	typedef IDirect3DTexture8 _IDirect3DTextureX;
+	typedef D3DVIEWPORT8 _D3DVIEWPORTx;
+	typedef D3DCAPS8 _D3DCAPSx;
+	typedef D3DADAPTER_IDENTIFIER8 _D3DADAPTER_IDENTIFIERx;
 #endif
 
 #include <dinput.h>
@@ -181,9 +201,16 @@ using namespace std;
 #define SAFE_RELEASE(p)		{if( p != NULL ){ (p)->Release();	(p)=NULL; }}
 
 //	ÉIÉ}ÉPÅBêîäwÉ}ÉNÉç
-#define MGL_PI			(3.1415926)
+/*#define MGL_PI		(3.1415926)
 #define AngleToRad(V)	(V * MGL_PI / 180)
-#define RadToAngle(V)	(V * 180 / MGL_PI)
+#define RadToAngle(V)	(V * 180 / MGL_PI)*/
+#define MGL_PI			D3DX_PI
+#ifndef AngleToRad
+	#define AngleToRad(V)	D3DXToRadian(V)
+#endif
+#ifndef RadToAngle
+	#define RadToAngle(V)	D3DXToDegree(V)
+#endif
 
 #define HYPER_CLASS_TYPEDEF(FROM,TO)	class TO: public FROM{};
 
