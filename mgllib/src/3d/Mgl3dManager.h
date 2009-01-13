@@ -23,7 +23,9 @@ class DLL_EXP CMgl3DManager
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
+	D3DXMATRIX m_projection;
 	D3DXMATRIX m_matView;
+	D3DXMATRIX m_matWorld;
 
 	float m_fAspectRatio;
 	float m_fViewingAngle;

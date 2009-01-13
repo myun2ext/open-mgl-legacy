@@ -63,13 +63,13 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 //	Projectionの設定
 void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, float fClipNear, float fClipFar )
 {
-	D3DXMATRIX matPrj;
+	//D3DXMATRIX matPrj;
 #if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
 	D3DXMatrixPerspectiveFovLH(
 #else
 	D3DXMatrixPerspectiveFovRH(
 #endif	
-					&matPrj,
+					&m_projection,
 					D3DXToRadian(fViewingAngle),		// 視野角
 					fAspectRatio,		// アスペクト比（縦、横比率）
 					fClipNear,				// Near クリップ
@@ -78,7 +78,7 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 					640.0f / 480.0f,		// アスペクト比（縦、横比率）
 					clip_near,				// Near クリップ
 					clip_far);				// Far  クリップ*/
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &matPrj), D3D_OK,
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
 		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );
 
 	m_fAspectRatio = fAspectRatio;
@@ -249,9 +249,6 @@ void CMgl3DManager::ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *
 	vp.MinZ = 0.0f;
 	vp.MaxZ = 1.0f;
 	
-	D3DXVec3Project(pOut, pInVector, &vp,
-		CONST D3DXMATRIX *pProjection,
-		&m_matView,
-		CONST D3DXMATRIX *pWorld);
+	D3DXVec3Project(pOut, pInVector, &vp, &m_projection, &m_matView, &m_matWorld);
 }
 

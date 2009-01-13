@@ -271,7 +271,11 @@ void CMglTexture::SetRender()
 	CreateCheck();	//	Createチェック
 	LockedCheck();
 
+#if _MGL_DXVER == 9
+	MyuAssert( d3d->SetRenderTarget( 0, m_pSurface ), D3D_OK,
+#else
 	MyuAssert( d3d->SetRenderTarget( m_pSurface, NULL ), D3D_OK, //m_myudg->lpZbuffer
+#endif
 		"CMglTexture::SetRender()  SetRenderTarget()に失敗" );
 }
 
@@ -301,15 +305,22 @@ void CMglTexture::Clear__( D3DCOLOR color )
 	{
 		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
 		_MGL_IDirect3DSurface* bkupRender;
+#if _MGL_DXVER == 9
+		d3d->GetRenderTarget( 0, &bkupRender );
+#else
 		d3d->GetRenderTarget( &bkupRender );
-
+#endif
 		SetRender();
 		//d3d->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );	//	|D3DCLEAR_ZBUFFER
 		m_myudg->Clear( color );	//	|D3DCLEAR_ZBUFFER
 		//	D3DCOLOR_FULLALPHA
 
 		//	レンダーを元に戻す
+#if _MGL_DXVER == 9
+		MyuAssert( d3d->SetRenderTarget( 0, bkupRender ), D3D_OK,
+#else
 		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
+#endif
 			"CMglTexture::Clear()  レンダーを戻すのに失敗" );
 	}
 	else
@@ -339,14 +350,21 @@ void CMglTexture::Paint( RECT* pRect, D3DCOLOR color )
 	{
 		//	現在のレンダーを保持（勝手に書き換えちゃマズいからなｗ）
 		_MGL_IDirect3DSurface* bkupRender;
+#if _MGL_DXVER == 9
+		d3d->GetRenderTarget( 0, &bkupRender );
+#else
 		d3d->GetRenderTarget( &bkupRender );
-
+#endif
 		SetRender();
 		//d3d->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );	//	|D3DCLEAR_ZBUFFER
 		m_myudg->Paint( pRect, color );	//	|D3DCLEAR_ZBUFFER
 
 		//	レンダーを元に戻す
+#if _MGL_DXVER == 9
+		MyuAssert( d3d->SetRenderTarget( 0, bkupRender ), D3D_OK,
+#else
 		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
+#endif
 			"CMglTexture::Clear()  レンダーを戻すのに失敗" );
 	}
 	else
