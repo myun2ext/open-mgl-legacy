@@ -53,6 +53,7 @@ class DLL_EXP CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
+	_MGL_IDirect3DVertexBuffer *m_pVB; // 頂点バッファ
 
 	void SetD3dTexture(_MGL_IDirect3DTexture *pTexture){ SetD3dStageTexture(pTexture, 0); }
 	void SetD3dStageTexture(_MGL_IDirect3DTexture *pTexture, DWORD nStage);
@@ -62,6 +63,7 @@ public:
 	CMglVertexManagerXT(){
 		m_myudg = NULL;
 		d3d = NULL;
+		m_pVB = NULL;
 	}
 	virtual ~CMglVertexManagerXT(){ Release(); }
 
@@ -71,12 +73,13 @@ public:
 		d3d = m_myudg->GetD3dDevPtr();
 	}
 	void Release(){
+		SAFE_RELEASE(m_pVB);
 	}
 
 	////////////////////////////////////////////////////////
 
-	void CopyToFastMem(){ CompileToFastMem(); }
-	void CompileToFastMem();
+	void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
+	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0);
 
 	void Draw( D3DPRIMITIVETYPE primitiveType );
 	void Draw( D3DPRIMITIVETYPE primitiveType, _MGL_IDirect3DTexture *pTexture, DWORD nTextureStage=0){

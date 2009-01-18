@@ -18,26 +18,28 @@ CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
 {
 	MyuAssert( d3d->DrawPrimitiveUP(
 		primitiveType, m_vertexes.size(), &m_vertexes[0], sizeof(_VERTEX) ), D3D_OK,
-		"CMglVertexManagerXT::Draw()  DrawPrimitiveUP()‚ÉŽ¸”s" );
+		"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()‚ÉŽ¸”s" );
 }
 
 //	’¸“_ƒoƒbƒtƒ@•ûŽ®‚É•ÏŠ·‚·‚é
-CMglVertexManagerXT_CPP(void)::CompileToFastMem()
+CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 {
-	/*
-	hr = d3d->CreateVertexBuffer( m_vertexes.size()*sizeof(_VERTEX),0,
-					D3DFVF_CUSTOMVERTEX, D3DPOOL_DEFAULT, &pVB);
-    if(FAILED(hr)) return E_FAIL;
+	SAFE_RELEASE(m_pVB);
+
+	UINT nSize = m_vertexes.size()*sizeof(_VERTEX);
+
+	MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB), D3D_OK,
+		"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()‚ÉŽ¸”s" );
 
     VOID* pVertices;
-	hr = pVB->Lock( 0, sizeof(vertices), (BYTE**)&pVertices, 0);
-    if(FAILED(hr)) return E_FAIL;
+	MyuAssert( m_pVB->Lock( 0, nSize, (BYTE**)&pVertices, 0), D3D_OK,
+		"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()‚ÉŽ¸”s" );
+
     memcpy( pVertices, vertices, sizeof(vertices) );
     pVB->Unlock();
 
 	lpD3DDEV->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	lpD3DDEV->SetRenderState(D3DRS_LIGHTING, FALSE);
-	*/
 }
 
 
