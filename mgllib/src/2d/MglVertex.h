@@ -118,11 +118,14 @@ inline void MglVertexsFillColor( MGL_SQUARE_VERTEXS *pVertexs, D3DCOLOR color ){
 
 
 //	ƒNƒ‰ƒXéŒ¾
+//class CMglVertexManager
+template <typename _VERTEX = MYU_VERTEX>
 class CMglVertexManager
 {
 public:
 };
 
-typedef CMglVertexManager CMglVertex;
+//typedef CMglVertexManager CMglVertex;
+template <typename _VERTEX>class CMglVertex{ typedef CMglVertexManager<_VERTEX> type; };
 
 #endif//__MglVertex_H__
