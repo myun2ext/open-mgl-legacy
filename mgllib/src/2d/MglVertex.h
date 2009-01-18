@@ -116,4 +116,13 @@ inline void MglMoveVertexs( MGL_SQUARE_VERTEXS *pVertexs, float x, float y, floa
 inline void MglVertexsFillColor( MGL_SQUARE_VERTEXS *pVertexs, D3DCOLOR color ){
 	MglVertexsFillColor( (MGL_VERTEX*)pVertexs, color, 4 ); }
 
+
+//	ÉNÉâÉXêÈåæ
+class CMglVertexManager
+{
+public:
+};
+
+typedef CMglVertexManager CMglVertex;
+
 #endif//__MglVertex_H__
