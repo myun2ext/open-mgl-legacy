@@ -17,29 +17,37 @@ CMglVertexManagerXT_CPP(void)::SetD3dStageTexture(_MGL_IDirect3DTexture *pTextur
 CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
 {
 	MyuAssert( d3d->DrawPrimitiveUP(
-		primitiveType, m_vertexes.size(), &m_vertexes[0], sizeof(_VERTEX) ), D3D_OK,
+		primitiveType, m_vertexes.size(), GetVertexPtr(), sizeof(_VERTEX) ), D3D_OK,
 		"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()に失敗" );
 }
 
 //	頂点バッファ方式に変換する
 CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 {
+	/*
+	//	前のが残ってるとアレなのでRelease -> 同じの使うので要らないんだよ!?
 	SAFE_RELEASE(m_pVB);
-
+	*/
 	UINT nSize = m_vertexes.size()*sizeof(_VERTEX);
 
-	MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB), D3D_OK,
-		"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()に失敗" );
+	//	2009/01/18 前のが残ってたらそのまま流用するんだわさ。
+	if ( m_pVB == NULL ){
+		//	頂点バッファの作成
+		MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB), D3D_OK,
+			"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()に失敗" );
+	}
 
-    VOID* pVertices;
-	MyuAssert( m_pVB->Lock( 0, nSize, (BYTE**)&pVertices, 0), D3D_OK,
-		"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()に失敗" );
+	//	ロック
+    BYTE* pLocked;
+	MyuAssert( m_pVB->Lock( 0, nSize, (BYTE**)&pLocked, 0), D3D_OK,
+		"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Lock()に失敗" );
 
-    memcpy( pVertices, vertices, sizeof(vertices) );
-    pVB->Unlock();
+	//	コピー
+    memcpy( pLocked, GetVertexPtr(), nSize );
 
-	lpD3DDEV->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	lpD3DDEV->SetRenderState(D3DRS_LIGHTING, FALSE);
+	//	アンロック
+    MyuAssert( m_pVB->Unlock(), D3D_OK,
+		"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Unlock()に失敗" );
 }
 
 

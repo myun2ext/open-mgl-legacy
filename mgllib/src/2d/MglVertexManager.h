@@ -43,6 +43,8 @@ public:
 		return m_vertexes[i];
 	}
 	void Set(int i, _VERTEX& vertex){ m_vertexes[i] = vertex; }
+
+	_VERTEX* GetVertexPtr(){ return &m_vertexes[0]; }
 };
 
 /////////////////////////////////////////////////////////
