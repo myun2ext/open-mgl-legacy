@@ -172,6 +172,13 @@ public:
 		for(int i=0; m_vertexes.size(); i++ )
 			m_vertexes[i].color = color;
 	}
+
+	_VERTEX& Get(int i){
+		if ( i >= m_vertexes.size() )
+			MyuThrow( 324432, "CMglVertexManagerT()::Get()  インデックスが範囲外です。" );
+		return m_vertexes[i];
+	}
+	void Set(int i, _VERTEX& vertex){ m_vertexes[i] = vertex; }
 };
 
 //typedef CMglVertexManager CMglVertex;
