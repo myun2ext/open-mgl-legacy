@@ -142,15 +142,15 @@ inline void MglVertexsFillColor( MGL_SQUARE_VERTEXS *pVertexs, D3DCOLOR color ){
 //	クラス宣言
 //class CMglVertexManager
 template <typename _VERTEX = MYUX_VERTEX>
-class CMglVertexManager
+class CMglVertexManagerT
 {
 protected:
 	std::vector<_VERTEX> m_vertexes;
 	DWORD m_dwFVF;
 public:
 	//	コンストラクタ・デストラクタ
-	CMglVertexManager(){ m_dwFVF = _VERTEX::GetFVF() }
-	CMglVertexManager(DWORD dwFvf){ m_dwFVF = dwFvf; }
+	CMglVertexManagerT(){ m_dwFVF = _VERTEX::GetFVF(); }
+	CMglVertexManagerT(DWORD dwFvf){ m_dwFVF = dwFvf; }
 	//CMglVertexManager(){}
 
 	void Create(int nVertexCount){
@@ -167,13 +167,16 @@ public:
 		v.color = color;
 		AddVertex(v);
 	}
+	void FillColor(D3DCOLOR color){ FillVertexColor(color); }
+	void FillVertexColor(D3DCOLOR color){
+		for(int i=0; m_vertexes.size(); i++ )
+			m_vertexes[i].color = color;
+	}
 };
 
 //typedef CMglVertexManager CMglVertex;
-template <typename _VERTEX>class CMglVertex{ typedef CMglVertexManager<_VERTEX> type; };
-
-namespace ____test_____ {
-	class _CMglVertexManager_Test : public CMglVertexManager<> {};
-}
+template <typename _VERTEX>class CMglVertexT{ typedef CMglVertexManagerT<_VERTEX> type; };
+template <typename _VERTEX>class CMglVertexesT{ typedef CMglVertexManagerT<_VERTEX> type; };
+typedef CMglVertexManagerT<> CMglVertex, CMglVertexes, CMglVertexManager;
 
 #endif//__MglVertex_H__

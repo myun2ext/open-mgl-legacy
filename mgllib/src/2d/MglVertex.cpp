@@ -66,3 +66,6 @@ DLL_EXP void MglVertexsFillColor( MGL_VERTEX *pVertexs, D3DCOLOR color, int vert
 	}
 }
 
+
+
+CMglVertexManager g__CMglVertexManager_test;
