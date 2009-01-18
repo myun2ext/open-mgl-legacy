@@ -13,14 +13,6 @@ CMglVertexManagerXT_CPP(void)::SetD3dStageTexture(_MGL_IDirect3DTexture *pTextur
 		"CMglVertexManagerXT::SetD3dStageTexture()  d3d->SetTexture()‚ÉŽ¸”s" );
 }
 
-//	•`‰æ
-CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
-{
-	MyuAssert( d3d->DrawPrimitiveUP(
-		primitiveType, m_vertexes.size(), GetVertexPtr(), sizeof(_VERTEX) ), D3D_OK,
-		"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()‚ÉŽ¸”s" );
-}
-
 //	’¸“_ƒoƒbƒtƒ@•ûŽ®‚É•ÏŠ·‚·‚é
 CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 {
@@ -50,6 +42,31 @@ CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 		"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Unlock()‚ÉŽ¸”s" );
 }
 
+
+//	•`‰æ
+CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
+{
+	if ( m_pVP == NULL )
+	{
+		//	’¸“_ƒoƒbƒtƒ@‚ðŽg‚í‚È‚¢•ûŽ®
+		MyuAssert( d3d->DrawPrimitiveUP(
+			primitiveType, m_vertexes.size(), GetVertexPtr(), sizeof(_VERTEX) ), D3D_OK,
+			"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()‚ÉŽ¸”s" );
+	}
+	else
+	{
+		//	’¸“_ƒoƒbƒtƒ@‚ðŽg‚¤•ûŽ®
+
+		//	Ý’è‚·‚é‚Å‚·
+		MyuAssert( d3d->SetStreamSource( 0, m_pVB, sizeof(_VERTEX) ), D3D_OK,
+			"CMglVertexManagerXT::Draw()  d3d->SetStreamSource()‚ÉŽ¸”s" );
+		MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
+			"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()‚ÉŽ¸”s" );
+
+		MyuAssert( d3d->DrawPrimitive( primitiveType, 0, m_vertexes.size() ), D3D_OK,
+			"CMglVertexManagerXT::Draw()  d3d->DrawPrimitive()‚ÉŽ¸”s" );
+	}
+}
 
 ////////////////////////////////////////////////
 //
