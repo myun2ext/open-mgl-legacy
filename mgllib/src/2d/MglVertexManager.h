@@ -54,6 +54,9 @@ protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
 
+	void SetD3dTexture(){ SetD3dStageTexture(0); }
+	void SetD3dStageTexture(DWORD nStage);
+
 public:
 	//	コンストラクタ・デストラクタ
 	CMglVertexManagerXT(){
@@ -68,8 +71,10 @@ public:
 		d3d = m_myudg->GetD3dDevPtr();
 	}
 	void Release(){
-
 	}
+
+	////////////////////////////////////////////////////////
+
 
 };
 
