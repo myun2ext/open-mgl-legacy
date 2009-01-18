@@ -75,6 +75,9 @@ public:
 
 	////////////////////////////////////////////////////////
 
+	void CopyToFastMem(){ CompileToFastMem(); }
+	void CompileToFastMem();
+
 	void Draw( D3DPRIMITIVETYPE primitiveType );
 	void Draw( D3DPRIMITIVETYPE primitiveType, _MGL_IDirect3DTexture *pTexture, DWORD nTextureStage=0){
 		SetD3dStageTexture(pTexture, nTextureStage);
@@ -84,8 +87,8 @@ public:
 
 
 //typedef CMglVertexManager CMglVertex;
-template <typename _VERTEX>class CMglVertexT{ typedef CMglVertexManagerT<_VERTEX> type; };
-template <typename _VERTEX>class CMglVertexesT{ typedef CMglVertexManagerT<_VERTEX> type; };
+template <typename _VERTEX> class CMglVertexT{ typedef CMglVertexManagerT<_VERTEX> type; };
+template <typename _VERTEX> class CMglVertexesT{ typedef CMglVertexManagerT<_VERTEX> type; };
 typedef CMglVertexManagerT<> CMglVertex, CMglVertexes, CMglVertexManager;
 
 #endif//__MglVertexManager_H__
