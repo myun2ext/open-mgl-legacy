@@ -181,6 +181,35 @@ public:
 	void Set(int i, _VERTEX& vertex){ m_vertexes[i] = vertex; }
 };
 
+/////////////////////////////////////////////////////////
+
+template <typename _VERTEX = MYUX_VERTEX>
+class CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
+{
+protected:
+	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
+	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
+
+public:
+	//	コンストラクタ・デストラクタ
+	CMglVertexManagerXT(){
+		m_myudg = NULL;
+		d3d = NULL;
+	}
+	virtual ~CMglVertexManagerXT(){ Release(); }
+
+	//	初期化と開放
+	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd ){
+		m_myudg = in_myudg;
+		d3d = m_myudg->GetD3dDevPtr();
+	}
+	void Release(){
+
+	}
+
+};
+
+
 //typedef CMglVertexManager CMglVertex;
 template <typename _VERTEX>class CMglVertexT{ typedef CMglVertexManagerT<_VERTEX> type; };
 template <typename _VERTEX>class CMglVertexesT{ typedef CMglVertexManagerT<_VERTEX> type; };
