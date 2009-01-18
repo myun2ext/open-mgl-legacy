@@ -57,6 +57,8 @@ CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
 	{
 		//	頂点バッファを使う方式
 
+		//	TODO: CompileToFastMem()しないと駄目な気がする（pool, dwUsage覚えとかないとね・・・）
+
 		//	設定するです
 		MyuAssert( d3d->SetStreamSource( 0, m_pVB, sizeof(_VERTEX) ), D3D_OK,
 			"CMglVertexManagerXT::Draw()  d3d->SetStreamSource()に失敗" );

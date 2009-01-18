@@ -177,7 +177,10 @@ public:
 	void SetAlphaBlendSetting( DWORD alphaOp=D3DTOP_BLENDCURRENTALPHA );
 	void EnabledAlphaBlend(); */
 	void SetAlphaMode( DWORD dwAlphaOption=MGL_ALPHA_OPT_DEFAULT );
-	void SetupMyuVertex();
+	void SetFVF(DWORD dwFvf);
+	void SetupFVF(DWORD dwFvf){ SetFVF(dwFvf); }
+	void SetFvfMyuVertex(){ SetFVF(FVF_MYU_VERTEX); }
+	void SetupMyuVertex(){ SetFVF(FVF_MYU_VERTEX); }
 
 	void Clear( D3DCOLOR color=D3DCOLOR_BLACK );
 	//void Clear( D3DCOLOR color=D3DCOLOR_NABLACK ); // 2007/02/11 NAだとマズくない…？

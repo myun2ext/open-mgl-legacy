@@ -344,9 +344,9 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 }
 
 //	Vertex‚ğİ’è
-void CMglGraphicManager::SetupMyuVertex(){
-	MyuAssert( this->m_pD3dDev->SetVertexShader( FVF_MYU_VERTEX ), D3D_OK,
-		"CMglGraphicManager::Init()  SetVertexShader()‚É¸”s" );
+void CMglGraphicManager::SetFVF(DWORD dwFvf){
+	MyuAssert( this->m_pD3dDev->SetVertexShader( dwFvf ), D3D_OK,
+		"CMglGraphicManager::SetFVF()  SetVertexShader()‚É¸”s" );
 }
 
 //	Direct3D ‚Ì CreateDevice()‚ğ“Æ©ƒtƒ‰ƒO‚É‚æ‚èŒÄ‚Ño‚·
