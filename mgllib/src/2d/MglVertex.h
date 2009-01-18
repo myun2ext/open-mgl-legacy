@@ -25,6 +25,28 @@ typedef struct
 }MYU_VERTEX;
 typedef MYU_VERTEX	MGL_VERTEX;
 
+//////////////////////////////////////////////////////
+
+class CMglVertexBase {
+public:
+	virtual DWORD GetFVF() = 0;
+};
+
+typedef class CMyuVertex : public MGL_VERTEX, CMglVertexBase {
+public:
+	CMyuVertex(){
+		x = y = z = 0.0f;
+#ifdef _MGLVERTEX_USE_RHW
+		float = 1.0f;
+#endif
+		color = 0;
+		specular = 0;
+		tu = tv = 0.0f;
+	}
+
+	static DWORD GetFVF(){ return FVF_MYU_VERTEX; }
+} MGLX_VERTEX, MYUX_VERTEX;
+
 /*
 //+++++++++++++++++++++++++++++++++++++++++++++
 //	頂点構造体2 (2009/01/10
@@ -119,13 +141,39 @@ inline void MglVertexsFillColor( MGL_SQUARE_VERTEXS *pVertexs, D3DCOLOR color ){
 
 //	クラス宣言
 //class CMglVertexManager
-template <typename _VERTEX = MYU_VERTEX>
+template <typename _VERTEX = MYUX_VERTEX>
 class CMglVertexManager
 {
+protected:
+	std::vector<_VERTEX> m_vertexes;
+	DWORD m_dwFVF;
 public:
+	//	コンストラクタ・デストラクタ
+	CMglVertexManager(){ m_dwFVF = _VERTEX::GetFVF() }
+	CMglVertexManager(DWORD dwFvf){ m_dwFVF = dwFvf; }
+	//CMglVertexManager(){}
+
+	void Create(int nVertexCount){
+		m_vertexes.clear();
+		m_vertexes.resize(nVertexCount);
+	}
+
+	void AddVertex(_VERTEX &vertex){ m_vertexes.push_back(vertex); }
+	void AddPoint(float x, float y, float z, D3DCOLOR color=0 ){
+		_VERTEX v;
+		v.x = x;
+		v.y = y;
+		v.z = z;
+		v.color = color;
+		AddVertex(v);
+	}
 };
 
 //typedef CMglVertexManager CMglVertex;
 template <typename _VERTEX>class CMglVertex{ typedef CMglVertexManager<_VERTEX> type; };
+
+namespace ____test_____ {
+	class _CMglVertexManager_Test : public CMglVertexManager<> {};
+}
 
 #endif//__MglVertex_H__
