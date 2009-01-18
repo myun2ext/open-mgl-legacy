@@ -48,14 +48,14 @@ public:
 /////////////////////////////////////////////////////////
 
 template <typename _VERTEX = MYUX_VERTEX>
-class CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
+class DLL_EXP CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
 
-	void SetD3dTexture(){ SetD3dStageTexture(0); }
-	void SetD3dStageTexture(DWORD nStage);
+	void SetD3dTexture(_MGL_IDirect3DTexture *pTexture){ SetD3dStageTexture(pTexture, 0); }
+	void SetD3dStageTexture(_MGL_IDirect3DTexture *pTexture, DWORD nStage);
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -75,7 +75,11 @@ public:
 
 	////////////////////////////////////////////////////////
 
-
+	void Draw( D3DPRIMITIVETYPE primitiveType );
+	void Draw( D3DPRIMITIVETYPE primitiveType, _MGL_IDirect3DTexture *pTexture, DWORD nTextureStage=0){
+		SetD3dStageTexture(pTexture, nTextureStage);
+		Draw(primitiveType);
+	}
 };
 
 
