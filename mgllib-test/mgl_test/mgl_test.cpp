@@ -140,7 +140,8 @@ void Render(LPDIRECT3DDEVICE8 lpD3DDEV)
 	float time = (float)timeGetTime();
 	//TODO: D3DXMatrixRotationY(&mRotY, time/600.0f);
 	//D3DXMatrixRotationY(&mRotY, 600.0f);
-	D3DXMatrixRotationY(&mRotY, 60.0f);
+	//D3DXMatrixRotationY(&mRotY, 60.0f);
+	D3DXMatrixRotationY(&mRotY, 0.0f);
 //	D3DXMatrixRotationX(&mRotX, time/300.0f);
 	D3DXMatrixRotationX(&mRotX, 0.0f);
 	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
@@ -254,7 +255,7 @@ public:
 
 		//////////////////////////////
 
-		//InitRender(grp.GetD3dDevPtr());
+		InitRender(grp.GetD3dDevPtr());
 		//InitRender2(grp.GetD3dDevPtr());
 	}
 	/*bool DoFrame(){
@@ -280,6 +281,8 @@ public:
 		//grp.p3d->SetCamera( 0, 0.0f, -3.0f+(i/100.0f),    0,0,0 );
 		/*grp.p3d->SetCamera( 0-(i/100.0f),2.0f,2.0f-(i/100.0f),
 			0,0,0 );*/
+
+		grp.p3d->ReTransform();
 
 
 		g_pD3DDevice = grp.GetD3dDevPtr();
