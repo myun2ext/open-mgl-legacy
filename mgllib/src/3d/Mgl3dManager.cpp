@@ -58,6 +58,15 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 
 	//	とりあえずデフォルトなカメラを設定
 	SetCamera(0,0,-5.0f, 0,0,0);
+
+	//	ワールド設定
+    D3DXMATRIX mWorld, mRotX, mRotY, mTrans;
+	D3DXMatrixRotationY(&mRotY, 0.0f);
+	D3DXMatrixRotationX(&mRotX, 0.0f);
+	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
+	mWorld = mRotX * mRotY * mTrans;
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &mWorld), D3D_OK,
+		"CMgl3DManager::Init()  SetTransform(D3DTS_WORLD)に失敗" );
 }
 
 //	Projectionの設定
@@ -217,6 +226,30 @@ void CMgl3DManager::SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ)
 		m_fCameraPosZ+(1.0f-cos(radX))*(-m_fCameraPosZ),
 		m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
 }
+
+void CMgl3DManager::ReTransform()
+{
+	//	ワールド設定
+    D3DXMATRIX mWorld, mRotX, mRotY, mTrans;
+	D3DXMatrixRotationY(&mRotY, 0.0f);
+	D3DXMatrixRotationX(&mRotX, 0.0f);
+	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
+	mWorld = mRotX * mRotY * mTrans;
+
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &mWorld), D3D_OK,
+		"CMgl3DManager::ReTransform()  SetTransform(D3DTS_WORLD)に失敗" );
+
+	//	View（カメラ）
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
+		"CMgl3DManager::ReTransform()  SetTransform(D3DTS_VIEW)に失敗" );
+
+	//	プロジェクション
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
+		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////
 
 /*	↓移動するだけで全然駄目・・・
 //	カメラをX軸方向に回転

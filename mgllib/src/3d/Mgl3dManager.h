@@ -64,6 +64,8 @@ public:
 
 	/////////////////////////////////////////////////////////////////
 
+	void ReTransform();
+
 	//	Projection
 	void SetupProjection( float fAspectRatio, float fViewingAngle=45.0f, float fClipNear=0.01f, float fClipFar=100.0f );
 	
