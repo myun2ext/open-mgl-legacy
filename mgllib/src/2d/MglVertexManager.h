@@ -81,7 +81,33 @@ public:
 	////////////////////////////////////////////////////////
 
 	void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
-	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0);
+	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0)
+	{
+		/*
+		//	前のが残ってるとアレなのでRelease -> 同じの使うので要らないんだよ!?
+		SAFE_RELEASE(m_pVB);
+		*/
+		UINT nSize = m_vertexes.size()*sizeof(_VERTEX);
+
+		//	2009/01/18 前のが残ってたらそのまま流用するんだわさ。
+		if ( m_pVB == NULL ){
+			//	頂点バッファの作成
+			MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB), D3D_OK,
+				"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()に失敗" );
+		}
+
+		//	ロック
+		BYTE* pLocked;
+		MyuAssert( m_pVB->Lock( 0, nSize, (BYTE**)&pLocked, 0), D3D_OK,
+			"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Lock()に失敗" );
+
+		//	コピー
+		memcpy( pLocked, GetVertexPtr(), nSize );
+
+		//	アンロック
+		MyuAssert( m_pVB->Unlock(), D3D_OK,
+			"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Unlock()に失敗" );
+	}
 
 	//	描画
 	void Draw( D3DPRIMITIVETYPE primitiveType )

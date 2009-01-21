@@ -13,14 +13,14 @@ CMglVertexManagerXT_CPP(void)::SetD3dStageTexture(_MGL_IDirect3DTexture *pTextur
 	MyuAssert( d3d->SetTexture(nStage, pTexture), D3D_OK,
 		"CMglVertexManagerXT::SetD3dStageTexture()  d3d->SetTexture()に失敗" );
 }
-
+/*
 //	頂点バッファ方式に変換する
 CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 {
 	/*
 	//	前のが残ってるとアレなのでRelease -> 同じの使うので要らないんだよ!?
 	SAFE_RELEASE(m_pVB);
-	*/
+	*//*
 	UINT nSize = m_vertexes.size()*sizeof(_VERTEX);
 
 	//	2009/01/18 前のが残ってたらそのまま流用するんだわさ。
@@ -42,7 +42,7 @@ CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
     MyuAssert( m_pVB->Unlock(), D3D_OK,
 		"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Unlock()に失敗" );
 }
-
+*/
 
 /*
 //	描画
