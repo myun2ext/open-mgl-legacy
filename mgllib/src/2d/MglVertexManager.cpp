@@ -2,8 +2,9 @@
 #include "MglVertexManager.h"
 
 //	マクロ化
-#define CMglVertexManagerXT_CPP(_RETTYPE) template <typename _VERTEX> _RETTYPE CMglVertexManagerXT<_VERTEX>
+#define CMglVertexManagerXT_CPP(_RETTYPE)	template <typename _VERTEX> _RETTYPE CMglVertexManagerXT<_VERTEX>
 
+//template class DLL_EXP CMglVertexManagerXT<_VERTEX>;
 
 //	テクスチャの設定
 CMglVertexManagerXT_CPP(void)::SetD3dStageTexture(_MGL_IDirect3DTexture *pTexture, DWORD nStage)
@@ -43,6 +44,7 @@ CMglVertexManagerXT_CPP(void)::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 }
 
 
+/*
 //	描画
 CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
 {
@@ -69,6 +71,7 @@ CMglVertexManagerXT_CPP(void)::Draw( D3DPRIMITIVETYPE primitiveType )
 			"CMglVertexManagerXT::Draw()  d3d->DrawPrimitive()に失敗" );
 	}
 }
+*/
 
 ////////////////////////////////////////////////
 //

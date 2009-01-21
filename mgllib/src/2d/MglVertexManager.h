@@ -50,7 +50,7 @@ public:
 /////////////////////////////////////////////////////////
 
 template <typename _VERTEX = MYUX_VERTEX>
-class DLL_EXP CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
+class /*DLL_EXP*/ CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
@@ -70,7 +70,7 @@ public:
 	virtual ~CMglVertexManagerXT(){ Release(); }
 
 	//	初期化と開放
-	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd ){
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
 		d3d = m_myudg->GetD3dDevPtr();
 	}
@@ -83,7 +83,32 @@ public:
 	void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
 	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0);
 
-	void Draw( D3DPRIMITIVETYPE primitiveType );
+	//	描画
+	void Draw( D3DPRIMITIVETYPE primitiveType )
+	{
+		if ( m_pVB == NULL )
+		{
+			//	頂点バッファを使わない方式
+			MyuAssert( d3d->DrawPrimitiveUP(
+				primitiveType, m_vertexes.size(), GetVertexPtr(), sizeof(_VERTEX) ), D3D_OK,
+				"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()に失敗" );
+		}
+		else
+		{
+			//	頂点バッファを使う方式
+
+			//	TODO: CompileToFastMem()しないと駄目な気がする（pool, dwUsage覚えとかないとね・・・）
+
+			//	設定するです
+			MyuAssert( d3d->SetStreamSource( 0, m_pVB, sizeof(_VERTEX) ), D3D_OK,
+				"CMglVertexManagerXT::Draw()  d3d->SetStreamSource()に失敗" );
+			MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
+				"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()に失敗" );
+
+			MyuAssert( d3d->DrawPrimitive( primitiveType, 0, m_vertexes.size() ), D3D_OK,
+				"CMglVertexManagerXT::Draw()  d3d->DrawPrimitive()に失敗" );
+		}
+	}
 	void Draw( D3DPRIMITIVETYPE primitiveType, _MGL_IDirect3DTexture *pTexture, DWORD nTextureStage=0){
 		SetD3dStageTexture(pTexture, nTextureStage);
 		Draw(primitiveType);

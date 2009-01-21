@@ -795,3 +795,9 @@ CMglGraphicManager* GetDefaultGd()
 	return g_pDefaultGd;
 }
 
+BOOL CheckDefaultGd()
+{
+	if ( g_pDefaultGd == NULL )
+		return FALSE;
+	return TRUE;
+}

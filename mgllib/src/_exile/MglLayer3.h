@@ -85,7 +85,7 @@ public:
 	virtual ~CMglLayer3();
 
 	//	‰Šú‰»
-	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd ){
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
 		m_d3d = m_myudg->GetD3dDevPtr();
 	}

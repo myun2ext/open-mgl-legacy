@@ -98,7 +98,7 @@ public:
 	virtual ~CMglLayers4();
 
 	//	‰Šú‰»
-	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd ){
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
 		m_d3d = m_myudg->GetD3dDevPtr();
 		m_pHitTestMap = NULL;
@@ -340,10 +340,10 @@ private:
 	CMglGraphicManager* m_myudg;	//	CMglGraphicManager‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ðŠi”[
 	D3DCOLOR* m_pHistTestMap;
 public:
-	CMglLayers4HitTest(CMglGraphicManager* in_myudg=g_pDefaultGd){Init(in_myudg);}
+	CMglLayers4HitTest(CMglGraphicManager* in_myudg=GetDefaultGd()){Init(in_myudg);}
 	virtual ~CMglLayers4HitTest(){Release();}
 
-	void Init(CMglGraphicManager* in_myudg=g_pDefaultGd){
+	void Init(CMglGraphicManager* in_myudg=GetDefaultGd()){
 		m_myudg = in_myudg;
 
 		//m_pHistTestMap = NULL;

@@ -28,8 +28,11 @@ typedef MYU_VERTEX	MGL_VERTEX;
 //////////////////////////////////////////////////////
 
 class CMglVertexBase {
+private:
+	//DWORD m_dwFvf;
 public:
-	virtual DWORD GetFVF() = 0;
+	//CMglVertexBase(DWORD dwFvf)
+	//virtual DWORD GetFVF() = 0;
 };
 
 typedef class CMyuVertex : public MGL_VERTEX, CMglVertexBase {

@@ -59,7 +59,7 @@ public:
 	virtual ~CMgl3DManager();
 
 	//	‰Šú‰»/ŠJ•ú
-	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd );
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 	void Release();
 
 	/////////////////////////////////////////////////////////////////

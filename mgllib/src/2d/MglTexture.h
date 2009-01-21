@@ -140,7 +140,7 @@ public:
 	virtual ~CMglTexture(){ Release(); }
 
 	//	‰Šú‰»‚ÆŠJ•ú
-	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd );
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 	void Release();
 
 	//	ì¬

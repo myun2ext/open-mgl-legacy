@@ -240,17 +240,18 @@ public:
 //
 //	デフォルト CMglGraphicManager インスタンス関連
 //
-extern CMglGraphicManager *g_pDefaultGd;	//	旧世代のクラス用に残しておくだけ
+//extern CMglGraphicManager *g_pDefaultGd;	//	旧世代のクラス用に残しておくだけ
 
 //	2007/01/03  新しいインターフェース（エラーチェックつき）
 DLL_EXP CMglGraphicManager* GetDefaultGd();
 
 //	チェック
-inline BOOL CheckDefaultGd()
+DLL_EXP BOOL CheckDefaultGd();
+/*inline BOOL CheckDefaultGd()
 {
 	if ( g_pDefaultGd == NULL )
 		return FALSE;
 	return TRUE;
-}
+}*/
 
 #endif//__MglGraphicManager_H__
