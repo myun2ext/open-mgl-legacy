@@ -42,6 +42,7 @@ public:
 			MyuThrow( 324432, "CMglVertexManagerT()::Get()  インデックスが範囲外です。" );
 		return m_vertexes[i];
 	}
+	_VERTEX& operator [](int i){ return Get(i); }
 	void Set(int i, _VERTEX& vertex){ m_vertexes[i] = vertex; }
 
 	_VERTEX* GetVertexPtr(){ return &m_vertexes[0]; }
@@ -84,8 +85,10 @@ public:
 
 	////////////////////////////////////////////////////////
 
-	void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
 	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0);
+	//void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
+	void Compile(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); };
+	void ReCompile(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); };
 
 	//	描画
 	void Draw( D3DPRIMITIVETYPE primitiveType );

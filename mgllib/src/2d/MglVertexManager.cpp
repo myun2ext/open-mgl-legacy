@@ -48,10 +48,15 @@ void _CMglVertexManagerXT_Realize::Draw( D3DPRIMITIVETYPE primitiveType )
 {
 	if ( m_pVB == NULL )
 	{
+		//MyuThrow(456198, "CMglVertexManagerXT::Draw()  このメソッドを実行する前にCompile()メソッドを呼び出してください。");
+		/*
 		//	頂点バッファを使わない方式
 		MyuAssert( d3d->DrawPrimitiveUP(
 			primitiveType, _GetVertexCount(), _GetVertexPtr(), m_nVertexSizeof ), D3D_OK,
 			"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()に失敗" );
+		*/
+
+		CompileToFastMem();
 	}
 	else
 	{
