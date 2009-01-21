@@ -220,4 +220,22 @@ using namespace std;
 
 #define HYPER_CLASS_TYPEDEF(FROM,TO)	class TO: public FROM{};
 
+typedef struct {
+	float f1;
+	float f2;
+	/*union _uf1{
+		float f1;
+		float tu;
+	} _f1;
+	union _uf2{
+		float f2;
+		float tv;
+	} _f2;*/
+} MGLFLOAT2;
+
+typedef struct {
+	float tu;
+	float tv;
+} MGLTUTV;
+
 #endif//__mglafx_H__

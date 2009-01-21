@@ -517,3 +517,15 @@ CMglTexture::iterator CMglTexture::end()
 }
 */
 
+
+//	2007/01/10  スケール取得
+//	# テクスチャ領域は2の倍数になる。その内の0.?fがBMPの領域かを算出する
+MGLTUTV CMglTexture::GetTuTv()
+{
+	MGLTUTV t;
+	D3DSURFACE_DESC texDesc;
+	m_pTexture->GetLevelDesc( 0, &texDesc );
+	t.tu = m_imgInfo.Width / (float)texDesc.Width;
+	t.tv = m_imgInfo.Height / (float)texDesc.Height;
+	return t;
+}

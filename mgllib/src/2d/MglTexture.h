@@ -193,6 +193,7 @@ public:
 	//	ƒTƒCƒYŽæ“¾
 	int GetBmpWidth(){ return m_imgInfo.Width; }
 	int GetBmpHeight(){ return m_imgInfo.Height; }
+	MGLTUTV GetTuTv();
 
 	////////////////////////////////////////////////////////////////////////////////
 
