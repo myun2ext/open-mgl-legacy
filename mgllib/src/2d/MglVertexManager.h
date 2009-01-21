@@ -49,9 +49,11 @@ public:
 
 /////////////////////////////////////////////////////////
 
-template <typename _VERTEX = MYUX_VERTEX>
-class /*DLL_EXP*/ CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>
+class DLL_EXP _CMglVertexManagerXT_Realize
 {
+private:
+	UINT m_nVertexSizeof;
+	DWORD m_dwFVF;
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
@@ -62,12 +64,14 @@ protected:
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMglVertexManagerXT(){
+	_CMglVertexManagerXT_Realize(DWORD dwFvf, UINT nVertexSizeof){
 		m_myudg = NULL;
 		d3d = NULL;
 		m_pVB = NULL;
+		m_dwFVF = dwFvf;
+		m_nVertexSizeof = nVertexSizeof;
 	}
-	virtual ~CMglVertexManagerXT(){ Release(); }
+	virtual ~_CMglVertexManagerXT_Realize(){ Release(); }
 
 	//	初期化と開放
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
@@ -81,64 +85,32 @@ public:
 	////////////////////////////////////////////////////////
 
 	void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
-	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0)
-	{
-		/*
-		//	前のが残ってるとアレなのでRelease -> 同じの使うので要らないんだよ!?
-		SAFE_RELEASE(m_pVB);
-		*/
-		UINT nSize = m_vertexes.size()*sizeof(_VERTEX);
-
-		//	2009/01/18 前のが残ってたらそのまま流用するんだわさ。
-		if ( m_pVB == NULL ){
-			//	頂点バッファの作成
-			MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB), D3D_OK,
-				"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()に失敗" );
-		}
-
-		//	ロック
-		BYTE* pLocked;
-		MyuAssert( m_pVB->Lock( 0, nSize, (BYTE**)&pLocked, 0), D3D_OK,
-			"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Lock()に失敗" );
-
-		//	コピー
-		memcpy( pLocked, GetVertexPtr(), nSize );
-
-		//	アンロック
-		MyuAssert( m_pVB->Unlock(), D3D_OK,
-			"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Unlock()に失敗" );
-	}
+	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0);
 
 	//	描画
-	void Draw( D3DPRIMITIVETYPE primitiveType )
-	{
-		if ( m_pVB == NULL )
-		{
-			//	頂点バッファを使わない方式
-			MyuAssert( d3d->DrawPrimitiveUP(
-				primitiveType, m_vertexes.size(), GetVertexPtr(), sizeof(_VERTEX) ), D3D_OK,
-				"CMglVertexManagerXT::Draw()  d3d->DrawPrimitiveUP()に失敗" );
-		}
-		else
-		{
-			//	頂点バッファを使う方式
-
-			//	TODO: CompileToFastMem()しないと駄目な気がする（pool, dwUsage覚えとかないとね・・・）
-
-			//	設定するです
-			MyuAssert( d3d->SetStreamSource( 0, m_pVB, sizeof(_VERTEX) ), D3D_OK,
-				"CMglVertexManagerXT::Draw()  d3d->SetStreamSource()に失敗" );
-			MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
-				"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()に失敗" );
-
-			MyuAssert( d3d->DrawPrimitive( primitiveType, 0, m_vertexes.size() ), D3D_OK,
-				"CMglVertexManagerXT::Draw()  d3d->DrawPrimitive()に失敗" );
-		}
-	}
+	void Draw( D3DPRIMITIVETYPE primitiveType );
 	void Draw( D3DPRIMITIVETYPE primitiveType, _MGL_IDirect3DTexture *pTexture, DWORD nTextureStage=0){
 		SetD3dStageTexture(pTexture, nTextureStage);
 		Draw(primitiveType);
 	}
+
+private:
+	virtual const void* _GetVertexPtr()=0;
+	virtual int _GetVertexCount()=0;
+};
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+template <typename _VERTEX = MYUX_VERTEX>
+class /*DLL_EXP*/ CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>, public _CMglVertexManagerXT_Realize
+{
+private:
+	const void* _GetVertexPtr(){ return GetVertexPtr(); }
+	int _GetVertexCount(){ return m_vertexes.size(); }
+
+public:
+	//	コンストラクタ
+	CMglVertexManagerXT() : _CMglVertexManagerXT_Realize(
+		CMglVertexManagerT<_VERTEX>::m_dwFVF, sizeof(_VERTEX)){}
 };
 
 
