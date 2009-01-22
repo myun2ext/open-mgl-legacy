@@ -108,6 +108,7 @@ void CAugustWindow::Init( HWND hWnd, int nDispX, int nDispY )
 	if ( m_pActiveScreen == NULL)
 		MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");
 
+	OnInit();
 	m_pActiveScreen->OnInit();
 	//ScreenUpdate();
 }

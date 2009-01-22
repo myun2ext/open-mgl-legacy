@@ -84,6 +84,9 @@ public:
 	void SetActiveScreenControl(CAugustScreen *pScreen){
 		m_pActiveScreen = pScreen;
 	}
+	void SetActiveScreen(CAugustScreen *pScreen){
+		m_pActiveScreen = pScreen;
+	}
 	void SetScreenControl(CAugustScreen *pScreen){
 		m_pActiveScreen = pScreen;
 	}
