@@ -152,8 +152,6 @@ public:
 		m_kbEventHandlers.push_back(evt);
 	}
 
-	void _SetG(CAugustGlobalCommon *p_g){ g_ = p_g; }
-
 public:
 	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
