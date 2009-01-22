@@ -739,6 +739,18 @@ SOURCE=.\src\mglgui\MglguiWindow.cpp
 SOURCE=.\src\mglgui\MglguiWindow.h
 # End Source File
 # End Group
+# Begin Group "3D Controls"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\august\August3dManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\August3dManager.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\august\AugustCommon.cpp
@@ -1061,11 +1073,11 @@ SOURCE=..\MSL\include\MyuFgets.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\MWL\include\MyuIniReader.h
+SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\MSL\MWL\classes\MyuIniReader.h
+SOURCE=..\MWL\include\MyuIniReader.h
 # End Source File
 # Begin Source File
 
@@ -1085,11 +1097,11 @@ SOURCE=..\MSL\include\MyuSimpleStackTrace.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\MWL\include\MyuSpecialIniReader.h
+SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\..\MSL\MWL\classes\MyuSpecialIniReader.h
+SOURCE=..\MWL\include\MyuSpecialIniReader.h
 # End Source File
 # Begin Source File
 

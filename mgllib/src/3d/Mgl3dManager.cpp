@@ -89,8 +89,8 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 					640.0f / 480.0f,		// アスペクト比（縦、横比率）
 					clip_near,				// Near クリップ
 					clip_far);				// Far  クリップ*/
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
-		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );
+	/*MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
+		"CMgl3DManager::SetupProjection()  SetTransform()に失敗" );*/
 
 	m_fAspectRatio = fAspectRatio;
 	m_fViewingAngle = fViewingAngle;
@@ -131,8 +131,8 @@ void CMgl3DManager::CameraLockAt(float fPosX, float fPosY, float fPosZ, float fT
 					,&D3DXVECTOR3(0,1,0)		// 上の向き
 					);
 
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
-		"CMgl3DManager::SetCamera()  SetTransform()に失敗" );
+	/*MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
+		"CMgl3DManager::SetCamera()  SetTransform()に失敗" );*/
 }
 
 //	カメラの位置を変更

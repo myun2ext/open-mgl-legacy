@@ -30,9 +30,9 @@ private:
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
-	D3DXMATRIX m_projection;
-	D3DXMATRIX m_matView;
 	D3DXMATRIX m_matWorld;
+	D3DXMATRIX m_matView;
+	D3DXMATRIX m_projection;
 
 	float m_fAspectRatio;
 	float m_fViewingAngle;
@@ -82,6 +82,11 @@ public:
 	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
 	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
 	void CameraRotation(int direction, float fAngle);
+
+	//	各Matrixの設定
+	void SetWorldMatrix(D3DXMATRIX &matWorld){ m_matWorld = matWorld; }
+	void SetViewMatrix(D3DXMATRIX &matView){ m_matView = matView; }
+	void SetProjectionMatrix(D3DXMATRIX &matProjection){ m_projection = matProjection; }
 
 	void ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector);
 };

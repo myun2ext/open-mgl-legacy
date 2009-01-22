@@ -127,5 +127,6 @@ public:
 template <typename _VERTEX> class CMglVertexT{ typedef CMglVertexManagerT<_VERTEX> type; };
 template <typename _VERTEX> class CMglVertexesT{ typedef CMglVertexManagerT<_VERTEX> type; };
 typedef CMglVertexManagerT<> CMglVertex, CMglVertexes, CMglVertexManager;
+typedef CMglVertexManagerXT<> CMglVertexX, CMglVertexesX, CMglVertexManagerX;
 
 #endif//__MglVertexManager_H__
