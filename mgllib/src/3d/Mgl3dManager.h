@@ -77,11 +77,16 @@ public:
 	void SetupProjection( float fAspectRatio, float fViewingAngle=45.0f, float fClipNear=0.01f, float fClipFar=100.0f );
 	
 	//	カメラ
+	void SetCameraCenter(float x, float y, float z){ SetCameraViewTarget(x,y,z); }
 	void SetCameraViewTarget(float x, float y, float z);
 	void MoveCamera(float x, float y, float z);
 	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
 	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
 	void CameraRotation(int direction, float fAngle);
+
+	//	ワールド
+	/*void SetWorld(float fRotateX, float fRotateY, float fRotateZ,
+		float fPosX, float fPosY, float fPosZ );*/
 
 	//	各Matrixの設定
 	void SetWorldMatrix(D3DXMATRIX &matWorld){ m_matWorld = matWorld; }
