@@ -69,6 +69,7 @@ protected:
 	POINT m_nCachedCurPos;
 	int m_nCachedCurPosX;
 	int m_nCachedCurPosY;
+	bool m_bUseMouseHandle;
 
 	agh::_AGH_POINT GetCurPos(){
 		return *((agh::_AGH_POINT*)&m_nCachedCurPos);
@@ -117,6 +118,7 @@ public:
 		ZeroMemory(&m_nCachedCurPos, sizeof(m_nCachedCurPos));
 		m_nCachedCurPosX = -1;
 		m_nCachedCurPosY = -1;
+		m_bUseMouseHandle = false;
 	}
 	void Setup(CAugustGlobalCommon *g_in){
 		g_ = g_in;
@@ -151,6 +153,9 @@ public:
 		evt.evtType = evtType;
 		m_kbEventHandlers.push_back(evt);
 	}
+
+	void EnableMouseHandle(){ m_bUseMouseHandle = true; }
+	void DisableMouseHandle(){ m_bUseMouseHandle = false; }
 
 public:
 	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？

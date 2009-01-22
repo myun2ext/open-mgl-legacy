@@ -100,7 +100,7 @@ void CAugustWindow::Init( HWND hWnd, int nDispX, int nDispY )
 	//m_grp.Init(hWnd, nDispX, nDispY, FALSE );
 
 	//	複数のインスタンスを作成する事になるのでInit()が必要
-	m_imgCache.Init(&grp);
+	//m_imgCache.Init(&grp);
 	//m_layer.Init(&grp);
 
 	//m_hWnd = hWnd;

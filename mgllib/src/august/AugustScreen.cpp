@@ -44,10 +44,16 @@ void CAugustScreen::OnDraw()
 //	フレーム処理
 bool CAugustScreen::DoFrame()
 {
-	OnFrameMouseInput();	//	なんか拾わないとfalseを返す仕様になってるっぽい・・・
-	/*if ( OnFrameMouseInput() != true )
-		return false;*/
+	//	2009/01/23 マウスのハンドルは無効に出来るように。
+	//	（結構処理長いし、うっかりクリックとかで余計な処理走るとまずいし・・・）
+	if ( m_bUseMouseHandle == true )
+	{
+		OnFrameMouseInput();	//	なんか拾わないとfalseを返す仕様になってるっぽい・・・
+		/*if ( OnFrameMouseInput() != true )
+			return false;*/
+	}
 
+	//	キーボードのハンドル処理
 	if ( OnFrameKeyboardInput() != true )
 		return false;
 

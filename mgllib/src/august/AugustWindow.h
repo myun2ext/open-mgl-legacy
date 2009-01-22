@@ -54,7 +54,7 @@ private:
 	CMyuFPS m_fps;
 	CMglInput m_input;
 	CMglAudio m_audio;*/
-	CMglImageCacher m_imgCache;
+	//CMglImageCacher m_imgCache;
 
 	//HWND m_hWnd;
 
