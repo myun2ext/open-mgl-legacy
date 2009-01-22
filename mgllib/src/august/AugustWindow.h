@@ -37,7 +37,7 @@ class DLL_EXP CMyuThreadBase;
 //class DLL_EXP CAugustWindow : public CAugustScreen
 //class DLL_EXP CAugustWindow : public CMyuThreadBase, public agh::CWindowBase
 //class DLL_EXP CAugustWindow : public agh::CWindowBase, public CMyuThreadBase, public CMglEzGameFrame
-class DLL_EXP CAugustWindow : public CAugustScreen, public agh::CWindowBase, public CMyuThreadBase, public CAugustEzGameFrame
+class DLL_EXP CAugustWindow : /*public CAugustScreen,*/ public agh::CWindowBase, public CMyuThreadBase, public CAugustEzGameFrame
 {
 private:
 	CAugustScreen *m_pActiveScreen;

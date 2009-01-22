@@ -35,6 +35,8 @@ bool CAugustWindow::DoFrame()
 		if ( m_pActiveScreen == NULL)
 			MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");
 
+		m_pActiveScreen->_SetG(this);
+
 		//	2008/11/29 Screen側のDoFrame()を呼び出す仕様に
 		if ( m_pActiveScreen != (void*)this )
 			if ( m_pActiveScreen->DoFrame() == false )
@@ -62,12 +64,12 @@ bool CAugustWindow::ThreadFunc()
 {
 	try{
 		//	2008/11/29 デフォルトスクリーンとか搭載してみるか・・・。
-		if ( m_pActiveScreen == NULL ){
+		/*if ( m_pActiveScreen == NULL ){
 			m_pActiveScreen = this;
 			this->g_ = this;
-		}
+		}*/
 
-		Init(GetWindowHandle(), g_->nWindowWidth, g_->nWindowHeight);
+		Init(GetWindowHandle(), this->nWindowWidth, this->nWindowHeight);
 
 		for(;;){
 			if ( DoFrame() == false )
@@ -76,15 +78,15 @@ bool CAugustWindow::ThreadFunc()
 	}
 	catch( MyuCommonException e )
 	{
-		//EzErrBox(g_->hWnd, );
-		MyuMessageBox(g_->hWnd, "Application Error", MB_ICONSTOP,
+		//EzErrBox(this->hWnd, );
+		MyuMessageBox(this->hWnd, "Application Error", MB_ICONSTOP,
 			"次のエラーが発生したためアプリケーションを終了します。\r\n\r\n"
 			"%s", e.szErrMsg);
 	}
 	catch( agh::CAghException e )
 	{
-		//EzErrBox(g_->hWnd, e.GetMessage());
-		MyuMessageBox(g_->hWnd, "Application Error", MB_ICONSTOP,
+		//EzErrBox(this->hWnd, e.GetMessage());
+		MyuMessageBox(this->hWnd, "Application Error", MB_ICONSTOP,
 			"次のエラーが発生したためアプリケーションを終了します。\r\n\r\n"
 			"AGH : %s", e.GetMessage());
 	}
