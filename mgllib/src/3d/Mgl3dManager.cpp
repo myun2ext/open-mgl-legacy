@@ -72,6 +72,8 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 //	ProjectionÇÃê›íË
 void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, float fClipNear, float fClipFar )
 {
+	InitCheck();
+
 	//D3DXMATRIX matPrj;
 #if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
 	D3DXMatrixPerspectiveFovLH(
@@ -102,6 +104,7 @@ void CMgl3DManager::SetupProjection( float fAspectRatio, float fViewingAngle, fl
 
 void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
 {
+	InitCheck();
 	CameraLockAt(fPosX, fPosY, fPosZ, fTargetX, fTargetY, fTargetZ);
 
 	m_fCameraPosX = fPosX;
@@ -116,6 +119,7 @@ void CMgl3DManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTarg
 //void CMgl3DManager::SetCameraPos(float x, float y, float z)
 void CMgl3DManager::CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
 {
+	InitCheck();
 #if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
 	D3DXMatrixLookAtLH(
 #else
@@ -152,6 +156,8 @@ void CMgl3DManager::MoveCamera(float x, float y, float z)
 //	ÉJÉÅÉâÇXé≤ï˚å¸Ç…âÒì]
 void CMgl3DManager::CameraRotation(int direction, float fAngle)
 {
+	InitCheck();
+
 	float rad;
 
 	switch(direction){
@@ -216,6 +222,7 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 
 void CMgl3DManager::SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ)
 {
+	InitCheck();
 	float radX = D3DXToRadian(fAngleX);
 	float radY = D3DXToRadian(fAngleY);
 	float radZ = D3DXToRadian(fAngleZ);
@@ -229,6 +236,8 @@ void CMgl3DManager::SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ)
 
 void CMgl3DManager::ReTransform()
 {
+	InitCheck();
+
 	//	ÉèÅ[ÉãÉhê›íË
     D3DXMATRIX mWorld, mRotX, mRotY, mTrans;
 	D3DXMatrixRotationY(&mRotY, 0.0f);
@@ -274,6 +283,8 @@ void CMgl3DManager::SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ)
 
 void CMgl3DManager::ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector)
 {
+	InitCheck();
+
 	_D3DVIEWPORTx vp;
 	vp.X = 0;
 	vp.Y = 0;

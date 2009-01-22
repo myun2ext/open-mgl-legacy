@@ -9,6 +9,7 @@
 //	テクスチャの設定
 void _CMglVertexManagerXT_Realize::SetD3dStageTexture(_MGL_IDirect3DTexture *pTexture, DWORD nStage)
 {
+	InitCheck();
 	//	テクスチャの設定
 	MyuAssert( d3d->SetTexture(nStage, pTexture), D3D_OK,
 		"CMglVertexManagerXT::SetD3dStageTexture()  d3d->SetTexture()に失敗" );
@@ -17,6 +18,7 @@ void _CMglVertexManagerXT_Realize::SetD3dStageTexture(_MGL_IDirect3DTexture *pTe
 //	頂点バッファ方式に変換する
 void _CMglVertexManagerXT_Realize::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 {
+	InitCheck();
 	/*
 	//	前のが残ってるとアレなのでRelease -> 同じの使うので要らないんだよ!?
 	SAFE_RELEASE(m_pVB);
@@ -46,6 +48,7 @@ void _CMglVertexManagerXT_Realize::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 //	描画
 void _CMglVertexManagerXT_Realize::Draw( D3DPRIMITIVETYPE primitiveType )
 {
+	InitCheck();
 	if ( m_pVB == NULL )
 	{
 		//MyuThrow(456198, "CMglVertexManagerXT::Draw()  このメソッドを実行する前にCompile()メソッドを呼び出してください。");

@@ -20,6 +20,13 @@
 //	クラス宣言
 class DLL_EXP CMgl3DManager
 {
+private:
+	//	内部メソッド（チェック用）
+	void InitCheck() {
+		if ( m_myudg == NULL )
+			Init( GetDefaultGd() );
+	}
+
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス

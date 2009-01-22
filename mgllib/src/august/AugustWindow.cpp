@@ -153,6 +153,14 @@ void CAugustWindow::Start()
 		this, winInfo.strWindowTitle.c_str(), extendInfo.bFullScreen);
 }
 
+void CAugustWindow::EzFrame_OnInit()
+{
+	OnInit();	// virtual
+
+	if ( m_pActiveScreen == NULL)
+		MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");
+	m_pActiveScreen->OnInit();
+}
 
 //////////////////////////////////////////////////
 

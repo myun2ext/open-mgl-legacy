@@ -64,6 +64,9 @@ protected:
 	//MGL_EZGAME_FRAME_FUNCPTR m_userMainThread;
 	//string m_strCaption;
 
+protected:
+	virtual void EzFrame_OnInit()=0;
+
 public:
 #ifndef _USE_INHERIT_AUGUST_GLOBAL_COMMON
 	CMglGraphicManager grp;

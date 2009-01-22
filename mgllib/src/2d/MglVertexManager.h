@@ -55,6 +55,12 @@ class DLL_EXP _CMglVertexManagerXT_Realize
 private:
 	UINT m_nVertexSizeof;
 	DWORD m_dwFVF;
+
+	//	内部メソッド（チェック用）
+	void InitCheck() {
+		if ( m_myudg == NULL )
+			Init( GetDefaultGd() );
+	}
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ

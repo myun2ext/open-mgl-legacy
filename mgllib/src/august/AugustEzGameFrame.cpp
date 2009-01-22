@@ -160,6 +160,10 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
 			//grp.Clear();
 
+			//	2009/01/23  CAugustWindow側のOnInit()呼び出し
+			_MGL_DEBUGLOG("EzFrame_OnInit()..." );
+			EzFrame_OnInit();
+
 			//	MGL S3.1からは呼び出すだけにする（ループはこの中でやってもらう）- 2006/11/25
 			_MGL_DEBUGLOG("Call User MainMethod." );
 			m_userMainThread((void*)dwUserThreadParam);

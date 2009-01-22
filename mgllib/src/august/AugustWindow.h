@@ -83,13 +83,13 @@ public:
 
 	void SetActiveScreenControl(CAugustScreen *pScreen){
 		m_pActiveScreen = pScreen;
+		m_pActiveScreen->Setup(this);
 	}
-	void SetActiveScreen(CAugustScreen *pScreen){
-		m_pActiveScreen = pScreen;
-	}
-	void SetScreenControl(CAugustScreen *pScreen){
-		m_pActiveScreen = pScreen;
-	}
+	void SetActiveScreen(CAugustScreen *pScreen){ SetActiveScreenControl(pScreen); }
+	void SetScreenControl(CAugustScreen *pScreen){ SetActiveScreenControl(pScreen); }
+
+protected:
+	void EzFrame_OnInit();
 
 private:
 	void Init( HWND hWnd, int nDispX, int nDispY );
