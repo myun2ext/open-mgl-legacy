@@ -26,9 +26,12 @@ CMgl3DManager::CMgl3DManager()
 	m_fCameraTargetY = 0;
 	m_fCameraTargetZ = 0;
 
-	m_fCameraRotationMemX = 0;
-	m_fCameraRotationMemY = 0;
-	m_fCameraRotationMemZ = 0;
+	m_fRotationX = 0;
+	m_fRotationY = 0;
+	m_fRotationZ = 0;
+	m_fMoveX = 0;
+	m_fMoveY = 0;
+	m_fMoveZ = 0;
 }
 
 //	ƒfƒXƒgƒ‰ƒNƒ^
@@ -59,12 +62,17 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 	//	‚Æ‚è‚ ‚¦‚¸ƒfƒtƒHƒ‹ƒg‚ÈƒJƒƒ‰‚ðÝ’è
 	SetCamera(0,0,-5.0f, 0,0,0);
 
+	/*
 	//	ƒ[ƒ‹ƒhÝ’è
     D3DXMATRIX mRotX, mRotY, mTrans;
 	D3DXMatrixRotationY(&mRotY, 0.0f);
 	D3DXMatrixRotationX(&mRotX, 0.0f);
 	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
 	m_matWorld = mRotX * mRotY * mTrans;
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
+		"CMgl3DManager::Init()  SetTransform(D3DTS_WORLD)‚ÉŽ¸”s" );
+	*/
+	D3DXMatrixIdentity(&m_matWorld);
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
 		"CMgl3DManager::Init()  SetTransform(D3DTS_WORLD)‚ÉŽ¸”s" );
 }
@@ -163,8 +171,8 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 	switch(direction){
 	//	‰¡Ž²
 	case MGL3D_X:
-		m_fCameraRotationMemX += fAngle;
-		rad = D3DXToRadian(m_fCameraRotationMemX);
+		m_fRotationX += fAngle;
+		rad = D3DXToRadian(m_fRotationX);
 		CameraLockAt(
 				m_fCameraPosX+(sin(rad)*(-m_fCameraPosZ)),
 				m_fCameraPosY,
@@ -174,8 +182,8 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 
 	//	cŽ²
 	case MGL3D_Y:
-		m_fCameraRotationMemY += fAngle;
-		rad = D3DXToRadian(m_fCameraRotationMemY);
+		m_fRotationY += fAngle;
+		rad = D3DXToRadian(m_fRotationY);
 		CameraLockAt(
 				m_fCameraPosX,
 				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
@@ -185,8 +193,8 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 
 	//	ZŽ²
 	case MGL3D_Z:
-		m_fCameraRotationMemY += fAngle;
-		rad = D3DXToRadian(m_fCameraRotationMemY);
+		m_fRotationY += fAngle;
+		rad = D3DXToRadian(m_fRotationY);
 		CameraLockAt(
 				m_fCameraPosX+(1.0f-cos(rad))*(-m_fCameraPosZ),
 				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
@@ -198,16 +206,16 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 	D3DXMATRIX matRotation;
 	switch(direction){
 	case MGL3D_X:
-		m_fCameraRotationMemX += fAngle;
-		D3DXMatrixRotationX(&matRotation, D3DXToRadian(m_fCameraRotationMemX));
+		m_fRotationX += fAngle;
+		D3DXMatrixRotationX(&matRotation, D3DXToRadian(m_fRotationX));
 		break;
 	case MGL3D_Y:
-		m_fCameraRotationMemY += fAngle;
-		D3DXMatrixRotationY(&matRotation, D3DXToRadian(m_fCameraRotationMemY));
+		m_fRotationY += fAngle;
+		D3DXMatrixRotationY(&matRotation, D3DXToRadian(m_fRotationY));
 		break;
 	case MGL3D_Z:
-		m_fCameraRotationMemZ += fAngle;
-		D3DXMatrixRotationZ(&matRotation, D3DXToRadian(m_fCameraRotationMemZ));
+		m_fRotationZ += fAngle;
+		D3DXMatrixRotationZ(&matRotation, D3DXToRadian(m_fRotationZ));
 		break;
 	}
 
@@ -234,6 +242,22 @@ void CMgl3DManager::SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ)
 		m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
 }
 
+//	ƒ[ƒ‹ƒh‚ðÝ’è
+void CMgl3DManager::SetWorld(
+		float fRotateX, float fRotateY, float fRotateZ,
+		float fMoveX, float fMoveY, float fMoveZ )
+{
+	D3DXMATRIX mRotX, mRotY, mRotZ, mTrans;
+	D3DXMatrixRotationX(&mRotX, fRotateX);
+	D3DXMatrixRotationY(&mRotY, fRotateY);
+	D3DXMatrixRotationZ(&mRotZ, fRotateZ);
+	D3DXMatrixTranslation(&mTrans, fMoveX, fMoveY, fMoveZ);
+	m_matWorld = mRotX * mRotY * mRotZ * mTrans;
+
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
+		"CMgl3DManager::Init()  SetTransform(D3DTS_WORLD)‚ÉŽ¸”s" );
+}
+
 void CMgl3DManager::ReTransform()
 {
 	InitCheck();
@@ -257,6 +281,32 @@ void CMgl3DManager::ReTransform()
 		"CMgl3DManager::SetupProjection()  SetTransform()‚ÉŽ¸”s" );
 }
 
+//	ƒ[ƒ‹ƒhÝ’è
+void CMgl3DManager::SetWorldMatrix(D3DXMATRIX &matWorld)
+{
+	InitCheck();
+	m_matWorld = matWorld;
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
+		"CMgl3DManager::ReTransform()  SetTransform(D3DTS_WORLD)‚ÉŽ¸”s" );
+}
+
+//	ViewÝ’è
+void CMgl3DManager::SetViewMatrix(D3DXMATRIX &matView)
+{
+	InitCheck();
+	m_matView = matView;
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
+		"CMgl3DManager::ReTransform()  SetTransform(D3DTS_VIEW)‚ÉŽ¸”s" );
+}
+
+//	ProjectionÝ’è
+void CMgl3DManager::SetProjectionMatrix(D3DXMATRIX &matProjection)
+{
+	InitCheck();
+	m_projection = matProjection;
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
+		"CMgl3DManager::SetupProjection()  SetTransform()‚ÉŽ¸”s" );
+}
 
 ///////////////////////////////////////////////////////////////////////////////////
 

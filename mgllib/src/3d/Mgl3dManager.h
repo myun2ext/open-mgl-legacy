@@ -46,13 +46,19 @@ protected:
 	float m_fCameraTargetY;
 	float m_fCameraTargetZ;
 
-	float m_fCameraRotationMemX;
-	float m_fCameraRotationMemY;
-	float m_fCameraRotationMemZ;
+	float m_fRotationX;
+	float m_fRotationY;
+	float m_fRotationZ;
+	float m_fMoveX;
+	float m_fMoveY;
+	float m_fMoveZ;
 
 	void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
 	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
 	void SetCameraPos(float x, float y, float z);
+
+	//	とりあえず制限に・・・
+	void CameraRotation(int direction, float fAngle);
 
 public:
 
@@ -82,16 +88,19 @@ public:
 	void MoveCamera(float x, float y, float z);
 	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
 	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
-	void CameraRotation(int direction, float fAngle);
 
 	//	ワールド
-	/*void SetWorld(float fRotateX, float fRotateY, float fRotateZ,
-		float fPosX, float fPosY, float fPosZ );*/
+	void SetWorld(
+		float fRotateX, float fRotateY=0.0f, float fRotateZ=0.0f,
+		float fMoveX=0.0f, float fMoveY=0.0f, float fMoveZ=0.0f );
 
 	//	各Matrixの設定
-	void SetWorldMatrix(D3DXMATRIX &matWorld){ m_matWorld = matWorld; }
+	/*void SetWorldMatrix(D3DXMATRIX &matWorld){ m_matWorld = matWorld; }
 	void SetViewMatrix(D3DXMATRIX &matView){ m_matView = matView; }
-	void SetProjectionMatrix(D3DXMATRIX &matProjection){ m_projection = matProjection; }
+	void SetProjectionMatrix(D3DXMATRIX &matProjection){ m_projection = matProjection; }*/
+	void SetWorldMatrix(D3DXMATRIX &matWorld);
+	void SetViewMatrix(D3DXMATRIX &matView);
+	void SetProjectionMatrix(D3DXMATRIX &matProjection);
 
 	void ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector);
 };
