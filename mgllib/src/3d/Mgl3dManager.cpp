@@ -26,9 +26,9 @@ CMgl3DManager::CMgl3DManager()
 	m_fCameraTargetY = 0;
 	m_fCameraTargetZ = 0;
 
-	m_fRotationX = 0;
-	m_fRotationY = 0;
-	m_fRotationZ = 0;
+	m_fRotateX = 0;
+	m_fRotateY = 0;
+	m_fRotateZ = 0;
 	m_fMoveX = 0;
 	m_fMoveY = 0;
 	m_fMoveZ = 0;
@@ -171,8 +171,8 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 	switch(direction){
 	//	‰¡Ž²
 	case MGL3D_X:
-		m_fRotationX += fAngle;
-		rad = D3DXToRadian(m_fRotationX);
+		m_fRotateX += fAngle;
+		rad = D3DXToRadian(m_fRotateX);
 		CameraLockAt(
 				m_fCameraPosX+(sin(rad)*(-m_fCameraPosZ)),
 				m_fCameraPosY,
@@ -182,8 +182,8 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 
 	//	cŽ²
 	case MGL3D_Y:
-		m_fRotationY += fAngle;
-		rad = D3DXToRadian(m_fRotationY);
+		m_fRotateY += fAngle;
+		rad = D3DXToRadian(m_fRotateY);
 		CameraLockAt(
 				m_fCameraPosX,
 				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
@@ -193,8 +193,8 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 
 	//	ZŽ²
 	case MGL3D_Z:
-		m_fRotationY += fAngle;
-		rad = D3DXToRadian(m_fRotationY);
+		m_fRotateY += fAngle;
+		rad = D3DXToRadian(m_fRotateY);
 		CameraLockAt(
 				m_fCameraPosX+(1.0f-cos(rad))*(-m_fCameraPosZ),
 				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
@@ -206,16 +206,16 @@ void CMgl3DManager::CameraRotation(int direction, float fAngle)
 	D3DXMATRIX matRotation;
 	switch(direction){
 	case MGL3D_X:
-		m_fRotationX += fAngle;
-		D3DXMatrixRotationX(&matRotation, D3DXToRadian(m_fRotationX));
+		m_fRotateX += fAngle;
+		D3DXMatrixRotationX(&matRotation, D3DXToRadian(m_fRotateX));
 		break;
 	case MGL3D_Y:
-		m_fRotationY += fAngle;
-		D3DXMatrixRotationY(&matRotation, D3DXToRadian(m_fRotationY));
+		m_fRotateY += fAngle;
+		D3DXMatrixRotationY(&matRotation, D3DXToRadian(m_fRotateY));
 		break;
 	case MGL3D_Z:
-		m_fRotationZ += fAngle;
-		D3DXMatrixRotationZ(&matRotation, D3DXToRadian(m_fRotationZ));
+		m_fRotateZ += fAngle;
+		D3DXMatrixRotationZ(&matRotation, D3DXToRadian(m_fRotateZ));
 		break;
 	}
 
@@ -252,10 +252,28 @@ void CMgl3DManager::SetWorld(
 	D3DXMatrixRotationY(&mRotY, fRotateY);
 	D3DXMatrixRotationZ(&mRotZ, fRotateZ);
 	D3DXMatrixTranslation(&mTrans, fMoveX, fMoveY, fMoveZ);
-	m_matWorld = mRotX * mRotY * mRotZ * mTrans;
+
+	SetWorldMatrix(mRotX * mRotY * mRotZ * mTrans);
+	/*m_matWorld = mRotX * mRotY * mRotZ * mTrans;
 
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
-		"CMgl3DManager::Init()  SetTransform(D3DTS_WORLD)‚ÉŽ¸”s" );
+		"CMgl3DManager::Init()  SetTransform(D3DTS_WORLD)‚ÉŽ¸”s" );*/
+
+	m_fRotateX = fRotateX;
+	m_fRotateY = fRotateY;
+	m_fRotateZ = fRotateZ;
+	m_fMoveX = fMoveX;
+	m_fMoveY = fMoveY;
+	m_fMoveZ = fMoveZ;
+}
+
+void CMgl3DManager::Rotate(float fAngleX, float fAngleY, float fAngleZ)
+{
+	m_fRotateX += fAngleX;
+	m_fRotateY += fAngleY;
+	m_fRotateZ += fAngleZ;
+
+	SetWorld(m_fRotateX, m_fRotateY, m_fRotateZ, m_fMoveX, m_fMoveY, m_fMoveZ);
 }
 
 void CMgl3DManager::ReTransform()

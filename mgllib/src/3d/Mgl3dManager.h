@@ -46,9 +46,9 @@ protected:
 	float m_fCameraTargetY;
 	float m_fCameraTargetZ;
 
-	float m_fRotationX;
-	float m_fRotationY;
-	float m_fRotationZ;
+	float m_fRotateX;
+	float m_fRotateY;
+	float m_fRotateZ;
 	float m_fMoveX;
 	float m_fMoveY;
 	float m_fMoveZ;
@@ -93,6 +93,10 @@ public:
 	void SetWorld(
 		float fRotateX, float fRotateY=0.0f, float fRotateZ=0.0f,
 		float fMoveX=0.0f, float fMoveY=0.0f, float fMoveZ=0.0f );
+	void RotateX(float fAngle){ Rotate(fAngle,0,0); }
+	void RotateY(float fAngle){ Rotate(0,fAngle,0); }
+	void RotateZ(float fAngle){ Rotate(0,0,fAngle); }
+	void Rotate(float fAngleX, float fAngleY, float fAngleZ);
 
 	//	äeMatrixÇÃê›íË
 	/*void SetWorldMatrix(D3DXMATRIX &matWorld){ m_matWorld = matWorld; }
