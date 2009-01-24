@@ -34,7 +34,7 @@ void _CMglVertexManagerXT_Realize::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 
 	//	ロック
     BYTE* pLocked;
-	MyuAssert( m_pVB->Lock( 0, nSize, (BYTE**)&pLocked, 0), D3D_OK,
+	MyuAssert( m_pVB->Lock( 0, nSize, &pLocked, 0), D3D_OK,
 		"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Lock()に失敗" );
 
 	//	コピー

@@ -84,6 +84,10 @@ public:
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
 		d3d = m_myudg->GetD3dDevPtr();
+		if ( m_myudg == NULL )
+			MyuThrow(49815, "CMglVertexManagerX::Init()  in_myudg ÇÕNULLÇ≈Ç∑ÅB");
+		if ( d3d == NULL )
+			MyuThrow(49816, "CMglVertexManagerX::Init()  m_myudg->GetD3dDevPtr() ÇÕNULLÇ≈Ç∑ÅB");
 	}
 	void Release(){
 		SAFE_RELEASE(m_pVB);

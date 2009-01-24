@@ -248,9 +248,9 @@ void CMgl3DManager::SetWorld(
 		float fMoveX, float fMoveY, float fMoveZ )
 {
 	D3DXMATRIX mRotX, mRotY, mRotZ, mTrans;
-	D3DXMatrixRotationX(&mRotX, fRotateX);
-	D3DXMatrixRotationY(&mRotY, fRotateY);
-	D3DXMatrixRotationZ(&mRotZ, fRotateZ);
+	D3DXMatrixRotationX(&mRotX, D3DXToRadian(fRotateX));
+	D3DXMatrixRotationY(&mRotY, D3DXToRadian(fRotateY));
+	D3DXMatrixRotationZ(&mRotZ, D3DXToRadian(fRotateZ));
 	D3DXMatrixTranslation(&mTrans, fMoveX, fMoveY, fMoveZ);
 
 	SetWorldMatrix(mRotX * mRotY * mRotZ * mTrans);

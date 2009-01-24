@@ -108,7 +108,7 @@ void CAugustWindow::Init( HWND hWnd, int nDispX, int nDispY )
 	if ( m_pActiveScreen == NULL)
 		MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");
 
-	OnInit();
+	//OnInit();
 	m_pActiveScreen->OnInit();
 	//ScreenUpdate();
 }
@@ -159,7 +159,7 @@ void CAugustWindow::EzFrame_OnInit()
 
 	if ( m_pActiveScreen == NULL)
 		MyuThrow(25598, "SetActiveScreenControl() にてスクリーンを設定してください。");
-	m_pActiveScreen->OnInit();
+	//m_pActiveScreen->OnInit();
 }
 
 //////////////////////////////////////////////////
