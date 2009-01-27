@@ -250,14 +250,6 @@ SOURCE=.\src\2d\mgl2d.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\2d\MglD3dTexture.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglD3dTexture.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\2d\MglGraphicManager.cpp
 
 !IF  "$(CFG)" == "mgllib - Win32 Release"

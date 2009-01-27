@@ -28,7 +28,7 @@ public:
 	CMgl3dDot();
 	virtual ~CMgl3dDot(){}
 
-	void Init( CMglGraphicManager* in_myudg=g_pDefaultGd );
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 };
 
 #endif//__Mgl3dDot_H__
