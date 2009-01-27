@@ -11,7 +11,7 @@
 //#include "MglTexture.h"
 
 //	クラス宣言
-class DLL_EXP CMgl3dDot
+class DLL_EXP CMgl3dDots
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
@@ -25,8 +25,8 @@ protected:
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMgl3dDot();
-	virtual ~CMgl3dDot(){}
+	CMgl3dDots();
+	virtual ~CMgl3dDots(){}
 
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 };
