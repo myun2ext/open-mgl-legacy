@@ -335,6 +335,14 @@ SOURCE=.\src\3d\Mgl3dManager.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\3d\Mgl3dSquare.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dSquare.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\MglLight.cpp
 # End Source File
 # Begin Source File
