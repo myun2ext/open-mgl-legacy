@@ -250,6 +250,14 @@ SOURCE=.\src\2d\mgl2d.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\2d\MglD3dTexture.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglD3dTexture.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglGraphicManager.cpp
 
 !IF  "$(CFG)" == "mgllib - Win32 Release"
@@ -311,6 +319,14 @@ SOURCE=.\src\3d\mgl3d_work.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\3d\Mgl3dDot.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dDot.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\Mgl3dImage.cpp
 # End Source File
 # Begin Source File
@@ -324,6 +340,22 @@ SOURCE=.\src\3d\Mgl3dManager.cpp
 # Begin Source File
 
 SOURCE=.\src\3d\Mgl3dManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglLight.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglLight.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglMesh.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglMesh.h
 # End Source File
 # End Group
 # Begin Group "Common Files"
