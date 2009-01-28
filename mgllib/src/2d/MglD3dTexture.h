@@ -155,33 +155,7 @@ public:
 		CreateFromFile( szFileName, bRenderTarget, colorKey );}*/
 	void Create( int x, int y, BOOL bRenderTarget );
 
-	//	描画
-	void Draw(float x=0.0f, float y=0.0f, D3DCOLOR color=D3DCOLOR_WHITE );
-
-	//	頂点データで書く
-	void Draw( MGL_SQUARE_VERTEXS *pMglSqVertexs, BOOL bVertexRevise=TRUE );
-	void Draw( MYU_VERTEX *pMyuVertex, UINT nPrimitiveCount=2, BOOL bVertexRevise=TRUE );
 	void SetD3dStageTexture(DWORD nStage=0);
-
-	//	PrimitiveUP
-	void DrawPrimitiveUP( D3DPRIMITIVETYPE primitiveType, UINT nPrimitiveCount,
-		const void *pVertexStreamZeroData, UINT nVertexStreamZeroStride );
-
-
-	//	古い描画方式
-	void TextureDraw( float x=0.0f, float y=0.0f, RECT* srcRect=NULL, float fScaleX=1.0f, float fScaleY=1.0f,
-		D3DCOLOR color=D3DCOLOR_WHITE, DWORD dwAlphaOption=MGL_ALPHA_OPT_DEFAULT )
-	{
-		MGL_VERTEX_COLORS tVertexColors;
-		GenerateEqVertexColors( &tVertexColors, color );
-		TextureDraw( x, y, srcRect, fScaleX, fScaleY, 0.5f, 0.5f, 0.0f, &tVertexColors, dwAlphaOption );
-	}
-	//	↓fAngleは実は実装してない
-	void TextureDraw( float x, float y, RECT* srcRect, float fScaleX, float fScaleY,
-		float fRotationCenterX, float fRotationCenterY, float fAngle,
-		MGL_VERTEX_COLORS* vertexColors, DWORD dwAlphaOption );
-	//void TextureDraw( float x=0.0f, float y=0.0f, float fSizeX=1.0f, float fSizeY=1.0f, D3DCOLOR color=0xffffffff );
-
 
 	//	BMPの頂点データ取得
 	void GetBmpVertexs( MGL_SQUARE_VERTEXS *pMglSqVertexs );
