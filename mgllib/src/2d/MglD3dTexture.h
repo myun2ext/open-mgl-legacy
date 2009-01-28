@@ -105,22 +105,6 @@ protected:
 			MyuThrow( 0, "CMglD3dTexture 未作成であるにも関わらず操作を行おうとしました。Create()系メソッドを呼んでください。" );
 	}
 
-	//	古い描画方式用
-	void GenerateEqVertexColors( MGL_VERTEX_COLORS* dest, D3DCOLOR color )
-	{
-		for( D3DCOLOR* p=(D3DCOLOR*)dest; p<((D3DCOLOR*)dest)+4; p++ )
-		{
-			*p = color;
-		}
-
-		/*
-		dest->leftTop = color;
-		dest->leftBottom = color;
-		dest->rightTop = color;
-		dest->rightBottom = color;
-		*/
-	}
-
 	void LockedCheck(){
 		if ( m_bLocked == TRUE )
 			MyuThrow(0, "CMglD3dTexture ロックされています。ロックを開放してください。\r\n\r\n"
@@ -156,9 +140,6 @@ public:
 	void Create( int x, int y, BOOL bRenderTarget );
 
 	void SetD3dStageTexture(DWORD nStage=0);
-
-	//	BMPの頂点データ取得
-	void GetBmpVertexs( MGL_SQUARE_VERTEXS *pMglSqVertexs );
 
 	//	内部変数取得系
 	_MGL_IDirect3DTexture* GetDirect3dTexturePtr(){ CreateCheck(); return m_pTexture; }

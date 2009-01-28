@@ -179,31 +179,6 @@ void CMglD3dTexture::SetD3dStageTexture(DWORD nStage)
 		"CMglD3dTexture::SetD3dTexture()  d3d->SetTexture()に失敗" );
 }
 
-///////////////////////////////////////////////////////////////////////////
-
-//	BMPの頂点情報取得
-void CMglD3dTexture::GetBmpVertexs( MGL_SQUARE_VERTEXS *pMglSqVertexs )
-{
-	int nBmpSrcX = m_imgInfo.Width;
-	int nBmpSrcY = m_imgInfo.Height;
-
-	//	2007/01/10  スケール取得
-	//	# テクスチャ領域は2の倍数になる。その内の0.?fがBMPの領域かを算出する
-	D3DSURFACE_DESC texDesc;
-	m_pTexture->GetLevelDesc( 0, &texDesc );
-	const float fBmpScaleX = (float)nBmpSrcX / (float)texDesc.Width;
-	const float fBmpScaleY = (float)nBmpSrcY / (float)texDesc.Height;
-
-	//	頂点情報生成
-	MglVertexGen( &pMglSqVertexs->lt, 0, 0, 0,					0.0f, 0.0f );
-	MglVertexGen( &pMglSqVertexs->rt, nBmpSrcX, 0,				0,	fBmpScaleX, 0.0f );
-	MglVertexGen( &pMglSqVertexs->lb, 0, nBmpSrcY, 0,			0.0f, fBmpScaleY );
-	MglVertexGen( &pMglSqVertexs->rb, nBmpSrcX, nBmpSrcY, 0,	fBmpScaleX, fBmpScaleY );
-
-	//	頂点のズラし
-	//MglMoveVertexs( pMglSqVertexs, TEXTURE_FLOAT_ADJ, TEXTURE_FLOAT_ADJ );
-}
-
 //	絵画先をこのサーフェスに設定する
 void CMglD3dTexture::SetRender()
 {
@@ -332,8 +307,8 @@ void CMglD3dTexture::Paint( RECT* pRect, D3DCOLOR color )
 
 CMglBitmapData* CMglD3dTexture::GetIternalBitmapData()
 {
-	if ( m_pBitmapData == NULL )
-		m_pBitmapData = new CMglBitmapData(this);
+	/*if ( m_pBitmapData == NULL )
+		m_pBitmapData = new CMglBitmapData(this);*/
 	return m_pBitmapData;
 }
 
