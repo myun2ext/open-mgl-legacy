@@ -14,7 +14,7 @@
 
 //class DLL_EXP agh::CTextBase;
 //class DLL_EXP agh::CTextBase< CAugustVisualControlBase >;
-#pragma warning( disable : 4660 ) 
+//#pragma warning( disable : 4660 ) 
 template class DLL_EXP agh::CTextBaseT< CAugustVisualControlBase >;
 
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////

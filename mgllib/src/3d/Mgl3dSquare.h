@@ -11,7 +11,7 @@
 #include "MglVertexManager.h"
 //#include "MglTexture.h"
 
-#pragma warning( disable : 4660 ) 
+//#pragma warning( disable : 4660 ) 
 
 //	ƒNƒ‰ƒXéŒ¾
 class DLL_EXP CMgl3dSquare : public CMglVertexManagerX
