@@ -16,15 +16,20 @@
 #define	FVF_MGL_DOT ( D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_PSIZE )
 
 //	Vertex Struct
-typedef struct
+class MGL_DOT_VERTEX
 {
+public:
 	float		x,y,z;
 	D3DCOLOR	color;
 	float		point;	//	“_‚Ì‘å‚«‚³
 	// ---------------------------------------------
+	MGL_DOT_VERTEX(){
+		x = y = z = 0.0f;
+		color = 0;
+		point = 1.0f;
+	}
 	static DWORD GetFVF(){ return FVF_MGL_DOT; }
-}
-MGL_DOT_VERTEX;
+};
 
 //	DLL Exports (inhibit for C4275)
 DLL_TMPL_EXP CMglVertexManagerT<MGL_DOT_VERTEX>;
