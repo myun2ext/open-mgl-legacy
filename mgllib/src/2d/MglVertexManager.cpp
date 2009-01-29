@@ -6,6 +6,9 @@
 
 //template class DLL_EXP CMglVertexManagerXT<_VERTEX>;
 
+/*template class DLL_EXP CMglVertexManagerT<>;
+template class DLL_EXP CMglVertexManagerXT<>;*/
+
 //	テクスチャの設定
 void _CMglVertexManagerXT_Realize::SetD3dStageTexture(_MGL_IDirect3DTexture *pTexture, DWORD nStage)
 {

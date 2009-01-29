@@ -11,7 +11,7 @@
 #include "AugustCommon.h"
 #include "Mgl3dManager.h"
 
-#pragma warning( disable : 4275 ) 
+//#pragma warning( disable : 4275 ) 
 
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////
 class DLL_EXP CAugust3dManager : public CAugustVisualControlBase

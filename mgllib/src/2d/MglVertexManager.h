@@ -114,7 +114,7 @@ private:
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 template <typename _VERTEX = MYUX_VERTEX>
-class /*DLL_EXP*/ CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>, public _CMglVertexManagerXT_Realize
+class CMglVertexManagerXT : public CMglVertexManagerT<_VERTEX>, public _CMglVertexManagerXT_Realize
 {
 private:
 	const void* _GetVertexPtr(){ return GetVertexPtr(); }
@@ -132,5 +132,13 @@ template <typename _VERTEX> class CMglVertexT{ typedef CMglVertexManagerT<_VERTE
 template <typename _VERTEX> class CMglVertexesT{ typedef CMglVertexManagerT<_VERTEX> type; };
 typedef CMglVertexManagerT<> CMglVertex, CMglVertexes, CMglVertexManager;
 typedef CMglVertexManagerXT<> CMglVertexX, CMglVertexesX, CMglVertexManagerX;
+//typedef class DLL_EXP CMglVertexX : public CMglVertexManagerXT<> {} CMglVertexesX, CMglVertexManagerX;
+
+//DLL_TMPL_EXTERN template class DLL_EXP CMglVertexManagerT<>;
+//DLL_TMPL_EXTERN template class DLL_EXP CMglVertexManagerXT<>;
+//DLL_TMPL_EXTERN class DLL_EXP CMglVertexManagerT<>;
+//DLL_TMPL_EXTERN class DLL_EXP CMglVertexManagerXT<>;
+DLL_TMPL_EXP CMglVertexManagerT<>;
+DLL_TMPL_EXP CMglVertexManagerXT<>;
 
 #endif//__MglVertexManager_H__

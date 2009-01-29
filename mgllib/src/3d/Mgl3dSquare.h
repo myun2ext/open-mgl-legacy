@@ -8,10 +8,13 @@
 #define __Mgl3dSquare_H__
 
 #include "MglGraphicManager.h"
+#include "MglVertexManager.h"
 //#include "MglTexture.h"
 
+#pragma warning( disable : 4660 ) 
+
 //	クラス宣言
-class DLL_EXP CMgl3dSquare
+class DLL_EXP CMgl3dSquare : public CMglVertexManagerX
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納

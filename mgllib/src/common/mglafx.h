@@ -20,8 +20,14 @@
 
 #ifdef MGLLIB_EXPORTS
 	#define DLL_EXP __declspec(dllexport)
+	#define DLL_TMPL_EXP template class __declspec(dllexport)	//	C4275対応
+	//#define DLL_TMPL_EXTERN
+	//#define DLL_TMPL_EXTERN template
 #else
 	#define DLL_EXP __declspec(dllimport)
+	#define DLL_TMPL_EXP extern template class __declspec(dllimport)	//	C4275対応
+	//#define DLL_TMPL_EXTERN extern
+	//#define DLL_TMPL_EXTERN extern template
 #endif
 
 /*	//	ソースで使用したい場合。あとまわし
