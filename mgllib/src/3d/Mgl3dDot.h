@@ -8,10 +8,32 @@
 #define __Mgl3dDot_H__
 
 #include "MglGraphicManager.h"
-//#include "MglTexture.h"
+#include "MglVertexManager.h"
+
+////////////////////////////////////
+
+//	FVF Define
+#define	FVF_MGL_DOT ( D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_PSIZE )
+
+//	Vertex Struct
+typedef struct
+{
+	float		x,y,z;
+	D3DCOLOR	color;
+	float		point;	//	点の大きさ
+	// ---------------------------------------------
+	static DWORD GetFVF(){ return FVF_MGL_DOT; }
+}
+MGL_DOT_VERTEX;
+
+//	DLL Exports (inhibit for C4275)
+DLL_TMPL_EXP CMglVertexManagerT<MGL_DOT_VERTEX>;
+DLL_TMPL_EXP CMglVertexManagerXT<MGL_DOT_VERTEX>;
+
+/////////////////////////////////////////////////////////////////////
 
 //	クラス宣言
-class DLL_EXP CMgl3dDots
+class DLL_EXP CMgl3dDots : public CMglVertexManagerXT<MGL_DOT_VERTEX>
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
