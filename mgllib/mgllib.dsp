@@ -305,6 +305,14 @@ SOURCE=.\src\2d\MglTexture.cpp
 
 SOURCE=.\src\2d\MglTexture.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglTexture2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglTexture2.h
+# End Source File
 # End Group
 # Begin Group "3D Graphics Files"
 
