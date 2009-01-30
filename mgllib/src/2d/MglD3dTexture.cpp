@@ -41,7 +41,6 @@ void CMglD3dTexture::Release()
 	SAFE_RELEASE( m_pSurface );
 }
 
-
 //	ファイルから読み込み
 //	bRenderTargetをTRUEにした場合はPOOLも D3DPOOL_MANAGED として読み込まれる。
 //void CMglD3dTexture::CreateTextureFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )

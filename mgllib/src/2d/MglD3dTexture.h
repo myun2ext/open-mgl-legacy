@@ -32,35 +32,6 @@
 #define DEF_COLORKEY			D3DCOLOR_PINK
 #define RENDER_TARGET_DEFAULT	(FALSE)
 
-/*
-//	 -> 削除予定
-#define VERTEXNO_LT		(0)
-#define VERTEXNO_RT		(1)
-#define VERTEXNO_LB		(3)
-#define VERTEXNO_RB		(2)
-
-//	頂点色 -> 削除予定
-typedef struct
-{
-	D3DCOLOR leftTop;
-	D3DCOLOR leftBottom;
-	D3DCOLOR rightTop;
-	D3DCOLOR rightBottom;
-}
-VERTEX_COLORS;
-
-typedef MYU_VERTEX	MGL_VERTEX;
-typedef struct
-{
-	MGL_VERTEX lt;
-	MGL_VERTEX rt;
-	MGL_VERTEX lb;
-	MGL_VERTEX rb;
-}
-MGL_SQUARE_VERTEXS;
-*/
-
-
 //	クラス宣言
 class DLL_EXP CMglD3dTexture// : public CMyuReleaseBase
 {
@@ -83,15 +54,10 @@ protected:
 	BOOL m_bRenderTarget;			//	bRenderTarget
 
 	BOOL m_bLocked;					//	ロック - 2008/06/28
-
 	CMglBitmapData *m_pBitmapData;
 
 	//	頂点情報
-	//MYU_VERTEX m_vertices[4];		//	頂点 -> 別にメンバ変数で持つ必要ナクネ
 	//float fRealTexTu, fRealTexTv;	//	テクスチャ上で実際に使用されるtu,uv
-
-	//	古い描画方式用
-	//BOOL m_bCenterDraw;			//	センター絵画有効/無効フラグ
 
 	//	内部メソッド（チェック用）
 	void InitCheck() {
@@ -163,11 +129,6 @@ public:
 	/////////////////////////////////////////////////////////////////////////
 
 	//D3DCOLOR* GetSurfaceIterator(){ ;
-	/*
-	//	設定
-	void EnableCenterDraw() {	m_bCenterDraw = TRUE; }
-	void DisableCenterDraw() {	m_bCenterDraw = FALSE; }
-	*/
 
 	void SetRender();
 	void SetRenderTarget(){ SetRender(); }
