@@ -76,7 +76,7 @@ void _CMglVertexManagerXT_Realize::Draw( D3DPRIMITIVETYPE primitiveType )
 		MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
 			"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()‚ÉŽ¸”s" );
 
-		MyuAssert( d3d->DrawPrimitive( primitiveType, 0, _GetVertexCount() ), D3D_OK,
+		MyuAssert( d3d->DrawPrimitive( primitiveType, 0, _GetVertexCount()-2 ), D3D_OK,
 			"CMglVertexManagerXT::Draw()  d3d->DrawPrimitive()‚ÉŽ¸”s" );
 	}
 }

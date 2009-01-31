@@ -34,9 +34,9 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	AddVertex(v);
 	v.x = fWidth; v.y = 0.0f; 
 	AddVertex(v);
-	v.x = fWidth; v.y = fHeight; 
-	AddVertex(v);
 	v.x = 0.0f; v.y = fHeight; 
+	AddVertex(v);
+	v.x = fWidth; v.y = fHeight; 
 	AddVertex(v);
 
 	Compile();

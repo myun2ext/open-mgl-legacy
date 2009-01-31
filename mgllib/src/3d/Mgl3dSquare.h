@@ -52,8 +52,8 @@ public:
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 	void SimpleCreate(float fWidth, float fHeight, D3DCOLOR color);
 
-	//void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
-	void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLEFAN); }
+	void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
+	//void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLEFAN); }
 	//void Draw(){ CMglVertexManagerXT<MGL_NOTEX_VERTEX>::Draw(D3DPT_TRIANGLESTRIP); }
 };
 
