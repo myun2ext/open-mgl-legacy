@@ -11,11 +11,29 @@
 #include "MglVertexManager.h"
 //#include "MglTexture.h"
 
-//#pragma warning( disable : 4660 ) 
+//#pragma warning( disable : 4660 )
+
+//	Vertex Struct
+class MGL_NOTEX_VERTEX
+{
+public:
+	float		x,y,z;
+	D3DCOLOR	color;
+	// ---------------------------------------------
+	MGL_NOTEX_VERTEX(){
+		x = y = z = 0.0f;
+		color = 0;
+	}
+	static DWORD GetFVF(){ return D3DFVF_XYZ | D3DFVF_DIFFUSE; }
+};
 
 //	クラス宣言
+//class DLL_EXP CMgl3dSquare : public CMglVertexManagerXT<MGL_NOTEX_VERTEX>
 class DLL_EXP CMgl3dSquare : public CMglVertexManagerX
 {
+public:
+	typedef CMyuVertex _VERTEX;
+
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
@@ -34,7 +52,9 @@ public:
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 	void SimpleCreate(float fWidth, float fHeight, D3DCOLOR color);
 
-	void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }
+	//void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
+	void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLEFAN); }
+	//void Draw(){ CMglVertexManagerXT<MGL_NOTEX_VERTEX>::Draw(D3DPT_TRIANGLESTRIP); }
 };
 
 #endif//__Mgl3dSquare_H__

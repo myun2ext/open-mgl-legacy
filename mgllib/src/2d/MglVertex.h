@@ -3,7 +3,7 @@
 
 #include "MglGraphicUtil.h"
 
-//#define _MGLVERTEX_USE_RHW
+#define _MGLVERTEX_USE_SPECULAR
 
 //	頂点構造体
 #ifdef _MGLVERTEX_USE_RHW
@@ -20,7 +20,9 @@ typedef struct
 #endif
 	//float		nx, ny, nz;			// 法線ベクトル
 	D3DCOLOR	color;				//ポリゴンカラー
+#ifdef _MGLVERTEX_USE_SPECULAR
 	DWORD		specular;			// スペキュラ色
+#endif
 	float		tu,tv;				//テクスチャ座標 - D3DXVECTOR2
 }MYU_VERTEX;
 typedef MYU_VERTEX	MGL_VERTEX;
@@ -43,7 +45,9 @@ public:
 		float = 1.0f;
 #endif
 		color = 0;
+#ifdef _MGLVERTEX_USE_SPECULAR
 		specular = 0;
+#endif
 		tu = tv = 0.0f;
 	}
 

@@ -25,7 +25,7 @@
 	//#define DLL_TMPL_EXTERN template
 #else
 	#define DLL_EXP __declspec(dllimport)
-	#define DLL_TMPL_EXP extern template class DLL_EXP	//	C4275‘Î‰ž
+	#define DLL_TMPL_EXP /*extern*/ template class DLL_EXP	//	C4275‘Î‰ž
 	//#define DLL_TMPL_EXTERN extern
 	//#define DLL_TMPL_EXTERN extern template
 #endif

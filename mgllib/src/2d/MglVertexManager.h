@@ -18,10 +18,11 @@ public:
 	//CMglVertexManager(){}
 
 	void Create(int nVertexCount){
-		m_vertexes.clear();
+		Clear();
 		m_vertexes.resize(nVertexCount);
 	}
 
+	void Clear(){ m_vertexes.clear(); }
 	void AddVertex(_VERTEX &vertex){ m_vertexes.push_back(vertex); }
 	void AddPoint(float x, float y, float z, D3DCOLOR color=0 ){
 		_VERTEX v;
@@ -50,6 +51,10 @@ public:
 
 /////////////////////////////////////////////////////////
 
+//#define MGL_VERTEX_DEFAULT_POOL	D3DPOOL_MANAGED
+#define MGL_VERTEX_DEFAULT_POOL		D3DPOOL_DEFAULT		//	大したサイズじゃないからVRAM上に、って事にしたんだったな！そういえば！
+
+//	クラス宣言
 class DLL_EXP _CMglVertexManagerXT_Realize
 {
 private:
@@ -95,10 +100,10 @@ public:
 
 	////////////////////////////////////////////////////////
 
-	void CompileToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0);
+	void CompileToFastMem(D3DPOOL pool=MGL_VERTEX_DEFAULT_POOL, DWORD dwUsage=0);
 	//void CopyToFastMem(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); }
-	void Compile(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); };
-	void ReCompile(D3DPOOL pool=D3DPOOL_DEFAULT, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); };
+	void Compile(D3DPOOL pool=MGL_VERTEX_DEFAULT_POOL, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); };
+	void ReCompile(D3DPOOL pool=MGL_VERTEX_DEFAULT_POOL, DWORD dwUsage=0){ CompileToFastMem(pool,dwUsage); };
 
 	//	描画
 	void Draw( D3DPRIMITIVETYPE primitiveType );
