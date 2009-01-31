@@ -9,8 +9,8 @@
 #define __MglTexture2_H__
 
 #include "MglD3dTexture.h"
-#include "MglVertexManager.h"
-
+//#include "MglVertexManager.h"
+#include "Mgl3dSquare.h"
 
 //	ƒNƒ‰ƒXéŒ¾
 class DLL_EXP CMglTexture2// : public CMyuReleaseBase

@@ -48,6 +48,10 @@ public:
 	}
 
 	static DWORD GetFVF(){ return FVF_MYU_VERTEX; }
+	void SetTuTv(MGLTUTV tutv){
+		tu = tutv.tu;
+		tv = tutv.tv;
+	}
 } MGLX_VERTEX, MYUX_VERTEX;
 
 /*

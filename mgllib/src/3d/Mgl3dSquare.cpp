@@ -21,3 +21,21 @@ void CMgl3dSquare::Init( CMglGraphicManager* in_myudg )
 	m_myudg = in_myudg;
 	m_d3d = m_myudg->GetD3dDevPtr();
 }
+
+//	çÏê¨
+void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
+{
+	MYUX_VERTEX v;
+	v.color = color;
+	v.x = 0;
+	//v.SetTuTv(
+
+	v.x = 0; v.y = 0; 
+	AddVertex(v);
+	v.x = fWidth; v.y = 0; 
+	AddVertex(v);
+	v.x = 0; v.y = fHeight; 
+	AddVertex(v);
+	v.x = fWidth; v.y = fHeight; 
+	AddVertex(v);
+}

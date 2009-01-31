@@ -32,6 +32,9 @@ public:
 	virtual ~CMgl3dSquare(){}
 
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
+	void SimpleCreate(float fWidth, float fHeight, D3DCOLOR color);
+
+	void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }
 };
 
 #endif//__Mgl3dSquare_H__
