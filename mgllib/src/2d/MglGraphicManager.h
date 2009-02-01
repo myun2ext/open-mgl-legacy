@@ -262,4 +262,43 @@ DLL_EXP BOOL CheckDefaultGd();
 	return TRUE;
 }*/
 
+//////////////////////////////////////////////////////////////
+
+typedef class DLL_EXP CMglDgBase
+{
+protected:
+	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
+	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_d3d;	//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_pD3dDev;//	D3DDeviceへのポインタ
+
+	//	内部メソッド（チェック用）
+	void InitCheck() {
+		if ( m_myudg == NULL )
+			Init( GetDefaultGd() );
+	}
+
+public:
+	CMglDgBase(){
+		m_myudg = NULL;
+		d3d = NULL;
+		m_d3d = NULL;
+		m_pD3dDev = NULL;
+	}
+	virtual ~CMglDgBase(){
+		Release();
+	}
+
+	//	初期化/開放
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
+		m_myudg = in_myudg;
+		d3d = m_myudg->GetD3dDevPtr();
+		m_d3d = m_myudg->GetD3dDevPtr();
+		m_pD3dDev = m_myudg->GetD3dDevPtr();
+	}
+	virtual void Release(){}
+}
+CMglDgClassBase;
+
+
 #endif//__MglGraphicManager_H__

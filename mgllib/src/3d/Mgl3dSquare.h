@@ -36,7 +36,7 @@ public:
 
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
-	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_d3d;			//	D3DDeviceへのポインタ
 
 	//	内部メソッド（チェック用）
 	void InitCheck() {

@@ -57,8 +57,8 @@ void CMgl3DManager::Init( CMglGraphicManager* in_myudg )
 	m_pD3dDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 
 	//	Zバッファ設定
-	//m_pD3dDev->SetRenderState( D3DRS_ZENABLE,	D3DZB_TRUE );		// Zバッファを有効にする。
-	//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE,		TRUE );			// Zバッファへの書き込み許可
+	m_pD3dDev->SetRenderState( D3DRS_ZENABLE,	D3DZB_TRUE );		// Zバッファを有効にする。
+	m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE,		TRUE );			// Zバッファへの書き込み許可
 
 	//	Projectionの設定
 	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());
