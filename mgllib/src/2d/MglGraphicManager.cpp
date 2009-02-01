@@ -40,6 +40,7 @@ CMglGraphicManager::CMglGraphicManager()
 	ZeroMemory( &m_formatTexture, sizeof(m_formatTexture) ); 
 	m_dwD3dDeviceFlg = 0;
 	m_dwAlphaOption = MGL_ALPHA_OPT_TRANSLUCENCE;
+	m_bUse3d = FALSE;
 
 	m_nTexMem = 0;
 	m_dwMaxTextureHeight = 0;
@@ -98,7 +99,7 @@ void CMglGraphicManager::Release()
 
 
 //	初期化及び開始
-void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscreen,
+void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscreen, BOOL bUse3d,
 							  D3DFORMAT formatTexture, DWORD dwD3dDeviceMode, UINT nAdapterNo )
 {
 	_MGL_DEBUGLOG( "+ CMglGraphicManager::Init()" );
@@ -198,13 +199,34 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 	else
 		presentParam.Windowed = TRUE;
 
-	//BOOL            EnableAutoDepthStencil;
-    //D3DFORMAT       AutoDepthStencilFormat;
+/*
+	//	ステンシル系
+	MyuAssert( this->m_pD3d->CheckDeviceFormat( nAdapterNo, D3DDEVTYPE_HAL, dispMode.Format,
+		D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, D3DFMT_D16 ), D3D_OK,
+		"ステンシル不可" );
+
+	MyuAssert( this->m_pD3d->CheckDeviceFormat( nAdapterNo, D3DDEVTYPE_HAL, dispMode.Format,
+		D3DUSAGE_RENDERTARGET, D3DRTYPE_SURFACE, dispMode.Format ), D3D_OK,
+		"レンダー不可" );
+	 
+*/
+	//	2009/01/31 Zステンシル（3D）対応
+	if ( bUse3d ){
+		presentParam.EnableAutoDepthStencil = TRUE;
+		presentParam.AutoDepthStencilFormat = D3DFMT_D16;
+	}
+	m_bUse3d = bUse3d;
+
     //DWORD           Flags;
     //UINT            FullScreen_PresentationInterval;
 
 	//	Ex版の呼び出し
 	InitEx( &presentParam, dwD3dDeviceMode, formatTexture, nAdapterNo );
+
+	//	2009/01/31 3D対応
+	if ( bUse3d ){
+		Enable3d();
+	}
 
 	//	g_pDefaultGdへの設定
 	if ( g_2dgCount == 1 )
@@ -222,6 +244,13 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 
 	_MGL_DEBUGLOG( "- CMglGraphicManager::Init()" );
 }
+
+void CMglGraphicManager::Enable3d()
+{
+	p3d = new CMgl3DManager();
+	p3d->Init(this);
+}
+
 void CMglGraphicManager::InitSprite()
 {
 	if ( m_pD3dDev == NULL )
@@ -266,20 +295,6 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 
 	if ( hFocusWindow == NULL )
 		hFocusWindow = pPresentParam->hDeviceWindow;
-
-/*
-	//	ステンシル系
-	MyuAssert( this->m_pD3d->CheckDeviceFormat( nAdapterNo, D3DDEVTYPE_HAL, dispMode.Format,
-		D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, D3DFMT_D16 ), D3D_OK,
-		"ステンシル不可" );
-
-	MyuAssert( this->m_pD3d->CheckDeviceFormat( nAdapterNo, D3DDEVTYPE_HAL, dispMode.Format,
-		D3DUSAGE_RENDERTARGET, D3DRTYPE_SURFACE, dispMode.Format ), D3D_OK,
-		"レンダー不可" );
-	 
-	presentParam.EnableAutoDepthStencil = TRUE;
-	presentParam.AutoDepthStencilFormat = D3DFMT_D16;
-*/
 
 	//	2007/07/15  REFサポート
 	if ( dwD3dDeviceMode == D3D_DEVICE_FLG_REF ){
@@ -336,9 +351,6 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 
 	//	バックバッファをクリアしておく
 	Clear();
-
-	//	一応デフォルト3D有効にしとくかー・・・
-	Enable3d();
 
 	_MGL_DEBUGLOG( "- CMglGraphicManager::InitEx()" );
 }
@@ -420,6 +432,9 @@ void CMglGraphicManager::Clear( D3DCOLOR color )
 	CMglStackInstance("CMglGraphicManager::Clear");
    //m_pD3dDev->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
 	Paint( NULL, color );
+
+	if ( m_bUse3d )
+		m_pD3dDev->Clear( 0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
 }
 
 void CMglGraphicManager::Paint( RECT* rect, D3DCOLOR color )
@@ -773,11 +788,6 @@ void CMglGraphicManager::DrawPrimitiveUpMyuVertex(MGL_VERTEX *pMglVertexs, int n
 			"CMglGraphicManager::DrawPrimitiveUpMyuVertexSquare()  DrawPrimitiveUP()に失敗" );
 }
 
-void CMglGraphicManager::Enable3d()
-{
-	p3d = new CMgl3DManager();
-	p3d->Init(this);
-}
 													
 
 ////////////////////////////////////////////////////////////

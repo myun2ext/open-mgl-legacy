@@ -104,6 +104,7 @@ protected:
 	D3DFORMAT m_formatTexture;	//	フォーマット
 	DWORD m_dwD3dDeviceFlg;		//	Direct3Dデバイスのモード(T&L等)
 	DWORD m_dwAlphaOption;		//	アルファオプション。GetAlphaMode()用に保持
+	BOOL m_bUse3d;
 
 	//	デバイス情報
 	UINT m_nTexMem;				//	残りテクスチャメモリ
@@ -144,9 +145,14 @@ public:
 	virtual ~CMglGraphicManager();
 
 	//	初期化/開放
-	void Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscreen, D3DFORMAT formatTexture=D3DFMT_A8R8G8B8,
+	void Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscreen, BOOL bUse3d, D3DFORMAT formatTexture=D3DFMT_A8R8G8B8,
 		DWORD dwD3dDeviceMode=D3D_DEVICE_MODE_AUTO, UINT nAdapterNo=D3DADAPTER_DEFAULT );
+	void Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscreen, D3DFORMAT formatTexture=D3DFMT_A8R8G8B8,
+		DWORD dwD3dDeviceMode=D3D_DEVICE_MODE_AUTO, UINT nAdapterNo=D3DADAPTER_DEFAULT )
 //		DWORD dwD3dDeviceMode=D3D_DEVICE_MODE_DEFAULT );
+	{
+		Init(hWnd,nDispX,nDispY,bFullscreen,TRUE,formatTexture,dwD3dDeviceMode,nAdapterNo);
+	}
 	void InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD3dDeviceMode, D3DFORMAT formatTexture,
 		int nAdapterNo, HWND hFocusWindow=NULL );
 
@@ -233,6 +239,8 @@ public:
 	DWORD GetAlphaMode() { return m_dwAlphaOption; }
 	void EnableSupportSprite(){ m_bUseSprite = TRUE; }
 	void DisableSupportSprite(){ m_bUseSprite = FALSE; }
+
+private:
 	void Enable3d();
 };
 
