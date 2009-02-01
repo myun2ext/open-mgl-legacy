@@ -19,14 +19,14 @@ void CMglMesh::Load(const char* szMeshFilePath)
 		MyuThrow(MGLMSGNO_MESH(1), "CMglMesh::Load()  既に読み込み済みです。"
 			"再び読み込む場合には一度 Release() を呼び出した後読み込んでください。");
 
-	////////////////////////////////////////////
-
-	LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
-
+	//	ファイルが本当にあるかどうか？
 	if ( !msl::IsExistFile(szMeshFilePath) )
 		MyuThrow(MGLMSGNO_MESH(2), "CMglMesh::Load()  メッシュファイル \"%s\" は見つかりません。", szMeshFilePath);
 
+	////////////////////////////////////////////
+
 	//	X ファイルのロード
+	LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
 	MyuAssert2( D3DXLoadMeshFromX( (char*)szMeshFilePath, D3DXMESH_SYSTEMMEM, 
 								   m_d3d, NULL, 
 								   &pD3DXMtrlBuffer, &m_dwNumMaterials, 
@@ -81,7 +81,8 @@ void CMglMesh::Load(const char* szMeshFilePath)
 
 void CMglMesh::Release()
 {
-	EzMsgBox("Release()");
+	//InitCheck(); <- 別にいらないか。SAFE_RELEASE()内でNULLチェックしてるんだし。
+	//EzMsgBox("Release()");
 
 	//	メッシュマテリアルの解放
 	SAFE_DELETE_ARY(m_pMeshMaterials);
@@ -102,9 +103,25 @@ void CMglMesh::Release()
 //	描画
 void CMglMesh::Draw()
 {
-	for( DWORD i=0; i < m_dwNumMaterials; i++ ){
-		m_pD3dDev->SetMaterial( &m_pMeshMaterials[i] );
-		m_pD3dDev->SetTexture( 0, m_pMeshTextures[i] );
+	InitCheck();
+
+	for( DWORD i=0; i < m_dwNumMaterials; i++ )
+	{
+		if ( m_pMeshMaterials != NULL )
+			m_pD3dDev->SetMaterial( &m_pMeshMaterials[i] );
+
+		if ( m_pMeshTextures != NULL && m_pMeshTextures[i] != NULL )
+			m_pD3dDev->SetTexture( 0, m_pMeshTextures[i] );
+
 		m_pMesh->DrawSubset( i );
 	}
 }
+
+/////////////////////////////////////////////////
+
+void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth)
+{
+	MyuAssert2( D3DXCreateBox( m_d3d, fWidth, fHeight, fDepth, &m_pMesh, NULL), D3D_OK,
+		MGLMSGNO_MESH(32), "CMglMesh::CreateBox()  D3DXCreateBox()に失敗" );
+}
+

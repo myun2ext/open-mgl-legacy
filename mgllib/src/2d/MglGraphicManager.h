@@ -285,9 +285,9 @@ public:
 		m_d3d = NULL;
 		m_pD3dDev = NULL;
 	}
-	virtual ~CMglDgBase(){
+	/*virtual ~CMglDgBase(){
 		Release();
-	}
+	}*/
 
 	//	‰Šú‰»/ŠJ•ú
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
@@ -296,7 +296,7 @@ public:
 		m_d3d = m_myudg->GetD3dDevPtr();
 		m_pD3dDev = m_myudg->GetD3dDevPtr();
 	}
-	virtual void Release(){}
+	//virtual void Release(){}
 };
 typedef CMglDgBase CMglDgClassBase;
 
