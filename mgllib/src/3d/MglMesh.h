@@ -26,6 +26,8 @@ public:
 	void Load(const char* szMeshFilePath);
 	void LoadXFile(const char* szXFilePath){ Load(szXFilePath); }
 	void Create(const char* szMeshFilePath){ Load(szMeshFilePath); }
+
+	void Draw();
 };
 
 typedef CMglMesh CMgl3dMesh;

@@ -16,33 +16,43 @@ void CMglMesh::Load(const char* szMeshFilePath)
 	InitCheck();
 
 	if ( m_pMesh != NULL )
-		MyuThrow(678025, "CMglMesh::Load()  既に読み込み済みです。"
+		MyuThrow(MGLMSGNO_MESH(1), "CMglMesh::Load()  既に読み込み済みです。"
 			"再び読み込む場合には一度 Release() を呼び出した後読み込んでください。");
 
 	////////////////////////////////////////////
 
 	LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
 
+	if ( !msl::IsExistFile(szMeshFilePath) )
+		MyuThrow(MGLMSGNO_MESH(2), "CMglMesh::Load()  メッシュファイル \"%s\" は見つかりません。", szMeshFilePath);
+
 	//	X ファイルのロード
-	MyuAssert( D3DXLoadMeshFromX( (char*)szMeshFilePath, D3DXMESH_SYSTEMMEM, 
+	MyuAssert2( D3DXLoadMeshFromX( (char*)szMeshFilePath, D3DXMESH_SYSTEMMEM, 
 								   m_d3d, NULL, 
 								   &pD3DXMtrlBuffer, &m_dwNumMaterials, 
 								   &m_pMesh ), D3D_OK,
-		"CMglMesh::Load()  D3DXLoadMeshFromX()に失敗" );
+		MGLMSGNO_MESH(4), "CMglMesh::Load()  D3DXLoadMeshFromX()に失敗" );
 
 	// pD3DXMtrlBuffer から、質感やテクスチャーの情報を読み取る
 	D3DXMATERIAL* d3dxMaterials = (D3DXMATERIAL*)pD3DXMtrlBuffer->GetBufferPointer();
 	m_pMeshMaterials = new _D3DMATERIALx[m_dwNumMaterials];
 	m_pMeshTextures  = new _IDirect3DTextureX* [m_dwNumMaterials];
+	ZeroMemory(m_pMeshTextures, sizeof(LPVOID*)*m_dwNumMaterials);
 
-	for( DWORD i=0; i < m_dwNumMaterials; i++ ){
+	for( DWORD i=0; i < m_dwNumMaterials; i++ )
+	{
 		m_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;// 質感のコピー
 		m_pMeshMaterials[i].Ambient = m_pMeshMaterials[i].Diffuse;// マテリアルの環境色を設定する
 	 
-		MyuAssert( D3DXCreateTextureFromFile( m_d3d, 
-										d3dxMaterials[i].pTextureFilename, 
-										&m_pMeshTextures[i] ), D3D_OK,
-			"CMglMesh::Load()  D3DXCreateTextureFromFile()に失敗" );
+		const char* szTextureFile = d3dxMaterials[i].pTextureFilename;
+		if ( szTextureFile != NULL )
+		{
+			MyuAssert2( D3DXCreateTextureFromFile( m_d3d, 
+											szTextureFile, 
+											&m_pMeshTextures[i] ), D3D_OK,
+				MGLMSGNO_MESH(5), "CMglMesh::Load()  D3DXCreateTextureFromFile(\"%s\")に失敗",
+				szTextureFile);
+		}
 	}
 
 	SAFE_RELEASE(pD3DXMtrlBuffer);
@@ -89,3 +99,12 @@ void CMglMesh::Release()
 	SAFE_RELEASE( m_pMesh );
 }
 
+//	描画
+void CMglMesh::Draw()
+{
+	for( DWORD i=0; i < m_dwNumMaterials; i++ ){
+		m_pD3dDev->SetMaterial( &m_pMeshMaterials[i] );
+		m_pD3dDev->SetTexture( 0, m_pMeshTextures[i] );
+		m_pMesh->DrawSubset( i );
+	}
+}
