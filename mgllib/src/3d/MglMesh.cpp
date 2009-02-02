@@ -139,7 +139,7 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	pMat->Diffuse = D3DXCOLOR(color);
 	pMat->Ambient = D3DXCOLOR(ambient);
 	pMat->Specular = D3DXCOLOR(specular);
-	pMat->Power = 20.0f;
+	pMat->Power = fPower;
 
 	/*
 	m_pMeshMaterials = new _D3DMATERIALx[m_dwMaterialCount];
