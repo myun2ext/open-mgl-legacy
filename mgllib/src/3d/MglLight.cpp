@@ -18,7 +18,7 @@ void CMglLight::Release()
 void CMglLight::Setup( D3DLIGHTTYPE lightType,
 					  float fPosX, float fPosY, float fPosZ,
 					  float fDirectionX, float fDirectionY, float fDirectionZ,
-					  D3DXCOLOR color, D3DCOLOR ambient, float fRange )
+					  D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, float fRange )
 {
 	InitCheck();
 
@@ -26,6 +26,8 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 
 	m_light.Type = lightType;
 	m_light.Diffuse = color;
+	m_light.Ambient = ambient;
+	m_light.Specular = specular;
 	m_light.Range = fRange;
 
 	D3DXVECTOR3 direction(fDirectionX,fDirectionY,fDirectionZ);
@@ -41,6 +43,13 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	//m_d3d->LightEnable( m_dwLightIndex, TRUE );
 
 	m_d3d->SetRenderState( D3DRS_AMBIENT, ambient );
+
+	/*
+	g_pD3DDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);// グローシェーディングを行う
+	g_pD3DDevice->SetRenderState(D3DRS_SPECULARENABLE,FALSE);	// スペキュラを使用しない
+	g_pD3DDevice->SetMaterial(&g_Material);						// マテリアルをシステムに設定
+	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS,TRUE);	// 頂点法線の自動正規化を有効にする
+	*/
 }
 
 //typedef struct _D3DLIGHT8 {
@@ -64,6 +73,9 @@ void CMglLight::Enable(){
 }
 void CMglLight::Disable(){
 	m_d3d->LightEnable( m_dwLightIndex, FALSE );
+}
+void CMglLight::AllLightDisable(){
+	m_d3d->SetRenderState( D3DRS_LIGHTING, FALSE );
 }
 
 void CMglLight::CommitD3dLight(){

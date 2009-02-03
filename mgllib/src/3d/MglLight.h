@@ -8,17 +8,18 @@
 class DLL_EXP CMglLight : public CMglDgBase
 {
 private:
-	void _CMglLight();
+	void _CMglLight(); // 内部コンストラクタ
 
 protected:
 	_D3DLIGHTx m_light;
 	DWORD m_dwLightIndex;
 
 public:
+	//	コンストラクタ・デストラクタ
 	CMglLight(){ _CMglLight(); }
-	CMglLight(int nLightIndex){
+	CMglLight(DWORD dwLightIndex){
 		_CMglLight();
-		m_dwLightIndex = nLightIndex;
+		m_dwLightIndex = dwLightIndex;
 	}
 	virtual ~CMglLight(){ Release(); }
 	virtual void Release();
@@ -31,17 +32,20 @@ public:
 	void Setup( _D3DLIGHTx &lightSetting );
 	void Setup( D3DLIGHTTYPE lightType,
 		float fPosX, float fPosY, float fPosZ, float fDirectionX, float fDirectionY, float fDirectionZ,
-		D3DXCOLOR color=D3DCOLOR_WHITE, D3DCOLOR ambient=D3DCOLOR_WHITE, float fRange=1000.0f );
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_WHITE, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f );
 
 	void SetupDirectionalLight( float fDirectionX, float fDirectionY, float fDirectionZ,
-		D3DXCOLOR color=D3DCOLOR_WHITE, D3DCOLOR ambient=D3DCOLOR_WHITE, float fRange=1000.0f )
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_WHITE, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f )
 	{
-		Setup(D3DLIGHT_DIRECTIONAL, 0,0,0, fDirectionX, fDirectionY, fDirectionZ, color, ambient, fRange);
+		Setup(D3DLIGHT_DIRECTIONAL, 0,0,0, fDirectionX, fDirectionY, fDirectionZ, color, ambient, specular, fRange);
 	}
 
 	void SetLightIndex(DWORD dwLightIndex){ m_dwLightIndex = dwLightIndex; }
 	void Enable();
 	void Disable();
+	void AllLightDisable();
+	void DisableAllLight(){ AllLightDisable(); }
+	void DisableLighting(){ AllLightDisable(); }
 	//--------------------------------------------------------
 
 	_D3DLIGHTx* GetD3dLightPtr(){ return &m_light; }
