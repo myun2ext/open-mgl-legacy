@@ -46,6 +46,8 @@ public:
 
 	_D3DLIGHTx* GetD3dLightPtr(){ return &m_light; }
 	void CommitD3dLight();
+	void Commit(){ CommitD3dLight(); }
+	void CommitLight(){ CommitD3dLight(); }
 };
 
 #endif//__MglLight_H__
