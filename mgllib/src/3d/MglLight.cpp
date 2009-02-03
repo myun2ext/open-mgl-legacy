@@ -33,3 +33,18 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType, float fPosX, float fPosY, float f
 	m_d3d->SetRenderState( D3DRS_AMBIENT, ambient );
 }
 
+//typedef struct _D3DLIGHT8 {
+//    D3DLIGHTTYPE    Type;            /* Type of light source */
+//    D3DCOLORVALUE   Diffuse;         /* Diffuse color of light */
+//    D3DCOLORVALUE   Specular;        /* Specular color of light */
+//    D3DCOLORVALUE   Ambient;         /* Ambient color of light */
+//    D3DVECTOR       Position;         /* Position in world space */
+//    D3DVECTOR       Direction;        /* Direction in world space */
+//    float           Range;            /* Cutoff range */
+//    float           Falloff;          /* Falloff */
+//    float           Attenuation0;     /* Constant attenuation */
+//    float           Attenuation1;     /* Linear attenuation */
+//    float           Attenuation2;     /* Quadratic attenuation */
+//    float           Theta;            /* Inner angle of spotlight cone */
+//    float           Phi;              /* Outer angle of spotlight cone */
+//} D3DLIGHT8;
