@@ -264,7 +264,7 @@ DLL_EXP BOOL CheckDefaultGd();
 
 //////////////////////////////////////////////////////////////
 
-class DLL_EXP CMglDgBase
+class DLL_EXP CMglDgBase : public CMyuReleaseBase
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
@@ -285,9 +285,9 @@ public:
 		m_d3d = NULL;
 		m_pD3dDev = NULL;
 	}
-	/*virtual ~CMglDgBase(){
-		Release();
-	}*/
+	virtual ~CMglDgBase(){
+		//DbBaseRelease();
+	}
 
 	//	初期化/開放
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
@@ -297,6 +297,7 @@ public:
 		m_pD3dDev = m_myudg->GetD3dDevPtr();
 	}
 	//virtual void Release(){}
+	//void DbBaseRelease(){}
 };
 typedef CMglDgBase CMglDgClassBase;
 

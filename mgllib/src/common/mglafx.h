@@ -127,6 +127,7 @@ using namespace std;
 	typedef D3DCAPS9 _D3DCAPSx;
 	typedef D3DADAPTER_IDENTIFIER9 _D3DADAPTER_IDENTIFIERx;
 	typedef D3DMATERIAL9 _D3DMATERIALx;
+	typedef D3DLIGHT9 _D3DLIGHTx;
 
 //	DirectX10
 //#elif _MGL_USE_DXVER10
@@ -185,6 +186,8 @@ using namespace std;
 	typedef D3DCAPS8 _D3DCAPSx;
 	typedef D3DADAPTER_IDENTIFIER8 _D3DADAPTER_IDENTIFIERx;
 	typedef D3DMATERIAL8 _D3DMATERIALx;
+	typedef D3DLIGHT8 _D3DLIGHTx;
+
 #endif
 
 #include <dinput.h>
