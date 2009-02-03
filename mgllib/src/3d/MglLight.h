@@ -9,6 +9,7 @@ class DLL_EXP CMglLight : public CMglDgBase
 {
 protected:
 	_D3DLIGHTx m_light;
+	DWORD m_dwLightIndex;
 
 public:
 	CMglLight();
@@ -16,9 +17,9 @@ public:
 	virtual void Release();
 
 	//	èâä˙âª/äJï˙
-	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){ CMglDgBase::Init(in_myudg); }
-	void Init( D3DLIGHTTYPE lightType,
-		CMglGraphicManager* in_myudg=GetDefaultGd() );
+	//void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){ CMglDgBase::Init(in_myudg); }
+	/*void Init( D3DLIGHTTYPE lightType,
+		CMglGraphicManager* in_myudg=GetDefaultGd() );*/
 
 	void Setup( _D3DLIGHTx &lightSetting );
 	void Setup( D3DLIGHTTYPE lightType,
@@ -31,6 +32,9 @@ public:
 		Setup(D3DLIGHT_DIRECTIONAL, 0,0,0, fDirectionX, fDirectionY, fDirectionZ, color, ambient, fRange);
 	}
 
+	void SetLightIndex(DWORD dwLightIndex){ m_dwLightIndex = dwLightIndex; }
+	void Enable();
+	void Disable();
 	//--------------------------------------------------------
 
 	_D3DLIGHTx* GetD3dLightPtr(){ return &m_light; }

@@ -5,12 +5,13 @@
 CMglLight::CMglLight()
 {
 	ZeroMemory( &m_light, sizeof(m_light) );
+	m_dwLightIndex = 0;
 }
 
 //	ŠJ•ú
 void CMglLight::Release()
 {
-
+	CMglLight::Disable();
 }
 
 
@@ -33,8 +34,12 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	D3DXVec3Normalize( (D3DXVECTOR3*)&m_light.Position, &position );
 
 	m_d3d->SetRenderState( D3DRS_LIGHTING, TRUE );
-	m_d3d->SetLight( 0, &m_light );
-	m_d3d->LightEnable( 0, TRUE );
+
+	CommitD3dLight();
+	CMglLight::Enable();
+	//m_d3d->SetLight( m_dwLightIndex, &m_light );
+	//m_d3d->LightEnable( m_dwLightIndex, TRUE );
+
 	m_d3d->SetRenderState( D3DRS_AMBIENT, ambient );
 }
 
@@ -54,6 +59,13 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 //    float           Phi;              /* Outer angle of spotlight cone */
 //} D3DLIGHT8;
 
+void CMglLight::Enable(){
+	m_d3d->LightEnable( m_dwLightIndex, TRUE );
+}
+void CMglLight::Disable(){
+	m_d3d->LightEnable( m_dwLightIndex, FALSE );
+}
+
 void CMglLight::CommitD3dLight(){
-	m_d3d->SetLight( 0, &m_light );
+	m_d3d->SetLight( m_dwLightIndex, &m_light );
 }
