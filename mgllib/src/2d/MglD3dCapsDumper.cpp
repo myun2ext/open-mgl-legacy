@@ -135,6 +135,17 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 
 	fprintf( fp, "TextureOpCaps :            0x%08x\n\n", caps->TextureOpCaps );
 
+	fprintf( fp, "MaxActiveLights :          %u\n\n", caps->MaxActiveLights );
+
+	fprintf( fp, "MaxPrimitiveCount :        %u\n", caps->MaxPrimitiveCount );
+	fprintf( fp, "MaxVertexIndex :           %u\n", caps->MaxVertexIndex );
+	fprintf( fp, "MaxStreams :               %u\n", caps->MaxStreams );
+	fprintf( fp, "MaxStreamStride :          %u\n\n", caps->MaxStreamStride );
+
+	fprintf( fp, "VertexShaderVersion :      %u\n", caps->VertexShaderVersion );
+	fprintf( fp, "MaxVertexShaderConst :     %u\n", caps->MaxVertexShaderConst );
+	fprintf( fp, "PixelShaderVersion :       %u\n", caps->PixelShaderVersion );
+	fprintf( fp, "MaxPixelShaderValue :      %f\n\n", caps->MaxPixelShaderValue );
 
 /*
     /* Device Info *
@@ -169,11 +180,11 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 
     DWORD   LineCaps;                   // D3DLINECAPS
 
-    DWORD   MaxTextureWidth, MaxTextureHeight;
+xx  DWORD   MaxTextureWidth, MaxTextureHeight;
     DWORD   MaxVolumeExtent;
 
-    DWORD   MaxTextureRepeat;
-    DWORD   MaxTextureAspectRatio;
+x   DWORD   MaxTextureRepeat;
+x   DWORD   MaxTextureAspectRatio;
     DWORD   MaxAnisotropy;
     float   MaxVertexW;
 
@@ -191,23 +202,24 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
     DWORD   MaxSimultaneousTextures;
 
     DWORD   VertexProcessingCaps;
-    DWORD   MaxActiveLights;
+x   DWORD   MaxActiveLights;
     DWORD   MaxUserClipPlanes;
     DWORD   MaxVertexBlendMatrices;
     DWORD   MaxVertexBlendMatrixIndex;
 
     float   MaxPointSize;
 
-    DWORD   MaxPrimitiveCount;          // max number of primitives per DrawPrimitive call
-    DWORD   MaxVertexIndex;
-    DWORD   MaxStreams;
-    DWORD   MaxStreamStride;            // max stride for SetStreamSource
+x   DWORD   MaxPrimitiveCount;          // max number of primitives per DrawPrimitive call
+x   DWORD   MaxVertexIndex;
+x   DWORD   MaxStreams;
+x   DWORD   MaxStreamStride;            // max stride for SetStreamSource
 
-    DWORD   VertexShaderVersion;
-    DWORD   MaxVertexShaderConst;       // number of vertex shader constant registers
+x   DWORD   VertexShaderVersion;
+x   DWORD   MaxVertexShaderConst;       // number of vertex shader constant registers
 
-    DWORD   PixelShaderVersion;
-    float   MaxPixelShaderValue;        // max value of pixel shader arithmetic component
+x   DWORD   PixelShaderVersion;
+x   float   MaxPixelShaderValue;        // max value of pixel shader arithmetic component
+
 */
 }
 
