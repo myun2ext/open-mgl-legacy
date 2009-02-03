@@ -7,12 +7,19 @@
 //	ÉNÉâÉXêÈåæ
 class DLL_EXP CMglLight : public CMglDgBase
 {
+private:
+	void _CMglLight();
+
 protected:
 	_D3DLIGHTx m_light;
 	DWORD m_dwLightIndex;
 
 public:
-	CMglLight();
+	CMglLight(){ _CMglLight(); }
+	CMglLight(int nLightIndex){
+		_CMglLight();
+		m_dwLightIndex = nLightIndex;
+	}
 	virtual ~CMglLight(){ Release(); }
 	virtual void Release();
 

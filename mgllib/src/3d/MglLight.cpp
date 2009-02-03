@@ -2,7 +2,7 @@
 #include "MglLight.h"
 
 //	コンストラクタ
-CMglLight::CMglLight()
+void CMglLight::_CMglLight()
 {
 	ZeroMemory( &m_light, sizeof(m_light) );
 	m_dwLightIndex = 0;
