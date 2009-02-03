@@ -20,9 +20,21 @@ public:
 	void Init( D3DLIGHTTYPE lightType,
 		CMglGraphicManager* in_myudg=GetDefaultGd() );
 
+	void Setup( _D3DLIGHTx &lightSetting );
 	void Setup( D3DLIGHTTYPE lightType,
-		float fPosX, float fPosY, float fPosZ,
+		float fPosX, float fPosY, float fPosZ, float fDirectionX, float fDirectionY, float fDirectionZ,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DCOLOR ambient=D3DCOLOR_WHITE, float fRange=1000.0f );
+
+	void SetupDirectionalLight( float fDirectionX, float fDirectionY, float fDirectionZ,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DCOLOR ambient=D3DCOLOR_WHITE, float fRange=1000.0f )
+	{
+		Setup(D3DLIGHT_DIRECTIONAL, 0,0,0, fDirectionX, fDirectionY, fDirectionZ, color, ambient, fRange);
+	}
+
+	//--------------------------------------------------------
+
+	_D3DLIGHTx* GetD3dLightPtr(){ return &m_light; }
+	void CommitD3dLight();
 };
 
 #endif//__MglLight_H__
