@@ -32,10 +32,10 @@ public:
 	void Setup( _D3DLIGHTx &lightSetting );
 	void Setup( D3DLIGHTTYPE lightType,
 		float fPosX, float fPosY, float fPosZ, float fDirectionX, float fDirectionY, float fDirectionZ,
-		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_WHITE, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f );
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f );
 
 	void SetupDirectionalLight( float fDirectionX, float fDirectionY, float fDirectionZ,
-		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_WHITE, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f )
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f )
 	{
 		Setup(D3DLIGHT_DIRECTIONAL, 0,0,0, fDirectionX, fDirectionY, fDirectionZ, color, ambient, specular, fRange);
 	}

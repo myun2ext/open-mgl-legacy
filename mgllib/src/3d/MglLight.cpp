@@ -11,7 +11,8 @@ void CMglLight::_CMglLight()
 //	開放
 void CMglLight::Release()
 {
-	CMglLight::Disable();
+	if ( m_d3d != NULL )
+		CMglLight::Disable();
 }
 
 
@@ -22,7 +23,13 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 {
 	InitCheck();
 
+	//	前回のライト構造体を初期化
 	ZeroMemory( &m_light, sizeof(m_light) );
+
+	//	ライトの有効化は最初にしといた方がいいんでないかい
+	m_d3d->SetRenderState( D3DRS_LIGHTING, TRUE );
+
+	////////////////////////////////////////////////
 
 	m_light.Type = lightType;
 	m_light.Diffuse = color;
@@ -35,14 +42,30 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	D3DXVec3Normalize( (D3DXVECTOR3*)&m_light.Direction, &direction );
 	D3DXVec3Normalize( (D3DXVECTOR3*)&m_light.Position, &position );
 
-	m_d3d->SetRenderState( D3DRS_LIGHTING, TRUE );
 
 	CommitD3dLight();
 	CMglLight::Enable();
 	//m_d3d->SetLight( m_dwLightIndex, &m_light );
 	//m_d3d->LightEnable( m_dwLightIndex, TRUE );
 
+	m_d3d->SetRenderState( D3DRS_SPECULARENABLE, TRUE );
 	m_d3d->SetRenderState( D3DRS_AMBIENT, ambient );
+
+	/*
+	m_d3d->SetRenderState( D3DRS_ALPHABLENDENABLE,	FALSE );		// αブレンディング無効
+	m_d3d->SetRenderState( D3DRS_ALPHATESTENABLE,	FALSE );		// αテストを無効に
+
+	m_d3d->SetRenderState( D3DRS_ZWRITEENABLE,		TRUE );			// Zバッファへの書き込み許可
+
+	m_d3d->SetRenderState( D3DRS_AMBIENT, 0x00808080 );				// 環境光
+
+	m_d3d->SetRenderState( D3DRS_SRCBLEND,	D3DBLEND_ONE );			// ソース側の色の比率
+	m_d3d->SetRenderState( D3DRS_DESTBLEND,	D3DBLEND_ZERO );		// 書き込み側の色の比率
+
+	m_d3d->LightEnable( 0, TRUE );									// ライトを有効に
+
+	m_d3d->SetTextureStageState( 0 , D3DTSS_ALPHAOP,	D3DTOP_DISABLE );		//αチャネルは無効に
+*/
 
 	/*
 	g_pD3DDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);// グローシェーディングを行う
@@ -69,15 +92,19 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 //} D3DLIGHT8;
 
 void CMglLight::Enable(){
+	InitCheck();
 	m_d3d->LightEnable( m_dwLightIndex, TRUE );
 }
 void CMglLight::Disable(){
+	InitCheck();
 	m_d3d->LightEnable( m_dwLightIndex, FALSE );
 }
 void CMglLight::AllLightDisable(){
+	InitCheck();
 	m_d3d->SetRenderState( D3DRS_LIGHTING, FALSE );
 }
 
 void CMglLight::CommitD3dLight(){
+	InitCheck();
 	m_d3d->SetLight( m_dwLightIndex, &m_light );
 }
