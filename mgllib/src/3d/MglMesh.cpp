@@ -118,7 +118,7 @@ void CMglMesh::Draw()
 
 //	” ƒƒbƒVƒ…ì¬
 void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
-		D3DCOLOR color, D3DCOLOR ambient, D3DCOLOR specular, float fPower)
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fPower)
 {
 	InitCheck();
 	CreatedCheck();
@@ -136,9 +136,13 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	pMat->Diffuse = D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
 	pMat->Specular = D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
 	pMat->Power = 20.0f;*/
-	pMat->Diffuse = D3DXCOLOR(color);
+	/*pMat->Diffuse = D3DXCOLOR(color);
 	pMat->Ambient = D3DXCOLOR(ambient);
-	pMat->Specular = D3DXCOLOR(specular);
+	pMat->Specular = D3DXCOLOR(specular);*/
+	pMat->Diffuse = color;
+	pMat->Ambient = ambient;
+	pMat->Specular = specular;
+	pMat->Emissive = emissive;
 	pMat->Power = fPower;
 
 	/*

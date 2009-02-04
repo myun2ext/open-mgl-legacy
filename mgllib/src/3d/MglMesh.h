@@ -51,8 +51,8 @@ public:
 
 	//	é©ìÆÉÅÉbÉVÉÖ
 	void CreateBox(float fWidth, float fHeight, float fDepth,
-		D3DCOLOR color=D3DCOLOR_WHITE, D3DCOLOR ambient=D3DCOLOR_WHITE,
-		D3DCOLOR specular=D3DCOLOR_WHITE, float fPower=1.0f);
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fPower=2.0f);
 
 	//-------------------------------------------
 
