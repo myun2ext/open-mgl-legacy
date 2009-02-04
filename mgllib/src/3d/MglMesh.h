@@ -39,6 +39,7 @@ protected:
 	}
 
 public:
+	//	コンストラクタ・デストラクタ
 	CMglMesh();
 	virtual ~CMglMesh(){ Release(); }
 	void Release();
@@ -49,10 +50,20 @@ public:
 
 	void Draw();
 
-	//	自動メッシュ
+	//	簡単なメッシュ作成
 	void CreateBox(float fWidth, float fHeight, float fDepth,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fPower=2.0f);
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+
+	void CreateCube(float fSize,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CreateBox(fSize,fSize,fSize,color,ambient,specular,emissive,fSpecularPower);
+	}
+	//	specular -> mirror / reflect
+	//	emissive -> emit
+	//	fSpecularPower -> fMirrorRatio / fReflectRatio
 
 	//-------------------------------------------
 
@@ -66,5 +77,7 @@ public:
 };
 
 typedef CMglMesh CMgl3dMesh;
+typedef CMglMesh CMgl3dModel;
+typedef CMglMesh CMgl3dShape;
 
 #endif//__MglMesh_H__

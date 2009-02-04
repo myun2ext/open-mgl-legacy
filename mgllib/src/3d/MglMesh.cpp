@@ -118,7 +118,7 @@ void CMglMesh::Draw()
 
 //	” ƒƒbƒVƒ…ì¬
 void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
-		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fPower)
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
 {
 	InitCheck();
 	CreatedCheck();
@@ -143,7 +143,7 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	pMat->Ambient = ambient;
 	pMat->Specular = specular;
 	pMat->Emissive = emissive;
-	pMat->Power = fPower;
+	pMat->Power = fSpecularPower;
 
 	/*
 	m_pMeshMaterials = new _D3DMATERIALx[m_dwMaterialCount];

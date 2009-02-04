@@ -28,6 +28,7 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	_VERTEX v;
 	v.color = color;
 	v.x = 0.0f;
+	v.specular = D3DCOLOR_WHITE;
 	//v.SetTuTv(
 
 	v.x = 0.0f; v.y = 0.0f; 
