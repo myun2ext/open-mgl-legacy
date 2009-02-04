@@ -93,7 +93,8 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 
 void CMglLight::Enable(){
 	InitCheck();
-	m_d3d->LightEnable( m_dwLightIndex, TRUE );
+	MyuAssert2( m_d3d->LightEnable( m_dwLightIndex, TRUE ), D3D_OK,
+		MGLMSGNO_LIGHT(20), "CMglLight::Enable()  m_d3d->LightEnable()‚ÉŽ¸”s" );
 }
 void CMglLight::Disable(){
 	InitCheck();
@@ -106,5 +107,6 @@ void CMglLight::AllLightDisable(){
 
 void CMglLight::CommitD3dLight(){
 	InitCheck();
-	m_d3d->SetLight( m_dwLightIndex, &m_light );
+	MyuAssert2( m_d3d->SetLight( m_dwLightIndex, &m_light ), D3D_OK,
+		MGLMSGNO_LIGHT(10), "CMglLight::CommitD3dLight()  m_d3d->SetLight()‚ÉŽ¸”s" );
 }

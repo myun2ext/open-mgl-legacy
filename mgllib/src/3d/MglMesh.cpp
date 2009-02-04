@@ -105,12 +105,15 @@ void CMglMesh::Draw()
 	for( DWORD i=0; i < m_dwMaterialCount; i++ )
 	{
 		if ( m_pMeshMaterials != NULL )
-			m_pD3dDev->SetMaterial( &m_pMeshMaterials[i] );
+			MyuAssert2( m_pD3dDev->SetMaterial( &m_pMeshMaterials[i] ), D3D_OK,
+				MGLMSGNO_MESH(129), "CMglMesh::Draw()  m_pD3dDev->SetMaterial()‚ÉŽ¸”s" );
 
 		if ( m_pMeshTextures != NULL && m_pMeshTextures[i] != NULL )
-			m_pD3dDev->SetTexture( 0, m_pMeshTextures[i] );
+			MyuAssert2( m_pD3dDev->SetTexture( 0, m_pMeshTextures[i] ), D3D_OK,
+				MGLMSGNO_MESH(130), "CMglMesh::Draw()  m_pD3dDev->SetTexture()‚ÉŽ¸”s" );
 
-		m_pMesh->DrawSubset( i );
+		MyuAssert2( m_pMesh->DrawSubset( i ), D3D_OK,
+			MGLMSGNO_MESH(128), "CMglMesh::Draw()  m_pMesh->DrawSubset()‚ÉŽ¸”s" );
 	}
 }
 
