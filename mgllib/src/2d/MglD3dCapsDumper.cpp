@@ -128,15 +128,40 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 	fprintf( fp, "CursorCaps :               0x%08x\n", caps->CursorCaps );
 	fprintf( fp, "DevCaps :                  0x%08x\n\n", caps->DevCaps );
 
+	fprintf( fp, "PrimitiveMiscCaps :        0x%08x\n", caps->PrimitiveMiscCaps );
+	fprintf( fp, "RasterCaps :               0x%08x\n\n", caps->RasterCaps );
+
+	fprintf( fp, "ZCmpCaps :                 0x%08x\n", caps->ZCmpCaps );
+	fprintf( fp, "SrcBlendCaps :             0x%08x\n", caps->SrcBlendCaps );
+	fprintf( fp, "DestBlendCaps :            0x%08x\n", caps->DestBlendCaps );
+	fprintf( fp, "AlphaCmpCaps :             0x%08x\n\n", caps->AlphaCmpCaps );
+
+	fprintf( fp, "ShadeCaps :                0x%08x\n", caps->ShadeCaps );
+	fprintf( fp, "TextureCaps :              0x%08x\n", caps->TextureCaps );
+	fprintf( fp, "TextureFilterCaps :        0x%08x\n", caps->TextureFilterCaps ); // D3DPTFILTERCAPS for IDirect3DTexture8's
+	fprintf( fp, "CubeTextureFilterCaps :    0x%08x\n", caps->CubeTextureFilterCaps ); // D3DPTFILTERCAPS for IDirect3DCubeTexture8's
+	fprintf( fp, "VolumeTextureFilterCaps :  0x%08x\n", caps->VolumeTextureFilterCaps ); // D3DPTFILTERCAPS for IDirect3DVolumeTexture8's
+	fprintf( fp, "TextureAddressCaps :       0x%08x\n", caps->TextureAddressCaps ); // D3DPTADDRESSCAPS for IDirect3DTexture8's
+	fprintf( fp, "VolumeTextureAddressCaps : 0x%08x\n\n", caps->VolumeTextureAddressCaps ); // D3DPTADDRESSCAPS for IDirect3DVolumeTexture8's
+
+	fprintf( fp, "LineCaps :                 0x%08x\n", caps->LineCaps ); // D3DLINECAPS
+	fprintf( fp, "StencilCaps :              0x%08x\n", caps->StencilCaps );
+	fprintf( fp, "FVFCaps :                  0x%08x\n", caps->FVFCaps );
+	fprintf( fp, "\n" );
+
 	fprintf( fp, "MaxTextureWidth :          %u\n", caps->MaxTextureWidth );
 	fprintf( fp, "MaxTextureHeight :         %u\n", caps->MaxTextureHeight );
 	fprintf( fp, "MaxTextureRepeat :         %u\n", caps->MaxTextureRepeat );
-	fprintf( fp, "MaxTextureAspectRatio :    %u\n\n", caps->MaxTextureAspectRatio );
+	fprintf( fp, "MaxTextureAspectRatio :    %u\n", caps->MaxTextureAspectRatio );
+	fprintf( fp, "MaxTextureBlendStages :    %u\n", caps->MaxTextureBlendStages );
+	fprintf( fp, "MaxSimultaneousTextures :  %u\n", caps->MaxSimultaneousTextures );
+	fprintf( fp, "\n" );
 
 	fprintf( fp, "TextureOpCaps :            0x%08x\n\n", caps->TextureOpCaps );
 
 	fprintf( fp, "MaxActiveLights :          %u\n\n", caps->MaxActiveLights );
 
+	fprintf( fp, "MaxPointSize :             %u\n", caps->MaxPointSize );
 	fprintf( fp, "MaxPrimitiveCount :        %u\n", caps->MaxPrimitiveCount );
 	fprintf( fp, "MaxVertexIndex :           %u\n", caps->MaxVertexIndex );
 	fprintf( fp, "MaxStreams :               %u\n", caps->MaxStreams );
@@ -153,32 +178,34 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
     UINT    AdapterOrdinal;
 
     /* Caps from DX7 Draw *
-    DWORD   Caps;
-    DWORD   Caps2;
-    DWORD   Caps3;
-    DWORD   PresentationIntervals;
+x   DWORD   Caps;
+x   DWORD   Caps2;
+x   DWORD   Caps3;
+x   DWORD   PresentationIntervals;
 
     /* Cursor Caps *
-    DWORD   CursorCaps;
+x   DWORD   CursorCaps;
 
     /* 3D Device Caps *
-    DWORD   DevCaps;
+XX  DWORD   DevCaps;
 
-    DWORD   PrimitiveMiscCaps;
-    DWORD   RasterCaps;
-    DWORD   ZCmpCaps;
-    DWORD   SrcBlendCaps;
-    DWORD   DestBlendCaps;
-    DWORD   AlphaCmpCaps;
-    DWORD   ShadeCaps;
-    DWORD   TextureCaps;
-    DWORD   TextureFilterCaps;          // D3DPTFILTERCAPS for IDirect3DTexture8's
-    DWORD   CubeTextureFilterCaps;      // D3DPTFILTERCAPS for IDirect3DCubeTexture8's
-    DWORD   VolumeTextureFilterCaps;    // D3DPTFILTERCAPS for IDirect3DVolumeTexture8's
-    DWORD   TextureAddressCaps;         // D3DPTADDRESSCAPS for IDirect3DTexture8's
-    DWORD   VolumeTextureAddressCaps;   // D3DPTADDRESSCAPS for IDirect3DVolumeTexture8's
+** X Start
+	DWORD   PrimitiveMiscCaps;
+	DWORD   RasterCaps;
+	DWORD   ZCmpCaps;
+	DWORD   SrcBlendCaps;
+	DWORD   DestBlendCaps;
+	DWORD   AlphaCmpCaps;
+	DWORD   ShadeCaps;
+	DWORD   TextureCaps;
+	DWORD   TextureFilterCaps;          // D3DPTFILTERCAPS for IDirect3DTexture8's
+	DWORD   CubeTextureFilterCaps;      // D3DPTFILTERCAPS for IDirect3DCubeTexture8's
+	DWORD   VolumeTextureFilterCaps;    // D3DPTFILTERCAPS for IDirect3DVolumeTexture8's
+	DWORD   TextureAddressCaps;         // D3DPTADDRESSCAPS for IDirect3DTexture8's
+	DWORD   VolumeTextureAddressCaps;   // D3DPTADDRESSCAPS for IDirect3DVolumeTexture8's
 
-    DWORD   LineCaps;                   // D3DLINECAPS
+	DWORD   LineCaps;                   // D3DLINECAPS
+** X End 
 
 xx  DWORD   MaxTextureWidth, MaxTextureHeight;
     DWORD   MaxVolumeExtent;
@@ -194,10 +221,10 @@ x   DWORD   MaxTextureAspectRatio;
     float   GuardBandBottom;
 
     float   ExtentsAdjust;
-    DWORD   StencilCaps;
+x   DWORD   StencilCaps;
 
-    DWORD   FVFCaps;
-    DWORD   TextureOpCaps;
+x   DWORD   FVFCaps;
+x   DWORD   TextureOpCaps;
     DWORD   MaxTextureBlendStages;
     DWORD   MaxSimultaneousTextures;
 
@@ -207,7 +234,7 @@ x   DWORD   MaxActiveLights;
     DWORD   MaxVertexBlendMatrices;
     DWORD   MaxVertexBlendMatrixIndex;
 
-    float   MaxPointSize;
+x   float   MaxPointSize;
 
 x   DWORD   MaxPrimitiveCount;          // max number of primitives per DrawPrimitive call
 x   DWORD   MaxVertexIndex;
