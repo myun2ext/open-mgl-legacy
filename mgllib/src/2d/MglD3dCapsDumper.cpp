@@ -159,7 +159,13 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 
 	fprintf( fp, "TextureOpCaps :            0x%08x\n\n", caps->TextureOpCaps );
 
-	fprintf( fp, "MaxActiveLights :          %u\n\n", caps->MaxActiveLights );
+	fprintf( fp, "VertexProcessingCaps :     0x%08x\n\n", caps->VertexProcessingCaps );
+	fprintf( fp, "MaxActiveLights :          %u\n", caps->MaxActiveLights );
+	fprintf( fp, "MaxUserClipPlanes :        %u\n", caps->MaxUserClipPlanes );
+	fprintf( fp, "MaxVertexBlendMatrices :   %u\n", caps->MaxVertexBlendMatrices );
+	fprintf( fp, "MaxVertexBlendMatrixIndex :%u\n", caps->MaxVertexBlendMatrixIndex );
+	fprintf( fp, "MaxVertexW :               %f\n", caps->MaxVertexW );
+ 	fprintf( fp, "\n" );
 
 	fprintf( fp, "MaxPointSize :             %u\n", caps->MaxPointSize );
 	fprintf( fp, "MaxPrimitiveCount :        %u\n", caps->MaxPrimitiveCount );
@@ -167,9 +173,13 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 	fprintf( fp, "MaxStreams :               %u\n", caps->MaxStreams );
 	fprintf( fp, "MaxStreamStride :          %u\n\n", caps->MaxStreamStride );
 
-	fprintf( fp, "VertexShaderVersion :      %u\n", caps->VertexShaderVersion );
+	//fprintf( fp, "VertexShaderVersion :      0x%08x\n", caps->VertexShaderVersion );
+	//fprintf( fp, "PixelShaderVersion :       0x%08x\n", caps->PixelShaderVersion );
+	fprintf( fp, "VertexShaderVersion(DWORD):0x%08x\n", caps->VertexShaderVersion );
+	fprintf( fp, "PixelShaderVersion(DWORD): 0x%08x\n", caps->PixelShaderVersion );
+	fprintf( fp, "VertexShaderVersion :      %s\n", GetShaderVersionString(caps->VertexShaderVersion).c_str() );
+	fprintf( fp, "PixelShaderVersion :       %s\n", GetShaderVersionString(caps->PixelShaderVersion ).c_str() );
 	fprintf( fp, "MaxVertexShaderConst :     %u\n", caps->MaxVertexShaderConst );
-	fprintf( fp, "PixelShaderVersion :       %u\n", caps->PixelShaderVersion );
 	fprintf( fp, "MaxPixelShaderValue :      %f\n\n", caps->MaxPixelShaderValue );
 
 /*
@@ -190,21 +200,21 @@ x   DWORD   CursorCaps;
 XX  DWORD   DevCaps;
 
 ** X Start
-	DWORD   PrimitiveMiscCaps;
-	DWORD   RasterCaps;
-	DWORD   ZCmpCaps;
-	DWORD   SrcBlendCaps;
-	DWORD   DestBlendCaps;
-	DWORD   AlphaCmpCaps;
-	DWORD   ShadeCaps;
-	DWORD   TextureCaps;
-	DWORD   TextureFilterCaps;          // D3DPTFILTERCAPS for IDirect3DTexture8's
-	DWORD   CubeTextureFilterCaps;      // D3DPTFILTERCAPS for IDirect3DCubeTexture8's
-	DWORD   VolumeTextureFilterCaps;    // D3DPTFILTERCAPS for IDirect3DVolumeTexture8's
-	DWORD   TextureAddressCaps;         // D3DPTADDRESSCAPS for IDirect3DTexture8's
-	DWORD   VolumeTextureAddressCaps;   // D3DPTADDRESSCAPS for IDirect3DVolumeTexture8's
+DWORD   PrimitiveMiscCaps;
+DWORD   RasterCaps;
+DWORD   ZCmpCaps;
+DWORD   SrcBlendCaps;
+DWORD   DestBlendCaps;
+DWORD   AlphaCmpCaps;
+DWORD   ShadeCaps;
+DWORD   TextureCaps;
+DWORD   TextureFilterCaps;          // D3DPTFILTERCAPS for IDirect3DTexture8's
+DWORD   CubeTextureFilterCaps;      // D3DPTFILTERCAPS for IDirect3DCubeTexture8's
+DWORD   VolumeTextureFilterCaps;    // D3DPTFILTERCAPS for IDirect3DVolumeTexture8's
+DWORD   TextureAddressCaps;         // D3DPTADDRESSCAPS for IDirect3DTexture8's
+DWORD   VolumeTextureAddressCaps;   // D3DPTADDRESSCAPS for IDirect3DVolumeTexture8's
 
-	DWORD   LineCaps;                   // D3DLINECAPS
+DWORD   LineCaps;                   // D3DLINECAPS
 ** X End 
 
 xx  DWORD   MaxTextureWidth, MaxTextureHeight;
@@ -213,7 +223,7 @@ xx  DWORD   MaxTextureWidth, MaxTextureHeight;
 x   DWORD   MaxTextureRepeat;
 x   DWORD   MaxTextureAspectRatio;
     DWORD   MaxAnisotropy;
-    float   MaxVertexW;
+x   float   MaxVertexW;
 
     float   GuardBandLeft;
     float   GuardBandTop;
@@ -225,14 +235,14 @@ x   DWORD   StencilCaps;
 
 x   DWORD   FVFCaps;
 x   DWORD   TextureOpCaps;
-    DWORD   MaxTextureBlendStages;
-    DWORD   MaxSimultaneousTextures;
+x   DWORD   MaxTextureBlendStages;
+x   DWORD   MaxSimultaneousTextures;
 
-    DWORD   VertexProcessingCaps;
+x   DWORD   VertexProcessingCaps;
 x   DWORD   MaxActiveLights;
-    DWORD   MaxUserClipPlanes;
-    DWORD   MaxVertexBlendMatrices;
-    DWORD   MaxVertexBlendMatrixIndex;
+x   DWORD   MaxUserClipPlanes;
+x   DWORD   MaxVertexBlendMatrices;
+x   DWORD   MaxVertexBlendMatrixIndex;
 
 x   float   MaxPointSize;
 
@@ -258,6 +268,16 @@ void CMglD3dCapsDumper::DumpFlagItem( FILE *fp, DWORD dwValue, DWORD dwMask, con
 		fprintf( fp, "%30s :   false\n", szName );
 
 }
+
+std::string CMglD3dCapsDumper::GetShaderVersionString( DWORD dwShaderVersion )
+{
+	char work[20];
+	sprintf(work, "%d.%d",
+		D3DSHADER_VERSION_MAJOR(dwShaderVersion),
+		D3DSHADER_VERSION_MINOR(dwShaderVersion));
+	return work;
+}
+
 
 /*
 //	DirectDrawを使ってディスプレイサイズを取得

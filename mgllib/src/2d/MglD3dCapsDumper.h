@@ -9,6 +9,7 @@ class CMglD3dCapsDumper
 private:
 	void DumpCaps( FILE *fp, _D3DCAPSx* pCaps );
 	void DumpFlagItem( FILE *fp, DWORD dwValue, DWORD dwMask, const char* szName );
+	std::string GetShaderVersionString( DWORD dwShaderVersion );
 
 public:
 	//void DumpAdapterInfo( D3DCAPS8* pCapsHal, D3DCAPS8* pCapsRef );
