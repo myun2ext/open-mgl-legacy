@@ -54,8 +54,6 @@ protected:
 	float m_fMoveZ;
 
 	void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
-	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
-	void SetCameraPos(float x, float y, float z);
 
 	//	とりあえず制限に・・・
 	void CameraRotation(int direction, float fAngle);
@@ -78,6 +76,7 @@ public:
 	/////////////////////////////////////////////////////////////////
 
 	void ReTransform();
+	void OnFrame(){}
 
 	//	Projection
 	void SetupProjection( float fAspectRatio, float fViewingAngle=45.0f, float fClipNear=0.01f, float fClipFar=100.0f );
@@ -88,6 +87,9 @@ public:
 	void MoveCamera(float x, float y, float z);
 	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
 	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
+	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
+	void SetCameraPos(float x, float y, float z);
+	void SetCameraPosition(float x, float y, float z){ SetCameraPos(x,y,z); }
 
 	//	ワールド
 	void SetWorld(

@@ -4,12 +4,19 @@
 #include "MglGraphicUtil.h"
 
 #define _MGLVERTEX_USE_SPECULAR
+#define _MGLVERTEX_USE_NORMAL
+
+#ifdef _MGLVERTEX_USE_NORMAL
+	#define _MGLVERTEX_D3DFVF_NORMAL D3DFVF_NORMAL
+#else
+	#define _MGLVERTEX_D3DFVF_NORMAL
+#endif
 
 //	頂点構造体
 #ifdef _MGLVERTEX_USE_RHW
-	#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
+	#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
 #else
-	#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
+	#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
 #endif
 typedef struct
 {
@@ -18,7 +25,9 @@ typedef struct
 #ifdef _MGLVERTEX_USE_RHW
 	float		rhw;				//頂点変換値
 #endif
-	//float		nx, ny, nz;			// 法線ベクトル
+#ifdef _MGLVERTEX_USE_NORMAL
+	float		nx, ny, nz;			// 法線ベクトル
+#endif
 	D3DCOLOR	color;				//ポリゴンカラー
 #ifdef _MGLVERTEX_USE_SPECULAR
 	DWORD		specular;			// スペキュラ色
@@ -47,6 +56,11 @@ public:
 		color = 0;
 #ifdef _MGLVERTEX_USE_SPECULAR
 		specular = 0;
+#endif
+#ifdef _MGLVERTEX_USE_NORMAL
+		nx = 0;
+		ny = 1;
+		nz = 0;
 #endif
 		tu = tv = 0.0f;
 	}
