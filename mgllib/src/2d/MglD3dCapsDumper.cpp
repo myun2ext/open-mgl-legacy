@@ -50,7 +50,19 @@ void CMglD3dCapsDumper::DumpAdapterInfo( _IDirect3DX* m_pD3d, _D3DCAPSx* pCaps )
 
 void CMglD3dCapsDumper::DumpCaps( FILE *fp, _D3DCAPSx* caps )
 {
-	fprintf( fp, "DeviceType :               %u\n", caps->DeviceType );
+	switch( caps->DeviceType )
+	{
+	case D3DDEVTYPE_HAL:
+		fprintf( fp, "DeviceType :               D3DDEVTYPE_HAL\n" );
+		break;
+	case D3DDEVTYPE_REF:
+		fprintf( fp, "DeviceType :               D3DDEVTYPE_REF\n" );
+		break;
+	case D3DDEVTYPE_SW:
+		fprintf( fp, "DeviceType :               D3DDEVTYPE_SW\n" );
+		break;
+	}
+	//fprintf( fp, "DeviceType :               %u\n", caps->DeviceType );
 	fprintf( fp, "AdapterOrdinal :           %u\n\n", caps->AdapterOrdinal );
 
 	fprintf( fp, "Caps :                     0x%08x\n", caps->Caps );

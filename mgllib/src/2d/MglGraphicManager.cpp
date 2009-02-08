@@ -212,15 +212,22 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 */
 	//	2009/01/31 Zステンシル（3D）対応
 	if ( bUse3d ){
-		D3DFORMAT depthStencilFormat = D3DFMT_UNKNOWN;
+		/*D3DFORMAT depthStencilFormat = D3DFMT_D16;
 
 		if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24S8 ) == TRUE )
 			depthStencilFormat = D3DFMT_D24S8;
-		else if CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D16 ) == TRUE ) 
+		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24X8 ) == TRUE ) 
+			depthStencilFormat = D3DFMT_D24X8;
+		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D16 ) == TRUE ) 
 			depthStencilFormat = D3DFMT_D16;
 
-		presentParam.EnableAutoDepthStencil = TRUE;
-		presentParam.AutoDepthStencilFormat = depthStencilFormat;
+		/*if ( depthStencilFormat == D3DFMT_UNKNOWN )
+			EzErrBox(hWnd, "このデバイスではZバッファテストが有効に出来ません。正常に3Dオブジェクトが表示されない可能性があります。");
+		else*//*
+		{
+			presentParam.EnableAutoDepthStencil = TRUE;
+			presentParam.AutoDepthStencilFormat = depthStencilFormat;
+		}*/
 	}
 	m_bUse3d = bUse3d;
 
@@ -804,10 +811,21 @@ BOOL CMglGraphicManager::CheckDepthStencilFormat( UINT nAdapterNo,
 		D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, D3DFMT_D16 ), D3D_OK,
 		"ステンシル不可" );*/
 
-	return m_pD3D->CheckDeviceFormat( nAdapterNo,
+	return m_pD3d->CheckDeviceFormat( nAdapterNo,
 		deviceType, displayFormat, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, targetDsFormat ) == S_OK ? TRUE : FALSE;
 }
-													
+D3DFORMAT CMglGraphicManager::CheckAutoDepthStencilFormat( UINT nAdapterNo,
+	D3DFORMAT displayFormat, D3DDEVTYPE deviceType )
+{
+	D3DFORMAT depthStencilFormat = D3DFMT_D16;
+
+	if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D24S8, deviceType ) == TRUE )
+		depthStencilFormat = D3DFMT_D24S8;
+	else if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D24X8, deviceType ) == TRUE ) 
+		depthStencilFormat = D3DFMT_D24X8;
+	
+	return depthStencilFormat;
+}
 
 ////////////////////////////////////////////////////////////
 //
