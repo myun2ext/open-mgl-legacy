@@ -79,7 +79,7 @@ public:
 	void OnFrame(){}
 
 	//	Projection
-	void SetupProjection( float fAspectRatio, float fViewingAngle=45.0f, float fClipNear=0.01f, float fClipFar=100.0f );
+	void SetupProjection( float fAspectRatio, float fViewingAngle=30.0f, float fClipNear=0.01f, float fClipFar=100.0f );
 	
 	//	ÉJÉÅÉâ
 	void SetCameraCenter(float x, float y, float z){ SetCameraViewTarget(x,y,z); }

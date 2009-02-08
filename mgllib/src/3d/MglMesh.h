@@ -23,8 +23,9 @@ protected:
 
 	void CreatedCheck(){
 		if ( m_pMesh != NULL )
-			MyuThrow(MGLMSGNO_MESH(0), "CMglMesh::Load()  既に読み込み済みです。"
-				"再び読み込む場合には一度 Release() を呼び出した後読み込んでください。");
+			/*MyuThrow(MGLMSGNO_MESH(0), "CMglMesh::Load()  既に読み込み済みです。"
+				"再び読み込む場合には一度 Release() を呼び出した後読み込んでください。");*/
+			MyuThrow(MGLMSGNO_MESH(0), "CMglMesh  既にメッシュは作成済です。");
 	}
 	void CreateMaterials(){ CreateMaterials(m_dwMaterialCount); }
 	void CreateMaterials(int nCount){
@@ -79,5 +80,29 @@ public:
 typedef CMglMesh CMgl3dMesh;
 typedef CMglMesh CMgl3dModel;
 typedef CMglMesh CMgl3dShape;
+
+//	CMgl3dBox
+class DLL_EXP CMgl3dBox : public CMglMesh
+{
+public:
+	void Create(float fWidth, float fHeight, float fDepth,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CMglMesh::CreateBox(fWidth,fHeight,fDepth,color,ambient,specular,emissive,fSpecularPower);
+	}
+};
+
+//	CMgl3dCube
+class DLL_EXP CMgl3dCube : public CMglMesh
+{
+public:
+	void CreateCube(float fSize,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CMglMesh::CreateCube(fSize,color,ambient,specular,emissive,fSpecularPower);
+	}
+};
 
 #endif//__MglMesh_H__

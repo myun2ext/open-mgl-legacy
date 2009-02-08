@@ -40,6 +40,17 @@ public:
 		Setup(D3DLIGHT_DIRECTIONAL, 0,0,0, fDirectionX, fDirectionY, fDirectionZ, color, ambient, specular, fRange);
 	}
 
+	void SetupPointLight( float fPosX, float fPosY, float fPosZ,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f )
+	{
+		Setup(D3DLIGHT_POINT, fPosX, fPosY, fPosZ, 0,0,0, color, ambient, specular, fRange);
+	}
+	void SetupPointingLight( float fPosX, float fPosY, float fPosZ,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK, D3DXCOLOR specular=D3DCOLOR_WHITE, float fRange=1000.0f )
+	{
+		SetupPointLight(fPosX, fPosY, fPosZ, color, ambient, specular, fRange);
+	}
+
 	void SetLightIndex(DWORD dwLightIndex){ m_dwLightIndex = dwLightIndex; }
 	void Enable();
 	void Disable();
