@@ -129,6 +129,8 @@ protected:
 		int nAdapterNo=D3DADAPTER_DEFAULT, HWND hFocusWindow=NULL );
 	void IsValidDisplayMode( int nWidth, int nHeight, D3DFORMAT Format, int nRefreshRate );
 	//void GetVramInfo( DWORD *dwpTotal, DWORD *dwpFree );
+	BOOL CheckDepthStencilFormat( UINT nAdapterNo, D3DFORMAT displayFormat, D3DFORMAT targetDsFormat,
+		D3DDEVTYPE_HAL deviceType=D3DDEVTYPE_HAL )
 
 public:
 	//	åˆäJÉÅÉìÉoïœêî

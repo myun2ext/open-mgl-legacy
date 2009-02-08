@@ -212,8 +212,15 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 */
 	//	2009/01/31 Zステンシル（3D）対応
 	if ( bUse3d ){
+		D3DFORMAT depthStencilFormat = D3DFMT_UNKNOWN;
+
+		if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24S8 ) == TRUE )
+			depthStencilFormat = D3DFMT_D24S8;
+		else if CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D16 ) == TRUE ) 
+			depthStencilFormat = D3DFMT_D16;
+
 		presentParam.EnableAutoDepthStencil = TRUE;
-		presentParam.AutoDepthStencilFormat = D3DFMT_D16;
+		presentParam.AutoDepthStencilFormat = depthStencilFormat;
 	}
 	m_bUse3d = bUse3d;
 
@@ -788,6 +795,18 @@ void CMglGraphicManager::DrawPrimitiveUpMyuVertex(MGL_VERTEX *pMglVertexs, int n
 			"CMglGraphicManager::DrawPrimitiveUpMyuVertexSquare()  DrawPrimitiveUP()に失敗" );
 }
 
+//	Zバッファのフォーマット対応状況をチェック
+BOOL CMglGraphicManager::CheckDepthStencilFormat( UINT nAdapterNo,
+	D3DFORMAT displayFormat, D3DFORMAT targetDsFormat, D3DDEVTYPE deviceType )
+{
+	//	ステンシル系
+	/*MyuAssert( this->m_pD3d->CheckDeviceFormat( nAdapterNo, D3DDEVTYPE_HAL, dispMode.Format,
+		D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, D3DFMT_D16 ), D3D_OK,
+		"ステンシル不可" );*/
+
+	return m_pD3D->CheckDeviceFormat( nAdapterNo,
+		deviceType, displayFormat, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, targetDsFormat ) == S_OK ? TRUE : FALSE;
+}
 													
 
 ////////////////////////////////////////////////////////////
