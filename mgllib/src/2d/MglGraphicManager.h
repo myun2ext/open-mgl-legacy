@@ -102,6 +102,7 @@ protected:
 
 	int m_nDispX, m_nDispY;		//	画面サイズ
 	D3DFORMAT m_formatTexture;	//	フォーマット
+	D3DDEVTYPE m_d3dDevType;	//	D3DDEVTYPE
 	DWORD m_dwD3dDeviceFlg;		//	Direct3Dデバイスのモード(T&L等)
 	DWORD m_dwAlphaOption;		//	アルファオプション。GetAlphaMode()用に保持
 	BOOL m_bUse3d;

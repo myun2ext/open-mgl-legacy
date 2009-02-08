@@ -39,6 +39,7 @@ CMglGraphicManager::CMglGraphicManager()
 	m_nDispY = 0;
 	ZeroMemory( &m_formatTexture, sizeof(m_formatTexture) ); 
 	m_dwD3dDeviceFlg = 0;
+	m_d3dDevType = D3DDEVTYPE_FORCE_DWORD;
 	m_dwAlphaOption = MGL_ALPHA_OPT_TRANSLUCENCE;
 	m_bUse3d = FALSE;
 
@@ -149,9 +150,13 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 			_MGL_DEBUGLOG( "dwD3dDeviceModeをD3D_DEVICE_FLG_REFに設定します" );
 			dwD3dDeviceMode = D3D_DEVICE_FLG_REF;
 		}
+
+		m_d3dDevType = D3DDEVTYPE_REF;	//	2009/02/09
 	}
-	else
+	else{
 		_MGL_DEBUGLOG( "HALデバイスの取得に成功" );
+		m_d3dDevType = D3DDEVTYPE_HAL;	//	2009/02/09
+	}
 	//DumpAdapterInfo( &caps );
 	CMglD3dCapsDumper dumper;
 	dumper.DumpAdapterInfo( m_pD3d, &caps );
@@ -212,22 +217,31 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 */
 	//	2009/01/31 Zステンシル（3D）対応
 	if ( bUse3d ){
-		/*D3DFORMAT depthStencilFormat = D3DFMT_D16;
+		D3DFORMAT depthStencilFormat = D3DFMT_D16;
 
-		if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24S8 ) == TRUE )
+		if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D32, m_d3dDevType ) == TRUE ) {
+			depthStencilFormat = D3DFMT_D32;
+			_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D32を使用します。" );
+		}
+		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24S8, m_d3dDevType ) == TRUE ) {
 			depthStencilFormat = D3DFMT_D24S8;
-		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24X8 ) == TRUE ) 
+			_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D24S8を使用します。" );
+		}
+		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24X8, m_d3dDevType ) == TRUE ) {
 			depthStencilFormat = D3DFMT_D24X8;
-		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D16 ) == TRUE ) 
+			_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D24X8を使用します。" );
+		}
+		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D16, m_d3dDevType ) == TRUE ) {  
 			depthStencilFormat = D3DFMT_D16;
+			_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D16を使用します。" );
+		}
 
-		/*if ( depthStencilFormat == D3DFMT_UNKNOWN )
-			EzErrBox(hWnd, "このデバイスではZバッファテストが有効に出来ません。正常に3Dオブジェクトが表示されない可能性があります。");
-		else*//*
-		{
+		if ( depthStencilFormat != D3DFMT_UNKNOWN ) {
 			presentParam.EnableAutoDepthStencil = TRUE;
 			presentParam.AutoDepthStencilFormat = depthStencilFormat;
-		}*/
+		}
+		else
+			EzErrBox(hWnd, "このデバイスではZバッファテストが有効に出来ません。正常に3Dオブジェクトが表示されない可能性があります。");
 	}
 	m_bUse3d = bUse3d;
 
