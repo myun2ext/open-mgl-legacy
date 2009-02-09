@@ -39,6 +39,10 @@ protected:
 		m_dwMaterialCount = nCount;
 	}
 
+	void CreateSingleMaterial(
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+
 public:
 	//	コンストラクタ・デストラクタ
 	CMglMesh();
@@ -51,17 +55,38 @@ public:
 
 	void Draw();
 
-	//	簡単なメッシュ作成
+	//////////////////////////////////////////////////////////////////////////
+
+	//	箱, 直方体
 	void CreateBox(float fWidth, float fHeight, float fDepth,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
 
+	//	立方体
 	void CreateCube(float fSize,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{ CreateBox(fSize,fSize,fSize,color,ambient,specular,emissive,fSpecularPower); }
+
+	//	円柱
+	void CreateCylinder(float fRadius, float fHeight,	
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
 	{
-		CreateBox(fSize,fSize,fSize,color,ambient,specular,emissive,fSpecularPower);
+		CreateCylinderEx(fRadius,fRadius,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
+	void CreateCylinderEx(float fRadiusNear, float fRadiusFar, float fHeight,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CreateCylinderEx(fRadiusNear,fRadiusFar,fHeight,color,ambient,specular,emissive,fSpecularPower,16);
+	}
+	void CreateCylinderEx(float fRadiusNear, float fRadiusFar, float fHeight,
+		D3DXCOLOR color, D3DXCOLOR ambient,
+		D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
+		UINT nSideCount, UINT nVertical=1);
+
+
 	//	specular -> mirror / reflect
 	//	emissive -> emit
 	//	fSpecularPower -> fMirrorRatio / fReflectRatio
@@ -81,7 +106,7 @@ typedef CMglMesh CMgl3dMesh;
 typedef CMglMesh CMgl3dModel;
 typedef CMglMesh CMgl3dShape;
 
-//	CMgl3dBox
+//	CMgl3dBox - 直方体
 class DLL_EXP CMgl3dBox : public CMglMesh
 {
 public:
@@ -93,15 +118,34 @@ public:
 	}
 };
 
-//	CMgl3dCube
+//	CMgl3dCube - 立方体
 class DLL_EXP CMgl3dCube : public CMglMesh
 {
 public:
-	void CreateCube(float fSize,
+	void Create(float fSize,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
 	{
 		CMglMesh::CreateCube(fSize,color,ambient,specular,emissive,fSpecularPower);
+	}
+};
+
+//	CMgl3dCylinder - 円柱
+class DLL_EXP CMgl3dCylinder : public CMglMesh
+{
+public:
+	//	円柱
+	void Create(float fRadius, float fHeight,	
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CreateCylinderEx(fRadius,fRadius,fHeight,color,ambient,specular,emissive,fSpecularPower);
+	}
+	void CreateEx(float fRadiusNear, float fRadiusFar, float fHeight,	
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CreateCylinderEx(fRadiusNear,fRadiusFar,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
 };
 

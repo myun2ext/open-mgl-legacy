@@ -220,11 +220,11 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 	if ( bUse3d ){
 		D3DFORMAT depthStencilFormat = D3DFMT_D16;
 
-		if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D32, m_d3dDevType ) == TRUE ) {
+		/*if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D32, m_d3dDevType ) == TRUE ) {
 			depthStencilFormat = D3DFMT_D32;
 			_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D32を使用します。" );
 		}
-		else if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24S8, m_d3dDevType ) == TRUE ) {
+		else*/ if ( CheckDepthStencilFormat(nAdapterNo, dispMode.Format, D3DFMT_D24S8, m_d3dDevType ) == TRUE ) {
 			depthStencilFormat = D3DFMT_D24S8;
 			_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D24S8を使用します。" );
 		}

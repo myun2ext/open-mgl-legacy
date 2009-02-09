@@ -119,6 +119,34 @@ void CMglMesh::Draw()
 
 /////////////////////////////////////////////////
 
+//	多角形メッシュ作成
+/*void CMglMesh::CreatePolygon(float fSideSize, float fHeight, float fDepth,
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
+{
+	InitCheck();
+	CreatedCheck();
+
+	MyuAssert2( D3DXCreatePolygon( m_d3d, fSideSize, fHeight, fDepth, &m_pMesh, NULL), D3D_OK,
+		MGLMSGNO_MESH(32), "CMglMesh::CreateBox()  D3DXCreateBox()に失敗" );
+
+        LPDIRECT3DDEVICE8   pDevice,
+        FLOAT               Length, 
+        UINT                Sides, 
+        LPD3DXMESH*         ppMesh,
+        LPD3DXBUFFER*       ppAdjacency);
+
+	///////////////////////////////////////////////////////////////
+
+	CreateMaterials(1);
+
+	_D3DMATERIALx* pMat = this->GetMaterial(0);
+	pMat->Diffuse = color;
+	pMat->Ambient = ambient;
+	pMat->Specular = specular;
+	pMat->Emissive = emissive;
+	pMat->Power = fSpecularPower;
+}*/
+
 //	箱メッシュ作成
 void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
@@ -147,27 +175,42 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	pMat->Specular = specular;
 	pMat->Emissive = emissive;
 	pMat->Power = fSpecularPower;
-
-	/*
-	m_pMeshMaterials = new _D3DMATERIALx[m_dwMaterialCount];
-	m_pMeshTextures  = new _IDirect3DTextureX* [m_dwMaterialCount];
-	ZeroMemory(m_pMeshTextures, sizeof(LPVOID*)*m_dwMaterialCount);
-
-	for( DWORD i=0; i < m_dwMaterialCount; i++ )
-	{
-		m_pMeshMaterials[i] = d3dxMaterials[i].MatD3D;// 質感のコピー
-		m_pMeshMaterials[i].Ambient = m_pMeshMaterials[i].Diffuse;// マテリアルの環境色を設定する
-	 
-		const char* szTextureFile = d3dxMaterials[i].pTextureFilename;
-		if ( szTextureFile != NULL )
-		{
-			MyuAssert2( D3DXCreateTextureFromFile( m_d3d, 
-											szTextureFile, 
-											&m_pMeshTextures[i] ), D3D_OK,
-				MGLMSGNO_MESH(5), "CMglMesh::Load()  D3DXCreateTextureFromFile(\"%s\")に失敗",
-				szTextureFile);
-		}
-	}
-	*/
 }
 
+//	円柱メッシュ作成
+void CMglMesh::CreateCylinderEx(float fRadiusNear, float fRadiusFar, float fHeight,
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
+		UINT nSideCount, UINT nVerticalVertexCount)
+{
+	InitCheck();
+	CreatedCheck();
+
+	if ( nSideCount < 3 )
+		nSideCount = 3;
+
+	if ( nVerticalVertexCount < 1 )
+		nVerticalVertexCount = 1;
+
+	MyuAssert2( D3DXCreateCylinder( m_d3d, fRadiusNear, fRadiusFar, fHeight,
+		nSideCount, nVerticalVertexCount, &m_pMesh, NULL), D3D_OK,
+		MGLMSGNO_MESH(40), "CMglMesh::D3DXCreateCylinder()  D3DXCreateCylinder()に失敗" );
+
+	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
+}
+
+/////////////////////////////////////////////
+
+//	ひとつーだけのマテリアルー（謎
+void CMglMesh::CreateSingleMaterial(
+	D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
+{
+	//m_dwMaterialCount = 1;
+	CreateMaterials(1);
+
+	_D3DMATERIALx* pMat = this->GetMaterial(0);
+	pMat->Diffuse = color;
+	pMat->Ambient = ambient;
+	pMat->Specular = specular;
+	pMat->Emissive = emissive;
+	pMat->Power = fSpecularPower;
+}
