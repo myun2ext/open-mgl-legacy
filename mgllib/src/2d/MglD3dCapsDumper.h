@@ -12,6 +12,7 @@ private:
 	std::string GetShaderVersionString( DWORD dwShaderVersion );
 	void DumpDepthStencilTestItem( _IDirect3DX* m_pD3d, UINT nAdapterNo,
 		D3DFORMAT displayFormat, D3DDEVTYPE deviceType, D3DFORMAT targetFormat, FILE* fp, const char* szFormatName );
+	const char* GetDeviceTypeString( D3DDEVTYPE deviceType );
 
 public:
 	//void DumpAdapterInfo( D3DCAPS8* pCapsHal, D3DCAPS8* pCapsRef );

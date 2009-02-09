@@ -50,6 +50,8 @@ void CMglD3dCapsDumper::DumpAdapterInfo( _IDirect3DX* m_pD3d, _D3DCAPSx* pCaps )
 
 void CMglD3dCapsDumper::DumpCaps( FILE *fp, _D3DCAPSx* caps )
 {
+	fprintf( fp, "DeviceType :               D3DDEVTYPE_%s\n", GetDeviceTypeString(caps->DeviceType) );
+	/*
 	switch( caps->DeviceType )
 	{
 	case D3DDEVTYPE_HAL:
@@ -62,6 +64,7 @@ void CMglD3dCapsDumper::DumpCaps( FILE *fp, _D3DCAPSx* caps )
 		fprintf( fp, "DeviceType :               D3DDEVTYPE_SW\n" );
 		break;
 	}
+	*/
 	//fprintf( fp, "DeviceType :               %u\n", caps->DeviceType );
 	fprintf( fp, "AdapterOrdinal :           %u\n\n", caps->AdapterOrdinal );
 
@@ -291,6 +294,24 @@ std::string CMglD3dCapsDumper::GetShaderVersionString( DWORD dwShaderVersion )
 	return work;
 }
 
+const char* CMglD3dCapsDumper::GetDeviceTypeString( D3DDEVTYPE deviceType )
+{
+	switch( deviceType )
+	{
+	case D3DDEVTYPE_HAL:
+		return "HAL";
+
+	case D3DDEVTYPE_REF:
+		return "REF";
+
+	case D3DDEVTYPE_SW:
+		return "SW";
+
+	default:
+		return NULL;
+	}
+}
+
 void CMglD3dCapsDumper::DumpDepthStencilTest( _IDirect3DX* m_pD3d, UINT nAdapterNo,
 	D3DFORMAT displayFormat, D3DDEVTYPE deviceType )
 {
@@ -302,6 +323,17 @@ void CMglD3dCapsDumper::DumpDepthStencilTest( _IDirect3DX* m_pD3d, UINT nAdapter
 
 	fprintf( fp, "\n\n==== DepthStencilFormatTest ======================\n\n" );
 
+	fprintf( fp, "DeviceType: %s\n\n", GetDeviceTypeString(deviceType) );
+
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D16, fp, "D3DFMT_D16" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24S8, fp, "D3DFMT_D24S8" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24X8, fp, "D3DFMT_D24X8" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D32, fp, "D3DFMT_D32" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D15S1, fp, "D3DFMT_D15S1" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24X4S4, fp, "D3DFMT_D24X4S4" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D16_LOCKABLE, fp, "D3DFMT_D16_LOCKABLE" );
+
+	/*
 	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D32, fp, "D3DFMT_D32" );
 	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24S8, fp, "D3DFMT_D24S8" );
 	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24X8, fp, "D3DFMT_D24X8" );
@@ -309,6 +341,7 @@ void CMglD3dCapsDumper::DumpDepthStencilTest( _IDirect3DX* m_pD3d, UINT nAdapter
 	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D15S1, fp, "D3DFMT_D15S1" );
 	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D16, fp, "D3DFMT_D16" );
 	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D16_LOCKABLE, fp, "D3DFMT_D16_LOCKABLE" );
+	*/
 
 	/*
 	if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D32, deviceType ) == TRUE )
