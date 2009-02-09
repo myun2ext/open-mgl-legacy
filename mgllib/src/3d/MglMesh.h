@@ -69,19 +69,19 @@ public:
 	{ CreateBox(fSize,fSize,fSize,color,ambient,specular,emissive,fSpecularPower); }
 
 	//	‰~’Œ
-	void CreateCylinder(float fRadius, float fHeight,	
+	void CreateCylinder(float fWidth, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
 	{
-		CreateCylinderEx(fRadius,fRadius,fHeight,color,ambient,specular,emissive,fSpecularPower);
+		CreateCylinderEx(fWidth,fWidth,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
-	void CreateCylinderEx(float fRadiusNear, float fRadiusFar, float fHeight,
+	void CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
 	{
-		CreateCylinderEx(fRadiusNear,fRadiusFar,fHeight,color,ambient,specular,emissive,fSpecularPower,16);
+		CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower,16);
 	}
-	void CreateCylinderEx(float fRadiusNear, float fRadiusFar, float fHeight,
+	void CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
 		D3DXCOLOR color, D3DXCOLOR ambient,
 		D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
 		UINT nSideCount, UINT nVertical=1);
@@ -134,18 +134,24 @@ public:
 class DLL_EXP CMgl3dCylinder : public CMglMesh
 {
 public:
-	//	‰~’Œ
-	void Create(float fRadius, float fHeight,	
+	void Create(float fWidth, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
 	{
-		CreateCylinderEx(fRadius,fRadius,fHeight,color,ambient,specular,emissive,fSpecularPower);
+		CMglMesh::CreateCylinder(fWidth,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
-	void CreateEx(float fRadiusNear, float fRadiusFar, float fHeight,	
+	void CreateEx(float fWidthNear, float fWidthFar, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
 	{
-		CreateCylinderEx(fRadiusNear,fRadiusFar,fHeight,color,ambient,specular,emissive,fSpecularPower);
+		CMglMesh::CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower);
+	}
+	void CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
+		D3DXCOLOR color, D3DXCOLOR ambient,
+		D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
+		UINT nSideCount, UINT nVertical=1)
+	{
+		CMglMesh::CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
 	}
 };
 

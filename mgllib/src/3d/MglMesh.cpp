@@ -178,12 +178,15 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 }
 
 //	‰~’ŒƒƒbƒVƒ…ì¬
-void CMglMesh::CreateCylinderEx(float fRadiusNear, float fRadiusFar, float fHeight,
+void CMglMesh::CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
 		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
 		UINT nSideCount, UINT nVerticalVertexCount)
 {
 	InitCheck();
 	CreatedCheck();
+
+	float fRadiusNear = fWidthNear/2;
+	float fRadiusFar = fWidthFar/2;
 
 	if ( nSideCount < 3 )
 		nSideCount = 3;
