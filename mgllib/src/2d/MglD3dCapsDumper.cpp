@@ -281,6 +281,7 @@ void CMglD3dCapsDumper::DumpFlagItem( FILE *fp, DWORD dwValue, DWORD dwMask, con
 
 }
 
+//	頂点/ピクセルシェーダーのバージョン文字列取得 (from DWORD)
 std::string CMglD3dCapsDumper::GetShaderVersionString( DWORD dwShaderVersion )
 {
 	char work[20];
@@ -290,6 +291,57 @@ std::string CMglD3dCapsDumper::GetShaderVersionString( DWORD dwShaderVersion )
 	return work;
 }
 
+void CMglD3dCapsDumper::DumpDepthStencilTest( _IDirect3DX* m_pD3d, UINT nAdapterNo,
+	D3DFORMAT displayFormat, D3DDEVTYPE deviceType )
+{
+	FILE *fp=fopen( CAPS_DUMP_LOG, "a" );
+	if ( fp == NULL )
+		MyuThrow( 0, "CMglD3dCapsDumper::DumpCapsAll()  ログファイルのオープンに失敗。" );
+
+	///////////////////////////////////////////////////////////////////////////////////////////
+
+	fprintf( fp, "\n\n==== DepthStencilFormatTest ======================\n\n" );
+
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D32, fp, "D3DFMT_D32" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24S8, fp, "D3DFMT_D24S8" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24X8, fp, "D3DFMT_D24X8" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D24X4S4, fp, "D3DFMT_D24X4S4" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D15S1, fp, "D3DFMT_D15S1" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D16, fp, "D3DFMT_D16" );
+	DumpDepthStencilTestItem( m_pD3d, nAdapterNo, displayFormat, deviceType, D3DFMT_D16_LOCKABLE, fp, "D3DFMT_D16_LOCKABLE" );
+
+	/*
+	if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D32, deviceType ) == TRUE )
+		fprintf( fp, "DriverVersion :            %d,%u\n\n", adapterInfo.DriverVersion.HighPart, adapterInfo.DriverVersion.LowPart );
+	
+	if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D24S8, deviceType ) == TRUE ) {
+		depthStencilFormat = D3DFMT_D24S8;
+		_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D24S8を使用します。" );
+	}
+	else if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D24X8, deviceType ) == TRUE ) {
+		depthStencilFormat = D3DFMT_D24X8;
+		_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D24X8を使用します。" );
+	}
+	else if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, D3DFMT_D16, deviceType ) == TRUE ) {  
+		depthStencilFormat = D3DFMT_D16;
+		_MGL_DEBUGLOG( "DepthStencilFormatとしてD3DFMT_D16を使用します。" );
+	}
+	*/
+
+	fclose( fp );
+}
+
+void CMglD3dCapsDumper::DumpDepthStencilTestItem( _IDirect3DX* m_pD3d, UINT nAdapterNo,
+	D3DFORMAT displayFormat, D3DDEVTYPE deviceType, D3DFORMAT targetFormat, FILE* fp, const char* szFormatName )
+{
+//	if ( CheckDepthStencilFormat(nAdapterNo, displayFormat, targetFormat, deviceType ) == TRUE )
+	if ( m_pD3d->CheckDeviceFormat( nAdapterNo,
+		deviceType, displayFormat, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, targetFormat ) == S_OK )
+
+		fprintf( fp, "%-20s       o Supported\n", szFormatName );
+	else
+		fprintf( fp, "%-20s       x Unsupported\n", szFormatName );
+}
 
 /*
 //	DirectDrawを使ってディスプレイサイズを取得

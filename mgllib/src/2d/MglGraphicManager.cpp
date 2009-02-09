@@ -216,6 +216,7 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 	 
 */
 	//	2009/01/31 Zステンシル（3D）対応
+	dumper.DumpDepthStencilTest( m_pD3d, nAdapterNo, dispMode.Format, m_d3dDevType );
 	if ( bUse3d ){
 		D3DFORMAT depthStencilFormat = D3DFMT_D16;
 
@@ -828,6 +829,7 @@ BOOL CMglGraphicManager::CheckDepthStencilFormat( UINT nAdapterNo,
 	return m_pD3d->CheckDeviceFormat( nAdapterNo,
 		deviceType, displayFormat, D3DUSAGE_DEPTHSTENCIL, D3DRTYPE_SURFACE, targetDsFormat ) == S_OK ? TRUE : FALSE;
 }
+
 D3DFORMAT CMglGraphicManager::CheckAutoDepthStencilFormat( UINT nAdapterNo,
 	D3DFORMAT displayFormat, D3DDEVTYPE deviceType )
 {

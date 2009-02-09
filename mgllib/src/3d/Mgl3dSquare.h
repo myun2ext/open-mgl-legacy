@@ -13,7 +13,7 @@
 
 //#pragma warning( disable : 4660 )
 
-//	Vertex Struct
+//	テクスチャなしVertex
 class MGL_NOTEX_VERTEX
 {
 public:
