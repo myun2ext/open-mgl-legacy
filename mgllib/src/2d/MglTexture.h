@@ -225,6 +225,6 @@ public:
 	void Unlock(){ m_bLocked = FALSE; }
 };
 
-typedef CMglTexture CMglSquareTexture;
+//typedef CMglTexture CMglSquareTexture;
 
 #endif//__MglTexture_H__

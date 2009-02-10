@@ -9,7 +9,7 @@
 
 #include "MglGraphicManager.h"
 #include "MglVertexManager.h"
-//#include "MglTexture.h"
+#include "MglD3dTexture.h"
 
 //#pragma warning( disable : 4660 )
 
@@ -36,13 +36,19 @@ public:
 
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
-	_MGL_IDirect3DDevice* m_d3d;			//	D3DDeviceへのポインタ
+	_MGL_IDirect3DDevice* m_d3d;	//	D3DDeviceへのポインタ
+	CMglD3dTexture *m_tex;
 
 	//	内部メソッド（チェック用）
 	void InitCheck() {
 		if ( m_myudg == NULL )
 			Init( GetDefaultGd() );
 	}
+	void CreatedCheck() {
+		if ( m_vertexes.size() != 0 )
+			MyuThrow( 4678, "CMgl3dSquare  既に作成済です。" );
+	}
+	void SetTuTv(MGLTUTV &tutv);
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -50,9 +56,14 @@ public:
 	virtual ~CMgl3dSquare(){}
 
 	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
+
 	void SimpleCreate(float fWidth, float fHeight, D3DCOLOR color);
 
-	void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
+	void CreateFromTexture(CMglD3dTexture &tex, float fWidth, float fHeight, D3DCOLOR color=D3DCOLOR_WHITE);
+	void TextureCreate(CMglD3dTexture &tex, float fWidth, float fHeight, D3DCOLOR color=D3DCOLOR_WHITE){
+		CreateFromTexture(tex,fWidth,fHeight,color); }
+
+	void Draw();//{ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
 	//void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLEFAN); }
 	//void Draw(){ CMglVertexManagerXT<MGL_NOTEX_VERTEX>::Draw(D3DPT_TRIANGLESTRIP); }
 };

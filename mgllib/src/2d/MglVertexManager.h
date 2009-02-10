@@ -23,6 +23,7 @@ public:
 	}
 
 	void Clear(){ m_vertexes.clear(); }
+	void Release(){ m_vertexes.clear(); }
 	void AddVertex(_VERTEX &vertex){ m_vertexes.push_back(vertex); }
 	void AddPoint(float x, float y, float z, D3DCOLOR color=0 ){
 		_VERTEX v;
@@ -47,6 +48,9 @@ public:
 	void Set(int i, _VERTEX& vertex){ m_vertexes[i] = vertex; }
 
 	_VERTEX* GetVertexPtr(){ return &m_vertexes[0]; }
+	int GetVertexCount(){ return m_vertexes.size(); }
+	int GetCount(){ return m_vertexes.size(); }
+	int GetSize(){ return m_vertexes.size(); }
 };
 
 /////////////////////////////////////////////////////////
@@ -129,6 +133,12 @@ public:
 	//	コンストラクタ
 	CMglVertexManagerXT() : _CMglVertexManagerXT_Realize(
 		CMglVertexManagerT<_VERTEX>::m_dwFVF, sizeof(_VERTEX)){}
+
+	//	両方呼ぶようにせねば・・・
+	void Release(){
+		CMglVertexManagerT<_VERTEX>::Release();
+		_CMglVertexManagerXT_Realize::Release();
+	}
 };
 
 

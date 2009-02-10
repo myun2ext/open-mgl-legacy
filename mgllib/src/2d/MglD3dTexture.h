@@ -94,6 +94,10 @@ public:
 	void Release();
 
 	//	çÏê¨
+	void Load( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
+		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+	void Create( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
+		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
 	void CreateTextureFromFile( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		//CreateTextureFromFileEx( szFileName, D3DX_DEFAULT, D3DX_DEFAULT, bRenderTarget, colorKey ); }
 		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
@@ -106,6 +110,8 @@ public:
 	void Create( int x, int y, BOOL bRenderTarget );
 
 	void SetD3dStageTexture(DWORD nStage=0);
+	void SetStageTexture(DWORD nStage=0){ SetD3dStageTexture(nStage); }
+	void SetRenderTexture(DWORD nStage=0){ SetD3dStageTexture(nStage); }
 
 	//	ì‡ïîïœêîéÊìæån
 	_MGL_IDirect3DTexture* GetDirect3dTexturePtr(){ CreateCheck(); return m_pTexture; }
