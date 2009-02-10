@@ -219,7 +219,7 @@ void CMglMesh::CreateTeapot(
 }
 
 //	ドーナツメッシュ作成
-void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nSideDetail, UINT nRingDetail,
+void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nCircleDetail, UINT nCylinderDetail,
 		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
 {
 	InitCheck();
@@ -228,8 +228,17 @@ void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nSideDetail,
 	float fInnerRadius = fRingDiameter/2;
 	float fOuterRadius = fSize/2-fInnerRadius;
 
+	if ( fRingDiameter > fSize )
+		MyuThrow( MGLMSGNO_MESH(81), "fRingDiameter が fSize を超えることは出来ません。");
+
+	if ( nCircleDetail < 3 )
+		nCircleDetail = 3;
+	if ( nCylinderDetail < 3 )
+		nCylinderDetail = 3;
+
+	//	ドーナツ生成
 	MyuAssert2( D3DXCreateTorus( m_d3d, fInnerRadius, fOuterRadius,
-		nSideDetail, nRingDetail, &m_pMesh, NULL), D3D_OK,
+		nCylinderDetail, nCircleDetail, &m_pMesh, NULL), D3D_OK,
 		MGLMSGNO_MESH(80), "CMglMesh::CreateDonut()  D3DXCreateTorus()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);

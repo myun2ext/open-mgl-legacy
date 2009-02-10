@@ -108,7 +108,7 @@ public:
 	{
 		CreateDonutEx(fSize,fRingDiameter,16,16,color,ambient,specular,emissive,fSpecularPower);
 	}
-	void CreateDonutEx(float fSize, float fRingDiameter, UINT nSideDetail, UINT nRingDetail,
+	void CreateDonutEx(float fSize, float fRingDiameter, UINT nCircleDetail, UINT nCylinderDetail,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
 
