@@ -194,14 +194,29 @@ void CMglMesh::CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight
 	if ( nVerticalVertexCount < 1 )
 		nVerticalVertexCount = 1;
 
+	//	円柱作成
 	MyuAssert2( D3DXCreateCylinder( m_d3d, fRadiusNear, fRadiusFar, fHeight,
 		nSideCount, nVerticalVertexCount, &m_pMesh, NULL), D3D_OK,
-		MGLMSGNO_MESH(40), "CMglMesh::D3DXCreateCylinder()  D3DXCreateCylinder()に失敗" );
+		MGLMSGNO_MESH(40), "CMglMesh::CreateCylinderEx()  D3DXCreateCylinder()に失敗" );
+
+	//	マテリアル作成
+	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
+}
+
+//	Teapotメッシュ作成
+void CMglMesh::CreateTeapot(
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
+{
+	InitCheck();
+	CreatedCheck();
+
+	MyuAssert2( D3DXCreateTeapot( m_d3d, &m_pMesh, NULL), D3D_OK,
+		MGLMSGNO_MESH(72), "CMglMesh::CreateTeapot()  D3DXCreateTeapot()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
 }
 
-/////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 
 //	ひとつーだけのマテリアルー（謎
 void CMglMesh::CreateSingleMaterial(

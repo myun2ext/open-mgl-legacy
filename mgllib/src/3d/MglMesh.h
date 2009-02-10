@@ -101,6 +101,11 @@ public:
 		CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
 	}
 
+	//	‚¨’ƒPOT
+	void CreateTeapot(	
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+
 	////////////////////////////////////////////////////////////////
 
 	//	specular -> mirror / reflect
@@ -121,6 +126,10 @@ public:
 typedef CMglMesh CMgl3dMesh;
 typedef CMglMesh CMgl3dModel;
 typedef CMglMesh CMgl3dShape;
+
+
+/**************************************************************************************************/
+
 
 //	CMgl3dBox - ’¼•û‘Ì
 class DLL_EXP CMgl3dBox : public CMglMesh
