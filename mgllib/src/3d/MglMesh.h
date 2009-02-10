@@ -154,6 +154,8 @@ public:
 		CMglMesh::CreateCube(fSize,color,ambient,specular,emissive,fSpecularPower);
 	}
 };
+typedef CMgl3dCube CMglCube, CMglCubeMesh;
+
 
 //	CMgl3dCylinder - â~íå
 class DLL_EXP CMgl3dCylinder : public CMglMesh
@@ -179,6 +181,8 @@ public:
 		CMglMesh::CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
 	}
 };
+typedef CMgl3dCylinder CMglCylinder, CMglCylinderMesh;
+
 
 //	CMgl3dCone - â~êç
 class DLL_EXP CMgl3dCone : public CMglMesh
@@ -198,5 +202,21 @@ public:
 		CMglMesh::CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
 	}
 };
+typedef CMgl3dCone CMglCone, CMglConeMesh;
+
+
+//	CMgl3dTeapot - Ç®íÉPOT
+class DLL_EXP CMgl3dTeapot : public CMglMesh
+{
+public:
+	void Create(
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CMglMesh::CreateTeapot(color,ambient,specular,emissive,fSpecularPower);
+	}
+};
+typedef CMgl3dTeapot CMglTeapot, CMglTeapotMesh;
+
 
 #endif//__MglMesh_H__

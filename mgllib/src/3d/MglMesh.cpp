@@ -101,6 +101,8 @@ void CMglMesh::Release()
 void CMglMesh::Draw()
 {
 	InitCheck();
+	if ( m_pMesh == NULL )
+		MyuThrow(MGLMSGNO_MESH(3), "CMglMesh::Draw()  メッシュが読み込み、または作成されていません。");
 
 	for( DWORD i=0; i < m_dwMaterialCount; i++ )
 	{
@@ -216,7 +218,7 @@ void CMglMesh::CreateTeapot(
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
 }
 
-/////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //	ひとつーだけのマテリアルー（謎
 void CMglMesh::CreateSingleMaterial(
