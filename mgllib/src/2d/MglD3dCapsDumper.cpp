@@ -199,8 +199,8 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 
 /*
     /* Device Info *
-    D3DDEVTYPE  DeviceType;
-    UINT    AdapterOrdinal;
+x   D3DDEVTYPE  DeviceType;
+x   UINT    AdapterOrdinal;
 
     /* Caps from DX7 Draw *
 x   DWORD   Caps;

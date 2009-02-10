@@ -86,12 +86,28 @@ public:
 		D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
 		UINT nSideCount, UINT nVertical=1);
 
+	//	â~êç
+	void CreateCone(float fWidth, float fHeight,	
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower);
+	}
+	void CreateConeEx(float fWidth, float fHeight,
+		D3DXCOLOR color, D3DXCOLOR ambient,
+		D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
+		UINT nSideCount, UINT nVertical=1)
+	{
+		CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
+	}
+
+	////////////////////////////////////////////////////////////////
 
 	//	specular -> mirror / reflect
 	//	emissive -> emit
 	//	fSpecularPower -> fMirrorRatio / fReflectRatio
 
-	//-------------------------------------------
+	////////////////////////////////////////////////////////////////
 
 	ID3DXMesh* GetMeshPtr(){ return m_pMesh; }
 	ID3DXMesh* GetID3DXMeshPtr(){ return m_pMesh; }
@@ -152,6 +168,25 @@ public:
 		UINT nSideCount, UINT nVertical=1)
 	{
 		CMglMesh::CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
+	}
+};
+
+//	CMgl3dCone - â~êç
+class DLL_EXP CMgl3dCone : public CMglMesh
+{
+public:
+	void Create(float fWidth, float fHeight,	
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+	{
+		CMglMesh::CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower);
+	}
+	void CreateEx(float fWidth, float fHeight,
+		D3DXCOLOR color, D3DXCOLOR ambient,
+		D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
+		UINT nSideCount, UINT nVertical=1)
+	{
+		CMglMesh::CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower,nSideCount,nVertical);
 	}
 };
 
