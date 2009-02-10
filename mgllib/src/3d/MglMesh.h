@@ -10,6 +10,11 @@
 #include "mglafx.h"
 #include "MglGraphicManager.h"
 
+#define MGL_SPECULAR_POWER_DEFAULT	(2.0f)
+#define MGL_MESH_DETAIL_DEFAULT		(16)
+#define _MGL_SPD	(MGL_SPECULAR_POWER_DEFAULT)
+#define _MGL_MDD	(MGL_MESH_DETAIL_DEFAULT)
+
 //	クラス宣言
 class DLL_EXP CMglMesh : public CMglDgBase
 {
@@ -41,7 +46,7 @@ protected:
 
 	void CreateSingleMaterial(
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD);
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -60,26 +65,26 @@ public:
 	//	箱, 直方体メッシュ
 	void CreateBox(float fWidth, float fHeight, float fDepth,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD);
 
 	//	立方体メッシュ
 	void CreateCube(float fSize,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
-	{ CreateBox(fSize,fSize,fSize,color,ambient,specular,emissive,fSpecularPower); }
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
+	{	CreateBox(fSize,fSize,fSize,color,ambient,specular,emissive,fSpecularPower); }
 
 	//	円柱メッシュ
 	void CreateCylinder(float fWidth, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CreateCylinderEx(fWidth,fWidth,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
 	void CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
-		CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower,16);
+		CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower,_MGL_MDD);
 	}
 	void CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
 		D3DXCOLOR color, D3DXCOLOR ambient,
@@ -89,7 +94,7 @@ public:
 	//	円錐メッシュ
 	void CreateCone(float fWidth, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
@@ -104,18 +109,29 @@ public:
 	//	ドーナツメッシュ
 	void CreateDonut(float fSize, float fRingDiameter,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
-		CreateDonutEx(fSize,fRingDiameter,16,16,color,ambient,specular,emissive,fSpecularPower);
+		CreateDonutEx(fSize,fRingDiameter,_MGL_MDD,_MGL_MDD,color,ambient,specular,emissive,fSpecularPower);
 	}
 	void CreateDonutEx(float fSize, float fRingDiameter, UINT nCircleDetail, UINT nCylinderDetail,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD);
+
+	//	球体メッシュ
+	void CreateSphere(float fSize,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
+	{
+		CreateSphereEx(fSize,_MGL_MDD,_MGL_MDD,color,ambient,specular,emissive,fSpecularPower);
+	}
+	void CreateSphereEx(float fSize, UINT nHorizontalDetail, UINT nVerticalDetail,
+		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD);
 
 	//	お茶POTメッシュ
 	void CreateTeapot(	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f);
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD);
 
 	////////////////////////////////////////////////////////////////
 
@@ -148,7 +164,7 @@ class DLL_EXP CMgl3dBox : public CMglMesh
 public:
 	void Create(float fWidth, float fHeight, float fDepth,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CMglMesh::CreateBox(fWidth,fHeight,fDepth,color,ambient,specular,emissive,fSpecularPower);
 	}
@@ -160,7 +176,7 @@ class DLL_EXP CMgl3dCube : public CMglMesh
 public:
 	void Create(float fSize,
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CMglMesh::CreateCube(fSize,color,ambient,specular,emissive,fSpecularPower);
 	}
@@ -174,13 +190,13 @@ class DLL_EXP CMgl3dCylinder : public CMglMesh
 public:
 	void Create(float fWidth, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CMglMesh::CreateCylinder(fWidth,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
 	void CreateEx(float fWidthNear, float fWidthFar, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CMglMesh::CreateCylinderEx(fWidthNear,fWidthFar,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
@@ -201,7 +217,7 @@ class DLL_EXP CMgl3dCone : public CMglMesh
 public:
 	void Create(float fWidth, float fHeight,	
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CMglMesh::CreateCylinderEx(fWidth,0,fHeight,color,ambient,specular,emissive,fSpecularPower);
 	}
@@ -222,12 +238,14 @@ class DLL_EXP CMgl3dTeapot : public CMglMesh
 public:
 	void Create(
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
-		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=2.0f)
+		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD)
 	{
 		CMglMesh::CreateTeapot(color,ambient,specular,emissive,fSpecularPower);
 	}
 };
 typedef CMgl3dTeapot CMglTeapot, CMglTeapotMesh;
 
+#undef _MGL_SPD
+#undef _MGL_MDD
 
 #endif//__MglMesh_H__

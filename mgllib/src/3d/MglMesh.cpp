@@ -225,11 +225,11 @@ void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nCircleDetai
 	InitCheck();
 	CreatedCheck();
 
-	float fInnerRadius = fRingDiameter/2;
-	float fOuterRadius = fSize/2-fInnerRadius;
-
 	if ( fRingDiameter > fSize )
 		MyuThrow( MGLMSGNO_MESH(81), "fRingDiameter が fSize を超えることは出来ません。");
+
+	float fInnerRadius = fRingDiameter/2;
+	float fOuterRadius = fSize/2-fInnerRadius;
 
 	if ( nCircleDetail < 3 )
 		nCircleDetail = 3;
@@ -240,6 +240,28 @@ void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nCircleDetai
 	MyuAssert2( D3DXCreateTorus( m_d3d, fInnerRadius, fOuterRadius,
 		nCylinderDetail, nCircleDetail, &m_pMesh, NULL), D3D_OK,
 		MGLMSGNO_MESH(80), "CMglMesh::CreateDonut()  D3DXCreateTorus()に失敗" );
+
+	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
+}
+
+//	球体メッシュ作成
+void CMglMesh::CreateSphereEx(float fSize, UINT nHorizontalDetail, UINT nVerticalDetail,
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
+{
+	InitCheck();
+	CreatedCheck();
+
+	float fRadius = fSize/2;
+
+	if ( nHorizontalDetail < 2 )
+		nHorizontalDetail = 2;
+	if ( nVerticalDetail < 2 )
+		nVerticalDetail = 2;
+
+	//	メッシュ生成
+	MyuAssert2( D3DXCreateSphere( m_d3d, fRadius,
+		nHorizontalDetail, nVerticalDetail, &m_pMesh, NULL), D3D_OK,
+		MGLMSGNO_MESH(80), "CMglMesh::CreateSphereEx()  D3DXCreateSphere()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
 }
