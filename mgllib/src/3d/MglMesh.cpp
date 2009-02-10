@@ -182,7 +182,7 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 //	円柱メッシュ作成
 void CMglMesh::CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight,
 		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower,
-		UINT nSideCount, UINT nVerticalVertexCount)
+		UINT nDetailCount, UINT nVerticalVertexCount)
 {
 	InitCheck();
 	CreatedCheck();
@@ -190,15 +190,15 @@ void CMglMesh::CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight
 	float fRadiusNear = fWidthNear/2;
 	float fRadiusFar = fWidthFar/2;
 
-	if ( nSideCount < 3 )
-		nSideCount = 3;
+	if ( nDetailCount < 3 )
+		nDetailCount = 3;
 
 	if ( nVerticalVertexCount < 1 )
 		nVerticalVertexCount = 1;
 
 	//	円柱作成
 	MyuAssert2( D3DXCreateCylinder( m_d3d, fRadiusNear, fRadiusFar, fHeight,
-		nSideCount, nVerticalVertexCount, &m_pMesh, NULL), D3D_OK,
+		nDetailCount, nVerticalVertexCount, &m_pMesh, NULL), D3D_OK,
 		MGLMSGNO_MESH(40), "CMglMesh::CreateCylinderEx()  D3DXCreateCylinder()に失敗" );
 
 	//	マテリアル作成
@@ -214,6 +214,23 @@ void CMglMesh::CreateTeapot(
 
 	MyuAssert2( D3DXCreateTeapot( m_d3d, &m_pMesh, NULL), D3D_OK,
 		MGLMSGNO_MESH(72), "CMglMesh::CreateTeapot()  D3DXCreateTeapot()に失敗" );
+
+	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
+}
+
+//	ドーナツメッシュ作成
+void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nSideDetail, UINT nRingDetail,
+		D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, D3DXCOLOR emissive, float fSpecularPower)
+{
+	InitCheck();
+	CreatedCheck();
+
+	float fInnerRadius = fRingDiameter/2;
+	float fOuterRadius = fSize/2-fInnerRadius;
+
+	MyuAssert2( D3DXCreateTorus( m_d3d, fInnerRadius, fOuterRadius,
+		nSideDetail, nRingDetail, &m_pMesh, NULL), D3D_OK,
+		MGLMSGNO_MESH(80), "CMglMesh::CreateDonut()  D3DXCreateTorus()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
 }
