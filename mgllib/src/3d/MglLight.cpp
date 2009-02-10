@@ -16,10 +16,7 @@ void CMglLight::Release()
 }
 
 
-void CMglLight::Setup( D3DLIGHTTYPE lightType,
-					  float fPosX, float fPosY, float fPosZ,
-					  float fDirectionX, float fDirectionY, float fDirectionZ,
-					  D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, float fRange )
+void CMglLight::Setup( _D3DLIGHTx &lightSetting )
 {
 	InitCheck();
 
@@ -31,17 +28,7 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 
 	////////////////////////////////////////////////
 
-	m_light.Type = lightType;
-	m_light.Diffuse = color;
-	m_light.Ambient = ambient;
-	m_light.Specular = specular;
-	m_light.Range = fRange;
-
-	D3DXVECTOR3 direction(fDirectionX,fDirectionY,fDirectionZ);
-	D3DXVECTOR3 position(fPosX,fPosY,fPosZ);
-	D3DXVec3Normalize( (D3DXVECTOR3*)&m_light.Direction, &direction );
-	D3DXVec3Normalize( (D3DXVECTOR3*)&m_light.Position, &position );
-
+	m_light = lightSetting;
 
 	CommitD3dLight();
 	CMglLight::Enable();
@@ -49,7 +36,7 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	//m_d3d->LightEnable( m_dwLightIndex, TRUE );
 
 	m_d3d->SetRenderState( D3DRS_SPECULARENABLE, TRUE );
-	m_d3d->SetRenderState( D3DRS_AMBIENT, ambient );
+	m_d3d->SetRenderState( D3DRS_AMBIENT, D3DXCOLOR(m_light.Ambient) );
 
 	/*
 	m_d3d->SetRenderState( D3DRS_ALPHABLENDENABLE,	FALSE );		// αブレンディング無効
@@ -65,7 +52,7 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	m_d3d->LightEnable( 0, TRUE );									// ライトを有効に
 
 	m_d3d->SetTextureStageState( 0 , D3DTSS_ALPHAOP,	D3DTOP_DISABLE );		//αチャネルは無効に
-*/
+	*/
 
 	/*
 	g_pD3DDevice->SetRenderState(D3DRS_SHADEMODE, D3DSHADE_GOURAUD);// グローシェーディングを行う
@@ -73,6 +60,28 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	g_pD3DDevice->SetMaterial(&g_Material);						// マテリアルをシステムに設定
 	g_pD3DDevice->SetRenderState(D3DRS_NORMALIZENORMALS,TRUE);	// 頂点法線の自動正規化を有効にする
 	*/
+}
+
+void CMglLight::Setup( D3DLIGHTTYPE lightType,
+					  float fPosX, float fPosY, float fPosZ,
+					  float fDirectionX, float fDirectionY, float fDirectionZ,
+					  D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, float fRange )
+{
+	_D3DLIGHTx light;
+	ZeroMemory( &light, sizeof(light) );
+
+	light.Type = lightType;
+	light.Diffuse = color;
+	light.Ambient = ambient;
+	light.Specular = specular;
+	light.Range = fRange;
+
+	D3DXVECTOR3 direction(fDirectionX,fDirectionY,fDirectionZ);
+	D3DXVECTOR3 position(fPosX,fPosY,fPosZ);
+	D3DXVec3Normalize( (D3DXVECTOR3*)&light.Direction, &direction );
+	D3DXVec3Normalize( (D3DXVECTOR3*)&light.Position, &position );
+
+	Setup(light);
 }
 
 //typedef struct _D3DLIGHT8 {
