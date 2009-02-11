@@ -51,3 +51,12 @@ const char* CMglXShader::GetCompileErrorMsg()
 	return (const char*) m_pBufErrorInfo->GetBufferPointer();
 }
 
+//	バッファ取得
+CONST DWORD* CMglXShader::GetBuffer()
+{
+	InitCheck();
+	CreateCheck();
+
+	return (CONST DWORD*) m_pBufShader->GetBufferPointer();
+}
+

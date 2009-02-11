@@ -322,6 +322,14 @@ SOURCE=.\src\2d\MglTexture2.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\src\3d\MglPixelShader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglPixelShader.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\MglXShader.cpp
 # End Source File
 # Begin Source File

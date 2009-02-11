@@ -43,6 +43,8 @@ public:
 	void CreateFromResource( const char* szAssembleString ){ LoadFromString(szAssembleString); }*/
 
 	const char* GetCompileErrorMsg();
+
+	CONST DWORD* GetBuffer();
 };
 //typedef CMglXShader CMglShaderBase;
 typedef CMglXShader CMglShaderLoader;
