@@ -15,7 +15,11 @@
 class DLL_EXP CMglPixelShader : public CMglDgBase
 {
 protected:
+#if _MGL_DXVER == 9
 	_IDirect3DPixelShaderX* m_pShader;
+#else
+	DWORD m_pShader;
+#endif
 
 	//-------------------------------------------------------------
 
@@ -41,6 +45,13 @@ public:
 
 	void LoadFromString( const char* szAssembleString );
 	void CreateFromString( const char* szAssembleString ){ LoadFromString(szAssembleString); }
+
+	//////////////////////////////////////////////////////////////////////////
+
+	void SetShader();
+
+	void SetShaderParam(DWORD dwRegisterNo, const void* lpData, DWORD dwDataBlockCount);
+	void SetShaderParam(DWORD dwRegisterNo, CMglShaderParam &param);
 };
 
 #endif//__MglPixelShader_H__

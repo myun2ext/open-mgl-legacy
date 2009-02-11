@@ -48,3 +48,23 @@ void CMglPixelShader::LoadCommon(CONST DWORD* pFunction)
 	MyuAssert2( m_d3d->CreatePixelShader( pFunction, &m_pShader ), D3D_OK,
 		MGLMSGNO_SHADER(13), "CMglPixelShader::LoadCommon()  m_d3d->CreatePixelShader()に失敗" );
 }
+
+//	シェーダを設定
+void CMglPixelShader::SetShader()
+{
+	MyuAssert2( m_d3d->SetPixelShader(m_pShader), D3D_OK, 
+		MGLMSGNO_SHADER(20), "CMglPixelShader::SetShader()  m_d3d->SetPixelShader()に失敗" );
+}
+
+//	パラメータ設定
+void CMglPixelShader::SetShaderParam(DWORD dwRegisterNo, const void* lpData, DWORD dwDataBlockCount)
+{
+	MyuAssert2( m_d3d->SetPixelShaderConstant( dwRegisterNo, (VOID*)lpData, dwDataBlockCount), D3D_OK,
+		MGLMSGNO_SHADER(32), "CMglPixelShader::SetShaderParam()  m_d3d->SetPixelShaderConstant()に失敗" );
+}
+
+//	パラメータ設定
+void CMglPixelShader::SetShaderParam(DWORD dwRegisterNo, CMglShaderParam &param)
+{
+	SetShaderParam( dwRegisterNo, param.GetHeadPtr(), param.GetCount() );
+}

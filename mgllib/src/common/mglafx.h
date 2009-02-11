@@ -184,7 +184,7 @@ using namespace std;
 	typedef IDirect3DTexture8 _IDirect3DTextureX;
 	typedef IDirect3DVertexBuffer8 _IDirect3DVertexBufferX;
 	//typedef IDirect3DPixelShader8 _IDirect3DPixelShaderX;
-	typedef DWORD _IDirect3DPixelShaderX;
+	//typedef DWORD _IDirect3DPixelShaderX;
 	typedef D3DVIEWPORT8 _D3DVIEWPORTx;
 	typedef D3DCAPS8 _D3DCAPSx;
 	typedef D3DADAPTER_IDENTIFIER8 _D3DADAPTER_IDENTIFIERx;
