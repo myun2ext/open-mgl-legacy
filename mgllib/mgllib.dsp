@@ -317,6 +317,18 @@ SOURCE=.\src\2d\MglTexture2.h
 # Begin Group "3D Graphics Files"
 
 # PROP Default_Filter ""
+# Begin Group "Shaders"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\3d\MglXShader.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglXShader.h
+# End Source File
+# End Group
 # Begin Source File
 
 SOURCE=.\src\3d\mgl3d.h
