@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////
 //
-//	CMglXShader - メッシュ
+//	CMglXShader - シェーダー
 //
 //////////////////////////////////////////////////////////
 
@@ -19,11 +19,11 @@ protected:
 
 	void CreatedCheck(){
 		if ( m_pBufShader != NULL )
-			MyuThrow(MGLMSGNO_SHADER(1), "CMglXShader  既にシェーダは作成済です。");
+			MyuThrow(MGLMSGNO_SHADER(1), "CMglXShader  既にバッファは作成済です。");
 	}
 	void CreateCheck(){
 		if ( m_pBufShader == NULL )
-			MyuThrow(MGLMSGNO_SHADER(2), "CMglXShader  シェーダが作成されていません。");
+			MyuThrow(MGLMSGNO_SHADER(2), "CMglXShader  バッファが作成されていません。");
 	}
 
 public:
@@ -35,6 +35,12 @@ public:
 	void Load(const char* szShaderScriptFile);
 	void LoadScript(const char* szShaderScriptFile){ Load(szShaderScriptFile); }
 	void Create(const char* szShaderScriptFile){ Load(szShaderScriptFile); }
+
+	void LoadFromString( const char* szAssembleString );
+	void CreateFromString( const char* szAssembleString ){ LoadFromString(szAssembleString); }
+
+	/*void LoadFromResource( const char* szAssembleString ); <- DirectX8 未サポート・・・
+	void CreateFromResource( const char* szAssembleString ){ LoadFromString(szAssembleString); }*/
 
 	const char* GetCompileErrorMsg();
 };
