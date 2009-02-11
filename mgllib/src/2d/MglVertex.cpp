@@ -16,8 +16,13 @@
 	pVertexOut->rhw = rhw;
 #endif
 	pVertexOut->color = color;
+#ifdef _MGLVERTEX_USE_MULTITEX
+	pVertexOut->tPosAry[0].x = tu;
+	pVertexOut->tPosAry[0].y = tv;
+#else
 	pVertexOut->tu = tu;
 	pVertexOut->tv = tv;
+#endif
 }
 
 //	’¸“_ŒQ‚ÌˆÚ“®i‚Ü‚Æ‚ß‚Äj

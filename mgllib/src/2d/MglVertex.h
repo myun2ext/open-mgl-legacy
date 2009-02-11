@@ -5,6 +5,7 @@
 
 #define _MGLVERTEX_USE_SPECULAR
 #define _MGLVERTEX_USE_NORMAL
+#define _MGLVERTEX_USE_MULTITEX
 
 #ifdef _MGLVERTEX_USE_NORMAL
 	#define _MGLVERTEX_D3DFVF_NORMAL D3DFVF_NORMAL
@@ -12,11 +13,19 @@
 	#define _MGLVERTEX_D3DFVF_NORMAL
 #endif
 
+#ifdef _MGLVERTEX_USE_MULTITEX
+	#define _MGLVERTEX_D3DFVF_TEX_EXTENDS D3DFVF_TEX8 
+#else
+	#define _MGLVERTEX_D3DFVF_TEX_EXTENDS D3DFVF_TEX1
+#endif
+
 //	頂点構造体
 #ifdef _MGLVERTEX_USE_RHW
-	#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
+	//#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
+	#define	FVF_MYU_VERTEX ( D3DFVF_XYZRHW | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | _MGLVERTEX_D3DFVF_TEX_EXTENDS )
 #else
-	#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
+	//#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | D3DFVF_TEX1 )
+	#define	FVF_MYU_VERTEX ( D3DFVF_XYZ | _MGLVERTEX_D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_SPECULAR | _MGLVERTEX_D3DFVF_TEX_EXTENDS )
 #endif
 typedef struct
 {
@@ -32,7 +41,11 @@ typedef struct
 #ifdef _MGLVERTEX_USE_SPECULAR
 	DWORD		specular;			// スペキュラ色
 #endif
+#ifdef _MGLVERTEX_USE_MULTITEX
+	D3DXVECTOR2 tPosAry[8];			//テクスチャ座標配列
+#else
 	float		tu,tv;				//テクスチャ座標 - D3DXVECTOR2
+#endif
 }MYU_VERTEX;
 typedef MYU_VERTEX	MGL_VERTEX;
 
@@ -62,14 +75,26 @@ public:
 		ny = 1;
 		nz = 0;
 #endif
+#ifdef _MGLVERTEX_USE_MULTITEX
+		ZeroMemory(&tPosAry, sizeof(tPosAry));
+#else
 		tu = tv = 0.0f;
+#endif
 	}
 
 	static DWORD GetFVF(){ return FVF_MYU_VERTEX; }
+#ifdef _MGLVERTEX_USE_MULTITEX
+	void SetTuTv(MGLTUTV tutv){ SetTuTv(0, tutv); }
+	void SetTuTv(int no, MGLTUTV tutv){
+		tPosAry[no].x = tutv.tu;
+		tPosAry[no].y = tutv.tv;
+	}
+#else
 	void SetTuTv(MGLTUTV tutv){
 		tu = tutv.tu;
 		tv = tutv.tv;
 	}
+#endif
 } MGLX_VERTEX, MYUX_VERTEX;
 
 /*

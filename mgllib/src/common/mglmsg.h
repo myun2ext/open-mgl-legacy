@@ -22,7 +22,11 @@
 #define MGLMSGNO_DRAW_LINE		(MGLMSGNO_GRP(0x790000))
 #define MGLMSGNO_BITMAP_DATA	(MGLMSGNO_GRP(0x800000))
 
+//	3Dグラフィックス
 #define MGLMSGNO_LIGHT(NO)		(MGLMSGNO_3D(0x240000)+NO)
+
+#define MGLMSGNO_3DSQUARE(NO)	(MGLMSGNO_3D(0x660000)+NO)
+
 #define MGLMSGNO_MESH(NO)		(MGLMSGNO_3D(0x810000)+NO)
 
 //////////////////////////////////////////////////////////////////

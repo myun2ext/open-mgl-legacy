@@ -394,7 +394,7 @@ void CMglTexture::Paint( RECT* pRect, D3DCOLOR color )
 
 //	↓↓↓　古い描画方式　↓↓↓
 
-
+#if 1==0
 //	Texture(DrawPrimitiveUP)で絵画
 void CMglTexture::TextureDraw(
 	float x, float y, RECT* srcRect, float fScaleX, float fScaleY,
@@ -494,6 +494,7 @@ void CMglTexture::TextureDraw(
 	//	描画
 	Draw( vertices );
 }
+#endif
 
 //	イテレータ ////////////////////////////////////////////////
 

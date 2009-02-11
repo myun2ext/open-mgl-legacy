@@ -59,7 +59,7 @@ void CMgl3dSquare::CreateFromTexture(CMglD3dTexture &tex, float fWidth, float fH
 
 	SimpleCreate(fWidth, fHeight, color);
 
-	SetTexure(tex);
+	SetTexture(tex);
 	/*
 	m_tex = &tex;
 
@@ -68,7 +68,7 @@ void CMgl3dSquare::CreateFromTexture(CMglD3dTexture &tex, float fWidth, float fH
 	*/
 }
 
-void CMgl3dSquare::SetTexure(int no, CMglD3dTexture &tex)
+void CMgl3dSquare::SetTexture(int no, CMglD3dTexture &tex)
 {
 	InitCheck();
 	CreateCheck();
@@ -76,9 +76,36 @@ void CMgl3dSquare::SetTexure(int no, CMglD3dTexture &tex)
 	m_texList[no] = &tex;
 
 	//MGLTUTV tutv = m_tex->GetTuTv();
-	SetTuTv(tex.GetTuTv());
+	SetTuTv(no, tex.GetTuTv());
 }
 
+void CMgl3dSquare::AddTexture(CMglD3dTexture &tex)
+{
+	for(int i=0; i<MGL_TEXTURE_STAGE_MAX; i++ ){
+		if ( m_texList[i] == NULL ){
+			SetTexture(i, tex);
+			return;
+		}
+	}
+
+	MyuThrow( MGLMSGNO_3DSQUARE(20),
+		"CMgl3dSquare::AddTexture()  これ以上テクスチャを追加する事はできません。");
+}
+
+#ifdef _MGLVERTEX_USE_MULTITEX
+void CMgl3dSquare::SetTuTv(int no, MGLTUTV &tutv)
+{
+	_VERTEX &v1 = Get(1);
+	v1.tPosAry[no].x = tutv.tu;
+	_VERTEX &v2 = Get(2);
+	v2.tPosAry[no].y = tutv.tv;
+	_VERTEX &v3 = Get(3);
+	v3.tPosAry[no].x = tutv.tu;
+	v3.tPosAry[no].y = tutv.tv;
+
+	Compile();
+}
+#else
 void CMgl3dSquare::SetTuTv(MGLTUTV &tutv)
 {
 	/*
@@ -102,6 +129,7 @@ void CMgl3dSquare::SetTuTv(MGLTUTV &tutv)
 
 	Compile();
 }
+#endif
 
 
 //	描画
