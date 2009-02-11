@@ -50,11 +50,13 @@ public:
 typedef CMglXShader CMglShaderLoader;
 
 //----------------------------------------------------------
- 
+
+typedef D3DXVECTOR4 MGL_SHADER_PARAM;
+
 class CMglShaderParam
 {
 protected:
-	std::vector<D3DXVECTOR4> m_params;
+	std::vector<MGL_SHADER_PARAM> m_params;
 
 public:
 	void Add(D3DXVECTOR4 &param){ m_params.push_back(param); }
@@ -62,8 +64,8 @@ public:
 	//void Remove(int index){ m_params.remove(index); }
 	void Clear(){ m_params.clear(); }
 
-	D3DXVECTOR4& Get(int index){ return m_params[index]; }
-	D3DXVECTOR4& operator [](int index){ return m_params[index]; }
+	MGL_SHADER_PARAM& Get(int index){ return m_params[index]; }
+	MGL_SHADER_PARAM& operator [](int index){ return m_params[index]; }
 
 	const void* GetHeadPtr(){ return &m_params[0]; }
 	int size(){ return m_params.size(); }

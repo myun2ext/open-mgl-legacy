@@ -50,8 +50,28 @@ public:
 
 	void SetShader();
 
-	void SetShaderParam(DWORD dwRegisterNo, const void* lpData, DWORD dwDataBlockCount);
-	void SetShaderParam(DWORD dwRegisterNo, CMglShaderParam &param);
+	void SetParam(DWORD dwRegisterNo, MGL_SHADER_PARAM &param){
+		SetParam(0, (const float*)param, 1); }
+	void SetShaderParam(DWORD dwRegisterNo, MGL_SHADER_PARAM &param){
+		SetShaderParam(0, (const float*)param, 1); }
+
+	void SetParam(DWORD dwRegisterNo, float r, float g, float b, float a){
+		SetParam(0, (const float*)D3DXVECTOR4(r,g,b,a), 1); }
+	void SetShaderParam(DWORD dwRegisterNo, float r, float g, float b, float a){
+		SetShaderParam(0, (const float*)D3DXVECTOR4(r,g,b,a), 1); }
+
+	void SetParam(const void* lpData, DWORD dwDataBlockCount=1){
+		SetParam(0, lpData, dwDataBlockCount); }
+	void SetShaderParam(const void* lpData, DWORD dwDataBlockCount=1){
+		SetShaderParam(0, lpData, dwDataBlockCount); }
+
+	void SetParam(DWORD dwStartRegisterNo, const void* lpData, DWORD dwDataBlockCount){
+		SetShaderParam(dwStartRegisterNo, lpData, dwDataBlockCount); }
+	void SetParam(DWORD dwStartRegisterNo, CMglShaderParam &param){
+		SetShaderParam(dwStartRegisterNo, param); }
+
+	void SetShaderParam(DWORD dwStartRegisterNo, const void* lpData, DWORD dwDataBlockCount);
+	void SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param);
 };
 
 #endif//__MglPixelShader_H__
