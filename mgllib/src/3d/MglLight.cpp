@@ -75,6 +75,12 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	light.Ambient = ambient;
 	light.Specular = specular;
 	light.Range = fRange;
+	light.Attenuation0 = 0.05f;
+	light.Attenuation1 = 0.05f;
+	light.Attenuation2 = 0.0f;
+	/*light.Attenuation0 = 0.5f;
+	light.Attenuation1 = 0.1f;
+	light.Attenuation2 = 0.0f;*/
 
 	D3DXVECTOR3 direction(fDirectionX,fDirectionY,fDirectionZ);
 	D3DXVECTOR3 position(fPosX,fPosY,fPosZ);

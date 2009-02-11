@@ -133,6 +133,19 @@ public:
 		D3DXCOLOR color=D3DCOLOR_WHITE, D3DXCOLOR ambient=D3DCOLOR_BLACK,
 		D3DXCOLOR specular=D3DCOLOR_BLACK, D3DXCOLOR emissive=D3DCOLOR_BLACK, float fSpecularPower=_MGL_SPD);
 
+
+	void AppendTexture(const char* szTextureFile)
+	{
+		m_pMeshTextures  = new _IDirect3DTextureX* [1];
+		ZeroMemory(m_pMeshTextures, sizeof(LPVOID*)*1);
+
+		MyuAssert2( D3DXCreateTextureFromFile( m_d3d, 
+										szTextureFile, 
+										&m_pMeshTextures[0] ), D3D_OK,
+				MGLMSGNO_MESH(5), "CMglMesh::Load()  D3DXCreateTextureFromFile(\"%s\")‚ÉŽ¸”s",
+				szTextureFile);
+	}
+
 	////////////////////////////////////////////////////////////////
 
 	//	specular -> mirror / reflect

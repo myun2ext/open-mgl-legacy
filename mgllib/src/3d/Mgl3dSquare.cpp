@@ -38,6 +38,17 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	v.specular = D3DCOLOR_WHITE;
 	//v.SetTuTv(
 
+/*
+	v.x = fWidth; v.y = fHeight; 
+	AddVertex(v);
+	v.x = 0.0f; v.y = fHeight; 
+	AddVertex(v);
+	v.x = fWidth; v.y = 0.0f; 
+	AddVertex(v);
+	v.x = 0.0f; v.y = 0.0f; 
+	AddVertex(v);
+*/
+
 	v.x = 0.0f; v.y = 0.0f; 
 	AddVertex(v);
 	v.x = fWidth; v.y = 0.0f; 
@@ -49,7 +60,6 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	v.x = fWidth; v.y = fHeight; 
 	//v.tu = 1.0f; v.tv = 1.0f; 
 	AddVertex(v);
-
 	Compile();
 }
 
