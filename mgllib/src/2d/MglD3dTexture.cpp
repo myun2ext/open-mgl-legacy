@@ -13,10 +13,10 @@
 //	コンストラクタ
 CMglD3dTexture::CMglD3dTexture()
 {
-	m_myudg = NULL;
+	//m_myudg = NULL;
+	//d3d = NULL;
 	m_pTexture = NULL;
 	m_pSurface = NULL;
-	d3d = NULL;
 	//m_bCenterDraw = FALSE;
 	m_colorKey = D3DCOLOR_PINK;
 	m_bRenderTarget = FALSE;
@@ -25,17 +25,20 @@ CMglD3dTexture::CMglD3dTexture()
 	ZeroMemory(&m_imgInfo,sizeof(m_imgInfo));
 }
 
-
+/*
 //	初期化
 void CMglD3dTexture::Init( CMglGraphicManager* in_myudg )
 {
 	m_myudg = in_myudg;
 	d3d = m_myudg->GetD3dDevPtr();
 }
+*/
 
 //	開放
 void CMglD3dTexture::Release()
 {
+	CMglDgBase::Release();
+
 	SAFE_DELETE( m_pBitmapData );
 	SAFE_RELEASE( m_pTexture );
 	SAFE_RELEASE( m_pSurface );

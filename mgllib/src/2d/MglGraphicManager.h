@@ -291,6 +291,7 @@ public:
 	}
 	virtual ~CMglDgBase(){
 		//DbBaseRelease();
+		CMglDgBase::Release();
 	}
 
 	//	‰Šú‰»/ŠJ•ú
@@ -300,7 +301,7 @@ public:
 		m_d3d = m_myudg->GetD3dDevPtr();
 		m_pD3dDev = m_myudg->GetD3dDevPtr();
 	}
-	//virtual void Release(){}
+	virtual void Release(){}
 	//void DbBaseRelease(){}
 };
 typedef CMglDgBase CMglDgClassBase;

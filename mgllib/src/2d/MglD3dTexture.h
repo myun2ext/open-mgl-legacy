@@ -35,16 +35,16 @@
 #define MGL_TEXTURE_STAGE_MAX	(8)
 
 //	クラス宣言
-class DLL_EXP CMglD3dTexture// : public CMyuReleaseBase
+class DLL_EXP CMglD3dTexture : public CMglDgBase
 {
 public:
 	typedef CMglLockedRectIterator iterator;
 
 protected:
-	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
+	//CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
 
 	//	Direct3D系
-	_MGL_IDirect3DDevice* d3d;			//	D3DDeviceへのポインタ
+	//_MGL_IDirect3DDevice* d3d;			//	D3DDeviceへのポインタ
 	_MGL_IDirect3DTexture* m_pTexture;	//	テクスチャ
 	_MGL_IDirect3DSurface* m_pSurface;	//	サーフェス
 
@@ -62,10 +62,10 @@ protected:
 	//float fRealTexTu, fRealTexTv;	//	テクスチャ上で実際に使用されるtu,uv
 
 	//	内部メソッド（チェック用）
-	void InitCheck() {
+	/*void InitCheck() {
 		if ( m_myudg == NULL )
 			Init( GetDefaultGd() );
-	}
+	}*/
 	void CreateCheck() {
 		InitCheck();	//	2008/06/28 これもやらないと駄目でない・・・？
 		//if ( createFlg == FALSE ){
@@ -92,7 +92,7 @@ public:
 	virtual ~CMglD3dTexture(){ Release(); }
 
 	//	初期化と開放
-	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
+	//void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 	void Release();
 
 	//	作成
@@ -150,5 +150,42 @@ public:
 };
 
 typedef CMglD3dTexture CMglSquareTexture;
+
+
+
+////////////////////////////////////////////////////
+
+//	TextureStageStateを管理するクラス
+class CMglTextureStageStateManager : public virtual CMglDgBase
+{
+public:
+	typedef std::map<D3DTEXTURESTAGESTATETYPE,DWORD> _MAP_t;
+
+protected:
+	//map<D3DTEXTURESTAGESTATETYPE> m_tssList;
+	_MAP_t m_tssList[MGL_TEXTURE_STAGE_MAX];
+
+public:
+	void Set(int nStage, D3DTEXTURESTAGESTATETYPE tssType, DWORD value){
+		m_tssList[nStage][tssType] = value;
+	}
+	DWORD Get(int nStage, D3DTEXTURESTAGESTATETYPE tssType){
+		return m_tssList[nStage][tssType];
+	}
+	void Erase(int nStage, D3DTEXTURESTAGESTATETYPE tssType){
+		m_tssList[nStage].erase(tssType);
+	}
+	
+	void SetsTextureStageState(int nStage){
+		_MAP_t &tssL = m_tssList[nStage];
+		_MAP_t::iterator it = tssL.begin();
+		for(; it != tssL.end(); it++){
+			D3DTEXTURESTAGESTATETYPE tssType = it->first;
+			DWORD value = it->second;
+			CMglDgBase::m_d3d->SetTextureStageState( nStage, tssType, value);
+		}
+	}
+};
+typedef CMglTextureStageStateManager CMglTss;
 
 #endif//__MglD3dTexture_H__
