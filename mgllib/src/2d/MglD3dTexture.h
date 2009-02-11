@@ -32,6 +32,8 @@
 #define DEF_COLORKEY			D3DCOLOR_PINK
 #define RENDER_TARGET_DEFAULT	(FALSE)
 
+#define MGL_TEXTURE_STAGE_MAX	(8)
+
 //	ÉNÉâÉXêÈåæ
 class DLL_EXP CMglD3dTexture// : public CMyuReleaseBase
 {

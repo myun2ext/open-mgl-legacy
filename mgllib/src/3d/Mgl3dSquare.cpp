@@ -13,7 +13,8 @@ CMgl3dSquare::CMgl3dSquare()
 {
 	m_myudg = NULL;
 	m_d3d = NULL;
-	m_tex = NULL;
+	//m_tex = NULL;
+	ZeroMemory(m_texList, sizeof(CMglD3dTexture*)*MGL_TEXTURE_STAGE_MAX);
 }
 
 //	‰Šú‰»
@@ -67,15 +68,15 @@ void CMgl3dSquare::CreateFromTexture(CMglD3dTexture &tex, float fWidth, float fH
 	*/
 }
 
-void CMgl3dSquare::SetTexure(CMglD3dTexture &tex)
+void CMgl3dSquare::SetTexure(int no, CMglD3dTexture &tex)
 {
 	InitCheck();
 	CreateCheck();
 
-	m_tex = &tex;
+	m_texList[no] = &tex;
 
 	//MGLTUTV tutv = m_tex->GetTuTv();
-	SetTuTv(m_tex->GetTuTv());
+	SetTuTv(tex.GetTuTv());
 }
 
 void CMgl3dSquare::SetTuTv(MGLTUTV &tutv)
@@ -109,8 +110,12 @@ void CMgl3dSquare::Draw()
 	InitCheck();
 	CreateCheck();
 
-	if ( m_tex != NULL )
-		m_tex->SetD3dStageTexture();
+	/*if ( m_tex != NULL )
+		m_tex->SetD3dStageTexture();*/
+	for(int i=0; i<MGL_TEXTURE_STAGE_MAX; i++ ){
+		if ( m_texList[i] != NULL )
+			m_texList[i]->SetD3dStageTexture(i);
+	}
 
 	CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP);
 }
