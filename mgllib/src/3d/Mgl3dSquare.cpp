@@ -11,8 +11,8 @@
 //	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 CMgl3dSquare::CMgl3dSquare()
 {
-	m_myudg = NULL;
-	m_d3d = NULL;
+	/*m_myudg = NULL;
+	m_d3d = NULL;*/
 	//m_tex = NULL;
 	ZeroMemory(m_texList, sizeof(CMglD3dTexture*)*MGL_TEXTURE_STAGE_MAX);
 }
@@ -20,8 +20,10 @@ CMgl3dSquare::CMgl3dSquare()
 //	‰Šú‰»
 void CMgl3dSquare::Init( CMglGraphicManager* in_myudg )
 {
-	m_myudg = in_myudg;
-	m_d3d = m_myudg->GetD3dDevPtr();
+	/*m_myudg = in_myudg;
+	m_d3d = m_myudg->GetD3dDevPtr();*/
+	CMglVertexManagerX::Init(in_myudg);
+	m_tss.Init(in_myudg);
 }
 
 //	ì¬
@@ -141,10 +143,71 @@ void CMgl3dSquare::Draw()
 	/*if ( m_tex != NULL )
 		m_tex->SetD3dStageTexture();*/
 	for(int i=0; i<MGL_TEXTURE_STAGE_MAX; i++ ){
-		if ( m_texList[i] != NULL )
+		if ( m_texList[i] != NULL ){
 			m_texList[i]->SetD3dStageTexture(i);
+			m_tss.Sets(i);
+		}
 	}
 
 	CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP);
 }
 
+/*
+	//	–³‚µ
+	if ( dwAlphaOption == MGL_ALPHA_OPT_NOTUSE )
+	{
+		m_pD3dDev->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	}
+
+	//	”¼“§–¾
+	else if ( dwAlphaOption == MGL_ALPHA_OPT_TRANSLUCENCE )
+	{
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_BLENDCURRENTALPHA);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		m_pD3dDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		m_pD3dDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		m_pD3dDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	}
+
+	//	‰ÁŽZ
+	else if ( dwAlphaOption == MGL_ALPHA_OPT_ADD )
+	{
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_BLENDCURRENTALPHA);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		m_pD3dDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
+		m_pD3dDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
+		m_pD3dDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	}
+
+	//	Œ¸ŽZ
+	else if ( dwAlphaOption == MGL_ALPHA_OPT_SUBTRACT )
+	{
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_BLENDCURRENTALPHA);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		m_pD3dDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+		m_pD3dDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVSRCCOLOR);
+		m_pD3dDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	}
+
+	//	”¼‰ÁŽZ
+	else if ( dwAlphaOption == MGL_ALPHA_OPT_HALFADD )
+	{
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_BLENDCURRENTALPHA);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+		m_pD3dDev->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+		m_pD3dDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+		m_pD3dDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_INVSRCCOLOR);
+		m_pD3dDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	}
+
+	//	DDS
+	else if ( dwAlphaOption == MGL_ALPHA_OPT_DDS )
+	{
+		m_pD3dDev->SetRenderState(D3DRS_ALPHAREF, 0x00000001);
+		m_pD3dDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
+		m_pD3dDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	}
+*/

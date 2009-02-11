@@ -175,7 +175,10 @@ public:
 	void Erase(int nStage, D3DTEXTURESTAGESTATETYPE tssType){
 		m_tssList[nStage].erase(tssType);
 	}
+	void ClearStage(int nStage){ m_tssList[nStage].clear(); }
+	void StageClear(int nStage){ m_tssList[nStage].clear(); }
 	
+	void Sets(int nStage){ SetsTextureStageState(nStage); }
 	void SetsTextureStageState(int nStage){
 		_MAP_t &tssL = m_tssList[nStage];
 		_MAP_t::iterator it = tssL.begin();
@@ -186,6 +189,6 @@ public:
 		}
 	}
 };
-typedef CMglTextureStageStateManager CMglTss;
+typedef CMglTextureStageStateManager CMglTssManager;
 
 #endif//__MglD3dTexture_H__

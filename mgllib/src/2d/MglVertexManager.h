@@ -64,20 +64,20 @@ public:
 #define MGL_VERTEX_DEFAULT_POOL		D3DPOOL_DEFAULT		//	大したサイズじゃないからVRAM上に、って事にしたんだったな！そういえば！
 
 //	クラス宣言
-class DLL_EXP _CMglVertexManagerXT_Realize
+class DLL_EXP _CMglVertexManagerXT_Realize : public virtual CMglDgBase
 {
 private:
 	UINT m_nVertexSizeof;
 	DWORD m_dwFVF;
 
 	//	内部メソッド（チェック用）
-	void InitCheck() {
+	/*void InitCheck() {
 		if ( m_myudg == NULL )
 			Init( GetDefaultGd() );
-	}
+	}*/
 protected:
-	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
-	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
+	//CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
+	//_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
 	_MGL_IDirect3DVertexBuffer *m_pVB; // 頂点バッファ
 
 	void SetD3dTexture(_MGL_IDirect3DTexture *pTexture){ SetD3dStageTexture(pTexture, 0); }
@@ -95,14 +95,14 @@ public:
 	virtual ~_CMglVertexManagerXT_Realize(){ Release(); }
 
 	//	初期化と開放
-	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
+	/*void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
 		d3d = m_myudg->GetD3dDevPtr();
 		if ( m_myudg == NULL )
 			MyuThrow(49815, "CMglVertexManagerX::Init()  in_myudg はNULLです。");
 		if ( d3d == NULL )
 			MyuThrow(49816, "CMglVertexManagerX::Init()  m_myudg->GetD3dDevPtr() はNULLです。");
-	}
+	}*/
 	void Release(){
 		SAFE_RELEASE(m_pVB);
 	}

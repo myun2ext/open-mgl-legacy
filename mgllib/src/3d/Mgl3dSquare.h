@@ -35,10 +35,11 @@ public:
 	typedef CMyuVertex _VERTEX;
 
 protected:
-	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
-	_MGL_IDirect3DDevice* m_d3d;	//	D3DDeviceへのポインタ
+	//CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
+	//_MGL_IDirect3DDevice* m_d3d;	//	D3DDeviceへのポインタ
 	//CMglD3dTexture *m_tex;
 	CMglD3dTexture *m_texList[MGL_TEXTURE_STAGE_MAX];
+	CMglTssManager m_tss;
 
 	//	内部メソッド（チェック用）
 	void InitCheck() {
@@ -72,7 +73,16 @@ public:
 	void SetTexture(CMglD3dTexture &tex){ SetTexture(0, tex); }
 	void SetTexture(int no, CMglD3dTexture &tex);
 	void AddTexture(CMglD3dTexture &tex);
-	void EraseTexture(int no){ m_texList[no] = NULL; }
+	void EraseTexture(int no){
+		m_texList[no] = NULL;
+		m_tss.StageClear(no);
+	}
+
+	void SetTss(int nStage, D3DTEXTURESTAGESTATETYPE tssType, DWORD value){
+		SetTextureStageState(nStage, tssType, value); }
+	void SetTextureStageState(int nStage, D3DTEXTURESTAGESTATETYPE tssType, DWORD value){
+		m_tss.Set(nStage, tssType, value);
+	}
 
 	void Draw();//{ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
 	//void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLEFAN); }
