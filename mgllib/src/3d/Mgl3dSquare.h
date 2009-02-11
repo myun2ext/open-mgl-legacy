@@ -48,6 +48,10 @@ protected:
 		if ( m_vertexes.size() != 0 )
 			MyuThrow( 4678, "CMgl3dSquare  既に作成済です。" );
 	}
+	void CreateCheck() {
+		if ( m_vertexes.size() == 0 )
+			MyuThrow( 4678, "CMgl3dSquare::Draw()  未作成です。" );
+	}
 	void SetTuTv(MGLTUTV &tutv);
 
 public:
@@ -62,6 +66,8 @@ public:
 	void CreateFromTexture(CMglD3dTexture &tex, float fWidth, float fHeight, D3DCOLOR color=D3DCOLOR_WHITE);
 	void TextureCreate(CMglD3dTexture &tex, float fWidth, float fHeight, D3DCOLOR color=D3DCOLOR_WHITE){
 		CreateFromTexture(tex,fWidth,fHeight,color); }
+
+	void SetTexure(CMglD3dTexture &tex);
 
 	void Draw();//{ CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP); }		//	D3DPT_TRIANGLESTRIPだと最後の頂点の色が変になるんだよねぇ・・・なんでだろうねぇ・・・
 	//void Draw(){ CMglVertexManagerX::Draw(D3DPT_TRIANGLEFAN); }

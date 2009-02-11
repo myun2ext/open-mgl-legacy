@@ -44,6 +44,11 @@ public:
 			MyuThrow( 324432, "CMglVertexManagerT()::Get()  インデックスが範囲外です。" );
 		return m_vertexes[i];
 	}
+	_VERTEX* GetPtr(int i){
+		if ( i >= m_vertexes.size() )
+			MyuThrow( 324432, "CMglVertexManagerT()::Get()  インデックスが範囲外です。" );
+		return &m_vertexes[i];
+	}
 	_VERTEX& operator [](int i){ return Get(i); }
 	void Set(int i, _VERTEX& vertex){ m_vertexes[i] = vertex; }
 

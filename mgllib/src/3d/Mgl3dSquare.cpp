@@ -38,10 +38,13 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	v.x = 0.0f; v.y = 0.0f; 
 	AddVertex(v);
 	v.x = fWidth; v.y = 0.0f; 
+	//v.tu = 1.0f; v.tv = 0.0f; 
 	AddVertex(v);
 	v.x = 0.0f; v.y = fHeight; 
+	//v.tu = 0.0f; v.tv = 1.0f; 
 	AddVertex(v);
 	v.x = fWidth; v.y = fHeight; 
+	//v.tu = 1.0f; v.tv = 1.0f; 
 	AddVertex(v);
 
 	Compile();
@@ -54,28 +57,40 @@ void CMgl3dSquare::CreateFromTexture(CMglD3dTexture &tex, float fWidth, float fH
 	CreatedCheck();
 
 	SimpleCreate(fWidth, fHeight, color);
+
+	SetTexure(tex);
+	/*
+	m_tex = &tex;
+
+	//MGLTUTV tutv = m_tex->GetTuTv();
+	SetTuTv(m_tex->GetTuTv());
+	*/
+}
+
+void CMgl3dSquare::SetTexure(CMglD3dTexture &tex)
+{
+	InitCheck();
+	CreateCheck();
+
 	m_tex = &tex;
 
 	//MGLTUTV tutv = m_tex->GetTuTv();
 	SetTuTv(m_tex->GetTuTv());
 }
 
-//	•`‰æ
-void CMgl3dSquare::Draw()
-{
-	InitCheck();
-
-	if ( m_vertexes.size() == 0 )
-			MyuThrow( 4678, "CMgl3dSquare::Draw()  –¢ì¬‚Å‚·B" );
-
-	if ( m_tex != NULL )
-		m_tex->SetD3dStageTexture();
-
-	CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP);
-}
-
 void CMgl3dSquare::SetTuTv(MGLTUTV &tutv)
 {
+	/*
+	_VERTEX *pv = NULL;
+	pv = GetPtr(1);
+	pv->tu = tutv.tu;
+	pv = GetPtr(2);
+	pv->tv = tutv.tv;
+	pv = GetPtr(3);
+	pv->tu = tutv.tu;
+	pv->tv = tutv.tv;
+	*/
+
 	_VERTEX &v1 = Get(1);
 	v1.tu = tutv.tu;
 	_VERTEX &v2 = Get(2);
@@ -83,6 +98,20 @@ void CMgl3dSquare::SetTuTv(MGLTUTV &tutv)
 	_VERTEX &v3 = Get(3);
 	v3.tu = tutv.tu;
 	v3.tv = tutv.tv;
+
+	Compile();
 }
 
+
+//	•`‰æ
+void CMgl3dSquare::Draw()
+{
+	InitCheck();
+	CreateCheck();
+
+	if ( m_tex != NULL )
+		m_tex->SetD3dStageTexture();
+
+	CMglVertexManagerX::Draw(D3DPT_TRIANGLESTRIP);
+}
 
