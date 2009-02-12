@@ -39,7 +39,7 @@ typedef struct
 #endif
 	D3DCOLOR	color;				//ポリゴンカラー
 #ifdef _MGLVERTEX_USE_SPECULAR
-	DWORD		specular;			// スペキュラ色
+	D3DCOLOR	specular;			// スペキュラ色
 #endif
 #ifdef _MGLVERTEX_USE_MULTITEX
 	D3DXVECTOR2 tPosAry[8];			//テクスチャ座標配列

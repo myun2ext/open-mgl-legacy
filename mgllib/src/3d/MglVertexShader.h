@@ -20,6 +20,7 @@ protected:
 #else
 	DWORD m_pShader;
 #endif
+	DWORD m_dwFvf;
 
 	//-------------------------------------------------------------
 
@@ -46,9 +47,14 @@ public:
 	void LoadFromString( const char* szAssembleString );
 	void CreateFromString( const char* szAssembleString ){ LoadFromString(szAssembleString); }
 
+	void SetFVF(DWORD dwFvf){ m_dwFvf = dwFvf; }
+
 	//////////////////////////////////////////////////////////////////////////
 
 	void SetShader();
+	void UnsetShader();
+	void RemoveShader(){ RemoveShader(); }
+	void ReleaseShader(){ RemoveShader(); }
 
 	void SetParam(DWORD dwRegisterNo, MGL_SHADER_PARAM &param){
 		SetParam(0, (const float*)param, 1); }
