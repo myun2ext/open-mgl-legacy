@@ -26,7 +26,13 @@ public:
 	CMglVertexShaderParam(D3DXMATRIX &param){
 		Add(param);
 	}
+	CMglVertexShaderParam(D3DXMATRIX &mWorld, D3DXMATRIX &mView, D3DXMATRIX &mProjection){
+		Add(mWorld, mView, mProjection);
+	}
 
+	void Add(D3DXMATRIX &mWorld, D3DXMATRIX &mView, D3DXMATRIX &mProjection){
+		Add( mWorld * mView * mProjection );
+	}
 	void Add(D3DXMATRIX &param){
 		D3DXMATRIX trans;
 		D3DXMatrixTranspose(&trans, &param);
