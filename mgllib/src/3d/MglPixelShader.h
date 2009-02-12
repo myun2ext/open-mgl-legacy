@@ -49,6 +49,9 @@ public:
 	//////////////////////////////////////////////////////////////////////////
 
 	void SetShader();
+	void UnsetShader();
+	void RemoveShader(){ UnsetShader(); }
+	void ReleaseShader(){ UnsetShader(); }
 
 	void SetParam(DWORD dwRegisterNo, MGL_SHADER_PARAM &param){
 		SetParam(0, (const float*)param, 1); }

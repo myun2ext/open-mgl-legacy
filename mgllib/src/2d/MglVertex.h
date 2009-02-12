@@ -37,7 +37,7 @@ typedef struct
 #ifdef _MGLVERTEX_USE_NORMAL
 	float		nx, ny, nz;			// 法線ベクトル
 #endif
-	D3DCOLOR	color;				//ポリゴンカラー
+	D3DCOLOR	color;				// ポリゴンカラー
 #ifdef _MGLVERTEX_USE_SPECULAR
 	D3DCOLOR	specular;			// スペキュラ色
 #endif

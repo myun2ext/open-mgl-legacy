@@ -52,19 +52,32 @@ void CMglPixelShader::LoadCommon(CONST DWORD* pFunction)
 //	シェーダを設定
 void CMglPixelShader::SetShader()
 {
+	InitCheck();
+	CreateCheck();
+
 	MyuAssert2( m_d3d->SetPixelShader(m_pShader), D3D_OK, 
 		MGLMSGNO_SHADER(20), "CMglPixelShader::SetShader()  m_d3d->SetPixelShader()に失敗" );
+}
+
+//	ユーザシェーダを解除
+void CMglPixelShader::UnsetShader()
+{
+	if ( m_d3d != NULL && m_pShader != NULL )
+		MyuAssert2( m_d3d->SetPixelShader(NULL), D3D_OK, 
+			MGLMSGNO_SHADER(21), "CMglPixelShader::UnsetShader()  m_d3d->SetPixelShader()に失敗" );
 }
 
 //	パラメータ設定
 void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, const void* lpData, DWORD dwDataBlockCount)
 {
+	InitCheck();
+	CreateCheck();
+
 	MyuAssert2( m_d3d->SetPixelShaderConstant( dwStartRegisterNo, (VOID*)lpData, dwDataBlockCount), D3D_OK,
 		MGLMSGNO_SHADER(32), "CMglPixelShader::SetShaderParam()  m_d3d->SetPixelShaderConstant()に失敗" );
 }
 
 //	パラメータ設定
-void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param)
-{
+void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param) {
 	SetShaderParam( dwStartRegisterNo, param.GetHeadPtr(), param.GetCount() );
 }

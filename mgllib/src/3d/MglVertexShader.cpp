@@ -21,7 +21,9 @@ public:
 	}
 
 	void CreateFromFVF(DWORD dwFvf){
-		if ( dwFvf & D3DFVF_POSITION_MASK != 0 )
+		Clear();
+
+		if ( (dwFvf & D3DFVF_POSITION_MASK) != 0 )
 			Add( D3DVSD_REG(D3DVSDE_POSITION, D3DVSDT_FLOAT3 ) );
 
 		/*if ( dwFvf & D3DFVF_XYZRHW != 0 )
@@ -30,47 +32,41 @@ public:
 		else if ( dwFvf & D3DFVF_XYZ != 0 )
 			Add( D3DVSD_REG(D3DVSDE_POSITION, D3DDECLTYPE_FLOAT3 ) );*/
 
-		if ( dwFvf & D3DFVF_NORMAL != 0 )
+		if ( (dwFvf & D3DFVF_NORMAL) != 0 )
 			Add( D3DVSD_REG(D3DVSDE_NORMAL, D3DVSDT_FLOAT3 ) );
 
-		if ( dwFvf & D3DFVF_PSIZE != 0 )
+		if ( (dwFvf & D3DFVF_PSIZE) != 0 )
 			Add( D3DVSD_REG(D3DVSDE_PSIZE, D3DVSDT_FLOAT1 ) );
 
-		if ( dwFvf & D3DFVF_DIFFUSE != 0 )
+		if ( (dwFvf & D3DFVF_DIFFUSE) != 0 )
 			Add( D3DVSD_REG(D3DVSDE_DIFFUSE, D3DVSDT_D3DCOLOR ) );
 
-		if ( dwFvf & D3DFVF_SPECULAR != 0 )
+		if ( (dwFvf & D3DFVF_SPECULAR) != 0 )
 			Add( D3DVSD_REG(D3DVSDE_SPECULAR, D3DVSDT_D3DCOLOR ) );
 
 		///////////////////////////////////////////////////////////
 
 		switch(dwFvf & D3DFVF_TEXCOUNT_MASK)
 		{
-		case D3DFVF_TEX0:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD0, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX1:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD1, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX2:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD2, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX3:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD3, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX4:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD4, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX5:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD5, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX6:
-			Add( D3DVSD_REG(D3DVSDE_TEXCOORD6, D3DVSDT_FLOAT2 ) );
-			break;
-		case D3DFVF_TEX7:
+		case D3DFVF_TEX8:
 			Add( D3DVSD_REG(D3DVSDE_TEXCOORD7, D3DVSDT_FLOAT2 ) );
-			break;
+		case D3DFVF_TEX7:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD6, D3DVSDT_FLOAT2 ) );
+		case D3DFVF_TEX6:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD5, D3DVSDT_FLOAT2 ) );
+		case D3DFVF_TEX5:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD4, D3DVSDT_FLOAT2 ) );
+		case D3DFVF_TEX4:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD3, D3DVSDT_FLOAT2 ) );
+		case D3DFVF_TEX3:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD2, D3DVSDT_FLOAT2 ) );
+		case D3DFVF_TEX2:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD1, D3DVSDT_FLOAT2 ) );
+		case D3DFVF_TEX1:
+			Add( D3DVSD_REG(D3DVSDE_TEXCOORD0, D3DVSDT_FLOAT2 ) );
 		}
+
+		InsertEnd();
 	}
 
 	DWORD* Get(){ return &m_list[0]; }
@@ -165,21 +161,32 @@ void CMglVertexShader::LoadCommon(CONST DWORD* pFunction)
 	if ( m_dwFvf == 0 )
 		MyuThrow( MGLMSGNO_SHADER(102), "CMglVertexShader::Load()  SetFVF() にて頂点フォーマットを指定してください。" );
 
-	/*
     // バーテックスシェーダーを作成する
     DWORD dwDecl[] =
     {
         D3DVSD_STREAM(0),
         D3DVSD_REG(D3DVSDE_POSITION, D3DVSDT_FLOAT3 ),            //D3DVSDE_POSITION,  0  
         D3DVSD_REG(D3DVSDE_TEXCOORD0,D3DVSDT_FLOAT2 ),            //D3DVSDE_TEXCOORD0, 7  
+        D3DVSD_REG(D3DVSDE_TEXCOORD7,D3DVSDT_FLOAT2 ),            //D3DVSDE_TEXCOORD0, 7  
         D3DVSD_END()
     };
-	*/
 
 	CMglVertexShaderDeclaration decl;
 	decl.CreateFromFVF(m_dwFvf);
+	/*decl.Add( D3DVSD_REG(D3DVSDE_POSITION, D3DVSDT_FLOAT3 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_DIFFUSE, D3DVSDT_D3DCOLOR ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_NORMAL, D3DVSDT_FLOAT3 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD0, D3DVSDT_FLOAT2 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD1, D3DVSDT_FLOAT2 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD2, D3DVSDT_FLOAT2 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD3, D3DVSDT_FLOAT2 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD4, D3DVSDT_FLOAT2 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD6, D3DVSDT_FLOAT2 ) );
+	decl.Add( D3DVSD_REG(D3DVSDE_TEXCOORD7, D3DVSDT_FLOAT2 ) );
+	decl.InsertEnd();*/
 
 	MyuAssert2( m_d3d->CreateVertexShader( decl.Get(), pFunction, &m_pShader, 0 ), D3D_OK,
+	//MyuAssert2( m_d3d->CreateVertexShader( dwDecl, pFunction, &m_pShader, 0 ), D3D_OK,
 		MGLMSGNO_SHADER(96), "CMglVertexShader::Load()  m_d3d->CreateVertexShader()に失敗" );
 #endif
 }
@@ -187,6 +194,9 @@ void CMglVertexShader::LoadCommon(CONST DWORD* pFunction)
 //	シェーダを設定
 void CMglVertexShader::SetShader()
 {
+	InitCheck();
+	CreateCheck();
+
 	MyuAssert2( m_d3d->SetVertexShader(m_pShader), D3D_OK, 
 		MGLMSGNO_SHADER(97), "CMglVertexShader::SetShader()  m_d3d->SetVertexShader()に失敗" );
 }
@@ -194,19 +204,22 @@ void CMglVertexShader::SetShader()
 //	ユーザシェーダを解除
 void CMglVertexShader::UnsetShader()
 {
-	MyuAssert2( m_d3d->SetVertexShader(NULL), D3D_OK, 
-		MGLMSGNO_SHADER(97), "CMglVertexShader::UnsetShader()  m_d3d->SetVertexShader()に失敗" );
+	if ( m_d3d != NULL && m_pShader != NULL )
+		MyuAssert2( m_d3d->SetVertexShader(NULL), D3D_OK, 
+			MGLMSGNO_SHADER(97), "CMglVertexShader::UnsetShader()  m_d3d->SetVertexShader()に失敗" );
 }
 
 //	パラメータ設定
 void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, const void* lpData, DWORD dwDataBlockCount)
 {
+	InitCheck();
+	CreateCheck();
+
 	MyuAssert2( m_d3d->SetVertexShaderConstant( dwStartRegisterNo, (VOID*)lpData, dwDataBlockCount), D3D_OK,
 		MGLMSGNO_SHADER(98), "CMglVertexShader::SetShaderParam()  m_d3d->SetVertexShaderConstant()に失敗" );
 }
 
 //	パラメータ設定
-void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param)
-{
+void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param) {
 	SetShaderParam( dwStartRegisterNo, param.GetHeadPtr(), param.GetCount() );
 }
