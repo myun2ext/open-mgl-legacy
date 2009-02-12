@@ -11,6 +11,31 @@
 #include "MglGraphicManager.h"
 #include "MglXShader.h"
 
+//------------------------------------------------------------------------------
+
+typedef D3DXMATRIX MGL_VERTEX_SHADER_PARAM;
+
+//	ピクセルシェーダのパラメタ
+class CMglVertexShaderParam
+{
+protected:
+	std::vector<MGL_VERTEX_SHADER_PARAM> m_params;
+
+public:
+	void Add(MGL_VERTEX_SHADER_PARAM &param){ m_params.push_back(param); }
+	//void Remove(int index){ m_params.remove(index); }
+	void Clear(){ m_params.clear(); }
+
+	MGL_VERTEX_SHADER_PARAM& Get(int index){ return m_params[index]; }
+	MGL_VERTEX_SHADER_PARAM& operator [](int index){ return m_params[index]; }
+
+	const void* GetHeadPtr(){ return &m_params[0]; }
+	int size(){ return m_params.size(); }
+	int GetSize(){ return m_params.size(); }
+	int GetCount(){ return m_params.size(); }
+};
+
+//------------------------------------------------------------------------------
 //	クラス宣言
 class DLL_EXP CMglVertexShader : public CMglDgBase
 {
@@ -56,15 +81,10 @@ public:
 	void RemoveShader(){ UnsetShader(); }
 	void ReleaseShader(){ UnsetShader(); }
 
-	void SetParam(DWORD dwRegisterNo, MGL_SHADER_PARAM &param){
+	void SetParam(DWORD dwRegisterNo, MGL_VERTEX_SHADER_PARAM &param){
 		SetParam(0, (const float*)param, 1); }
-	void SetShaderParam(DWORD dwRegisterNo, MGL_SHADER_PARAM &param){
+	void SetShaderParam(DWORD dwRegisterNo, MGL_VERTEX_SHADER_PARAM &param){
 		SetShaderParam(0, (const float*)param, 1); }
-
-	void SetParam(DWORD dwRegisterNo, float r, float g, float b, float a){
-		SetParam(0, (const float*)D3DXVECTOR4(r,g,b,a), 1); }
-	void SetShaderParam(DWORD dwRegisterNo, float r, float g, float b, float a){
-		SetShaderParam(0, (const float*)D3DXVECTOR4(r,g,b,a), 1); }
 
 	void SetParam(const void* lpData, DWORD dwDataBlockCount=1){
 		SetParam(0, lpData, dwDataBlockCount); }
@@ -73,11 +93,11 @@ public:
 
 	void SetParam(DWORD dwStartRegisterNo, const void* lpData, DWORD dwDataBlockCount){
 		SetShaderParam(dwStartRegisterNo, lpData, dwDataBlockCount); }
-	void SetParam(DWORD dwStartRegisterNo, CMglShaderParam &param){
+	void SetParam(DWORD dwStartRegisterNo, CMglVertexShaderParam &param){
 		SetShaderParam(dwStartRegisterNo, param); }
 
 	void SetShaderParam(DWORD dwStartRegisterNo, const void* lpData, DWORD dwDataBlockCount);
-	void SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param);
+	void SetShaderParam(DWORD dwStartRegisterNo, CMglVertexShaderParam &param);
 };
 
 #endif//__MglVertexShader_H__

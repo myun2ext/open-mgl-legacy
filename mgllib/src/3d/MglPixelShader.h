@@ -22,7 +22,7 @@ protected:
 	std::vector<MGL_PIXEL_SHADER_PARAM> m_params;
 
 public:
-	void Add(D3DXVECTOR4 &param){ m_params.push_back(param); }
+	void Add(MGL_PIXEL_SHADER_PARAM &param){ m_params.push_back(param); }
 	void Add(float r, float g, float b, float a){ m_params.push_back(D3DXVECTOR4(r,g,b,a)); }
 	//void Remove(int index){ m_params.remove(index); }
 	void Clear(){ m_params.clear(); }

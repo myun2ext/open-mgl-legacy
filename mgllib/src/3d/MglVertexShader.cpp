@@ -215,11 +215,11 @@ void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, const void* lpDat
 	InitCheck();
 	CreateCheck();
 
-	MyuAssert2( m_d3d->SetVertexShaderConstant( dwStartRegisterNo, (VOID*)lpData, dwDataBlockCount), D3D_OK,
+	MyuAssert2( m_d3d->SetVertexShaderConstant( dwStartRegisterNo*4, (VOID*)lpData, dwDataBlockCount*4), D3D_OK,
 		MGLMSGNO_SHADER(98), "CMglVertexShader::SetShaderParam()  m_d3d->SetVertexShaderConstant()‚É¸”s" );
 }
 
 //	ƒpƒ‰ƒ[ƒ^İ’è
-void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param) {
+void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, CMglVertexShaderParam &param) {
 	SetShaderParam( dwStartRegisterNo, param.GetHeadPtr(), param.GetCount() );
 }
