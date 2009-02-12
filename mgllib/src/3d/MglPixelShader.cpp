@@ -78,6 +78,6 @@ void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, const void* lpData
 }
 
 //	ƒpƒ‰ƒ[ƒ^İ’è
-void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, CMglShaderParam &param) {
+void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, CMglPixelShaderParam &param) {
 	SetShaderParam( dwStartRegisterNo, param.GetHeadPtr(), param.GetCount() );
 }
