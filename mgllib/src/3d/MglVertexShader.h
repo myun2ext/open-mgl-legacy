@@ -22,7 +22,17 @@ protected:
 	std::vector<MGL_VERTEX_SHADER_PARAM> m_params;
 
 public:
-	void Add(MGL_VERTEX_SHADER_PARAM &param){ m_params.push_back(param); }
+	CMglVertexShaderParam(){}
+	CMglVertexShaderParam(D3DXMATRIX &param){
+		Add(param);
+	}
+
+	void Add(D3DXMATRIX &param){
+		D3DXMATRIX trans;
+		D3DXMatrixTranspose(&trans, &param);
+		m_params.push_back(trans);
+		//m_params.push_back(param);
+	}
 	//void Remove(int index){ m_params.remove(index); }
 	void Clear(){ m_params.clear(); }
 
@@ -30,6 +40,9 @@ public:
 	MGL_VERTEX_SHADER_PARAM& operator [](int index){ return m_params[index]; }
 
 	const void* GetHeadPtr(){ return &m_params[0]; }
+	operator const void*(){ return &m_params[0]; }
+	operator void*(){ return &m_params[0]; }
+
 	int size(){ return m_params.size(); }
 	int GetSize(){ return m_params.size(); }
 	int GetCount(){ return m_params.size(); }
@@ -82,9 +95,9 @@ public:
 	void ReleaseShader(){ UnsetShader(); }
 
 	void SetParam(DWORD dwRegisterNo, MGL_VERTEX_SHADER_PARAM &param){
-		SetParam(0, (const float*)param, 1); }
+		SetParam(0, CMglVertexShaderParam(param), 1); }
 	void SetShaderParam(DWORD dwRegisterNo, MGL_VERTEX_SHADER_PARAM &param){
-		SetShaderParam(0, (const float*)param, 1); }
+		SetShaderParam(0, CMglVertexShaderParam(param), 1); }
 
 	void SetParam(const void* lpData, DWORD dwDataBlockCount=1){
 		SetParam(0, lpData, dwDataBlockCount); }

@@ -108,6 +108,10 @@ public:
 	void SetViewMatrix(D3DXMATRIX &matView);
 	void SetProjectionMatrix(D3DXMATRIX &matProjection);
 
+	D3DXMATRIX& GetWorldMatrix(){ return m_matWorld; }
+	D3DXMATRIX& GetViewMatrix(){ return m_matView; }
+	D3DXMATRIX& GetProjectionMatrix(){ return m_projection; }
+
 	void ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector);
 };
 
