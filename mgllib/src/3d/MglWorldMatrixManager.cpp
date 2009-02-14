@@ -83,7 +83,7 @@ void CMglWorldMatrixManager::Rotate(float fAngleX, float fAngleY, float fAngleZ)
 	SetWorld(m_fRotateX, m_fRotateY, m_fRotateZ, m_fMoveX, m_fMoveY, m_fMoveZ);
 }
 
-void CMglWorldMatrixManager::ReTransform()
+void CMglWorldMatrixManager::SetsTransform()
 {
 	InitCheck();
 

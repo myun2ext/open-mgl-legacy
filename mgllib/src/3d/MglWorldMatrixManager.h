@@ -49,7 +49,8 @@ public:
 
 	/////////////////////////////////////////////////////////////////
 
-	void ReTransform();
+	void SetsTransform();
+	void ReTransform(){ SetsTransform(); }
 
 	//	ÉèÅ[ÉãÉh
 	void SetWorld(
@@ -67,6 +68,7 @@ public:
 	void SetWorldMatrix(D3DXMATRIX &matWorld);
 
 	D3DXMATRIX& GetWorldMatrix(){ return m_matWorld; }
+	D3DXMATRIX& GetMatrix(){ return m_matWorld; }
 };
 
 #endif//__MglWorldMatrixManager_H__
