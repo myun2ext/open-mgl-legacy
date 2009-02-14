@@ -45,30 +45,12 @@ void CMglCameraMatrixManager::Release()
 void CMglCameraMatrixManager::Init( CMglGraphicManager* in_myudg )
 {
 	CMglDgBase::Init(in_myudg);
-	/*m_myudg = in_myudg;
-	m_pD3dDev = m_myudg->GetD3dDevPtr();
-	if ( m_pD3dDev == NULL )
-		MyuThrow(36129115, "CMglCameraMatrixManager::Init()  Direct3DDevice が初期化されていません。");*/
 
 	//	Projectionの設定
 	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());
 
 	//	とりあえずデフォルトなカメラを設定
 	SetCamera(0,0,-5.0f, 0,0,0);
-
-	/*
-	//	ワールド設定
-    D3DXMATRIX mRotX, mRotY, mTrans;
-	D3DXMatrixRotationY(&mRotY, 0.0f);
-	D3DXMatrixRotationX(&mRotX, 0.0f);
-	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
-	m_matWorld = mRotX * mRotY * mTrans;
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
-		"CMglCameraMatrixManager::Init()  SetTransform(D3DTS_WORLD)に失敗" );
-	*/
-	D3DXMatrixIdentity(&m_matWorld);
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
-		"CMglCameraMatrixManager::Init()  SetTransform(D3DTS_WORLD)に失敗" );
 }
 
 //	Projectionの設定
@@ -236,53 +218,16 @@ void CMglCameraMatrixManager::SetCameraAngle(float fAngleX, float fAngleY, float
 		m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
 }
 
-//	ワールドを設定
-void CMglCameraMatrixManager::SetWorld(
-		float fRotateX, float fRotateY, float fRotateZ,
-		float fMoveX, float fMoveY, float fMoveZ )
-{
-	D3DXMATRIX mRotX, mRotY, mRotZ, mTrans;
-	D3DXMatrixRotationX(&mRotX, D3DXToRadian(fRotateX));
-	D3DXMatrixRotationY(&mRotY, D3DXToRadian(fRotateY));
-	D3DXMatrixRotationZ(&mRotZ, D3DXToRadian(fRotateZ));
-	D3DXMatrixTranslation(&mTrans, fMoveX, fMoveY, fMoveZ);
-
-	SetWorldMatrix(mRotX * mRotY * mRotZ * mTrans);
-	/*m_matWorld = mRotX * mRotY * mRotZ * mTrans;
-
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
-		"CMglCameraMatrixManager::Init()  SetTransform(D3DTS_WORLD)に失敗" );*/
-
-	m_fRotateX = fRotateX;
-	m_fRotateY = fRotateY;
-	m_fRotateZ = fRotateZ;
-	m_fMoveX = fMoveX;
-	m_fMoveY = fMoveY;
-	m_fMoveZ = fMoveZ;
-}
-
 void CMglCameraMatrixManager::Rotate(float fAngleX, float fAngleY, float fAngleZ)
 {
 	m_fRotateX += fAngleX;
 	m_fRotateY += fAngleY;
 	m_fRotateZ += fAngleZ;
-
-	SetWorld(m_fRotateX, m_fRotateY, m_fRotateZ, m_fMoveX, m_fMoveY, m_fMoveZ);
 }
 
 void CMglCameraMatrixManager::ReTransform()
 {
 	InitCheck();
-
-	//	ワールド設定
-    /*D3DXMATRIX mWorld, mRotX, mRotY, mTrans;
-	D3DXMatrixRotationY(&mRotY, 0.0f);
-	D3DXMatrixRotationX(&mRotX, 0.0f);
-	D3DXMatrixTranslation(&mTrans, 0,0,0.0f);
-	mWorld = mRotX * mRotY * mTrans;
-*/
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
-		"CMglCameraMatrixManager::ReTransform()  SetTransform(D3DTS_WORLD)に失敗" );
 
 	//	View（カメラ）
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
@@ -291,15 +236,6 @@ void CMglCameraMatrixManager::ReTransform()
 	//	プロジェクション
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
 		"CMglCameraMatrixManager::SetupProjection()  SetTransform()に失敗" );
-}
-
-//	ワールド設定
-void CMglCameraMatrixManager::SetWorldMatrix(D3DXMATRIX &matWorld)
-{
-	InitCheck();
-	m_matWorld = matWorld;
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_WORLD, &m_matWorld), D3D_OK,
-		"CMglCameraMatrixManager::ReTransform()  SetTransform(D3DTS_WORLD)に失敗" );
 }
 
 //	View設定
@@ -342,19 +278,3 @@ void CMglCameraMatrixManager::SetCameraAngle2(float fAngleX, float fAngleY, floa
 		"CMglCameraMatrixManager::SetCamera()  SetTransform()に失敗" );
 }
 */
-
-void CMglCameraMatrixManager::ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector)
-{
-	InitCheck();
-
-	_D3DVIEWPORTx vp;
-	vp.X = 0;
-	vp.Y = 0;
-	vp.Width = m_myudg->GetWidth();
-	vp.Height = m_myudg->GetHeight();
-	vp.MinZ = 0.0f;
-	vp.MaxZ = 1.0f;
-	
-	D3DXVec3Project(pOut, pInVector, &vp, &m_projection, &m_matView, &m_matWorld);
-}
-

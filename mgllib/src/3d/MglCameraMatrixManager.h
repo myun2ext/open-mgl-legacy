@@ -23,7 +23,6 @@ class DLL_EXP CMglCameraMatrixManager : public virtual CMglDgBase
 private:
 
 protected:
-	//D3DXMATRIX m_matWorld;
 	D3DXMATRIX m_matView;
 	D3DXMATRIX m_projection;
 
@@ -39,12 +38,12 @@ protected:
 	float m_fCameraTargetY;
 	float m_fCameraTargetZ;
 
-	/*float m_fRotateX;
+	float m_fRotateX;
 	float m_fRotateY;
 	float m_fRotateZ;
 	float m_fMoveX;
 	float m_fMoveY;
-	float m_fMoveZ;*/
+	float m_fMoveZ;
 
 	void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
 
@@ -83,10 +82,6 @@ public:
 	void SetCameraPos(float x, float y, float z);
 	void SetCameraPosition(float x, float y, float z){ SetCameraPos(x,y,z); }
 
-	//	ÉèÅ[ÉãÉh
-	void SetWorld(
-		float fRotateX, float fRotateY=0.0f, float fRotateZ=0.0f,
-		float fMoveX=0.0f, float fMoveY=0.0f, float fMoveZ=0.0f );
 	void RotateX(float fAngle){ Rotate(fAngle,0,0); }
 	void RotateY(float fAngle){ Rotate(0,fAngle,0); }
 	void RotateZ(float fAngle){ Rotate(0,0,fAngle); }
@@ -96,15 +91,11 @@ public:
 	/*void SetWorldMatrix(D3DXMATRIX &matWorld){ m_matWorld = matWorld; }
 	void SetViewMatrix(D3DXMATRIX &matView){ m_matView = matView; }
 	void SetProjectionMatrix(D3DXMATRIX &matProjection){ m_projection = matProjection; }*/
-	void SetWorldMatrix(D3DXMATRIX &matWorld);
 	void SetViewMatrix(D3DXMATRIX &matView);
 	void SetProjectionMatrix(D3DXMATRIX &matProjection);
 
-	D3DXMATRIX& GetWorldMatrix(){ return m_matWorld; }
 	D3DXMATRIX& GetViewMatrix(){ return m_matView; }
 	D3DXMATRIX& GetProjectionMatrix(){ return m_projection; }
-
-	void ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector);
 };
 
 #endif//__MglCameraMatrixManager_H__
