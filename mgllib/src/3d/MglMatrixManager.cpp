@@ -29,15 +29,20 @@ void CMglMatrixManager::Init( CMglGraphicManager* in_myudg )
 {
 	//CMglDgBase::Init(in_myudg);
 	CMglCameraMatrixManager::Init(in_myudg);
+
+	//	デフォルトワールドマトリックスを設定しておく
+	SetWorldMatrix(m_initWorld);
 }
 
 void CMglMatrixManager::ReTransform()
 {
 	InitCheck();
-	WorldCheck();
+	//WorldCheck();
 
+	//	ワールドのReTransform
 	m_pWorldMgr->ReTransform();
 
+	//	カメラのReTransform
 	CMglCameraMatrixManager::ReTransform();
 }
 

@@ -350,6 +350,14 @@ SOURCE=.\src\3d\MglXShader.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\src\3d\Mgl3dManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dManager.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\MglCameraMatrixManager.cpp
 # End Source File
 # Begin Source File
@@ -416,14 +424,6 @@ SOURCE=.\src\3d\mgl3d.h
 # Begin Source File
 
 SOURCE=.\src\3d\mgl3d_work.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\3d\Mgl3dManager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\3d\Mgl3dManager.h
 # End Source File
 # Begin Source File
 

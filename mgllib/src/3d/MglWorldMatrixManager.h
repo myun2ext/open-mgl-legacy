@@ -71,4 +71,6 @@ public:
 	D3DXMATRIX& GetMatrix(){ return m_matWorld; }
 };
 
+typedef CMglWorldMatrixManager CMglModelMatrixManager;
+
 #endif//__MglWorldMatrixManager_H__

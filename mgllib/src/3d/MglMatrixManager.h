@@ -16,11 +16,12 @@ class DLL_EXP CMglMatrixManager : public CMglCameraMatrixManager //public virtua
 {
 protected:
 	CMglWorldMatrixManager *m_pWorldMgr;
+	CMglWorldMatrixManager m_initWorld;	//	初期状態のワールドマトリックス（デフォルト）
 
-	void WorldCheck(){
+	/*void WorldCheck(){
 		if ( m_pWorldMgr == NULL )
 			MyuThrow(MGLMSGNO_MATRIX(1), "CMglMatrixManager  SetWorld()にてワールドを設定してください。");
-	}
+	}*/
 
 public:
 
@@ -39,7 +40,10 @@ public:
 
 	/////////////////////////////////////////////////////////////////
 
-	void SetWorld(CMglWorldMatrixManager *pWorldMgr){ m_pWorldMgr = pWorldMgr; }
+	void SetWorld(CMglWorldMatrixManager &worldMatrix){ m_pWorldMgr = &worldMatrix; }
+	void SetWorldMatrix(CMglWorldMatrixManager &worldMatrix){ m_pWorldMgr = &worldMatrix; }
+	void SetWorldMatrixMgr(CMglWorldMatrixManager &worldMatrix){ m_pWorldMgr = &worldMatrix; }
+	void SetWorldMatrixManager(CMglWorldMatrixManager &worldMatrix){ m_pWorldMgr = &worldMatrix; }
 
 	void ReTransform();
 
