@@ -11,9 +11,6 @@
 //	コンストラクタ
 CMglMatrixManager::CMglMatrixManager()
 {
-	m_myudg = NULL;
-	m_pD3dDev = NULL;
-
 	m_fAspectRatio = 640.0f/480;
 	m_fViewingAngle = 45.0f;
 	m_fClipNear = 0.01f;
@@ -47,18 +44,11 @@ void CMglMatrixManager::Release()
 //	初期化
 void CMglMatrixManager::Init( CMglGraphicManager* in_myudg )
 {
-	m_myudg = in_myudg;
+	CMglDgBase::Init(in_myudg);
+	/*m_myudg = in_myudg;
 	m_pD3dDev = m_myudg->GetD3dDevPtr();
 	if ( m_pD3dDev == NULL )
-		MyuThrow(36129115, "CMglMatrixManager::Init()  Direct3DDevice が初期化されていません。");
-
-	//	かりんぐ、らいとにんぐ
-	m_pD3dDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pD3dDev->SetRenderState(D3DRS_LIGHTING, FALSE);
-
-	//	Zバッファ設定
-	m_pD3dDev->SetRenderState( D3DRS_ZENABLE,	D3DZB_TRUE );		// Zバッファを有効にする。
-	m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE,		TRUE );			// Zバッファへの書き込み許可
+		MyuThrow(36129115, "CMglMatrixManager::Init()  Direct3DDevice が初期化されていません。");*/
 
 	//	Projectionの設定
 	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());

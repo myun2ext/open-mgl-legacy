@@ -184,7 +184,7 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 		_MGL_DEBUGLOG( "dispMode.Format = Unknown(%u)", dispMode.Format );
 
 	if ( dispMode.Format == D3DFMT_R3G3B2 )
-		MyuThrow( 0, "画面の色を16bit以上にしてください。" );
+		MyuThrow( MGLMSGNO_GRPMGR(20), "画面の色を16bit以上にしてください。" );
 
 	D3DPRESENT_PARAMETERS presentParam; 
 	ZeroMemory( &presentParam, sizeof(D3DPRESENT_PARAMETERS) );
@@ -283,12 +283,12 @@ void CMglGraphicManager::Enable3d()
 void CMglGraphicManager::InitSprite()
 {
 	if ( m_pD3dDev == NULL )
-		MyuThrow( 0, "CMglGraphicManager::InitSprite()  m_pD3dDevがNULL" );
+		MyuThrow( MGLMSGNO_GRPMGR(80), "CMglGraphicManager::InitSprite()  m_pD3dDevがNULL" );
 	if ( m_pSprite != NULL )	//	既にあればスキップ
 		return;
 
-	MyuAssert( D3DXCreateSprite( m_pD3dDev, &m_pSprite ), D3D_OK,
-		"CMglGraphicManager::Init()  D3DXCreateSprite()に失敗" );
+	MyuAssert2( D3DXCreateSprite( m_pD3dDev, &m_pSprite ), D3D_OK,
+		MGLMSGNO_GRPMGR(81), "CMglGraphicManager::Init()  D3DXCreateSprite()に失敗" );
 }
 
 //	D3Dオブジェクトの生成（InitEx()用に分離）
@@ -308,7 +308,7 @@ void CMglGraphicManager::Direct3DCreate()
 	m_pD3d = Direct3DCreate8( D3D_SDK_VERSION );
 #endif
 	if ( NULL == m_pD3d )
-		MyuThrow2( 0, MGLMSGNO_GRP_MANAGER_D3DCREATE_FAILED,
+		MyuThrow2( MGLMSGNO_GRPMGR(40), MGLMSGNO_GRP_MANAGER_D3DCREATE_FAILED,
 			"CMglGraphicManager::Direct3DCreate()  Direct3DCreate8()に失敗。" );
 }
 
@@ -330,7 +330,7 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 		_MGL_DEBUGLOG( "dwD3dDeviceModeはD3D_DEVICE_FLG_REFです。" );
 		if ( D3dCreateDevice( D3D_DEVICE_FLG_REF, pPresentParam, nAdapterNo, hFocusWindow ) != TRUE )
 			//MyuThrow( 0, "指定されたデバイスモード(dwD3dDeviceMode=0x%08X)はサポートされていません。\r\nDirect3Dデバイスの生成に失敗しました。", dwD3dDeviceMode );
-			MyuThrow( 0, "Direct3Dデバイスの生成に失敗しました。\r\n"
+			MyuThrow( MGLMSGNO_GRPMGR(41), "Direct3Dデバイスの生成に失敗しました。\r\n"
 				"dwD3dDeviceMode=0x%08X", dwD3dDeviceMode );
 	}
 	else
@@ -355,7 +355,7 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 		}
 		if ( dwWork == 0 )
 			//MyuThrow( 0, "指定されたデバイスモード(dwD3dDeviceMode=0x%08X)はサポートされていません。\r\nDirect3Dデバイスの生成に失敗しました。", dwD3dDeviceMode );
-			MyuThrow( 0, "Direct3Dデバイスの生成に失敗しました。\r\n"
+			MyuThrow( MGLMSGNO_GRPMGR(43), "Direct3Dデバイスの生成に失敗しました。\r\n"
 				"dwD3dDeviceMode=0x%08X", dwD3dDeviceMode );
 	}
 
@@ -368,15 +368,15 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 	SetupMyuVertex();
 
 	//	バックバッファの情報を取得
-	MyuAssert( GetBackBuffer()->GetDesc( &backBufferDesc ), D3D_OK,
-		"CMglGraphicManager::Init()  GetBackBuffer()->GetDesc()に失敗" );
+	MyuAssert2( GetBackBuffer()->GetDesc( &backBufferDesc ), D3D_OK,
+		MGLMSGNO_GRPMGR(44), "CMglGraphicManager::Init()  GetBackBuffer()->GetDesc()に失敗" );
 
 	//	アルファブレンドを有効にしておく
 	SetAlphaMode();
 
 	//	シーンを開始しておく
-	MyuAssert( m_pD3dDev->BeginScene(), D3D_OK,
-		"CMglGraphicManager::Init()  シーンの開始に失敗。" );
+	MyuAssert2( m_pD3dDev->BeginScene(), D3D_OK,
+		MGLMSGNO_GRPMGR(46), "CMglGraphicManager::Init()  シーンの開始に失敗。" );
 
 	//	バックバッファをクリアしておく
 	Clear();
@@ -386,8 +386,8 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 
 //	Vertexを設定
 void CMglGraphicManager::SetFVF(DWORD dwFvf){
-	MyuAssert( this->m_pD3dDev->SetVertexShader( dwFvf ), D3D_OK,
-		"CMglGraphicManager::SetFVF()  SetVertexShader()に失敗" );
+	MyuAssert2( this->m_pD3dDev->SetVertexShader( dwFvf ), D3D_OK,
+		MGLMSGNO_GRPMGR(93), "CMglGraphicManager::SetFVF()  SetVertexShader()に失敗" );
 }
 
 //	Direct3D の CreateDevice()を独自フラグにより呼び出す
@@ -431,7 +431,7 @@ BOOL CMglGraphicManager::D3dCreateDevice( DWORD dwD3dDeviceFlg, D3DPRESENT_PARAM
 
 	//	不明な定数
 	default:
-		MyuThrow( 0, "CMglGraphicManager::D3dCreateDevice() 不明なデバイスフラグです。(dwD3dDeviceFlg=0x%08X)", dwD3dDeviceFlg );
+		MyuThrow( MGLMSGNO_GRPMGR(62), "CMglGraphicManager::D3dCreateDevice() 不明なデバイスフラグです。(dwD3dDeviceFlg=0x%08X)", dwD3dDeviceFlg );
 	}
 
 	//	D3Dデバイス生成
@@ -463,7 +463,8 @@ void CMglGraphicManager::Clear( D3DCOLOR color )
 	Paint( NULL, color );
 
 	if ( m_bUse3d )
-		m_pD3dDev->Clear( 0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 );
+		MyuAssert2( m_pD3dDev->Clear( 0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 ), D3D_OK,
+			MGLMSGNO_GRPMGR(111), "CMglGraphicManager::Clear()  m_pD3dDev->Clear()に失敗" );
 }
 
 void CMglGraphicManager::Paint( RECT* rect, D3DCOLOR color )
@@ -475,8 +476,10 @@ void CMglGraphicManager::Paint( RECT* rect, D3DCOLOR color )
 	int rectCount = 0;
 	if ( rect != NULL )
 		rectCount = 1;
+
 	//	良く分かんないけど多分これキャストしちゃってもええんちゃう…？
-    m_pD3dDev->Clear( rectCount, (D3DRECT*)rect, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
+    MyuAssert2( m_pD3dDev->Clear( rectCount, (D3DRECT*)rect, D3DCLEAR_TARGET, color, 1.0f, 0 ), D3D_OK,
+		MGLMSGNO_GRPMGR(110), "CMglGraphicManager::Clear()  m_pD3dDev->Clear()に失敗" );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -517,7 +520,7 @@ void CMglGraphicManager::DisableAlphaBlend() {
 void CMglGraphicManager::SetAlphaMode( DWORD dwAlphaOption )
 {
 	if ( m_pD3dDev == NULL )
-		MyuThrow( 0, "CMglGraphicManager::SetAlphaMode()  m_pD3dDevがNULL" );
+		MyuThrow( MGLMSGNO_GRPMGR(69), "CMglGraphicManager::SetAlphaMode()  m_pD3dDevがNULL" );
 
 	//	無し
 	if ( dwAlphaOption == MGL_ALPHA_OPT_NOTUSE )
@@ -596,7 +599,7 @@ void CMglGraphicManager::SetAlphaMode( DWORD dwAlphaOption )
 void CMglGraphicManager::UpdateScreen()
 {
 	if ( m_pD3dDev == NULL )
-		MyuThrow( 0, "CMglGraphicManager::UpdateScreen()  m_pD3dDevがNULL" );
+		MyuThrow( MGLMSGNO_GRPMGR(30), "CMglGraphicManager::UpdateScreen()  m_pD3dDevがNULL" );
 
 	//	シーンを終了
 	m_pD3dDev->EndScene();
@@ -605,8 +608,8 @@ void CMglGraphicManager::UpdateScreen()
 	m_pD3dDev->Present( NULL, NULL, NULL, NULL );
 
 	//	シーンの開始
-	MyuAssert( m_pD3dDev->BeginScene(), D3D_OK,
-		"CMglGraphicManager::BeginScene()  シーンの開始に失敗。" );
+	MyuAssert2( m_pD3dDev->BeginScene(), D3D_OK,
+		MGLMSGNO_GRPMGR(31), "CMglGraphicManager::BeginScene()  シーンの開始に失敗。" );
 }
 
 /*
@@ -635,7 +638,7 @@ void CMglGraphicManager::AddRefOfAutoRelease( CMyuReleaseBase* pRef )
 {
 	//	既に無いかチェック
 	if ( m_autoReleaseAry.find( pRef ) != m_autoReleaseAry.end() )
-		MyuThrow( 0, "既にリファレンス 0x%08x は存在します。", pRef );
+		MyuThrow( MGLMSGNO_GRPMGR(253), "既にリファレンス 0x%08x は存在します。", pRef );
 
 	//DEBUGLOG( "AutoRelease 用0x%08x を追加します。", pRef );
 	m_autoReleaseAry[pRef] = pRef;
@@ -665,9 +668,9 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 {
 	//	チェック
 	if ( m_pSprite == NULL )
-		MyuThrow( 99, "CMglGraphicManage::SpriteDraw()  スプライトが無効になっているか、スプライトの初期化に失敗しました。" );
+		MyuThrow( MGLMSGNO_GRPMGR(83), "CMglGraphicManage::SpriteDraw()  スプライトが無効になっているか、スプライトの初期化に失敗しました。" );
 	if ( pTexture->GetDirect3dTexturePtr() == NULL )
-		MyuThrow( 99, "CMglGraphicManage::SpriteDraw()  IDirect3DTexture8 がNULLです。テクスチャが初期化されていない可能性があります。" );
+		MyuThrow( MGLMSGNO_GRPMGR(84), "CMglGraphicManage::SpriteDraw()  IDirect3DTexture8 がNULLです。テクスチャが初期化されていない可能性があります。" );
 
 	//	2009/01/07
 	SpriteBegin();
@@ -739,13 +742,13 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	D3DXMatrixMultiply(&matrix, &matrix1, &matrix_s);
 
 	//	トランスフォームとして反映
-	MyuAssert( m_pSprite->SetTransform(&matrix), D3D_OK,
-		"CMglGraphicManager::SpriteDraw()  m_pSprite->SetTransform()に失敗" );
+	MyuAssert2( m_pSprite->SetTransform(&matrix), D3D_OK,
+		MGLMSGNO_GRPMGR(85), "CMglGraphicManager::SpriteDraw()  m_pSprite->SetTransform()に失敗" );
 
-	MyuAssert( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, 
+	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, 
 					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
 					 &D3DXVECTOR3(x, y, 0), color), D3D_OK,
-		"CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
+		MGLMSGNO_GRPMGR(86), "CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
 
 	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 	//	DirectX 8
@@ -782,9 +785,9 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	//////////////////////////////////////////////////////////////////////////////
 
 	//	絵画
-	MyuAssert( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(),
+	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(),
 		pSrcRect, &vctScale, &vctRtCenter, fRad, &vctPos, color ), D3D_OK,
-		"CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
+		MGLMSGNO_GRPMGR(87), "CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
 #endif
 }
 
@@ -793,11 +796,11 @@ void CMglGraphicManager::SpriteBegin()
 {
 	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
 #if _MGL_DXVER == 9
-		MyuAssert( m_pSprite->Begin(D3DRS_ALPHABLENDENABLE), D3D_OK,
+		MyuAssert2( m_pSprite->Begin(D3DRS_ALPHABLENDENABLE), D3D_OK,
 #else
-		MyuAssert( m_pSprite->Begin(), D3D_OK,
+		MyuAssert2( m_pSprite->Begin(), D3D_OK,
 #endif
-			"CMglGraphicManager::SpriteBegin()  m_pSprite->Begin()に失敗" );
+			MGLMSGNO_GRPMGR(89), "CMglGraphicManager::SpriteBegin()  m_pSprite->Begin()に失敗" );
 		m_bSpriteBegun = TRUE;
 	}
 }
@@ -805,16 +808,16 @@ void CMglGraphicManager::SpriteBegin()
 void CMglGraphicManager::SpriteEnd()
 {
 	if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){
-		MyuAssert( m_pSprite->End(), D3D_OK,
-			"CMglGraphicManager::SpriteEnd()  m_pSprite->End()に失敗" );
+		MyuAssert2( m_pSprite->End(), D3D_OK,
+			MGLMSGNO_GRPMGR(90), "CMglGraphicManager::SpriteEnd()  m_pSprite->End()に失敗" );
 		m_bSpriteBegun = FALSE;
 	}
 }
 
 void CMglGraphicManager::DrawPrimitiveUpMyuVertex(MGL_VERTEX *pMglVertexs, int nVertexCount, D3DPRIMITIVETYPE primitiveType)
 {
-	MyuAssert( m_pD3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, nVertexCount, pMglVertexs, sizeof(MGL_VERTEX)), D3D_OK,
-			"CMglGraphicManager::DrawPrimitiveUpMyuVertexSquare()  DrawPrimitiveUP()に失敗" );
+	MyuAssert2( m_pD3dDev->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, nVertexCount, pMglVertexs, sizeof(MGL_VERTEX)), D3D_OK,
+			MGLMSGNO_GRPMGR(130), "CMglGraphicManager::DrawPrimitiveUpMyuVertexSquare()  DrawPrimitiveUP()に失敗" );
 }
 
 //	Zバッファのフォーマット対応状況をチェック
@@ -852,7 +855,7 @@ CMglGraphicManager* GetDefaultGd()
 	CMglStackInstance("CMglGraphicManager::GetDefaultGd");
 	if ( g_pDefaultGd == NULL )
 	{
-		MyuThrow2( 0, MGLMSGNO_GRP_MANAGER_MULTI_INSTANCE,
+		MyuThrow2( MGLMSGNO_GRPMGR(196), MGLMSGNO_GRP_MANAGER_MULTI_INSTANCE,
 			"CMglGraphicManager のインスタンスが存在しないか複数存在するため省略する事は出来ません。" );
 	}
 	return g_pDefaultGd;

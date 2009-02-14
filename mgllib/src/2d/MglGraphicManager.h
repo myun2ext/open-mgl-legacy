@@ -88,7 +88,7 @@ extern int g_2dgCount;
 #define DELREF()	if( m_myudg != NULL && g_2dgCount > 0 ){ m_myudg->RmRefOfAutoRelease( this ); }else{}
 
 class CMglTexture;
-class CMgl3DManager;
+class CMgl3dManager;
 ///////////////////////////////////////
 //
 //		クラス宣言
@@ -137,7 +137,7 @@ protected:
 public:
 	//	公開メンバ変数
 	D3DSURFACE_DESC backBufferDesc;		//	バックバッファ情報
-	CMgl3DManager *p3d;
+	CMgl3dManager *p3d;
 
 	//////////////////////////
 	//
@@ -167,11 +167,11 @@ public:
 	{
 		_IDirect3DSurfaceX* p;
 #if _MGL_DXVER == 9
-		MyuAssert( m_pD3dDev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &p ), D3D_OK,
+		MyuAssert2( m_pD3dDev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &p ), D3D_OK,
 #else
-		MyuAssert( m_pD3dDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &p ), D3D_OK,
+		MyuAssert2( m_pD3dDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &p ), D3D_OK,
 #endif
-			"CMglGraphicManager::GetBackBuffer()  GetBackBuffer()に失敗" );
+			MGLMSGNO_GRPMGR(150), "CMglGraphicManager::GetBackBuffer()  GetBackBuffer()に失敗" );
 		return p;
 	}
 
@@ -295,11 +295,14 @@ public:
 	}
 
 	//	初期化/開放
-	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
+	virtual void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
 		d3d = m_myudg->GetD3dDevPtr();
 		m_d3d = m_myudg->GetD3dDevPtr();
 		m_pD3dDev = m_myudg->GetD3dDevPtr();
+
+		if ( m_pD3dDev == NULL )
+			MyuThrow(MGLMSGNO_GRPMGR(320), "CMglDgBase::Init()  Direct3DDevice が初期化されていません。");
 	}
 	virtual void Release(){}
 	//void DbBaseRelease(){}

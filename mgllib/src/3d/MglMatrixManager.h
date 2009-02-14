@@ -7,21 +7,22 @@
 #ifndef __MglMatrixManager_H__
 #define __MglMatrixManager_H__
 
-#include "Mgl3dManager.h"
+#include "MglGraphicManager.h"
+
+#define _MGL3D_COORDINATE_LEFT_HAND		(0)	//	左手座標系
+#define _MGL3D_COORDINATE_RIGHT_HAND	(1)	//	右手座標系
+#define _MGL3D_COORDINATE_USE			_MGL3D_COORDINATE_LEFT_HAND
+
+#define MGL3D_X	(0)
+#define MGL3D_Y	(1)
+#define MGL3D_Z	(2)
 
 //	クラス宣言
-class DLL_EXP CMglMatrixManager
+class DLL_EXP CMglMatrixManager : public virtual CMglDgBase
 {
 private:
-	//	内部メソッド（チェック用）
-	void InitCheck() {
-		if ( m_myudg == NULL )
-			Init( GetDefaultGd() );
-	}
 
 protected:
-	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
-	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
 	D3DXMATRIX m_matWorld;
 	D3DXMATRIX m_matView;
 	D3DXMATRIX m_projection;
@@ -62,13 +63,12 @@ public:
 	virtual ~CMglMatrixManager();
 
 	//	初期化/開放
-	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
-	void Release();
+	virtual void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
+	virtual void Release();
 
 	/////////////////////////////////////////////////////////////////
 
 	void ReTransform();
-	void OnFrame(){}
 
 	//	Projection
 	void SetupProjection( float fAspectRatio, float fViewingAngle=30.0f, float fClipNear=0.01f, float fClipFar=100.0f );

@@ -395,6 +395,14 @@ SOURCE=.\src\3d\MglLight.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\3d\MglMatrixManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglMatrixManager.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\MglMesh.cpp
 # End Source File
 # Begin Source File
