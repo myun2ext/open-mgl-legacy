@@ -317,7 +317,7 @@ SOURCE=.\src\2d\MglTexture2.h
 # Begin Group "3D Graphics Files"
 
 # PROP Default_Filter ""
-# Begin Group "Shaders"
+# Begin Group "Shader"
 
 # PROP Default_Filter ""
 # Begin Source File
@@ -345,14 +345,37 @@ SOURCE=.\src\3d\MglXShader.cpp
 SOURCE=.\src\3d\MglXShader.h
 # End Source File
 # End Group
+# Begin Group "Matrix"
+
+# PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\src\3d\mgl3d.h
+SOURCE=.\src\3d\MglCameraMatrixManager.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\3d\mgl3d_work.cpp
+SOURCE=.\src\3d\MglCameraMatrixManager.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglMatrixManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglMatrixManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglWorldMatrixManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglWorldMatrixManager.h
+# End Source File
+# End Group
+# Begin Group "Model"
+
+# PROP Default_Filter ""
 # Begin Source File
 
 SOURCE=.\src\3d\Mgl3dDot.cpp
@@ -371,14 +394,6 @@ SOURCE=.\src\3d\Mgl3dImage.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\3d\Mgl3dManager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\3d\Mgl3dManager.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\3d\Mgl3dSquare.cpp
 # End Source File
 # Begin Source File
@@ -387,27 +402,36 @@ SOURCE=.\src\3d\Mgl3dSquare.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\3d\MglLight.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\3d\MglLight.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\3d\MglMatrixManager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\3d\MglMatrixManager.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\3d\MglMesh.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\src\3d\MglMesh.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\src\3d\mgl3d.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\mgl3d_work.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\Mgl3dManager.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglLight.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglLight.h
 # End Source File
 # End Group
 # Begin Group "Common Files"
