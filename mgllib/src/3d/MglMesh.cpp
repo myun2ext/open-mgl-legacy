@@ -159,12 +159,12 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	MyuAssert2( D3DXCreateBox( m_d3d, fWidth, fHeight, fDepth, &m_pMesh, NULL), D3D_OK,
 		MGLMSGNO_MESH(32), "CMglMesh::CreateBox()  D3DXCreateBox()‚ÉŽ¸”s" );
 
-	///////////////////////////////////////////////////////////////
+	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
 
 	//m_dwMaterialCount = 1;
-	CreateMaterials(1);
+	/*CreateMaterials(1);
 
-	_D3DMATERIALx* pMat = this->GetMaterial(0);
+	_D3DMATERIALx* pMat = this->GetMaterial(0);*/
 	/*pMat->Ambient = D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
 	pMat->Diffuse = D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
 	pMat->Specular = D3DXCOLOR(1.0f,1.0f,1.0f,1.0f);
@@ -172,11 +172,11 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	/*pMat->Diffuse = D3DXCOLOR(color);
 	pMat->Ambient = D3DXCOLOR(ambient);
 	pMat->Specular = D3DXCOLOR(specular);*/
-	pMat->Diffuse = color;
+	/*pMat->Diffuse = color;
 	pMat->Ambient = ambient;
 	pMat->Specular = specular;
 	pMat->Emissive = emissive;
-	pMat->Power = fSpecularPower;
+	pMat->Power = fSpecularPower;*/
 }
 
 //	‰~’ŒƒƒbƒVƒ…ì¬

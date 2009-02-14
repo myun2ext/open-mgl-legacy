@@ -65,6 +65,7 @@ void CMglLight::Setup( _D3DLIGHTx &lightSetting )
 void CMglLight::Setup( D3DLIGHTTYPE lightType,
 					  float fPosX, float fPosY, float fPosZ,
 					  float fDirectionX, float fDirectionY, float fDirectionZ,
+					  MGL_LIGHT_ATTENUATION &attenuation,
 					  D3DXCOLOR color, D3DXCOLOR ambient, D3DXCOLOR specular, float fRange )
 {
 	_D3DLIGHTx light;
@@ -75,17 +76,31 @@ void CMglLight::Setup( D3DLIGHTTYPE lightType,
 	light.Ambient = ambient;
 	light.Specular = specular;
 	light.Range = fRange;
-	light.Attenuation0 = 0.05f;
+	
+	light.Attenuation0 = attenuation.fLinear;
+	light.Attenuation1 = attenuation.fCurve;
+	light.Attenuation2 = attenuation.fPowCurve;
+
+	if ( light.Attenuation0 == 0 && light.Attenuation1 == 0 && light.Attenuation2 == 0 )
+		light.Attenuation0 = 0.000001f;
+
+	/*light.Attenuation0 = -0.14f;
 	light.Attenuation1 = 0.05f;
-	light.Attenuation2 = 0.0f;
+	light.Attenuation2 = 0.0f;*/
+
+	/*light.Attenuation0 = 0.6f;
+	light.Attenuation1 = 0.05f;
+	light.Attenuation2 = 0.0f;*/
 	/*light.Attenuation0 = 0.5f;
 	light.Attenuation1 = 0.1f;
 	light.Attenuation2 = 0.0f;*/
 
 	D3DXVECTOR3 direction(fDirectionX,fDirectionY,fDirectionZ);
 	D3DXVECTOR3 position(fPosX,fPosY,fPosZ);
+	//position *= 10.0f;
+	light.Position = position;
 	D3DXVec3Normalize( (D3DXVECTOR3*)&light.Direction, &direction );
-	D3DXVec3Normalize( (D3DXVECTOR3*)&light.Position, &position );
+	//D3DXVec3Normalize( (D3DXVECTOR3*)&light.Position, &position );
 
 	Setup(light);
 }
