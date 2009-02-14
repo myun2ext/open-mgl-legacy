@@ -7,6 +7,12 @@
 #ifndef __mglafx_H__
 #define __mglafx_H__
 
+#include <windows.h>
+
+#ifndef __int3264
+    typedef long LONG_PTR;
+#endif
+
 /*
 #define MGLVER_DATE	(0x050129)
 #define MGLVER_REV	(0x02)

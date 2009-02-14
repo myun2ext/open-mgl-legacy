@@ -332,6 +332,8 @@ CMglD3dTexture::iterator CMglD3dTexture::end()
 //	# テクスチャ領域は2の倍数になる。その内の0.?fがBMPの領域かを算出する
 MGLTUTV CMglD3dTexture::GetTuTv()
 {
+	CreateCheck();	//	Createチェック
+
 	MGLTUTV t;
 	D3DSURFACE_DESC texDesc;
 	m_pTexture->GetLevelDesc( 0, &texDesc );
