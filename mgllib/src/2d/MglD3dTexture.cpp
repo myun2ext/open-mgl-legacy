@@ -256,6 +256,8 @@ void CMglD3dTexture::CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize,
 
 void CMglD3dTexture::SetD3dStageTexture(DWORD nStage)
 {
+	CreateCheck();	//	Createチェック
+
 	//	テクスチャの設定
 	MyuAssert( d3d->SetTexture(nStage, m_pTexture), D3D_OK,
 		"CMglD3dTexture::SetD3dTexture()  d3d->SetTexture()に失敗" );
@@ -389,6 +391,8 @@ void CMglD3dTexture::Paint( RECT* pRect, D3DCOLOR color )
 
 CMglBitmapData* CMglD3dTexture::GetIternalBitmapData()
 {
+	CreateCheck();	//	Createチェック
+
 	/*if ( m_pBitmapData == NULL )
 		m_pBitmapData = new CMglBitmapData(this);*/
 	return m_pBitmapData;

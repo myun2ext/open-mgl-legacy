@@ -66,7 +66,7 @@ public:
 #ifdef _MGLVERTEX_USE_RHW
 		float = 1.0f;
 #endif
-		color = 0;
+		color = D3DCOLOR_BLACK;
 #ifdef _MGLVERTEX_USE_SPECULAR
 		specular = 0;
 #endif
