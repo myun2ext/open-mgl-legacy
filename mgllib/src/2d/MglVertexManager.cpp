@@ -76,7 +76,33 @@ void _CMglVertexManagerXT_Realize::Draw( D3DPRIMITIVETYPE primitiveType )
 		MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
 			"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()に失敗" );
 
-		MyuAssert( d3d->DrawPrimitive( primitiveType, 0, _GetVertexCount()-2 ), D3D_OK,
+		//	プリミティブ数はプリミティブ種別により異なる・・・
+		int nPrimitiveCount = -1;
+		switch(primitiveType)
+		{
+		case D3DPT_POINTLIST:
+			nPrimitiveCount = _GetVertexCount();
+			break;
+		case D3DPT_LINELIST:
+			nPrimitiveCount = _GetVertexCount()/2;
+			break;
+		case D3DPT_LINELIST:
+			nPrimitiveCount = _GetVertexCount()/2;
+			break;
+		case D3DPT_LINESTRIP:
+			nPrimitiveCount = _GetVertexCount()-1;
+			break;
+		case D3DPT_TRIANGLELIST:
+			nPrimitiveCount = _GetVertexCount()/3;
+			break;
+		case D3DPT_TRIANGLESTRIP:
+		case D3DPT_TRIANGLEFAN:
+			nPrimitiveCount = _GetVertexCount()/2;
+			break;
+		}
+
+		//MyuAssert( d3d->DrawPrimitive( primitiveType, 0, _GetVertexCount()-2 ), D3D_OK,
+		MyuAssert( d3d->DrawPrimitive( primitiveType, 0, nPrimitiveCount ), D3D_OK,
 			"CMglVertexManagerXT::Draw()  d3d->DrawPrimitive()に失敗" );
 	}
 }
