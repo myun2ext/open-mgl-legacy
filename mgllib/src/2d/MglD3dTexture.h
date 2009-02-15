@@ -48,6 +48,7 @@ protected:
 
 	//	画像情報
 	D3DXIMAGE_INFO m_imgInfo;
+	MGLTUTV m_tutv;
 
 	//	記憶しておく
 	D3DCOLOR m_colorKey;			//	カラーキー
@@ -94,6 +95,9 @@ public:
 	void Release();
 
 	//	作成
+	void Create( int x, int y, BOOL bRenderTarget );
+
+	//	ファイルからの読み込み系
 	void Load( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
 	void Create( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
@@ -107,13 +111,21 @@ public:
 	//void Create( int x=0, int y=0, BOOL bRenderTarget=TRUE );
 	/*void Create( LPCSTR szFileName, BOOL bRenderTarget=TRUE, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFile( szFileName, bRenderTarget, colorKey );}*/
-	void Create( int x, int y, BOOL bRenderTarget );
 	void CreateTextureFromFileEx( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
 	void CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
 		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE ){
 		CreateFromFileEx( szFileName, nForceBmpWidth, nForceBmpHeight, bRenderTarget, colorKey, dwFilter, dwMapFilter); }
+
+	//	メモリから作成
+	void CreateFromFile( LPCVOID lpFileData, UINT nDataSize, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
+		CreateFromMemoryFileEx( lpFileData, nDataSize, 0, 0, bRenderTarget, colorKey ); }
+	void CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize, int nForceBmpWidth, int nForceBmpHeight,
+		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
+		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE );
+
+	/////////////////////////////////////////////////////////////////////
 
 	void SetD3dStageTexture(DWORD nStage=0);
 	void SetStageTexture(DWORD nStage=0){ SetD3dStageTexture(nStage); }
@@ -126,7 +138,8 @@ public:
 	//	サイズ取得
 	int GetBmpWidth(){ return m_imgInfo.Width; }
 	int GetBmpHeight(){ return m_imgInfo.Height; }
-	MGLTUTV GetTuTv();
+	//MGLTUTV GetTuTv();
+	const MGLTUTV& GetTuTv();
 
 	////////////////////////////////////////////////////////////////////////////////
 

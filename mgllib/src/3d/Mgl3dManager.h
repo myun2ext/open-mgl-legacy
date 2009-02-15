@@ -41,7 +41,27 @@ public:
 
 	void OnFrame(){}
 
+	CMglGraphicManager* GetDg(){ return m_myudg; }
+	CMglGraphicManager* GetMyuDg(){ return m_myudg; }
 };
 typedef CMgl3dManager CMgl3DManager;
+
+//////////////////////////////////////////////////////////
+
+template <typename T> class CMglWorldMatrixHolder : public T, public CMglMatrixManager
+{
+protected:
+	CMgl3dManager *m_3d;
+
+public:
+	virtual void Init( CMgl3dManager* in_3dMgr )
+	{
+		m_3d = in_3dMgr;
+
+		CMglGraphicManager* pDg = m_3d->GetMyuDg();
+		T::Init(pDg);
+		CMglMatrixManager::Init(pDg);
+	}
+};
 
 #endif//__Mgl3dManager_H__

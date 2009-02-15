@@ -105,7 +105,7 @@ void CMgl3dSquare::AddTexture(CMglD3dTexture &tex)
 }
 
 #ifdef _MGLVERTEX_USE_MULTITEX
-void CMgl3dSquare::SetTuTv(int no, MGLTUTV &tutv)
+void CMgl3dSquare::SetTuTv(int no, const MGLTUTV &tutv)
 {
 	_VERTEX &v1 = Get(1);
 	v1.tPosAry[no].x = tutv.tu;
@@ -118,7 +118,7 @@ void CMgl3dSquare::SetTuTv(int no, MGLTUTV &tutv)
 	Compile();
 }
 #else
-void CMgl3dSquare::SetTuTv(MGLTUTV &tutv)
+void CMgl3dSquare::SetTuTv(const MGLTUTV &tutv)
 {
 	/*
 	_VERTEX *pv = NULL;

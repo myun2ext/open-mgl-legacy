@@ -42,10 +42,10 @@ protected:
 	CMglTssManager m_tss;
 
 	//	内部メソッド（チェック用）
-	void InitCheck() {
+	/*void InitCheck() {
 		if ( m_myudg == NULL )
 			Init( GetDefaultGd() );
-	}
+	}*/
 	void CreatedCheck() {
 		if ( m_vertexes.size() != 0 )
 			MyuThrow( MGLMSGNO_3DSQUARE(1), "CMgl3dSquare  既に作成済です。" );
@@ -55,14 +55,14 @@ protected:
 			MyuThrow( MGLMSGNO_3DSQUARE(2), "CMgl3dSquare::Draw()  未作成です。" );
 	}
 	//void SetTuTv(MGLTUTV &tutv);
-	void SetTuTv(int no, MGLTUTV &tutv);
+	void SetTuTv(int no, const MGLTUTV &tutv);
 
 public:
 	//	コンストラクタ・デストラクタ
 	CMgl3dSquare();
 	virtual ~CMgl3dSquare(){}
 
-	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
+	virtual void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
 
 	void SimpleCreate(float fWidth, float fHeight, D3DCOLOR color);
 

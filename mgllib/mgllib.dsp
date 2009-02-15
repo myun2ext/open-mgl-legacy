@@ -171,22 +171,6 @@ SOURCE=.\src\2d\MglGraphicUtil.cpp
 
 SOURCE=.\src\2d\MglGraphicUtil.h
 # End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglVertex.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglVertex.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglVertexManager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\2d\MglVertexManager.h
-# End Source File
 # End Group
 # Begin Group "Layer"
 
@@ -243,6 +227,26 @@ SOURCE=.\src\2d\MglTextLayer.h
 
 # PROP Default_Filter ""
 # End Group
+# End Group
+# Begin Group "Vertex"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\src\2d\MglVertex.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglVertex.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglVertexManager.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglVertexManager.h
+# End Source File
 # End Group
 # Begin Source File
 
