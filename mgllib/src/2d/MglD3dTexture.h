@@ -2,8 +2,6 @@
 //
 //	MglD3dTexture - テクスチャ管理クラス
 //
-//	なお、CreateTextureFromFile() で作成されたテクスチャは
-//	三角形を二枚組み合わせた四角形であるのでこの事に注意されたし！
 
 #ifndef __MglD3dTexture_H__
 #define __MglD3dTexture_H__
@@ -97,19 +95,25 @@ public:
 
 	//	作成
 	void Load( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
-		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
 	void Create( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
-		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
-	void CreateTextureFromFile( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
-		//CreateTextureFromFileEx( szFileName, D3DX_DEFAULT, D3DX_DEFAULT, bRenderTarget, colorKey ); }
-		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
-	void CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
+		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+	void CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
+		//CreateFromFileEx( szFileName, D3DX_DEFAULT, D3DX_DEFAULT, bRenderTarget, colorKey ); }
+		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+	void CreateFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
 		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE );
 	//void Create( int x=0, int y=0, BOOL bRenderTarget=TRUE );
 	/*void Create( LPCSTR szFileName, BOOL bRenderTarget=TRUE, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFile( szFileName, bRenderTarget, colorKey );}*/
 	void Create( int x, int y, BOOL bRenderTarget );
+	void CreateTextureFromFileEx( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
+		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+	void CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
+		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
+		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE ){
+		CreateFromFileEx( szFileName, nForceBmpWidth, nForceBmpHeight, bRenderTarget, colorKey, dwFilter, dwMapFilter); }
 
 	void SetD3dStageTexture(DWORD nStage=0);
 	void SetStageTexture(DWORD nStage=0){ SetD3dStageTexture(nStage); }

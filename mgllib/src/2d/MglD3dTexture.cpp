@@ -46,8 +46,8 @@ void CMglD3dTexture::Release()
 
 //	ファイルから読み込み
 //	bRenderTargetをTRUEにした場合はPOOLも D3DPOOL_MANAGED として読み込まれる。
-//void CMglD3dTexture::CreateTextureFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )
-void CMglD3dTexture::CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
+//void CMglD3dTexture::CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )
+void CMglD3dTexture::CreateFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 	BOOL bRenderTarget, D3DCOLOR colorKey, DWORD dwFilter, DWORD dwMapFilter )
 {
 	InitCheck();	//	初期化チェック
