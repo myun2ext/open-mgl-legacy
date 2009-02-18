@@ -414,6 +414,14 @@ SOURCE=.\src\3d\Mgl3dSquare.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\3d\MglCustomMesh.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\3d\MglCustomMesh.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\MglMesh.cpp
 # End Source File
 # Begin Source File

@@ -79,8 +79,8 @@ public:
 #endif
 #ifdef _MGLVERTEX_USE_NORMAL
   #ifdef _MGLVERTEX_USE_VECTOR3
-		//normal = D3DXVECTOR3(0,1,0); ↓の方が高速か・・・
 		//normal.y = 1;
+		//normal = D3DXVECTOR3(0,1,0); ↓の方が高速か・・・
 		normal.x = 0;
 		normal.y = 1;
 		normal.z = 0;
