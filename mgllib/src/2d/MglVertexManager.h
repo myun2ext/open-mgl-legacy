@@ -27,9 +27,15 @@ public:
 	void AddVertex(_VERTEX &vertex){ m_vertexes.push_back(vertex); }
 	void AddPoint(float x, float y, float z, D3DCOLOR color=0 ){
 		_VERTEX v;
+#ifdef _MGLVERTEX_USE_VECTOR3
+		v.pos.x = x;
+		v.pos.y = y;
+		v.pos.z = z;
+#else
 		v.x = x;
 		v.y = y;
 		v.z = z;
+#endif
 		v.color = color;
 		AddVertex(v);
 	}

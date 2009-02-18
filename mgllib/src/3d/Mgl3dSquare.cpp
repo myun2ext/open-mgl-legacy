@@ -32,6 +32,23 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	InitCheck();
 	CreatedCheck();
 
+#ifdef _MGLVERTEX_USE_NORMAL
+
+	_VERTEX v;
+	v.color = color;
+	v.pos.x = 0.0f;
+	v.specular = D3DCOLOR_WHITE;
+
+	v.pos.x = 0.0f; v.pos.y = 0.0f; 
+	AddVertex(v);
+	v.pos.x = fWidth; v.pos.y = 0.0f; 
+	AddVertex(v);
+	v.pos.x = 0.0f; v.pos.y = fHeight; 
+	AddVertex(v);
+	v.pos.x = fWidth; v.pos.y = fHeight; 
+	AddVertex(v);
+
+#else
 	_VERTEX v;
 	v.color = color;
 	v.x = 0.0f;
@@ -60,6 +77,7 @@ void CMgl3dSquare::SimpleCreate(float fWidth, float fHeight, D3DCOLOR color)
 	v.x = fWidth; v.y = fHeight; 
 	//v.tu = 1.0f; v.tv = 1.0f; 
 	AddVertex(v);
+#endif
 	Compile();
 }
 
@@ -114,6 +132,12 @@ void CMgl3dSquare::SetTuTv(int no, const MGLTUTV &tutv)
 	_VERTEX &v3 = Get(3);
 	v3.tPosAry[no].x = tutv.tu;
 	v3.tPosAry[no].y = tutv.tv;
+	/*v3.nz = 1;
+	v3.nx = 0;
+	v3.ny = 0;
+	v2.nz = 1;
+	v2.nx = 0;
+	v2.ny = 0;*/
 
 	Compile();
 }
@@ -130,14 +154,14 @@ void CMgl3dSquare::SetTuTv(const MGLTUTV &tutv)
 	pv->tu = tutv.tu;
 	pv->tv = tutv.tv;
 	*/
-
+/*
 	_VERTEX &v1 = Get(1);
 	v1.tu = tutv.tu;
 	_VERTEX &v2 = Get(2);
 	v2.tv = tutv.tv;
 	_VERTEX &v3 = Get(3);
 	v3.tu = tutv.tu;
-	v3.tv = tutv.tv;
+	v3.tv = tutv.tv;*/
 
 	Compile();
 }

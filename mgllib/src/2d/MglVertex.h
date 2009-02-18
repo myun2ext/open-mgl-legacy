@@ -6,6 +6,7 @@
 #define _MGLVERTEX_USE_SPECULAR
 #define _MGLVERTEX_USE_NORMAL
 #define _MGLVERTEX_USE_MULTITEX
+#define _MGLVERTEX_USE_VECTOR3
 
 #ifdef _MGLVERTEX_USE_NORMAL
 	#define _MGLVERTEX_D3DFVF_NORMAL D3DFVF_NORMAL
@@ -29,13 +30,14 @@
 #endif
 typedef struct
 {
-	float		x,y,z;				//位置情報
-	//D3DXVECTOR3 pos;		// ←こっちの方が色々関数ついてるっぽくて良いかもね・・・
+	//float		x,y,z;				//位置情報
+	D3DXVECTOR3 pos;		// ←こっちの方が色々関数ついてるっぽくて良いかもね・・・
 #ifdef _MGLVERTEX_USE_RHW
 	float		rhw;				//頂点変換値
 #endif
 #ifdef _MGLVERTEX_USE_NORMAL
-	float		nx, ny, nz;			// 法線ベクトル
+	//float		nx, ny, nz;			// 法線ベクトル
+	D3DXVECTOR3	normal;			// 法線ベクトル
 #endif
 	D3DCOLOR	color;				// ポリゴンカラー
 #ifdef _MGLVERTEX_USE_SPECULAR
@@ -62,7 +64,9 @@ public:
 typedef class CMyuVertex : public MGL_VERTEX, CMglVertexBase {
 public:
 	CMyuVertex(){
+#ifndef _MGLVERTEX_USE_VECTOR3
 		x = y = z = 0.0f;
+#endif
 #ifdef _MGLVERTEX_USE_RHW
 		float = 1.0f;
 #endif
@@ -71,9 +75,14 @@ public:
 		specular = 0;
 #endif
 #ifdef _MGLVERTEX_USE_NORMAL
+  #ifdef _MGLVERTEX_USE_VECTOR3
+		//normal = D3DXVECTOR3(0,1,0);
+		normal.y = 1;
+  #else
 		nx = 0;
 		ny = 1;
 		nz = 0;
+  #endif
 #endif
 #ifdef _MGLVERTEX_USE_MULTITEX
 		ZeroMemory(&tPosAry, sizeof(tPosAry));

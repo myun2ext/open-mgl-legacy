@@ -19,12 +19,18 @@
 class MGL_DOT_VERTEX
 {
 public:
+#ifdef _MGLVERTEX_USE_NORMAL
+	D3DXVECTOR3 pos;
+#else
 	float		x,y,z;
+#endif
 	D3DCOLOR	color;
 	float		point;	//	“_‚Ì‘å‚«‚³
 	// ---------------------------------------------
 	MGL_DOT_VERTEX(){
+#ifndef _MGLVERTEX_USE_NORMAL
 		x = y = z = 0.0f;
+#endif
 		color = 0;
 		point = 1.0f;
 	}
