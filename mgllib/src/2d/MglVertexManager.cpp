@@ -86,9 +86,6 @@ void _CMglVertexManagerXT_Realize::Draw( D3DPRIMITIVETYPE primitiveType )
 		case D3DPT_LINELIST:
 			nPrimitiveCount = _GetVertexCount()/2;
 			break;
-		case D3DPT_LINELIST:
-			nPrimitiveCount = _GetVertexCount()/2;
-			break;
 		case D3DPT_LINESTRIP:
 			nPrimitiveCount = _GetVertexCount()-1;
 			break;

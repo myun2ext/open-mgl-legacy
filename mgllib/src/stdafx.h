@@ -1,6 +1,8 @@
 #ifndef __stdafx_H__
 #define __stdafx_H__
 
+#pragma warning( disable : 4786 ) // VC ‚Å‚ÌŒx‚ğæ‚èœ‚«‚Ü‚·B
+
 #include "mglafx.h"
 #include "mgl_global.h"
 
