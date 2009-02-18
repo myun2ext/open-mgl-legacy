@@ -64,7 +64,10 @@ public:
 typedef class CMyuVertex : public MGL_VERTEX, CMglVertexBase {
 public:
 	CMyuVertex(){
-#ifndef _MGLVERTEX_USE_VECTOR3
+#ifdef _MGLVERTEX_USE_VECTOR3
+		//normal = D3DXVECTOR3(0,1,0); ↓の方が高速か・・・
+		pos.x = pos.y = pos.z = 0.0f;
+#else
 		x = y = z = 0.0f;
 #endif
 #ifdef _MGLVERTEX_USE_RHW
@@ -76,8 +79,11 @@ public:
 #endif
 #ifdef _MGLVERTEX_USE_NORMAL
   #ifdef _MGLVERTEX_USE_VECTOR3
-		//normal = D3DXVECTOR3(0,1,0);
+		//normal = D3DXVECTOR3(0,1,0); ↓の方が高速か・・・
+		//normal.y = 1;
+		normal.x = 0;
 		normal.y = 1;
+		normal.z = 0;
   #else
 		nx = 0;
 		ny = 1;

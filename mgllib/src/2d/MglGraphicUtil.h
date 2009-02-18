@@ -90,6 +90,16 @@ typedef IDirect3D8			MGL_D3D;
 #define D3DCOLOR_BLACK			((D3DCOLOR)0x00000000)
 */		
 
+typedef struct _MGL_D3DXVECTOR3 : public D3DXVECTOR3
+{
+public:
+    _MGL_D3DXVECTOR3(){
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+	}
+} MGL_D3DXVECTOR3, MGL_VECTOR3, MGLVECTOR3, MGLXVECTOR3;
+
 ////////////////////////////////
 //
 //		ä÷êî
