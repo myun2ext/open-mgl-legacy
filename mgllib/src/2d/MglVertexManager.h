@@ -44,6 +44,8 @@ public:
 		for(int i=0; m_vertexes.size(); i++ )
 			m_vertexes[i].color = color;
 	}
+	void Resize(int nSize){ m_vertexes.resize(nSize); }
+	void Alloc(int nSize){ m_vertexes.resize(nSize); }
 
 	_VERTEX& Get(int i){
 		if ( i >= m_vertexes.size() )
