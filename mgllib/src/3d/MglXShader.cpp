@@ -15,7 +15,7 @@ void CMglXShader::Release()
 	SAFE_RELEASE(m_pBufErrorInfo);
 }
 
-//	Xファイル読み込み
+//	シェーダーファイル読み込み
 void CMglXShader::Load(const char* szShaderScriptFile)
 {
 	InitCheck();
@@ -30,10 +30,10 @@ void CMglXShader::Load(const char* szShaderScriptFile)
 		MGLMSGNO_SHADER(12), "CMglXShader::Load()  D3DXAssembleShaderFromFile()に失敗\r\n\r\n%s", GetCompileErrorMsg() );*/
 	HRESULT hr = D3DXAssembleShaderFromFile( szShaderScriptFile, 0, NULL, &m_pBufShader, &m_pBufErrorInfo );
 	if ( hr != D3D_OK )
-		MyuThrow2( hr, MGLMSGNO_SHADER(13), "CMglXShader::LoadFromString()  次のエラーのため D3DXAssembleShader() は失敗しました。\r\n\r\n%s", GetCompileErrorMsg() );
+		MyuThrow2( hr, MGLMSGNO_SHADER(13), "CMglXShader::Load()  次のエラーのため D3DXAssembleShaderFromFile() は失敗しました。\r\n\r\n%s", GetCompileErrorMsg() );
 }
 
-//	Xファイル読み込み
+//	文字列から読み込み
 void CMglXShader::LoadFromString(const char* szAssembleString)
 {
 	InitCheck();

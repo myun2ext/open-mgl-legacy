@@ -9,20 +9,24 @@
 
 #include "mglafx.h"
 #include "MglGraphicManager.h"
+#include "D3dx8effect.h "
+
+//typedef ID3DXBuffer _MGL_ID3DXEffect_;
+typedef ID3DXEffect _MGL_ID3DXEffect_;
 
 //	クラス宣言
 class DLL_EXP CMglHlsl : public CMglDgBase
 {
 protected:
-	ID3DXBuffer *m_pBufShader;
+	_MGL_ID3DXEffect_ *m_pEffect;
 	ID3DXBuffer *m_pBufErrorInfo;
 
 	void CreatedCheck(){
-		if ( m_pBufShader != NULL )
+		if ( m_pEffect != NULL )
 			MyuThrow(MGLMSGNO_SHADER(1), "CMglHlsl  既にバッファは作成済です。");
 	}
 	void CreateCheck(){
-		if ( m_pBufShader == NULL )
+		if ( m_pEffect == NULL )
 			MyuThrow(MGLMSGNO_SHADER(2), "CMglHlsl  バッファが作成されていません。");
 	}
 
@@ -44,7 +48,7 @@ public:
 
 	const char* GetCompileErrorMsg();
 
-	CONST DWORD* GetBuffer();
+	_MGL_ID3DXEffect_* GetBuffer();
 };
 //typedef CMglHlsl CMglShaderBase;
 typedef CMglHlsl CMglShaderLoader;
