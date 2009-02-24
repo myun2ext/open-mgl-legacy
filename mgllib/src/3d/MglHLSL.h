@@ -23,11 +23,11 @@ protected:
 
 	void CreatedCheck(){
 		if ( m_pEffect != NULL )
-			MyuThrow(MGLMSGNO_SHADER(1), "CMglHlsl  既にバッファは作成済です。");
+			MyuThrow(MGLMSGNO_SHADER(201), "CMglHlsl  既に読み込み済です。");
 	}
 	void CreateCheck(){
 		if ( m_pEffect == NULL )
-			MyuThrow(MGLMSGNO_SHADER(2), "CMglHlsl  バッファが作成されていません。");
+			MyuThrow(MGLMSGNO_SHADER(202), "CMglHlsl  Load()されていません。");
 	}
 
 public:
@@ -46,11 +46,22 @@ public:
 	/*void LoadFromResource( const char* szAssembleString ); <- DirectX8 未サポート・・・
 	void CreateFromResource( const char* szAssembleString ){ LoadFromString(szAssembleString); }*/
 
+	///////////////////////////////////////////////////////////
+
+	void SetTechnique( const char* szTechniqueName );
+
+	///////////////////////////////////////////////////////////
+
 	const char* GetCompileErrorMsg();
 
-	_MGL_ID3DXEffect_* GetBuffer();
+	//	エフェクトのポインタ取得
+	_MGL_ID3DXEffect_* GetEffectPtr(){
+		InitCheck();
+		CreateCheck();
+		return m_pEffect;
+	}
 };
-//typedef CMglHlsl CMglShaderBase;
-typedef CMglHlsl CMglShaderLoader;
+
+typedef CMglHlsl CMglHLSL, CMglEffect;
 
 #endif//__MglHlsl_H__

@@ -25,7 +25,7 @@ void CMglHlsl::Load(const char* szShaderScriptFile)
 	if ( !msl::IsExistFile(szShaderScriptFile) )
 		MyuThrow(MGLMSGNO_SHADER(202), "CMglHlsl::Load()  ファイル \"%s\" は見つかりません。", szShaderScriptFile);
 
-	//	アセンブラファイル読み込みー
+	//	エフェクトファイル読み込みー
 	/*MyuAssert2( D3DXAssembleShaderFromFile( szShaderScriptFile, 0, NULL, &m_pEffect, &m_pBufErrorInfo ), D3D_OK, <- なんかGetCompileErrorMsg()が先に実行されてしまうらしい・・・まぁ最適化とかでかね・・・
 		MGLMSGNO_SHADER(12), "CMglHlsl::Load()  D3DXAssembleShaderFromFile()に失敗\r\n\r\n%s", GetCompileErrorMsg() );*/
 	HRESULT hr = D3DXCreateEffectFromFile( m_d3d, szShaderScriptFile, &m_pEffect, &m_pBufErrorInfo );
@@ -39,14 +39,13 @@ void CMglHlsl::LoadFromString(const char* szAssembleString)
 	InitCheck();
 	CreatedCheck();
 
-	//	アセンブラファイル読み込みー
+	//	エフェクト読み込みー
 	/*MyuAssert2( D3DXAssembleShader( szAssembleString, strlen(szAssembleString), <- なんかGetCompileErrorMsg()が先に実行されてしまうらしい・・・まぁ最適化とかでかね・・・
 		0, NULL, &m_pEffect, &m_pBufErrorInfo ), D3D_OK,
 		MGLMSGNO_SHADER(13), "CMglHlsl::LoadFromString()  D3DXAssembleShader()に失敗\r\n\r\n%s", GetCompileErrorMsg() );*/
-	//	アセンブラファイル読み込みー
 	HRESULT hr = D3DXCreateEffect( m_d3d, szAssembleString, strlen(szAssembleString), &m_pEffect, &m_pBufErrorInfo );
 	if ( hr != D3D_OK )
-		MyuThrow2( hr, MGLMSGNO_SHADER(213), "CMglHlsl::LoadFromString()  次のエラーのため D3DXCreateEffect() は失敗しました。\r\n\r\n%s", GetCompileErrorMsg() );
+		MyuThrow2( hr, MGLMSGNO_SHADER(214), "CMglHlsl::LoadFromString()  次のエラーのため D3DXCreateEffect() は失敗しました。\r\n\r\n%s", GetCompileErrorMsg() );
 }
 
 //	エラーメッセージ取得
@@ -58,12 +57,23 @@ const char* CMglHlsl::GetCompileErrorMsg()
 	return (const char*) m_pBufErrorInfo->GetBufferPointer();
 }
 
+//	テクニックを設定
+void CMglHlsl::SetTechnique( const char* szTechniqueName )
+{
+	InitCheck();
+	CreateCheck();
+
+	//	アセンブラファイル読み込みー
+	MyuAssert2( m_pEffect->SetTechnique( szTechniqueName ), D3D_OK,
+		MGLMSGNO_SHADER(240), "CMglHlsl::SetTechnique()  m_pEffect->SetTechnique()に失敗" );
+}
+
 //	バッファ取得
-_MGL_ID3DXEffect_* CMglHlsl::GetBuffer()
+/*_MGL_ID3DXEffect_* CMglHlsl::GetEffectPtr()
 {
 	InitCheck();
 	CreateCheck();
 
 	return m_pEffect;
 }
-
+*/
