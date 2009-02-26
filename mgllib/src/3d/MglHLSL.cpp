@@ -6,6 +6,8 @@ CMglHlsl::CMglHlsl()
 {
 	m_pEffect = NULL;
 	m_pBufErrorInfo = NULL;
+
+	m_nPassCount = 0;
 }
 
 //	開放
@@ -18,7 +20,6 @@ void CMglHlsl::Release()
 //	エフェクトファイル読み込み
 void CMglHlsl::Load(const char* szShaderScriptFile)
 {
-	InitCheck();
 	CreatedCheck();
 
 	//	ファイルが本当にあるかどうか？
@@ -36,7 +37,6 @@ void CMglHlsl::Load(const char* szShaderScriptFile)
 //	文字列から読み込み
 void CMglHlsl::LoadFromString(const char* szAssembleString)
 {
-	InitCheck();
 	CreatedCheck();
 
 	//	エフェクト読み込みー
@@ -58,14 +58,52 @@ const char* CMglHlsl::GetCompileErrorMsg()
 }
 
 //	テクニックを設定
-void CMglHlsl::SetTechnique( const char* szTechniqueName )
+void CMglHlsl::SetTechnique( _MGL_D3DXHANDLE szTechniqueName )
 {
-	InitCheck();
 	CreateCheck();
 
 	//	アセンブラファイル読み込みー
 	MyuAssert2( m_pEffect->SetTechnique( szTechniqueName ), D3D_OK,
 		MGLMSGNO_SHADER(240), "CMglHlsl::SetTechnique()  m_pEffect->SetTechnique()に失敗" );
+}
+
+////////////////////////////////////////////////////////////////
+
+//	Begin()
+UINT CMglHlsl::Begin( bool bRestoreCurrentRenderStates )
+{
+	CreateCheck();
+
+	DWORD dwFlags = 0;
+	if ( !bRestoreCurrentRenderStates )
+		dwFlags = /*D3DXFX_DONOTSAVESHADERSTATE |*/ D3DXFX_DONOTSAVESTATE ;
+
+	//	Begin
+	MyuAssert2( m_pEffect->Begin( &m_nPassCount, dwFlags ), D3D_OK,
+		MGLMSGNO_SHADER(280), "CMglHlsl::Begin()  m_pEffect->Begin()に失敗" );
+
+	return m_nPassCount;
+}
+UINT CMglHlsl::Begin() {
+	return Begin(true);
+}
+
+//	End()
+void CMglHlsl::End()
+{
+	CreateCheck();
+	MyuAssert2( m_pEffect->End(), D3D_OK,
+		MGLMSGNO_SHADER(281), "CMglHlsl::End()  m_pEffect->End()に失敗" );
+
+	m_nPassCount = 0;
+}
+
+//	Pass()
+void CMglHlsl::Pass(UINT nPassNo)
+{
+	CreateCheck();
+	MyuAssert2( m_pEffect->Pass(nPassNo), D3D_OK,
+		MGLMSGNO_SHADER(284), "CMglHlsl::Pass()  m_pEffect->Pass(%s)に失敗", nPassNo );
 }
 
 //	バッファ取得

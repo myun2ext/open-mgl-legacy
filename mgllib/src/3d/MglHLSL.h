@@ -14,6 +14,8 @@
 //typedef ID3DXBuffer _MGL_ID3DXEffect_;
 typedef ID3DXEffect _MGL_ID3DXEffect_;
 
+typedef LPCSTR _MGL_D3DXHANDLE;	
+
 //	クラス宣言
 class DLL_EXP CMglHlsl : public CMglDgBase
 {
@@ -22,13 +24,19 @@ protected:
 	ID3DXBuffer *m_pBufErrorInfo;
 
 	void CreatedCheck(){
+		InitCheck();
 		if ( m_pEffect != NULL )
 			MyuThrow(MGLMSGNO_SHADER(201), "CMglHlsl  既に読み込み済です。");
 	}
 	void CreateCheck(){
+		InitCheck();
 		if ( m_pEffect == NULL )
 			MyuThrow(MGLMSGNO_SHADER(202), "CMglHlsl  Load()されていません。");
 	}
+
+	////////////////////////////////////
+
+	UINT m_nPassCount;
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -49,6 +57,13 @@ public:
 	///////////////////////////////////////////////////////////
 
 	void SetTechnique( const char* szTechniqueName );
+	//void SetTexture( const char* szTechniqueName );
+
+	UINT Begin( bool bRestoreCurrentRenderStates );
+	UINT Begin();
+	void End();
+	void Pass(UINT nPassNo=0);
+	UINT GetPassCount(){ return m_nPassCount; }
 
 	///////////////////////////////////////////////////////////
 

@@ -1,6 +1,7 @@
 #ifndef __MGL_MyuGameLibrary_H__
 #define __MGL_MyuGameLibrary_H__
 
+#pragma warning( disable : 4786 )	//	STL description 255 over warning disable
 
 #include "mglafx.h"
 //#include "mgl_global.h"
