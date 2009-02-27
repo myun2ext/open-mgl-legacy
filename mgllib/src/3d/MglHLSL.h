@@ -17,7 +17,7 @@ typedef ID3DXEffect _MGL_ID3DXEffect_;
 typedef LPCSTR _MGL_D3DXHANDLE;	
 
 //	クラス宣言
-class DLL_EXP CMglHlsl : public CMglDgBase
+class DLL_EXP CMglEffectCore : public CMglDgBase
 {
 protected:
 	_MGL_ID3DXEffect_ *m_pEffect;
@@ -40,8 +40,8 @@ protected:
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMglHlsl();
-	virtual ~CMglHlsl(){ Release(); }
+	CMglEffectCore();
+	virtual ~CMglEffectCore(){ Release(); }
 	void Release();
 
 	void Load(const char* szShaderScriptFile);
@@ -75,6 +75,13 @@ public:
 		CreateCheck();
 		return m_pEffect;
 	}
+};
+
+////////////////////////////////////////
+
+class CMglHlsl : public CMglEffectCore
+{
+
 };
 
 typedef CMglHlsl CMglHLSL, CMglEffect;
