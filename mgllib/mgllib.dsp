@@ -342,10 +342,6 @@ SOURCE=.\src\3d\MglPixelShader.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\src\3d\MglVertexShader.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\src\3d\MglVertexShader.h
 # End Source File
 # Begin Source File
