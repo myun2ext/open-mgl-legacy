@@ -195,7 +195,67 @@ D3DDEVCAPS_TLVERTEXVIDEOMEMORY
 	fprintf( fp, "VertexShaderVersion :      %s\n", GetShaderVersionString(caps->VertexShaderVersion).c_str() );
 	fprintf( fp, "PixelShaderVersion :       %s\n", GetShaderVersionString(caps->PixelShaderVersion ).c_str() );
 	fprintf( fp, "MaxVertexShaderConst :     %u\n", caps->MaxVertexShaderConst );
+#if _MGL_DXVER == 8
 	fprintf( fp, "MaxPixelShaderValue :      %f\n\n", caps->MaxPixelShaderValue );
+#else //if _MGL_DXVER == 9
+	//	DirectX 9
+	fprintf( fp, "\n\n==== DirectX 9 =====================================\n\n" );
+
+	fprintf( fp, "PixelShader1xMaxValue :    %f\n\n", caps->PixelShader1xMaxValue );
+
+	fprintf( fp, "DevCaps2 :                 0x%08x\n\n", caps->DevCaps2 );
+
+	fprintf( fp, "MaxNpatchTessellationLevel :       %f\n\n", caps->MaxNpatchTessellationLevel );
+
+	fprintf( fp, "MasterAdapterOrdinal :             %u\n", caps->MasterAdapterOrdinal );
+	fprintf( fp, "AdapterOrdinalInGroup :            %u\n", caps->AdapterOrdinalInGroup );
+	fprintf( fp, "NumberOfAdaptersInGroup :          %u\n\n", caps->NumberOfAdaptersInGroup );
+
+	fprintf( fp, "DeclTypes :                        0x%08x\n", caps->DeclTypes );
+	fprintf( fp, "NumSimultaneousRTs :               %u\n", caps->NumSimultaneousRTs );
+	fprintf( fp, "StretchRectFilterCaps :            0x%08x\n\n", caps->StretchRectFilterCaps );
+
+	//	Vertex Shader 2.0
+	fprintf( fp, "\n\n==== Vertex Shader 2.0 ===============================\n\n" );
+	fprintf( fp, "VS20Caps :                         0x%08x\n", caps->VS20Caps );
+	fprintf( fp, "PS20Caps :                         0x%08x\n\n", caps->PS20Caps );
+
+	fprintf( fp, "VertexTextureFilterCaps :          0x%08x\n", caps->VertexTextureFilterCaps );
+	fprintf( fp, "MaxVShaderInstructionsExecuted :   %u\n", caps->MaxVShaderInstructionsExecuted );
+	fprintf( fp, "MaxPShaderInstructionsExecuted :   %u\n", caps->MaxPShaderInstructionsExecuted );
+
+	//	Vertex Shader 3.0 - (DirectX 9.0 over)
+	fprintf( fp, "\n\n==== Vertex Shader 3.0 ===============================\n\n" );
+	fprintf( fp, "MaxVertexShader30InstructionSlots :%u\n", caps->MaxVertexShader30InstructionSlots );
+	fprintf( fp, "MaxPixelShader30InstructionSlots : %u\n", caps->MaxPixelShader30InstructionSlots );
+
+/*
+********** DirectX 9 **************
+
+    float   PixelShader1xMaxValue;      // max value storable in registers of ps.1.x shaders
+
+    // Here are the DX9 specific ones
+    DWORD   DevCaps2;
+
+    float   MaxNpatchTessellationLevel;
+    DWORD   Reserved5;
+
+    UINT    MasterAdapterOrdinal;       // ordinal of master adaptor for adapter group
+    UINT    AdapterOrdinalInGroup;      // ordinal inside the adapter group
+    UINT    NumberOfAdaptersInGroup;    // number of adapters in this adapter group (only if master)
+    DWORD   DeclTypes;                  // Data types, supported in vertex declarations
+    DWORD   NumSimultaneousRTs;         // Will be at least 1
+    DWORD   StretchRectFilterCaps;      // Filter caps supported by StretchRect
+    D3DVSHADERCAPS2_0 VS20Caps;
+    D3DPSHADERCAPS2_0 PS20Caps;
+    DWORD   VertexTextureFilterCaps;    // D3DPTFILTERCAPS for IDirect3DTexture9's for texture, used in vertex shaders
+    DWORD   MaxVShaderInstructionsExecuted; // maximum number of vertex shader instructions that can be executed
+    DWORD   MaxPShaderInstructionsExecuted; // maximum number of pixel shader instructions that can be executed
+    DWORD   MaxVertexShader30InstructionSlots; 
+    DWORD   MaxPixelShader30InstructionSlots;
+} D3DCAPS9;
+*/
+#endif
 
 /*
     /* Device Info *
@@ -273,6 +333,7 @@ x   DWORD   PixelShaderVersion;
 x   float   MaxPixelShaderValue;        // max value of pixel shader arithmetic component
 
 */
+
 }
 
 void CMglD3dCapsDumper::DumpFlagItem( FILE *fp, DWORD dwValue, DWORD dwMask, const char* szName )

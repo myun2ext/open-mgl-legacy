@@ -48,7 +48,7 @@ class DLL_EXP CMgl3dDots : public CMglVertexManagerXT<MGL_DOT_VERTEX>
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
-	IDirect3DDevice8* m_d3d;			//	D3DDeviceへのポインタ
+	_IDirect3DDeviceX* m_d3d;			//	D3DDeviceへのポインタ
 
 	//	内部メソッド（チェック用）
 	void InitCheck() {

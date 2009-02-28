@@ -3,6 +3,12 @@
 
 #include "MglGraphicManager.h"
 
+#if _MGL_DXVER == 8
+	typedef BYTE MGL_LOCKED_VERTEX_BUFFER_t;
+#else //_MGL_DXVER == 9
+	typedef void MGL_LOCKED_VERTEX_BUFFER_t;
+#endif
+
 //	ÉNÉâÉXêÈåæ
 //class CMglVertexManager
 template <typename _VERTEX = MYUX_VERTEX>

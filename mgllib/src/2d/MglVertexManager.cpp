@@ -31,12 +31,23 @@ void _CMglVertexManagerXT_Realize::CompileToFastMem(D3DPOOL pool, DWORD dwUsage)
 	//	2009/01/18 前のが残ってたらそのまま流用するんだわさ。
 	if ( m_pVB == NULL ){
 		//	頂点バッファの作成
+#if _MGL_DXVER == 8
 		MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB), D3D_OK,
+#else
+		MyuAssert( d3d->CreateVertexBuffer( nSize, dwUsage, m_dwFVF, pool, &m_pVB, NULL/* Reserved in DX9 */), D3D_OK,
+#endif
 			"CMglVertexManagerXT::CompileToFastMem()  d3d->CreateVertexBuffer()に失敗" );
 	}
 
 	//	ロック
-    BYTE* pLocked;
+	/*
+#if _MGL_DXVER == 8
+	BYTE* pLocked;
+#elif _MGL_DXVER == 9
+	void* pLocked;
+#endif*/
+	MGL_LOCKED_VERTEX_BUFFER_t* pLocked;
+
 	MyuAssert( m_pVB->Lock( 0, nSize, &pLocked, 0), D3D_OK,
 		"CMglVertexManagerXT::CompileToFastMem()  m_pVB->Lock()に失敗" );
 
@@ -71,10 +82,15 @@ void _CMglVertexManagerXT_Realize::Draw( D3DPRIMITIVETYPE primitiveType )
 		//	TODO: CompileToFastMem()しないと駄目な気がする（pool, dwUsage覚えとかないとね・・・）
 
 		//	設定するです
+#if _MGL_DXVER == 8
 		MyuAssert( d3d->SetStreamSource( 0, m_pVB, m_nVertexSizeof ), D3D_OK,
+#else
+		MyuAssert( d3d->SetStreamSource( 0, m_pVB, 0/* offset support in D3DDEVCAPS2 only*/, m_nVertexSizeof ), D3D_OK,
+#endif
 			"CMglVertexManagerXT::Draw()  d3d->SetStreamSource()に失敗" );
-		MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
-			"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()に失敗" );
+		/*MyuAssert( d3d->SetVertexShader( m_dwFVF ), D3D_OK,
+			"CMglVertexManagerXT::Draw()  d3d->SetVertexShader()に失敗" );*/
+		m_myudg->SetFVF( m_dwFVF );
 
 		//	プリミティブ数はプリミティブ種別により異なる・・・
 		int nPrimitiveCount = -1;

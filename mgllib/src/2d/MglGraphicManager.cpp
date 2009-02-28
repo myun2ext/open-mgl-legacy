@@ -302,10 +302,10 @@ void CMglGraphicManager::Direct3DCreate()
 		return;
 
 	//	D3Dオブジェクトの生成
-#if _MGL_DXVER == 9
-	m_pD3d = Direct3DCreate9( D3D_SDK_VERSION );
-#else
+#if _MGL_DXVER == 8
 	m_pD3d = Direct3DCreate8( D3D_SDK_VERSION );
+#else
+	m_pD3d = Direct3DCreate9( D3D_SDK_VERSION );
 #endif
 	if ( NULL == m_pD3d )
 		MyuThrow2( MGLMSGNO_GRPMGR(40), MGLMSGNO_GRP_MANAGER_D3DCREATE_FAILED,
@@ -385,9 +385,15 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 }
 
 //	Vertexを設定
-void CMglGraphicManager::SetFVF(DWORD dwFvf){
+void CMglGraphicManager::SetFVF(DWORD dwFvf)
+{
+#if _MGL_DXVER == 8
 	MyuAssert2( this->m_pD3dDev->SetVertexShader( dwFvf ), D3D_OK,
-		MGLMSGNO_GRPMGR(93), "CMglGraphicManager::SetFVF()  SetVertexShader()に失敗" );
+		MGLMSGNO_GRPMGR(93), "CMglGraphicManager::SetFVF()  m_pD3dDev->SetVertexShader()に失敗" );
+#else
+	MyuAssert2( this->m_pD3dDev->SetFVF( dwFvf ), D3D_OK,
+		MGLMSGNO_GRPMGR(93), "CMglGraphicManager::SetFVF()  m_pD3dDev->SetFVF()に失敗" );
+#endif
 }
 
 //	Direct3D の CreateDevice()を独自フラグにより呼び出す

@@ -100,8 +100,8 @@ using namespace std;
 #include <dplay.h>	//	ÉRÉCÉcÇÃíÜÇ…Ç†ÇÈèLÇ¢ÇÃÇ≈à¯Ç¡í£Ç¡ÇƒÇ≠ÇÈ
 
 #ifndef _MGL_DXVER
-	#define _MGL_DXVER 8
-	//#define _MGL_DXVER 9
+	//#define _MGL_DXVER 8
+	#define _MGL_DXVER 9
 	//#define _MGL_DXVER 10
 #endif
 
@@ -112,6 +112,7 @@ using namespace std;
 	#pragma comment(lib, "D3dx9.lib")
 	#include <D3d9.h>
 	#include <D3dx9core.h>
+	#include <D3dx9effect.h>
 
 	#pragma comment(lib, "dinput8.lib")
 	#define DIRECTINPUT_VERSION		(0x0800)
@@ -168,6 +169,7 @@ using namespace std;
 	#pragma comment(lib, "D3dx8.lib")
 	#include <D3d8.h>
 	#include <D3dx8core.h>
+	#include <D3dx8effect.h>
 
 	#pragma comment(lib, "dinput8.lib")
 	#define DIRECTINPUT_VERSION		(0x0800)

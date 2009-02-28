@@ -9,7 +9,6 @@
 
 #include "mglafx.h"
 #include "MglGraphicManager.h"
-#include "D3dx8effect.h "
 
 //typedef ID3DXBuffer _MGL_ID3DXEffect_;
 typedef ID3DXEffect _MGL_ID3DXEffect_;
