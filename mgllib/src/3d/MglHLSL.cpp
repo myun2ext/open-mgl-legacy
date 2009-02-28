@@ -8,6 +8,7 @@ CMglEffectCore::CMglEffectCore()
 	m_pBufErrorInfo = NULL;
 
 	m_nPassCount = 0;
+	m_bPassBegun = false;
 }
 
 //	開放
@@ -29,7 +30,11 @@ void CMglEffectCore::Load(const char* szShaderScriptFile)
 	//	エフェクトファイル読み込みー
 	/*MyuAssert2( D3DXAssembleShaderFromFile( szShaderScriptFile, 0, NULL, &m_pEffect, &m_pBufErrorInfo ), D3D_OK, <- なんかGetCompileErrorMsg()が先に実行されてしまうらしい・・・まぁ最適化とかでかね・・・
 		MGLMSGNO_SHADER(12), "CMglEffectCore::Load()  D3DXAssembleShaderFromFile()に失敗\r\n\r\n%s", GetCompileErrorMsg() );*/
+#if _MGL_DXVER == 8
 	HRESULT hr = D3DXCreateEffectFromFile( m_d3d, szShaderScriptFile, &m_pEffect, &m_pBufErrorInfo );
+#else
+	HRESULT hr = D3DXCreateEffectFromFile( m_d3d, szShaderScriptFile, NULL, NULL, 0, NULL, &m_pEffect, &m_pBufErrorInfo );
+#endif
 	if ( hr != D3D_OK )
 		MyuThrow2( hr, MGLMSGNO_SHADER(213), "CMglEffectCore::Load()  次のエラーのため D3DXCreateEffectFromFile() は失敗しました。\r\n\r\n%s", GetCompileErrorMsg() );
 }
@@ -43,7 +48,12 @@ void CMglEffectCore::LoadFromString(const char* szAssembleString)
 	/*MyuAssert2( D3DXAssembleShader( szAssembleString, strlen(szAssembleString), <- なんかGetCompileErrorMsg()が先に実行されてしまうらしい・・・まぁ最適化とかでかね・・・
 		0, NULL, &m_pEffect, &m_pBufErrorInfo ), D3D_OK,
 		MGLMSGNO_SHADER(13), "CMglEffectCore::LoadFromString()  D3DXAssembleShader()に失敗\r\n\r\n%s", GetCompileErrorMsg() );*/
+#if _MGL_DXVER == 8
 	HRESULT hr = D3DXCreateEffect( m_d3d, szAssembleString, strlen(szAssembleString), &m_pEffect, &m_pBufErrorInfo );
+#else
+	HRESULT hr = D3DXCreateEffect( m_d3d, szAssembleString, strlen(szAssembleString),
+		NULL, NULL, 0, NULL, &m_pEffect, &m_pBufErrorInfo );
+#endif
 	if ( hr != D3D_OK )
 		MyuThrow2( hr, MGLMSGNO_SHADER(214), "CMglEffectCore::LoadFromString()  次のエラーのため D3DXCreateEffect() は失敗しました。\r\n\r\n%s", GetCompileErrorMsg() );
 }
@@ -92,18 +102,43 @@ UINT CMglEffectCore::Begin() {
 void CMglEffectCore::End()
 {
 	CreateCheck();
+
+	//	2009/22/28 - DirectX9対応
+	EndPass();
+
 	MyuAssert2( m_pEffect->End(), D3D_OK,
 		MGLMSGNO_SHADER(281), "CMglEffectCore::End()  m_pEffect->End()に失敗" );
 
 	m_nPassCount = 0;
 }
 
-//	Pass()
-void CMglEffectCore::Pass(UINT nPassNo)
+//	Pass() -> BeginPass()
+void CMglEffectCore::BeginPass(UINT nPassNo)
 {
 	CreateCheck();
+#if _MGL_DXVER == 8
 	MyuAssert2( m_pEffect->Pass(nPassNo), D3D_OK,
-		MGLMSGNO_SHADER(284), "CMglEffectCore::Pass()  m_pEffect->Pass(%s)に失敗", nPassNo );
+		MGLMSGNO_SHADER(284), "CMglEffectCore::BeginPass()  m_pEffect->Pass(%s)に失敗", nPassNo );
+#else
+	EndPass();
+	MyuAssert2( m_pEffect->BeginPass(nPassNo), D3D_OK,
+		MGLMSGNO_SHADER(284), "CMglEffectCore::BeginPass()  m_pEffect->BeginPass(%s)に失敗", nPassNo );
+
+	m_bPassBegun = true;
+#endif
+}
+
+//	EndPass()
+void CMglEffectCore::EndPass()
+{
+#if _MGL_DXVER != 8
+	CreateCheck();
+
+	if ( m_bPassBegun )
+		MyuAssert2( m_pEffect->EndPass(), D3D_OK,
+			MGLMSGNO_SHADER(285), "CMglEffectCore::EndPass()  m_pEffect->EndPass()に失敗" );
+	m_bPassBegun = false;
+#endif
 }
 
 //	バッファ取得

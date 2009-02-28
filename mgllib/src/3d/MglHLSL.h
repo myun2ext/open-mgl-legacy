@@ -36,6 +36,7 @@ protected:
 	////////////////////////////////////
 
 	UINT m_nPassCount;
+	bool m_bPassBegun;
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -61,7 +62,9 @@ public:
 	UINT Begin( bool bRestoreCurrentRenderStates );
 	UINT Begin();
 	void End();
-	void Pass(UINT nPassNo=0);
+	void Pass(UINT nPassNo=0){ BeginPass(nPassNo); }
+	void BeginPass(UINT nPassNo=0);
+	void EndPass();
 	UINT GetPassCount(){ return m_nPassCount; }
 
 	///////////////////////////////////////////////////////////
