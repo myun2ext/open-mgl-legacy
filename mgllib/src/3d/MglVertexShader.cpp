@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MglVertexShader.h"
 
+#if _MGL_DXVER == 8
 class CMglVertexShaderDeclaration
 {
 protected:
@@ -71,6 +72,7 @@ public:
 
 	DWORD* Get(){ return &m_list[0]; }
 };
+#endif
 
 /*
 
@@ -119,7 +121,7 @@ CMglVertexShader::CMglVertexShader()
 //	開放
 void CMglVertexShader::Release()
 {
-#if _MGL_DXVER == 9	//	DirectXでは”ただのハンドル”ですので・・・
+#if _MGL_DXVER != 8	//	DirectX8では”ただのハンドル”ですので・・・
 	SAFE_RELEASE(m_pShader);
 #endif
 	ReleaseShader();
@@ -154,10 +156,7 @@ void CMglVertexShader::LoadFromString( const char* szAssembleString )
 //	Load共通
 void CMglVertexShader::LoadCommon(CONST DWORD* pFunction)
 {
-#if _MGL_DXVER == 9	//	DirectXでは”ただのハンドル”ですので・・・
-	MyuAssert2( m_d3d->CreateVertexShader( pFunction, &m_pShader ), D3D_OK,
-		MGLMSGNO_SHADER(96), "CMglVertexShader::Load()  m_d3d->CreateVertexShader()に失敗" );
-#else
+#if _MGL_DXVER == 8
 	if ( m_dwFvf == 0 )
 		MyuThrow( MGLMSGNO_SHADER(102), "CMglVertexShader::Load()  SetFVF() にて頂点フォーマットを指定してください。" );
 
@@ -188,6 +187,9 @@ void CMglVertexShader::LoadCommon(CONST DWORD* pFunction)
 	MyuAssert2( m_d3d->CreateVertexShader( decl.Get(), pFunction, &m_pShader, 0 ), D3D_OK,
 	//MyuAssert2( m_d3d->CreateVertexShader( dwDecl, pFunction, &m_pShader, 0 ), D3D_OK,
 		MGLMSGNO_SHADER(96), "CMglVertexShader::Load()  m_d3d->CreateVertexShader()に失敗" );
+#else
+	MyuAssert2( m_d3d->CreateVertexShader( pFunction, &m_pShader ), D3D_OK,
+		MGLMSGNO_SHADER(96), "CMglVertexShader::Load()  m_d3d->CreateVertexShader()に失敗" );
 #endif
 }
 
@@ -215,7 +217,11 @@ void CMglVertexShader::SetShaderParam(DWORD dwStartRegisterNo, const void* lpDat
 	InitCheck();
 	CreateCheck();
 
+#if _MGL_DXVER == 8
 	MyuAssert2( m_d3d->SetVertexShaderConstant( dwStartRegisterNo*4, (VOID*)lpData, dwDataBlockCount*4), D3D_OK,
+#else
+	MyuAssert2( m_d3d->SetVertexShaderConstantF( dwStartRegisterNo*4, (const float*)lpData, dwDataBlockCount*4), D3D_OK,
+#endif
 		MGLMSGNO_SHADER(98), "CMglVertexShader::SetShaderParam()  m_d3d->SetVertexShaderConstant()に失敗" );
 }
 
