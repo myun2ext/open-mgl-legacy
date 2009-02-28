@@ -86,6 +86,7 @@ extern int g_nSfcCount;
 extern int g_2dgCount;
 
 #define DELREF()	if( m_myudg != NULL && g_2dgCount > 0 ){ m_myudg->RmRefOfAutoRelease( this ); }else{}
+#define MGLGRP_DEFREF()		DELREF()
 
 class CMglTexture;
 class CMgl3dManager;
@@ -309,5 +310,47 @@ public:
 };
 typedef CMglDgBase CMglDgClassBase;
 
+////////////////////////////////////////////////////////////
+
+template <typename T> class CMglDgIBase : public CMglDgBase
+{
+protected:
+	T* m_pI;
+
+	void CreatedCheck(){
+		InitCheck();
+		if ( m_pI != NULL )
+			MyuThrow(MsgNoBase()+1, "%s  既に読み込み済です。", ClassName());
+	}
+	void CreateCheck(){
+		InitCheck();
+		if ( m_pI == NULL )
+			MyuThrow(MsgNoBase()+2, "%s  作成されていません。", ClassName());
+	}
+
+	virtual int MsgNoBase(){return 0;}
+	virtual const char* ClassName(){return "????";}
+
+public:
+	CMglDgIBase(){
+		m_pI = NULL;
+	}
+	virtual ~CMglDgIBase(){
+		//	自動開放用のリファレンスを削除
+		MGLGRP_DEFREF();
+	}
+
+	//	初期化/開放
+	virtual void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
+		CMglDgBase::Init(in_myudg);
+
+		//	2009/02/28
+		m_myudg->AddRefOfAutoRelease( this );
+	}
+
+	virtual void Release(){
+		SAFE_RELEASE(m_pI);
+	}
+};
 
 #endif//__MglGraphicManager_H__

@@ -7,96 +7,50 @@
 
 #include "stdafx.h"
 
-#if _MGL_DXVER == 8
+#if _MGL_DXVER == 9
 #include "MglText.h"
 
 //	コンストラクタ
-/*CMglText::CMglText()
+CMglText::CMglText()
 {
 	_Init();
-
-	//	デフォルトフォント
-	Create();
-}*/
+}
 
 //	デストラクタ
 CMglText::~CMglText()
 {
-	Release();
+	//Release();
 }
 
 ////// 作成系 //////////////////////////////////////////////////////
 
-//	サイズ指定による作成
-void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, int nHeight )
+//	作成
+void CMglText::Create( int nHeight, const char* szFontName, BOOL bItalic, BOOL bBold )
 {
-	Release();	//	一応リリース
-
-	HFONT hFont = CreateFont( nHeight, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, 0, 0, 4, 0, "" );
-	if ( hFont == NULL )
-		MyuThrow( 0, "CMglText::InitAndCreate()  CreateFont()に失敗。" );
-
-	InitAndCreate( in_myudg, hFont );
-
-	//	20007/01/02
-	DeleteObject(hFont);
-}
-
-//	szFontNameのデフォルトは空文字またはNULL
-void CMglText::Create( CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
-		BOOL bItalic, BOOL bBold, BOOL bUnderLine, BOOL bStrikeOut, float fAngle )
-{
-	Release();	//	一応リリース
+	CreatedCheck();
+	//Release();	//	一応リリース
 
 	int nWeight = FW_DONTCARE;
 	if ( bBold )
 		nWeight = FW_BOLD;
 
-	HFONT hFont = CreateFont( nHeight, 0, (int)(fAngle*10), (int)(fAngle*10),
-		nWeight, bItalic, bUnderLine, bStrikeOut, DEFAULT_CHARSET, 0, 0, 4, 0, szFontName );
+	if ( szFontName == NULL || *szFontName == '\0' )
+		szFontName = "ＭＳ Ｐゴシック";
 
-	if ( hFont == NULL )
-		MyuThrow( 0, "CMglText::InitAndCreate()  CreateFont()に失敗。" );
+	MyuAssert( D3DXCreateFont( m_d3d, nHeight, nHeight, nWeight, 1, bItalic,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
+		szFontName, &m_pI ), D3D_OK,
+		"CMglText::Create()  D3DXCreateFont()に失敗。" );
 
-	InitAndCreate( in_myudg, hFont );
-
-	//	20007/01/02
-	DeleteObject(hFont);
-}
-	
-//	初期化及び作成
-void CMglText::InitAndCreate( CMglGraphicManager* in_myudg, HFONT hFont )
-{
-	Release();	//	一応リリース
-
-	if ( bCreateFlg == TRUE )
-		MyuThrow( 0, "CMglText::InitAndCreate()  既に InitAndCreate() は実行されています。" );
-
-	if ( hFont == NULL )
-		MyuThrow( 0, "CMglText::InitAndCreate()  hFontがNULLです。" );
-
-	m_myudg = in_myudg;
-	m_d3d = m_myudg->GetD3dDevPtr();
-
-	//	自動開放用にリファレンスを追加
-	m_myudg->AddRefOfAutoRelease( this );
-
-	MyuAssert( D3DXCreateFont( m_d3d, hFont, &m_text ),
-		D3D_OK, "CMglText::InitAndCreate()  D3DXCreateFont()に失敗。" );
-
-	bCreateFlg = TRUE;
+	m_text = m_pI;
 }
 
 //	明示的開放
-void CMglText::Release()
+/*void CMglText::Release()
 {
-	//	自動開放用のリファレンスを削除
-	DELREF();
-
-	SAFE_RELEASE( m_text );
-
-	bCreateFlg = FALSE;
-}
+	//SAFE_RELEASE( m_text );
+	//bCreateFlg = FALSE;
+}*/
 
 
 ////// 絵画系 //////////////////////////////////////////////////////
@@ -105,8 +59,7 @@ void CMglText::Release()
 //	絵画
 void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD dwOption )
 {
-	if ( bCreateFlg == FALSE )
-		MyuThrow( 0, "CMglText::Draw()  InitAndCreate() または InitAndEzCreate() を実行してください。" );
+	CreateCheck();
 
 	RECT rect;
 	if ( (dwOption & DT_RIGHT) != 0 )

@@ -111,63 +111,6 @@ public:
 
 #else
 
-DLL_TMPL_EXP CMglDgIBase<ID3DXFont>;
-
-//	クラス宣言 - Direct9
-class DLL_EXP CMglText : public CMglDgIBase<ID3DXFont> //: public CMglDgBase
-{
-private:
-	//	インターフェース
-	ID3DXFont *m_text;
-
-	//	フォント設定
-	BOOL bSetParamFlg;
-	int m_nX;
-	int m_nY;
-	DWORD m_dwOption;
-	D3DCOLOR m_color;
-
-	void SetParamCheck() {
-		if ( bSetParamFlg != TRUE )
-			MyuThrow( 0, "CMglText::Draw(),fDraw()  SetDrawParam()が設定されていないのに引数を省略しました。" );
-	}
-	void _Init(){
-		m_text = NULL;
-		m_nX = 0;
-		m_nY = 0;
-		m_dwOption = 0;
-		m_color = 0;
-	}
-
-public:
-	CMglText();
-	virtual ~CMglText();
-
-	//	作成
-	void Create( int nHeight=MGL_TEXT_DEFAULT_FONT_SIZE, const char* szFontName=NULL,
-		BOOL bItalic=FALSE, BOOL bBold=FALSE );
-
-	//	開放
-	//void Release();
-
-	//	絵画
-	void Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD dwOption=0 );
-	void Draw( const char* szString, D3DCOLOR color ) {
-		SetParamCheck();
-		Draw( szString, m_nX, m_nY, color, m_dwOption );
-	}
-	void Draw( const char* szString, int nX, int nY ) {
-		SetParamCheck();
-		Draw( szString, nX, nY, m_color, m_dwOption );
-	}
-	void Draw( const char* szString ){ FDraw( szString ); }
-	void FDraw( const char* szString, ... );
-	void SetDrawParam( int in_nX, int in_nY, D3DCOLOR in_color, DWORD in_dwOption=0 );
-
-
-	virtual int MsgNoBase(){ return MGLMSGNO_TEXT(0); }
-	virtual const char* ClassName(){ return "CMglText"; }
-};
 
 #endif
 
