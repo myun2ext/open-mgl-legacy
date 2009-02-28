@@ -19,10 +19,13 @@
 class DLL_EXP CMglMesh : public CMglDgBase
 {
 protected:
-	ID3DXMesh*				m_pMesh;			// メッシュ
-	_D3DMATERIALx*			m_pMeshMaterials;	// メッシュの質感
-	_IDirect3DTextureX**	m_pMeshTextures;	// メッシュのテクスチャ群
-	DWORD					m_dwMaterialCount;	// マテリアルの数
+	ID3DXMesh*				m_pMesh;			//	メッシュ
+	_D3DMATERIALx*			m_pMeshMaterials;	//	メッシュの質感
+	_IDirect3DTextureX**	m_pMeshTextures;	//	メッシュのテクスチャ群
+	ID3DXBuffer*			m_pAdjacency;		//	隣接性データを含むバッファ
+	ID3DXBuffer*			m_pEffectInstances;	//	返されるメッシュ内の属性グループごとに 1 つの、エフェクト インスタンスの配列を含むバッファ
+
+	DWORD					m_dwMaterialCount;	//	マテリアルの数
 
 	//-------------------------------------------------------------
 

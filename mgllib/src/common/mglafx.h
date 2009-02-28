@@ -131,6 +131,7 @@ using namespace std;
 	typedef IDirect3DTexture9 _IDirect3DTextureX;
 	typedef IDirect3DVertexBuffer9 _IDirect3DVertexBufferX;
 	typedef IDirect3DPixelShader9 _IDirect3DPixelShaderX;
+	typedef IDirect3DVertexShader9 _IDirect3DVertexShaderX;
 	typedef D3DVIEWPORT9 _D3DVIEWPORTx;
 	typedef D3DCAPS9 _D3DCAPSx;
 	typedef D3DADAPTER_IDENTIFIER9 _D3DADAPTER_IDENTIFIERx;
@@ -198,7 +199,6 @@ using namespace std;
 	typedef D3DADAPTER_IDENTIFIER8 _D3DADAPTER_IDENTIFIERx;
 	typedef D3DMATERIAL8 _D3DMATERIALx;
 	typedef D3DLIGHT8 _D3DLIGHTx;
-
 #endif
 
 #include <dinput.h>

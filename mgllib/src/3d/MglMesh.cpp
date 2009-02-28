@@ -1,12 +1,17 @@
 #include "stdafx.h"
 #include "MglMesh.h"
 
+//#define USE_ADJACENCY NULL
+#define USE_ADJACENCY &m_pAdjacency
+
 //	コンストラクタ
 CMglMesh::CMglMesh()
 {
-	m_pMesh          = NULL;
+	m_pMesh = NULL;
 	m_pMeshMaterials = NULL;
-	m_pMeshTextures  = NULL;
+	m_pMeshTextures = NULL;
+	m_pAdjacency = NULL;
+	m_pEffectInstances = NULL;
 	m_dwMaterialCount = 0L;
 }
 
@@ -24,10 +29,15 @@ void CMglMesh::Load(const char* szMeshFilePath)
 
 	//	X ファイルのロード
 	LPD3DXBUFFER pD3DXMtrlBuffer = NULL;
+#if _MGL_DXVER == 8
 	MyuAssert2( D3DXLoadMeshFromX( (char*)szMeshFilePath, D3DXMESH_SYSTEMMEM, 
-								   m_d3d, NULL, 
-								   &pD3DXMtrlBuffer, &m_dwMaterialCount, 
-								   &m_pMesh ), D3D_OK,
+								   m_d3d, USE_ADJACENCY, &pD3DXMtrlBuffer,
+								   &m_dwMaterialCount, &m_pMesh ), D3D_OK,
+#else
+	MyuAssert2( D3DXLoadMeshFromX( (char*)szMeshFilePath, D3DXMESH_SYSTEMMEM, 
+								   m_d3d, USE_ADJACENCY, &pD3DXMtrlBuffer, &m_pEffectInstances,
+								   &m_dwMaterialCount, &m_pMesh ), D3D_OK,
+#endif
 		MGLMSGNO_MESH(4), "CMglMesh::Load()  D3DXLoadMeshFromX()に失敗" );
 
 	// pD3DXMtrlBuffer から、質感やテクスチャーの情報を読み取る
@@ -93,6 +103,9 @@ void CMglMesh::Release()
 		SAFE_DELETE_ARRAY( m_pMeshTextures );
 	}
 
+	SAFE_DELETE_ARY(m_pAdjacency);
+	SAFE_DELETE_ARY(m_pEffectInstances);
+
 	//	メッシュの開放
 	SAFE_RELEASE( m_pMesh );
 }
@@ -156,7 +169,7 @@ void CMglMesh::CreateBox(float fWidth, float fHeight, float fDepth,
 	InitCheck();
 	CreatedCheck();
 
-	MyuAssert2( D3DXCreateBox( m_d3d, fWidth, fHeight, fDepth, &m_pMesh, NULL), D3D_OK,
+	MyuAssert2( D3DXCreateBox( m_d3d, fWidth, fHeight, fDepth, &m_pMesh, USE_ADJACENCY), D3D_OK,
 		MGLMSGNO_MESH(32), "CMglMesh::CreateBox()  D3DXCreateBox()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
@@ -198,7 +211,7 @@ void CMglMesh::CreateCylinderEx(float fWidthNear, float fWidthFar, float fHeight
 
 	//	円柱作成
 	MyuAssert2( D3DXCreateCylinder( m_d3d, fRadiusNear, fRadiusFar, fHeight,
-		nDetailCount, nVerticalVertexCount, &m_pMesh, NULL), D3D_OK,
+		nDetailCount, nVerticalVertexCount, &m_pMesh, USE_ADJACENCY), D3D_OK,
 		MGLMSGNO_MESH(40), "CMglMesh::CreateCylinderEx()  D3DXCreateCylinder()に失敗" );
 
 	//	マテリアル作成
@@ -212,7 +225,7 @@ void CMglMesh::CreateTeapot(
 	InitCheck();
 	CreatedCheck();
 
-	MyuAssert2( D3DXCreateTeapot( m_d3d, &m_pMesh, NULL), D3D_OK,
+	MyuAssert2( D3DXCreateTeapot( m_d3d, &m_pMesh, USE_ADJACENCY), D3D_OK,
 		MGLMSGNO_MESH(72), "CMglMesh::CreateTeapot()  D3DXCreateTeapot()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
@@ -238,7 +251,7 @@ void CMglMesh::CreateDonutEx(float fSize, float fRingDiameter, UINT nCircleDetai
 
 	//	ドーナツ生成
 	MyuAssert2( D3DXCreateTorus( m_d3d, fInnerRadius, fOuterRadius,
-		nCylinderDetail, nCircleDetail, &m_pMesh, NULL), D3D_OK,
+		nCylinderDetail, nCircleDetail, &m_pMesh, USE_ADJACENCY), D3D_OK,
 		MGLMSGNO_MESH(80), "CMglMesh::CreateDonut()  D3DXCreateTorus()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
@@ -260,7 +273,7 @@ void CMglMesh::CreateSphereEx(float fSize, UINT nHorizontalDetail, UINT nVertica
 
 	//	メッシュ生成
 	MyuAssert2( D3DXCreateSphere( m_d3d, fRadius,
-		nHorizontalDetail, nVerticalDetail, &m_pMesh, NULL), D3D_OK,
+		nHorizontalDetail, nVerticalDetail, &m_pMesh, USE_ADJACENCY), D3D_OK,
 		MGLMSGNO_MESH(80), "CMglMesh::CreateSphereEx()  D3DXCreateSphere()に失敗" );
 
 	CreateSingleMaterial(color,ambient,specular,emissive,fSpecularPower);
