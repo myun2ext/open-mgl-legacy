@@ -73,7 +73,11 @@ void CMglPixelShader::SetShaderParam(DWORD dwStartRegisterNo, const void* lpData
 	InitCheck();
 	CreateCheck();
 
+#if _MGL_DXVER == 8
 	MyuAssert2( m_d3d->SetPixelShaderConstant( dwStartRegisterNo, (VOID*)lpData, dwDataBlockCount), D3D_OK,
+#else
+	MyuAssert2( m_d3d->SetPixelShaderConstantF( dwStartRegisterNo, (const float*)lpData, dwDataBlockCount), D3D_OK,
+#endif
 		MGLMSGNO_SHADER(32), "CMglPixelShader::SetShaderParam()  m_d3d->SetPixelShaderConstant()‚ÉŽ¸”s" );
 }
 
