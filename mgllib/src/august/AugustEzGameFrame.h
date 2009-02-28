@@ -136,12 +136,9 @@ public:
 	//	テキスト絵画
 	void DrawText( const char* szText, int x=0, int y=0, int size=12, D3DCOLOR color=D3DCOLOR_BLACK ){
 		CMglGraphicText text;
-		text.InitAndCreate( &grp, size );
-		text.Draw( szText, x, y, color );
-	}
-	void DrawText( const char* szText, int x, int y, HFONT hFont, D3DCOLOR color=D3DCOLOR_BLACK ){
-		CMglGraphicText text;
-		text.InitAndCreate( &grp, hFont );
+		//text.InitAndCreate( &grp, size );
+		text.Init( &grp );
+		text.Create( size );
 		text.Draw( szText, x, y, color );
 	}
 	void DrawText( int x, int y, int size, D3DCOLOR color, const char* szText, ... ){
@@ -152,15 +149,6 @@ public:
 		va_end(vl);
 
 		DrawText( work, x, y, size, color );
-	}
-	void DrawText( int x, int y, HFONT hFont, D3DCOLOR color, const char* szText, ... ){
-		char work[1024];
-		va_list vl;
-		va_start(vl,szText);
-		vsnprintf( work,sizeof(work), szText, vl );
-		va_end(vl);
-
-		DrawText( work, x, y, hFont, color );
 	}
 
 	void InitAudio(){

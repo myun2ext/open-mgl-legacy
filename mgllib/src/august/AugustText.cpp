@@ -32,10 +32,15 @@ void CAugustText::ReCreateFont()
 	bUnderLine=	m_dwOption & AGH_FONT_OPTION_UNDERLINE;
 	bStrikeOut=	m_dwOption & AGH_FONT_OPTION_STRIKEOUT;
 
+#if _MGL_DXVER == 8
 	m_text.Create(m_pGrp, m_nPoint, m_strFontName.c_str(),
 		bItalic, bBold, bUnderLine, bStrikeOut);
 	/* CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
 			BOOL bItalic, BOOL bBold, BOOL bUnderLine, BOOL bStrikeOut, float fAngle )*/
+#else
+	m_text.Init(m_pGrp);
+	m_text.Create(m_nPoint, m_strFontName.c_str(), bItalic, bBold);
+#endif
 }
 
 //	•`‰æƒCƒxƒ“ƒg

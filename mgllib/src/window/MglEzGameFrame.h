@@ -129,14 +129,16 @@ public:
 	//	テキスト絵画
 	void DrawText( const char* szText, int x=0, int y=0, int size=12, D3DCOLOR color=D3DCOLOR_BLACK ){
 		CMglGraphicText text;
-		text.InitAndCreate( &grp, size );
+		//text.InitAndCreate( &grp, size );
+		text.Init( &grp );
+		text.Create( size );
 		text.Draw( szText, x, y, color );
 	}
-	void DrawText( const char* szText, int x, int y, HFONT hFont, D3DCOLOR color=D3DCOLOR_BLACK ){
+	/*void DrawText( const char* szText, int x, int y, HFONT hFont, D3DCOLOR color=D3DCOLOR_BLACK ){
 		CMglGraphicText text;
 		text.InitAndCreate( &grp, hFont );
 		text.Draw( szText, x, y, color );
-	}
+	}*/
 	void DrawText( int x, int y, int size, D3DCOLOR color, const char* szText, ... ){
 		char work[1024];
 		va_list vl;
@@ -146,7 +148,7 @@ public:
 
 		DrawText( work, x, y, size, color );
 	}
-	void DrawText( int x, int y, HFONT hFont, D3DCOLOR color, const char* szText, ... ){
+	/*void DrawText( int x, int y, HFONT hFont, D3DCOLOR color, const char* szText, ... ){
 		char work[1024];
 		va_list vl;
 		va_start(vl,szText);
@@ -154,7 +156,7 @@ public:
 		va_end(vl);
 
 		DrawText( work, x, y, hFont, color );
-	}
+	}*/
 
 	//	キー入力
 	char Getc(){ return input.GetOnKey(); }
