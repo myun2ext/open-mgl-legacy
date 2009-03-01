@@ -43,11 +43,10 @@ void CMglXShader::LoadFromString(const char* szAssembleString)
 	InitCheck();
 	CreatedCheck();
 
-	//	アセンブラファイル読み込みー
+	//	文字列で読み込みー
 	/*MyuAssert2( D3DXAssembleShader( szAssembleString, strlen(szAssembleString), <- なんかGetCompileErrorMsg()が先に実行されてしまうらしい・・・まぁ最適化とかでかね・・・
 		0, NULL, &m_pBufShader, &m_pBufErrorInfo ), D3D_OK,
 		MGLMSGNO_SHADER(13), "CMglXShader::LoadFromString()  D3DXAssembleShader()に失敗\r\n\r\n%s", GetCompileErrorMsg() );*/
-	//	アセンブラファイル読み込みー
 #if _MGL_DXVER == 8
 	HRESULT hr = D3DXAssembleShader( szAssembleString, strlen(szAssembleString),
 		0, NULL, &m_pBufShader, &m_pBufErrorInfo );

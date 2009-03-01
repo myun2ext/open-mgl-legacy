@@ -160,7 +160,7 @@ void CMglVertexShader::LoadCommon(CONST DWORD* pFunction)
 	if ( m_dwFvf == 0 )
 		MyuThrow( MGLMSGNO_SHADER(102), "CMglVertexShader::Load()  SetFVF() にて頂点フォーマットを指定してください。" );
 
-    // バーテックスシェーダーを作成する
+	/*
     DWORD dwDecl[] =
     {
         D3DVSD_STREAM(0),
@@ -169,6 +169,7 @@ void CMglVertexShader::LoadCommon(CONST DWORD* pFunction)
         D3DVSD_REG(D3DVSDE_TEXCOORD7,D3DVSDT_FLOAT2 ),            //D3DVSDE_TEXCOORD0, 7  
         D3DVSD_END()
     };
+	*/
 
 	CMglVertexShaderDeclaration decl;
 	decl.CreateFromFVF(m_dwFvf);

@@ -67,14 +67,33 @@ const char* CMglEffectCore::GetCompileErrorMsg()
 	return (const char*) m_pBufErrorInfo->GetBufferPointer();
 }
 
+////////////////////////////////////////////////////////////////
+
 //	テクニックを設定
 void CMglEffectCore::SetTechnique( _MGL_D3DXHANDLE szTechniqueName )
 {
 	CreateCheck();
-
-	//	アセンブラファイル読み込みー
 	MyuAssert2( m_pEffect->SetTechnique( szTechniqueName ), D3D_OK,
 		MGLMSGNO_SHADER(240), "CMglEffectCore::SetTechnique()  m_pEffect->SetTechnique()に失敗" );
+}
+
+//	次のテクニックに（NULL指定で最初のテクニック）
+void CMglEffectCore::NextTechnique( D3DXHANDLE hPrevTechnique )
+{
+	SetTechnique( FindNextValidTechnique(hPrevTechnique) );
+}
+
+//	FindNextValidTechnique
+_MGL_D3DXHANDLE CMglEffectCore::FindNextValidTechnique( _MGL_D3DXHANDLE hPrevTechnique )
+{
+	CreateCheck();
+
+	//	FindNextValidTechnique
+	_MGL_D3DXHANDLE h=NULL;
+	MyuAssert2( m_pEffect->FindNextValidTechnique( hPrevTechnique, &h ), D3D_OK,
+		MGLMSGNO_SHADER(241), "CMglEffectCore::FindNextValidTechnique()  m_pEffect->FindNextValidTechnique()に失敗" );
+
+	return h;
 }
 
 ////////////////////////////////////////////////////////////////

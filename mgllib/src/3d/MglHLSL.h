@@ -13,7 +13,11 @@
 //typedef ID3DXBuffer _MGL_ID3DXEffect_;
 typedef ID3DXEffect _MGL_ID3DXEffect_;
 
-typedef LPCSTR _MGL_D3DXHANDLE;	
+#if _MGL_DXVER == 8
+	typedef LPCSTR _MGL_D3DXHANDLE;	
+#else
+	typedef D3DXHANDLE _MGL_D3DXHANDLE;	
+#endif
 
 //	クラス宣言
 class DLL_EXP CMglEffectCore : public CMglDgBase
@@ -57,7 +61,9 @@ public:
 	///////////////////////////////////////////////////////////
 
 	void SetTechnique( const char* szTechniqueName );
-	//void SetTexture( const char* szTechniqueName );
+	void FirstTechnique(){ NextTechnique(NULL); }
+	void NextTechnique( _MGL_D3DXHANDLE hPrevTechnique );
+	_MGL_D3DXHANDLE FindNextValidTechnique( _MGL_D3DXHANDLE hPrevTechnique=NULL );
 
 	UINT Begin( bool bRestoreCurrentRenderStates );
 	UINT Begin();
@@ -79,13 +85,59 @@ public:
 	}
 };
 
-////////////////////////////////////////
+////////////////////////////////////////////
 
 class CMglHlsl : public CMglEffectCore
 {
 
 };
-
 typedef CMglHlsl CMglHLSL, CMglEffect;
+
+////////////////////////////////////////////
+
+//	テクニック - Technique
+class CMglHlslTechnique
+{
+protected:
+	CMglHlsl *m_pHlsl;
+
+	void InitCheck(){
+		if ( m_pHlsl == NULL )
+			MyuThrow(MGLMSGNO_SHADER(601), "CMglHlslTechnique  Init()にて CMglHlsl を設定してください。");
+	}
+
+public:
+	//	コンストラクタ
+	CMglHlslTechnique(){
+		m_pHlsl = NULL;
+	}
+
+	//	初期化
+	void Init( CMglHlsl& hlsl, const char* szTechniqueName=NULL ){
+		m_pHlsl = &hlsl;
+	}
+
+	/////////////////////////////////////////
+
+	//	設定
+	void SetTechnique( const char* szTechniqueName ){
+
+	}
+};
+
+//	Pass
+class CMglHlslPass
+{
+protected:
+	CMglHlsl *m_pHlsl;
+public:
+	CMglHlslPass(){
+		m_pHlsl = NULL;
+	}
+	void Init(CMglHlsl& hlsl){
+		m_pHlsl = &hlsl;
+	}
+
+};
 
 #endif//__MglHlsl_H__
