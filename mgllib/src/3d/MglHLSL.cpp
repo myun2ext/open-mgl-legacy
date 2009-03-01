@@ -8,6 +8,7 @@ CMglEffectCore::CMglEffectCore()
 	m_pBufErrorInfo = NULL;
 
 	m_nPassCount = 0;
+	m_bBegun = false;
 	m_bPassBegun = false;
 }
 
@@ -103,6 +104,9 @@ UINT CMglEffectCore::Begin( bool bRestoreCurrentRenderStates )
 {
 	CreateCheck();
 
+	if ( m_bBegun )
+		End();	//	パス数返さないといけないしなぁ・・・
+
 	DWORD dwFlags = 0;
 	if ( !bRestoreCurrentRenderStates )
 		dwFlags = /*D3DXFX_DONOTSAVESHADERSTATE |*/ D3DXFX_DONOTSAVESTATE ;
@@ -110,6 +114,8 @@ UINT CMglEffectCore::Begin( bool bRestoreCurrentRenderStates )
 	//	Begin
 	MyuAssert2( m_pEffect->Begin( &m_nPassCount, dwFlags ), D3D_OK,
 		MGLMSGNO_SHADER(280), "CMglEffectCore::Begin()  m_pEffect->Begin()に失敗" );
+
+	m_bBegun = true;
 
 	return m_nPassCount;
 }
@@ -128,6 +134,7 @@ void CMglEffectCore::End()
 	MyuAssert2( m_pEffect->End(), D3D_OK,
 		MGLMSGNO_SHADER(281), "CMglEffectCore::End()  m_pEffect->End()に失敗" );
 
+	m_bBegun = false;
 	m_nPassCount = 0;
 }
 
@@ -135,6 +142,14 @@ void CMglEffectCore::End()
 void CMglEffectCore::BeginPass(UINT nPassNo)
 {
 	CreateCheck();
+
+	if ( !m_bBegun )
+		Begin();
+
+	if ( m_nPassCount < nPassNo )
+		MyuThrow(MGLMSGNO_SHADER(289),
+			"CMglHlsl  このテクニックでの範囲外のパス番号を指定しました。%d <--> %d", m_nPassCount, nPassNo );
+
 #if _MGL_DXVER == 8
 	MyuAssert2( m_pEffect->Pass(nPassNo), D3D_OK,
 		MGLMSGNO_SHADER(284), "CMglEffectCore::BeginPass()  m_pEffect->Pass(%s)に失敗", nPassNo );

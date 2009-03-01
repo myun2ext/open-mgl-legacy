@@ -40,6 +40,7 @@ protected:
 	////////////////////////////////////
 
 	UINT m_nPassCount;
+	bool m_bBegun;
 	bool m_bPassBegun;
 
 public:
@@ -106,6 +107,11 @@ protected:
 			MyuThrow(MGLMSGNO_SHADER(601), "CMglHlslTechnique  Init()にて CMglHlsl を設定してください。");
 	}
 
+	void SetTechnique( const char* szTechniqueName ){
+		InitCheck();
+		m_pHlsl->SetTechnique(szTechniqueName);
+	}
+
 public:
 	//	コンストラクタ
 	CMglHlslTechnique(){
@@ -115,19 +121,41 @@ public:
 	//	初期化
 	void Init( CMglHlsl& hlsl, const char* szTechniqueName=NULL ){
 		m_pHlsl = &hlsl;
+		SetTechnique(szTechniqueName);
 	}
 
 	/////////////////////////////////////////
 
 	//	設定
-	void SetTechnique( const char* szTechniqueName ){
+	//void SetPass(
+};
+typedef CMglHlslTechnique CMglHLSLTech;
+
+//////////////////////////////////////////////
+
+//	Pass
+class CMglHlslPass : public CMglHlslTechnique
+{
+protected:
+	UINT m_nPassNo;
+
+public:
+	//	コンストラクタ
+	CMglHlslPass(){
+		m_nPassNo = 0;
+	}
+
+	//	初期化
+	void Init( CMglHlsl& hlsl, const char* szTechniqueName=NULL, UINT nPassNo=0 ){
+		CMglHlslTechnique::Init(hlsl, szTechniqueName);
+		m_nPassNo = nPassNo;
+	}
+
+	void Begin(){
 
 	}
 };
-
-//	Pass
-class CMglHlslPass
-{
+/*
 protected:
 	CMglHlsl *m_pHlsl;
 public:
@@ -137,7 +165,6 @@ public:
 	void Init(CMglHlsl& hlsl){
 		m_pHlsl = &hlsl;
 	}
-
-};
+*/
 
 #endif//__MglHlsl_H__
