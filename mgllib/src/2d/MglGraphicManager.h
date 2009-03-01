@@ -86,7 +86,7 @@ extern int g_nSfcCount;
 extern int g_2dgCount;
 
 #define DELREF()	if( m_myudg != NULL && g_2dgCount > 0 ){ m_myudg->RmRefOfAutoRelease( this ); }else{}
-#define MGLGRP_DEFREF()		DELREF()
+#define MGLGRP_DELREF()		DELREF()
 
 class CMglTexture;
 class CMgl3dManager;
@@ -337,7 +337,7 @@ public:
 	}
 	virtual ~CMglDgIBase(){
 		//	自動開放用のリファレンスを削除
-		MGLGRP_DEFREF();
+		//MGLGRP_DELREF();  CMglDgBase::Release()から仮想関数でこのクラスのRelease()が呼ばれることは分かってるので別に必要ないかも
 	}
 
 	//	初期化/開放
@@ -350,6 +350,8 @@ public:
 
 	virtual void Release(){
 		SAFE_RELEASE(m_pI);
+		CMglDgBase::Release();
+		MGLGRP_DELREF();
 	}
 };
 

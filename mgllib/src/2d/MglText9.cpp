@@ -27,8 +27,8 @@ CMglText::~CMglText()
 //	作成
 void CMglText::Create( int nHeight, const char* szFontName, BOOL bItalic, BOOL bBold )
 {
-	CreatedCheck();
-	//Release();	//	一応リリース
+	//CreatedCheck();
+	Release();	//	コイツはフォント変更でCreateしまくるのでReleaseしないと駄目か・・・
 
 	int nWeight = FW_DONTCARE;
 	if ( bBold )
@@ -42,7 +42,7 @@ void CMglText::Create( int nHeight, const char* szFontName, BOOL bItalic, BOOL b
 		szFontName, &m_pI ), D3D_OK,
 		"CMglText::Create()  D3DXCreateFont()に失敗。" );
 
-	m_text = m_pI;
+	//m_text = m_pI;
 }
 
 //	明示的開放
@@ -75,9 +75,9 @@ void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD
 	//	論理的単位でチェックしてDirectX8で動かなかったら嫌なのでチェックするのやめます(;´Д`)ゞ
 #if _MGL_DXVER == 9
 	//	DirectX9では第一引数としてスプライトを指定するとパフォーマンスが向上するらしい。とりあえず後回しで・・・ (TODO)
-	m_text->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
+	m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 #else
-	m_text->DrawText( szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
+	m_pI->DrawText( szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 #endif
 }
 

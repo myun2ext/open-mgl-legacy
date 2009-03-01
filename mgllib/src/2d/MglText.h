@@ -118,7 +118,7 @@ class DLL_EXP CMglText : public CMglDgIBase<ID3DXFont> //: public CMglDgBase
 {
 private:
 	//	インターフェース
-	ID3DXFont *m_text;
+	//ID3DXFont *m_text;
 
 	//	フォント設定
 	BOOL bSetParamFlg;
@@ -132,7 +132,7 @@ private:
 			MyuThrow( 0, "CMglText::Draw(),fDraw()  SetDrawParam()が設定されていないのに引数を省略しました。" );
 	}
 	void _Init(){
-		m_text = NULL;
+		//m_text = NULL;
 		m_nX = 0;
 		m_nY = 0;
 		m_dwOption = 0;

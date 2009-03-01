@@ -644,7 +644,8 @@ void CMglGraphicManager::AddRefOfAutoRelease( CMyuReleaseBase* pRef )
 {
 	//	既に無いかチェック
 	if ( m_autoReleaseAry.find( pRef ) != m_autoReleaseAry.end() )
-		MyuThrow( MGLMSGNO_GRPMGR(253), "既にリファレンス 0x%08x は存在します。", pRef );
+		return;
+	//	MyuThrow( MGLMSGNO_GRPMGR(253), "既にリファレンス 0x%08x は存在します。", pRef );
 
 	//DEBUGLOG( "AutoRelease 用0x%08x を追加します。", pRef );
 	m_autoReleaseAry[pRef] = pRef;
