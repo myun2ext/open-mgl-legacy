@@ -47,15 +47,15 @@ public:
 	void SetInteger( _MGL_D3DXHANDLE szValueName, int nValue ){ SetInt(szValueName, nValue); }
 	void SetBool( _MGL_D3DXHANDLE szValueName, BOOL bValue );
 
-	void SetVector( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue );
-	void SetVector4( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue ){
-		SetVector( szValueName, pValue ); }
+	void SetVector( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4& vValue );
+	void SetVector4( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4& vValue ){
+		SetVector( szValueName, vValue ); }
 
 	void SetVectorArray( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pArray, UINT nCount );
 	void SetVector4Array( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pArray, UINT nCount ){
 		SetVectorArray( szValueName, pArray, nCount ); }
 
-	void SetMatrix( _MGL_D3DXHANDLE szValueName, CONST FLOAT* pValue );
+	void SetMatrix( _MGL_D3DXHANDLE szValueName, CONST D3DXMATRIX& matrix );
 
 	void SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, UINT nSize );
 };
