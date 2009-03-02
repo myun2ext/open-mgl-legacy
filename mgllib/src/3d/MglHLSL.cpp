@@ -97,6 +97,18 @@ _MGL_D3DXHANDLE CMglEffectCore::FindNextValidTechnique( _MGL_D3DXHANDLE hPrevTec
 	return h;
 }
 
+////////////////////////////////
+
+/*
+//	SetVector
+void CMglEffectCore::SetVector4( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue )
+{
+	CreateCheck();
+	MyuAssert2( m_pEffect->SetVector( szValueName, pValue ), D3D_OK,
+		MGLMSGNO_SHADER(324), "CMglEffectCore::SetVector4()  m_pEffect->SetVector()‚ÉŽ¸”s" );
+}
+*/
+
 ////////////////////////////////////////////////////////////////
 
 //	Begin()

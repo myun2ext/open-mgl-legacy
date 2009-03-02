@@ -19,11 +19,54 @@ typedef ID3DXEffect _MGL_ID3DXEffect_;
 	typedef D3DXHANDLE _MGL_D3DXHANDLE;	
 #endif
 
-//	クラス宣言
-class DLL_EXP CMglEffectCore : public CMglDgBase
+////////////////////////////////////////////
+
+class DLL_EXP CMglHlslValue
 {
 protected:
 	_MGL_ID3DXEffect_ *m_pEffect;
+	
+	void CreateCheck(){} // Reserved
+
+public:
+	//	コンストラクタ
+	CMglHlslValue(){
+		m_pEffect = NULL;
+	}
+
+	//	初期化
+	void Init(_MGL_ID3DXEffect_* pEffect){
+		m_pEffect = pEffect;
+	}
+
+	//////////////////////////////////////////////////////////////
+
+	//	値の設定
+	void SetFloat( _MGL_D3DXHANDLE szValueName, float fValue );
+	void SetInt( _MGL_D3DXHANDLE szValueName, int nValue );
+	void SetInteger( _MGL_D3DXHANDLE szValueName, int nValue ){ SetInt(szValueName, nValue); }
+	void SetBool( _MGL_D3DXHANDLE szValueName, BOOL bValue );
+
+	void SetVector( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue );
+	void SetVector4( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue ){
+		SetVector( szValueName, pValue ); }
+
+	void SetVectorArray( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pArray, UINT nCount );
+	void SetVector4Array( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pArray, UINT nCount ){
+		SetVectorArray( szValueName, pArray, nCount ); }
+
+	void SetMatrix( _MGL_D3DXHANDLE szValueName, CONST FLOAT* pValue );
+
+	void SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, UINT nSize );
+};
+
+////////////////////////////////////////////
+
+//	クラス宣言
+class DLL_EXP CMglEffectCore : public CMglDgBase, public CMglHlslValue
+{
+protected:
+	//_MGL_ID3DXEffect_ *m_pEffect;
 	ID3DXBuffer *m_pBufErrorInfo;
 
 	void CreatedCheck(){
@@ -61,11 +104,37 @@ public:
 
 	///////////////////////////////////////////////////////////
 
+	//	テクニックを選択
+	void SelectTechnique( const char* szTechniqueName ){ SetTechnique(szTechniqueName); }
 	void SetTechnique( const char* szTechniqueName );
 	void FirstTechnique(){ NextTechnique(NULL); }
 	void NextTechnique( _MGL_D3DXHANDLE hPrevTechnique );
 	_MGL_D3DXHANDLE FindNextValidTechnique( _MGL_D3DXHANDLE hPrevTechnique=NULL );
 
+	///////////////////////////////////////////////////////////
+
+	/*
+	//	値の設定
+	void SetFloat( _MGL_D3DXHANDLE szValueName, CONST FLOAT* pValue );
+	void SetInt( _MGL_D3DXHANDLE szValueName, CONST FLOAT* pValue );
+	void SetInteger( _MGL_D3DXHANDLE szValueName, CONST FLOAT* pValue ){ SetInt(szValueName, pValue); }
+	void SetBool( _MGL_D3DXHANDLE szValueName, CONST FLOAT* pValue );
+
+	void SetVector4( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue );
+	void SetVector( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pValue ){
+		SetVector4( szValueName, pValue ); }
+
+	void SetVector4Array( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pArray, UINT nCount );
+	void SetVectorArray( _MGL_D3DXHANDLE szValueName, CONST D3DXVECTOR4* pArray, UINT nCount ){
+		SetVector4Array( szValueName, pArray, nCount ); }
+
+	void SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, UINT nSize );
+	void SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, UINT nSize );
+	*/
+
+	///////////////////////////////////////////////////////////
+
+	//	開始とパス
 	UINT Begin( bool bRestoreCurrentRenderStates );
 	UINT Begin();
 	void End();
@@ -88,7 +157,7 @@ public:
 
 ////////////////////////////////////////////
 
-class CMglHlsl : public CMglEffectCore
+class DLL_EXP CMglHlsl : public CMglEffectCore
 {
 
 };
@@ -97,7 +166,7 @@ typedef CMglHlsl CMglHLSL, CMglEffect;
 ////////////////////////////////////////////
 
 //	テクニック - Technique
-class CMglHlslTechnique
+class DLL_EXP CMglHlslTechnique
 {
 protected:
 	CMglHlsl *m_pHlsl;
@@ -128,13 +197,17 @@ public:
 
 	//	設定
 	//void SetPass(
+
+	CMglHlsl* GetHlsl(){ return m_pHlsl; }
+	CMglHlsl* GetParent(){ return m_pHlsl; }
+	CMglHlsl* GetEffect(){ return m_pHlsl; }
 };
 typedef CMglHlslTechnique CMglHLSLTech;
 
 //////////////////////////////////////////////
 
 //	Pass
-class CMglHlslPass : public CMglHlslTechnique
+class DLL_EXP CMglHlslPass : public CMglHlslTechnique
 {
 protected:
 	UINT m_nPassNo;

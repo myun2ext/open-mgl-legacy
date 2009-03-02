@@ -334,6 +334,10 @@ SOURCE=.\src\3d\MglHLSL.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\3d\MglHlslValue.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\MglPixelShader.cpp
 # End Source File
 # Begin Source File
