@@ -221,6 +221,7 @@ using namespace std;
 
 #define MGL_D3DXVER_ID3DXFONT_CHANGED	0x0902
 #define MGL_D3DXVER_ID3DXSPRITE_CHANGED	0x0902
+#define MGL_D3DXVER_ID3DXEFFECT_CHANGED	0x0902
 
 #include <dinput.h>
 

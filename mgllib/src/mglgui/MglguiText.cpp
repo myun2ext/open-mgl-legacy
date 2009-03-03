@@ -32,7 +32,8 @@ void CMglguiText::ReCreateFont()
 	bUnderLine=	m_dwOption & AGH_FONT_OPTION_UNDERLINE;
 	bStrikeOut=	m_dwOption & AGH_FONT_OPTION_STRIKEOUT;
 
-#if _MGL_DXVER == 8
+//#if _MGL_DXVER == 8
+#if _MGL_D3DXVER < MGL_D3DXVER_ID3DXFONT_CHANGED
 	m_text.Create(m_pGrp, m_nPoint, m_strFontName.c_str(),
 		bItalic, bBold, bUnderLine, bStrikeOut);
 	/* CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,

@@ -162,7 +162,8 @@ void CMglEffectCore::BeginPass(UINT nPassNo)
 		MyuThrow(MGLMSGNO_SHADER(289),
 			"CMglHlsl  このテクニックでの範囲外のパス番号を指定しました。%d <--> %d", m_nPassCount, nPassNo );
 
-#if _MGL_DXVER == 8
+//#if _MGL_DXVER == 8
+#if _MGL_D3DXVER < MGL_D3DXVER_ID3DXEFFECT_CHANGED
 	MyuAssert2( m_pEffect->Pass(nPassNo), D3D_OK,
 		MGLMSGNO_SHADER(284), "CMglEffectCore::BeginPass()  m_pEffect->Pass(%s)に失敗", nPassNo );
 #else
@@ -177,7 +178,8 @@ void CMglEffectCore::BeginPass(UINT nPassNo)
 //	EndPass()
 void CMglEffectCore::EndPass()
 {
-#if _MGL_DXVER != 8
+//#if _MGL_DXVER != 8
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED
 	CreateCheck();
 
 	if ( m_bPassBegun )

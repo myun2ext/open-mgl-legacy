@@ -121,7 +121,7 @@ void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD
 	//	DirectX8のヘルプだと正常終了が0だが最新のDirectX9のヘルプを見ると
 	//	「論理的単位を使ってテキストの高さを返す」になっている…。
 	//	論理的単位でチェックしてDirectX8で動かなかったら嫌なのでチェックするのやめます(;´Д`)ゞ
-#if _MGL_DXVER == 9
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
 	//	DirectX9では第一引数としてスプライトを指定するとパフォーマンスが向上するらしい。とりあえず後回しで・・・ (TODO)
 	m_text->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 #else

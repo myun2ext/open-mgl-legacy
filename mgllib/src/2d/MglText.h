@@ -59,8 +59,8 @@ private:
 public:
 	CMglText(){
 		_Init();
-		if ( CheckDefaultGd() )
-			Create();	//	デフォルトフォント
+		/*if ( CheckDefaultGd() )
+			Create();	//	デフォルトフォント*/
 	}
 	CMglText(CMglGraphicManager* in_myudg){
 		_Init();
@@ -69,6 +69,10 @@ public:
 	virtual ~CMglText();
 
 	//	初期化及び作成
+	void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
+		m_myudg = in_myudg;
+		m_d3d = m_myudg->GetD3dDevPtr();
+	}
 	void InitAndCreate( CMglGraphicManager* in_myudg, HFONT hFont );
 	void InitAndCreate( CMglGraphicManager* in_myudg, int nHeight );
 	void InitAndEzCreate( CMglGraphicManager* in_myudg, int nHeight ){ InitAndCreate(in_myudg, nHeight); }	//	古い
@@ -76,8 +80,8 @@ public:
 	//	in_myudg省略形。関数名違っても内容同じ
 	void Create( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
 	void Create( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
-	void Init( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
-	void Init( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
+	//void Init( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
+	//void Init( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
 	void Setup( HFONT hFont ){ InitAndCreate( GetDefaultGd(), hFont ); }
 	void Setup( int nHeight ){ InitAndCreate( GetDefaultGd(), nHeight ); }
 
@@ -89,8 +93,8 @@ public:
 	{	Create( GetDefaultGd(), nHeight, szFontName, bItalic, bBold, bUnderLine, bStrikeOut, fAngle); }
 
 	//	全引数省略
-	void Create(){ Init(MGL_TEXT_DEFAULT_FONT_SIZE); }
-	void Init(){ Init(MGL_TEXT_DEFAULT_FONT_SIZE); }
+	//void Create(){ Init(MGL_TEXT_DEFAULT_FONT_SIZE); }
+	//void Init(){ Init(MGL_TEXT_DEFAULT_FONT_SIZE); }
 
 	//	明示的開放
 	void Release();
