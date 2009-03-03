@@ -725,7 +725,8 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 	//	DirectX 9
 	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
-#if _MGL_DXVER == 9
+//#if _MGL_DXVER == 9
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
 	//	DirectX9‚Ìê‡‚Í‚±[‚ñ‚ÈŠ´‚¶‚ç‚µ‚¢B
 
 	//	Šg‘åEk¬
@@ -802,7 +803,8 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 void CMglGraphicManager::SpriteBegin()
 {
 	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
-#if _MGL_DXVER == 9
+//#if _MGL_DXVER == 9
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
 		MyuAssert2( m_pSprite->Begin(D3DRS_ALPHABLENDENABLE), D3D_OK,
 #else
 		MyuAssert2( m_pSprite->Begin(), D3D_OK,

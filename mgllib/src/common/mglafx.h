@@ -105,6 +105,16 @@ using namespace std;
 	//#define _MGL_DXVER 10
 #endif
 
+/*
+#ifndef D3DX_VERSION
+	#define _MGL_D3DXVER 0x0800
+	#define _MGL_DXXVER 0x0800
+#else
+	#define _MGL_D3DXVER D3DX_VERSION
+	#define _MGL_DXXVER D3DX_VERSION
+#endif
+*/
+
 //	DirectX 9
 //#ifdef _MGL_USE_DXVER9
 #if _MGL_DXVER == 9
@@ -199,7 +209,18 @@ using namespace std;
 	typedef D3DADAPTER_IDENTIFIER8 _D3DADAPTER_IDENTIFIERx;
 	typedef D3DMATERIAL8 _D3DMATERIALx;
 	typedef D3DLIGHT8 _D3DLIGHTx;
+
+	#define _MGL_D3DXVER 0x0800
+	#define _MGL_DXXVER 0x0800
 #endif
+	
+#ifndef _MGL_D3DXVER
+	#define _MGL_D3DXVER D3DX_VERSION
+	#define _MGL_DXXVER D3DX_VERSION
+#endif
+
+#define MGL_D3DXVER_ID3DXFONT_CHANGED	0x0902
+#define MGL_D3DXVER_ID3DXSPRITE_CHANGED	0x0902
 
 #include <dinput.h>
 

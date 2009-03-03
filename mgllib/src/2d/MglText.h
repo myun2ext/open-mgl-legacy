@@ -20,7 +20,8 @@
 #define MGL_TEXT_DEFAULT_FONT_SIZE	(12)
 //#define FONT_NAME_MS_GOTHIC			"
 
-#if _MGL_DXVER == 8
+//#if _MGL_DXVER == 8
+#if _MGL_D3DXVER < MGL_D3DXVER_ID3DXFONT_CHANGED
 
 //	ƒNƒ‰ƒXéŒ¾
 class DLL_EXP CMglText : public CMyuReleaseBase

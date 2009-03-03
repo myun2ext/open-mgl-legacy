@@ -7,7 +7,9 @@
 
 #include "stdafx.h"
 
-#if _MGL_DXVER == 9
+//#if _MGL_DXVER == 9
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXFONT_CHANGED
+
 #include "MglText.h"
 
 //	コンストラクタ
