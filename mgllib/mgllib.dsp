@@ -447,6 +447,10 @@ SOURCE=.\src\3d\MglMesh.h
 # End Group
 # Begin Source File
 
+SOURCE=.\src\august\August3d.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\3d\mgl3d.h
 # End Source File
 # Begin Source File

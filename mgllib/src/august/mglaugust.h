@@ -10,4 +10,6 @@
 #include "AugustText.h"
 #include "AugustImage.h"
 
+#include "August3d.h"
+
 #endif//__MGLAUGUST_H__
