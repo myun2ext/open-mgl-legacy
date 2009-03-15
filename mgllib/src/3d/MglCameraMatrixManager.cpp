@@ -66,7 +66,7 @@ void CMglCameraMatrixManager::SetupProjection( float fAspectRatio, float fViewin
 #endif	
 					&m_projection,
 					D3DXToRadian(fViewingAngle),		// 視野角
-					fAspectRatio,		// アスペクト比（縦、横比率）
+					fAspectRatio,			// アスペクト比（縦、横比率）
 					fClipNear,				// Near クリップ
 					fClipFar);				// Far  クリップ
 	/*				D3DXToRadian(45.0),		// 視野角
@@ -86,10 +86,32 @@ void CMglCameraMatrixManager::SetupProjection( float fAspectRatio, float fViewin
 
 ////////////////////////////////////////////////////////////
 
-void CMglCameraMatrixManager::SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
+void CMglCameraMatrixManager::SetCamera(D3DXMATRIX &matTarget, D3DXMATRIX& matPos, float fRotate)
+{
+	m_matTarget = matTarget;
+	m_matPos = matPos;
+	SetCamera(
+		D3DXMatrixToVector3(&matTarget),
+		D3DXMatrixToVector3(&matPos), fRotate);
+}
+
+void CMglCameraMatrixManager::SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos, float fRotate)
+{
+	m_vecTarget = vecTarget;
+	m_vecPos = vecPos;
+	SetCamera(
+		vecPos.x, vecPos.y, vecPos.z,
+		vecTarget.x, vecTarget.y, vecTarget.z,
+		fRotate);
+}
+
+void CMglCameraMatrixManager::SetCamera(
+	float fPosX, float fPosY, float fPosZ,
+	float fTargetX, float fTargetY, float fTargetZ,
+	float fRotate)
 {
 	InitCheck();
-	CameraLockAt(fPosX, fPosY, fPosZ, fTargetX, fTargetY, fTargetZ);
+	CameraLockAt(fPosX, fPosY, fPosZ, fTargetX, fTargetY, fTargetZ, fRotate);
 
 	m_fCameraPosX = fPosX;
 	m_fCameraPosY = fPosY;
@@ -101,7 +123,7 @@ void CMglCameraMatrixManager::SetCamera(float fPosX, float fPosY, float fPosZ, f
 
 //	カメラ位置の設定
 //void CMglCameraMatrixManager::SetCameraPos(float x, float y, float z)
-void CMglCameraMatrixManager::CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ)
+void CMglCameraMatrixManager::CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ, float fRotate)
 {
 	InitCheck();
 #if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
@@ -153,7 +175,7 @@ void CMglCameraMatrixManager::CameraRotation(int direction, float fAngle)
 				m_fCameraPosX+(sin(rad)*(-m_fCameraPosZ)),
 				m_fCameraPosY,
 				m_fCameraPosZ+(1.0f-cos(rad))*(-m_fCameraPosZ),
-				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ, 0.0f);
 		break;
 
 	//	縦軸
@@ -164,7 +186,7 @@ void CMglCameraMatrixManager::CameraRotation(int direction, float fAngle)
 				m_fCameraPosX,
 				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
 				m_fCameraPosZ+(1.0f-cos(rad))*(-m_fCameraPosZ),
-				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ, 0.0f);
 		break;
 
 	//	Z軸
@@ -175,7 +197,7 @@ void CMglCameraMatrixManager::CameraRotation(int direction, float fAngle)
 				m_fCameraPosX+(1.0f-cos(rad))*(-m_fCameraPosZ),
 				m_fCameraPosY+(sin(rad)*(-m_fCameraPosZ)),
 				m_fCameraPosZ,
-				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+				m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ, 0.0f);
 		break;
 	}
 	/*
@@ -215,7 +237,7 @@ void CMglCameraMatrixManager::SetCameraAngle(float fAngleX, float fAngleY, float
 		m_fCameraPosX+(sin(radX)*(-m_fCameraPosZ)),
 		m_fCameraPosY+(sin(radY)*(-m_fCameraPosZ)),
 		m_fCameraPosZ+(1.0f-cos(radX))*(-m_fCameraPosZ),
-		m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ);
+		m_fCameraTargetX, m_fCameraTargetY, m_fCameraTargetZ, 0.0f);
 }
 
 void CMglCameraMatrixManager::Rotate(float fAngleX, float fAngleY, float fAngleZ)

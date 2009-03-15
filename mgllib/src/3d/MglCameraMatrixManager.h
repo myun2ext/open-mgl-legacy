@@ -26,6 +26,15 @@ protected:
 	D3DXMATRIX m_matView;
 	D3DXMATRIX m_projection;
 
+
+	//	記憶
+	D3DXMATRIX m_matTarget;
+	D3DXMATRIX m_matPos;
+	D3DXVECTOR3 m_vecTarget;
+	D3DXVECTOR3 m_vecPos;
+
+	//////////////////////////////////
+
 	float m_fAspectRatio;
 	float m_fViewingAngle;
 	float m_fClipNear;
@@ -45,7 +54,7 @@ protected:
 	float m_fMoveY;
 	float m_fMoveZ;
 
-	void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
+	void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ, float fRotate);
 
 	//	とりあえず制限に・・・
 	void CameraRotation(int direction, float fAngle);
@@ -73,12 +82,15 @@ public:
 	void SetupProjection( float fAspectRatio, float fViewingAngle=30.0f, float fClipNear=0.01f, float fClipFar=100.0f );
 	
 	//	カメラ
+	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ, float fRotate=0.0f);
+	void SetCamera(D3DXMATRIX &matTarget, D3DXMATRIX& matPos, float fRotate=0.0f);
+	void SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos, float fRotate=0.0f);
+
 	void SetCameraCenter(float x, float y, float z){ SetCameraViewTarget(x,y,z); }
 	void SetCameraViewTarget(float x, float y, float z);
 	void MoveCamera(float x, float y, float z);
 	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ);
 	void SetCameraAngle2(float fAngleX, float fAngleY, float fAngleZ);
-	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ);
 	void SetCameraPos(float x, float y, float z);
 	void SetCameraPosition(float x, float y, float z){ SetCameraPos(x,y,z); }
 
