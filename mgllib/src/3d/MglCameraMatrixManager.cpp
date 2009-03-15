@@ -30,50 +30,12 @@ void CMglCameraMatrixManager::Init( CMglGraphicManager* in_myudg )
 	CMglDgBase::Init(in_myudg);
 
 	//	とりあえずデフォルトなカメラを設定
-	SetCamera(0,0,-5.0f, 0,0,0);
-}
-
-////////////////////////////////////////////////////////////
-
-void CMglCameraMatrixManager::SetCamera(D3DXMATRIX &matTarget, D3DXMATRIX& matPos, float fRotate)
-{
-	m_matTarget = matTarget;
-	m_matPos = matPos;
-	SetCamera(
-		D3DXMatrixToVector3(&matTarget),
-		D3DXMatrixToVector3(&matPos), fRotate);
-}
-
-void CMglCameraMatrixManager::SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos, float fRotate)
-{
-	m_vecTarget = vecTarget;
-	m_vecPos = vecPos;
-
-	CameraLockAt(vecPos, vecTarget, D3DXVECTOR3(0,1,0));
-	/*SetCamera(
-		vecPos.x, vecPos.y, vecPos.z,
-		vecTarget.x, vecTarget.y, vecTarget.z,
-		fRotate);*/
+	//SetCamera(0,0,-5.0f, 0,0,0);
+	SetCamera(0,0,0, 0,0,-5.0f);
 }
 
 /////////////////////////////////////////////////////////////
 
-void CMglCameraMatrixManager::SetTargetPos(D3DXVECTOR3 &vec){}
-void CMglCameraMatrixManager::SetCameraPos(D3DXVECTOR3 &vec){}
-void CMglCameraMatrixManager::MoveTarget(D3DXVECTOR3 &vec){}
-void CMglCameraMatrixManager::MoveCamera(D3DXVECTOR3 &vec){}
-
-void CMglCameraMatrixManager::SetCameraAngle(D3DXVECTOR3 &vecAngles){}
-void CMglCameraMatrixManager::Rotate(float fAngleX, float fAngleY, float fAngleZ){}
-
-void CMglCameraMatrixManager::ReCreateViewMatrix()
-{
-
-	//SetCamera();
-	//CameraLockAt();
-}
-
-////////////////////////////////////////////////////////////
 
 //	ReTransform
 void CMglCameraMatrixManager::ReTransform()
@@ -81,15 +43,22 @@ void CMglCameraMatrixManager::ReTransform()
 	InitCheck();
 
 	//	2009/03/16 なんでReTransformの時にやんないんだろ。なんか意味あんのかな・・・？
-	//ReCreateViewMatrix(); <- そっか・・・直接SetCamera()呼ばれた時のためか・・・
+	ReCreateViewMatrix(); //<- そっか・・・直接SetCamera()呼ばれた時のためか・・・ <- 嘘つけｗｗｗｗちげーよｗｗｗｗ
 
 	//	View（カメラ）
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
 		"CMglCameraMatrixManager::ReTransform()  SetTransform(D3DTS_VIEW)に失敗" );
 }
 
+void CMglCameraMatrixManager::ReCreateViewMatrix()
+{
+	ReCreateMatrixLookAt(m_vecCamera, m_vecTarget, D3DXVECTOR3(0,1,0));
+	//SetCamera();
+	//CameraLockAt();
+}
+
 //	カメラ位置の設定
-void CMglCameraMatrixManager::ReCreateViewMatrix(D3DXVECTOR3 &vecEye, D3DXVECTOR3 &vecAt, D3DXVECTOR3 &vecUp)
+void CMglCameraMatrixManager::ReCreateMatrixLookAt(D3DXVECTOR3 &vecEye, D3DXVECTOR3 &vecAt, D3DXVECTOR3 &vecUp)
 {
 	InitCheck();
 
@@ -104,8 +73,8 @@ void CMglCameraMatrixManager::ReCreateViewMatrix(D3DXVECTOR3 &vecEye, D3DXVECTOR
 //					,&D3DXVECTOR3(0,1,0)		// 上の向き
 					);
 
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
-		"CMglCameraMatrixManager::ReCreateViewMatrix()  SetTransform()に失敗" );
+/*	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
+		"CMglCameraMatrixManager::ReCreateViewMatrix()  SetTransform()に失敗" );*/
 }
 
 /////////////////////////////////////////////////////////////////////

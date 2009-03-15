@@ -27,9 +27,9 @@ protected:
 
 	//	記憶
 	D3DXVECTOR3 m_vecTarget;
-	D3DXVECTOR3 m_vecPos;
+	D3DXVECTOR3 m_vecCamera;
 	D3DXVECTOR3 m_vecRotateTarget;
-	D3DXVECTOR3 m_vecRotatePos;
+	D3DXVECTOR3 m_vecRotateCamera;
 	//float m_fRotate; <- m_vecRotatePos.z でいい気がする・・・？
 
 	//	↓いるんかなこれ・・・？（キャッシュとかか・・・？
@@ -39,7 +39,8 @@ protected:
 	//////////////////////////////////
 
 	//void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ, float fRotate);
-	void ReCreateViewMatrix(D3DXVECTOR3 &vecEye, D3DXVECTOR3 &vecAt, D3DXVECTOR3 &vecUp);
+	void ReCreateViewMatrix();
+	void ReCreateMatrixLookAt(D3DXVECTOR3 &vecEye, D3DXVECTOR3 &vecAt, D3DXVECTOR3 &vecUp);
 
 public:
 
@@ -61,26 +62,41 @@ public:
 	void ReTransform();
 	
 	//	カメラ
-	void SetCamera(float fTargetX, float fTargetY, float fTargetZ, float fPosX, float fPosY, float fPosZ, float fRotate=0.0f){
+	/*void SetCamera(float fTargetX, float fTargetY, float fTargetZ, float fPosX, float fPosY, float fPosZ, float fRotate=0.0f){
 		SetCamera( D3DXVECTOR3(fTargetX,fTargetY,fTargetZ), D3DXVECTOR3(fPosX,fPosY,fPosZ), fRotate); }
-	void SetCamera(D3DXMATRIX &matTarget, D3DXMATRIX& matPos, float fRotate=0.0f);
-	void SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos, float fRotate=0.0f);
+	//void SetCamera(D3DXMATRIX &matTarget, D3DXMATRIX& matPos, float fRotate=0.0f);
+	void SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos, float fRotate=0.0f);*/
+	/*void SetCamera(float fTargetX, float fTargetY, float fTargetZ,
+		float fPosX, float fPosY, float fPosZ){
+		SetCamera( D3DXVECTOR3(fTargetX,fTargetY,fTargetZ), D3DXVECTOR3(fPosX,fPosY,fPosZ)); }
+	//void SetCamera(D3DXMATRIX &matTarget, D3DXMATRIX& matPos);
+	void SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos);*/
+	void SetCamera(float fTargetX, float fTargetY, float fTargetZ, float fPosX, float fPosY, float fPosZ)
+	{
+		SetCamera(D3DXVECTOR3(fTargetX,fTargetY,fTargetZ), D3DXVECTOR3(fPosX,fPosY,fPosZ));
+	}
+	void SetCamera(D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecPos){
+		SetTargetPos(vecTarget);
+		SetCameraPos(vecPos);
+	}
 
 	void SetTargetPos(float x, float y, float z){ SetTargetPos(D3DXVECTOR3(x,y,z)); }
-	void SetTargetPos(D3DXVECTOR3 &vec);
+	void SetTargetPos(D3DXVECTOR3 &vec){ m_vecTarget = vec; }
 	void SetCameraPos(float x, float y, float z){ SetCameraPos(D3DXVECTOR3(x,y,z)); }
-	void SetCameraPos(D3DXVECTOR3 &vec);
+	void SetCameraPos(D3DXVECTOR3 &vec){ m_vecCamera = vec; }
 	void MoveTarget(float x, float y, float z){ MoveTarget(D3DXVECTOR3(x,y,z)); }
-	void MoveTarget(D3DXVECTOR3 &vec);
+	void MoveTarget(D3DXVECTOR3 &vec){ m_vecTarget += vec; }
 	void MoveCamera(float x, float y, float z){ MoveCamera(D3DXVECTOR3(x,y,z)); }
-	void MoveCamera(D3DXVECTOR3 &vec);
+	void MoveCamera(D3DXVECTOR3 &vec){ m_vecCamera += vec; }
 
-	void SetCameraAngle(float fAngleX, float fAngleY, float fAngleZ){ SetCameraAngle(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
-	void SetCameraAngle(D3DXVECTOR3 &vecAngles);
-	void RotateX(float fAngle){ Rotate(fAngle,0,0); }
-	void RotateY(float fAngle){ Rotate(0,fAngle,0); }
-	void RotateZ(float fAngle){ Rotate(0,0,fAngle); }
-	void Rotate(float fAngleX, float fAngleY, float fAngleZ);
+	void SetRotateAngleTarget(float fAngleX, float fAngleY, float fAngleZ){ SetRotateAngleTarget(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void SetRotateAngleTarget(D3DXVECTOR3 &vecAngles){ m_vecRotateTarget = vecAngles; }
+	void SetRotateAngleCamera(float fAngleX, float fAngleY, float fAngleZ){ SetRotateAngleCamera(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void SetRotateAngleCamera(D3DXVECTOR3 &vecAngles){ m_vecRotateCamera = vecAngles; }
+	void RotateTarget(float fAngleX, float fAngleY, float fAngleZ){ RotateTarget(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void RotateTarget(D3DXVECTOR3 &vecAngles){ m_vecRotateTarget += vecAngles; }
+	void RotateCamera(float fAngleX, float fAngleY, float fAngleZ){ RotateCamera(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void RotateCamera(D3DXVECTOR3 &vecAngles){ m_vecRotateCamera += vecAngles; }
 
 	/////////////////////////////////////////////////////////
 
