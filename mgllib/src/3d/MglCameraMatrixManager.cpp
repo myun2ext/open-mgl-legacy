@@ -58,7 +58,7 @@ void CMglCameraMatrixManager::ReCreateViewMatrix()
 }
 
 //	カメラ位置の設定
-void CMglCameraMatrixManager::ReCreateMatrixLookAt(D3DXVECTOR3 &vecEye, D3DXVECTOR3 &vecAt, D3DXVECTOR3 &vecUp)
+void CMglCameraMatrixManager::ReCreateMatrixLookAt(D3DXVECTOR3 &vecPos, D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecUp)
 {
 	InitCheck();
 
@@ -67,7 +67,7 @@ void CMglCameraMatrixManager::ReCreateMatrixLookAt(D3DXVECTOR3 &vecEye, D3DXVECT
 #else
 	D3DXMatrixLookAtRH(
 #endif
-					&m_matView, &vecEye, &vecAt, &vecUp
+					&m_matView, &vecPos, &vecTarget, &vecUp
 //					,&D3DXVECTOR3(fPosX, fPosY, fPosZ)	// カメラ位置
 //					,&D3DXVECTOR3(fTargetX, fTargetY, fTargetZ)		// カメラの注目点
 //					,&D3DXVECTOR3(0,1,0)		// 上の向き
