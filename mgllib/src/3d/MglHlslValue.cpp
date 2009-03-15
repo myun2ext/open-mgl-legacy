@@ -54,6 +54,6 @@ void CMglHlslValue::SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, U
 {
 	CreateCheck();
 	MyuAssert2( m_pEffect->SetValue( szValueName, pValue, nSize ), D3D_OK,
-		MGLMSGNO_SHADER(330), "CMglEffectCore::SetValue()  m_pEffect->SetValue()‚ÉŽ¸”s" );
+		MGLMSGNO_SHADER(332), "CMglEffectCore::SetValue()  m_pEffect->SetValue()‚ÉŽ¸”s" );
 }
 

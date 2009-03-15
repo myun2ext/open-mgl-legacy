@@ -142,4 +142,6 @@ DLL_EXP const char* GetD3DResultString( DWORD nD3dResult );
 DLL_EXP BOOL GetScreenSize( int* pnWidth, int* pnHeight );
 
 
+DLL_EXP D3DXVECTOR3* D3DXMatrixToVector3( D3DXVECTOR3 *pOutVector3, CONST D3DXMATRIX *pInMatrix );
+
 #endif//__MglGraphicUtil_H__

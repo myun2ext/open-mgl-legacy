@@ -427,3 +427,9 @@ const MGLTUTV& CMglD3dTexture::GetTuTv()
 	return t;*/
 	return m_tutv;
 }
+
+
+void CMglTextureStageStateManager::Set(int nStage, D3DTEXTURESTAGESTATETYPE tssType, DWORD value){
+	m_tssList[nStage][tssType] = value;
+}
+

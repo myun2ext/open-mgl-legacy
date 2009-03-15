@@ -165,3 +165,26 @@ BOOL GetScreenSize( int* pnWidth, int* pnHeight )
 
 	return TRUE;
 }
+
+D3DXVECTOR3* D3DXMatrixToVector3
+    ( D3DXVECTOR3 *pOutVector3, CONST D3DXMATRIX *pInMatrix )
+{
+	CONST D3DXMATRIX& m = *pInMatrix;
+
+	pOutVector3->x =
+		m.m[3][0] * m.m[0][0] +
+		m.m[3][1] * m.m[1][0] +
+		m.m[3][2] * m.m[2][0];
+
+	pOutVector3->y =
+		m.m[3][0] * m.m[0][1] +
+		m.m[3][1] * m.m[1][1] +
+		m.m[3][2] * m.m[2][1];
+
+	pOutVector3->z =
+		m.m[3][0] * m.m[0][2] +
+		m.m[3][1] * m.m[1][2] +
+		m.m[3][2] * m.m[2][2];
+
+	return pOutVector3;
+}

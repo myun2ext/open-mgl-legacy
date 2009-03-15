@@ -173,7 +173,7 @@ typedef CMglD3dTexture CMglSquareTexture;
 ////////////////////////////////////////////////////
 
 //	TextureStageStateÇä«óùÇ∑ÇÈÉNÉâÉX
-class CMglTextureStageStateManager : public virtual CMglDgBase
+class DLL_EXP CMglTextureStageStateManager : public virtual CMglDgBase
 {
 public:
 	typedef std::map<D3DTEXTURESTAGESTATETYPE,DWORD> _MAP_t;
@@ -183,9 +183,9 @@ protected:
 	_MAP_t m_tssList[MGL_TEXTURE_STAGE_MAX];
 
 public:
-	void Set(int nStage, D3DTEXTURESTAGESTATETYPE tssType, DWORD value){
+	void Set(int nStage, D3DTEXTURESTAGESTATETYPE tssType, DWORD value);/*{
 		m_tssList[nStage][tssType] = value;
-	}
+	}*/
 	DWORD Get(int nStage, D3DTEXTURESTAGESTATETYPE tssType){
 		return m_tssList[nStage][tssType];
 	}
@@ -197,6 +197,7 @@ public:
 	
 	void Sets(int nStage){ SetsTextureStageState(nStage); }
 	void SetsTextureStageState(int nStage){
+		InitCheck();
 		_MAP_t &tssL = m_tssList[nStage];
 		_MAP_t::iterator it = tssL.begin();
 		for(; it != tssL.end(); it++){
