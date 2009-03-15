@@ -11,11 +11,6 @@
 //	コンストラクタ
 CMglCameraMatrixManager::CMglCameraMatrixManager()
 {
-	m_fAspectRatio = 640.0f/480;
-	m_fViewingAngle = 45.0f;
-	m_fClipNear = 0.01f;
-	m_fClipFar = 100.0f;
-
 	m_fCameraPosX = 0;
 	m_fCameraPosY = 0;
 	m_fCameraPosZ = 0;
@@ -46,42 +41,8 @@ void CMglCameraMatrixManager::Init( CMglGraphicManager* in_myudg )
 {
 	CMglDgBase::Init(in_myudg);
 
-	//	Projectionの設定
-	SetupProjection( (m_myudg->GetWidth()*1.0f) / m_myudg->GetHeight());
-
 	//	とりあえずデフォルトなカメラを設定
 	SetCamera(0,0,-5.0f, 0,0,0);
-}
-
-//	Projectionの設定
-void CMglCameraMatrixManager::SetupProjection( float fAspectRatio, float fViewingAngle, float fClipNear, float fClipFar )
-{
-	InitCheck();
-
-	//D3DXMATRIX matPrj;
-#if _MGL3D_COORDINATE_USE == _MGL3D_COORDINATE_LEFT_HAND
-	D3DXMatrixPerspectiveFovLH(
-#else
-	D3DXMatrixPerspectiveFovRH(
-#endif	
-					&m_projection,
-					D3DXToRadian(fViewingAngle),		// 視野角
-					fAspectRatio,			// アスペクト比（縦、横比率）
-					fClipNear,				// Near クリップ
-					fClipFar);				// Far  クリップ
-	/*				D3DXToRadian(45.0),		// 視野角
-					640.0f / 480.0f,		// アスペクト比（縦、横比率）
-					clip_near,				// Near クリップ
-					clip_far);				// Far  クリップ*/
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
-		"CMglCameraMatrixManager::SetupProjection()  SetTransform()に失敗" );
-
-	m_fAspectRatio = fAspectRatio;
-	m_fViewingAngle = fViewingAngle;
-	m_fClipNear = fClipNear;
-	m_fClipFar = fClipFar;
-
-//D3D_COORDINATE	g_WorldFrame(D3DXVECTOR3(1,1,1), D3DXVECTOR3(0,0,0), D3DXVECTOR3(0,0,0));
 }
 
 ////////////////////////////////////////////////////////////
@@ -254,10 +215,6 @@ void CMglCameraMatrixManager::ReTransform()
 	//	View（カメラ）
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
 		"CMglCameraMatrixManager::ReTransform()  SetTransform(D3DTS_VIEW)に失敗" );
-
-	//	プロジェクション
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
-		"CMglCameraMatrixManager::SetupProjection()  SetTransform()に失敗" );
 }
 
 //	View設定
@@ -267,15 +224,6 @@ void CMglCameraMatrixManager::SetViewMatrix(D3DXMATRIX &matView)
 	m_matView = matView;
 	MyuAssert( m_pD3dDev->SetTransform(D3DTS_VIEW, &m_matView), D3D_OK,
 		"CMglCameraMatrixManager::ReTransform()  SetTransform(D3DTS_VIEW)に失敗" );
-}
-
-//	Projection設定
-void CMglCameraMatrixManager::SetProjectionMatrix(D3DXMATRIX &matProjection)
-{
-	InitCheck();
-	m_projection = matProjection;
-	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
-		"CMglCameraMatrixManager::SetupProjection()  SetTransform()に失敗" );
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

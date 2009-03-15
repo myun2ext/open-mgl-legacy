@@ -42,6 +42,9 @@ void CMglMatrixManager::ReTransform()
 	//	ƒ[ƒ‹ƒh‚ÌReTransform
 	m_pWorldMgr->ReTransform();
 
+	//	Projection‚ÌReTransform
+	m_matMgrProjection.ReTransform();
+
 	//	ƒJƒƒ‰‚ÌReTransform
 	CMglCameraMatrixManager::ReTransform();
 }
@@ -60,6 +63,9 @@ void CMglMatrixManager::ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTO
 	vp.MinZ = 0.0f;
 	vp.MaxZ = 1.0f;
 	
-	D3DXVec3Project(pOut, pInVector, &vp, &(GetProjectionMatrix()), &(GetViewMatrix()), &(m_pWorldMgr->GetMatrix()));
+	D3DXVec3Project(pOut, pInVector, &vp,
+		&(GetProjectionMatrix()),
+		&(GetViewMatrix()),
+		+&(m_pWorldMgr->GetMatrix()));
 }
 

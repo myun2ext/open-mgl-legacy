@@ -67,6 +67,16 @@ void CMglProjectionMatrixManager::SetupProjection( float fAspectRatio, float fVi
 //D3D_COORDINATE	g_WorldFrame(D3DXVECTOR3(1,1,1), D3DXVECTOR3(0,0,0), D3DXVECTOR3(0,0,0));
 }
 
+//	ReTransform
+void CMglProjectionMatrixManager::ReTransform()
+{
+	InitCheck();
+
+	//	プロジェクション
+	MyuAssert( m_pD3dDev->SetTransform(D3DTS_PROJECTION, &m_projection), D3D_OK,
+		"CMglProjectionMatrixManager::SetupProjection()  SetTransform()に失敗" );
+}
+
 //	Projection設定
 void CMglProjectionMatrixManager::SetProjectionMatrix(D3DXMATRIX &matProjection)
 {

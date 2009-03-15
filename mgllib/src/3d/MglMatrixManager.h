@@ -8,6 +8,7 @@
 #define __MglMatrixManager_H__
 
 #include "MglGraphicManager.h"
+#include "MglProjectionMatrixManager.h"
 #include "MglCameraMatrixManager.h"
 #include "MglWorldMatrixManager.h"
 
@@ -17,6 +18,7 @@ class DLL_EXP CMglMatrixManager : public CMglCameraMatrixManager //public virtua
 protected:
 	CMglWorldMatrixManager *m_pWorldMgr;
 	CMglWorldMatrixManager m_initWorld;	//	初期状態のワールドマトリックス（デフォルト）
+	CMglProjectionMatrixManager m_matMgrProjection;
 
 	/*void WorldCheck(){
 		if ( m_pWorldMgr == NULL )
@@ -48,6 +50,8 @@ public:
 	void ReTransform();
 
 	/////////////////////////////////////////////////////////////////
+
+	D3DXMATRIX& GetProjectionMatrix(){ return m_matMgrProjection.GetProjectionMatrix(); }
 
 	void ConvertToScreenVector(D3DXVECTOR3 *pOut, CONST D3DXVECTOR3 *pInVector);
 };

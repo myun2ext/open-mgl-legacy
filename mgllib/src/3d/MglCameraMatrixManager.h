@@ -24,8 +24,6 @@ private:
 
 protected:
 	D3DXMATRIX m_matView;
-	D3DXMATRIX m_projection;
-
 
 	//	ãLâØ
 	D3DXMATRIX m_matTarget;
@@ -34,11 +32,6 @@ protected:
 	D3DXVECTOR3 m_vecPos;
 
 	//////////////////////////////////
-
-	float m_fAspectRatio;
-	float m_fViewingAngle;
-	float m_fClipNear;
-	float m_fClipFar;
 
 	float m_fCameraPosX;
 	float m_fCameraPosY;
@@ -77,9 +70,6 @@ public:
 	/////////////////////////////////////////////////////////////////
 
 	void ReTransform();
-
-	//	Projection
-	void SetupProjection( float fAspectRatio, float fViewingAngle=30.0f, float fClipNear=0.01f, float fClipFar=100.0f );
 	
 	//	ÉJÉÅÉâ
 	void SetCamera(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ, float fRotate=0.0f);
@@ -104,10 +94,8 @@ public:
 	void SetViewMatrix(D3DXMATRIX &matView){ m_matView = matView; }
 	void SetProjectionMatrix(D3DXMATRIX &matProjection){ m_projection = matProjection; }*/
 	void SetViewMatrix(D3DXMATRIX &matView);
-	void SetProjectionMatrix(D3DXMATRIX &matProjection);
 
 	D3DXMATRIX& GetViewMatrix(){ return m_matView; }
-	D3DXMATRIX& GetProjectionMatrix(){ return m_projection; }
 };
 
 #endif//__MglCameraMatrixManager_H__
