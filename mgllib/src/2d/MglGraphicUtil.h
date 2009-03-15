@@ -141,12 +141,23 @@ DLL_EXP const char* GetD3DResultString( DWORD nD3dResult );
 
 DLL_EXP BOOL GetScreenSize( int* pnWidth, int* pnHeight );
 
+////////////////////////////////////////////////
 
-DLL_EXP D3DXVECTOR3* D3DXMatrixToVector3( D3DXVECTOR3 *pOutVector3, CONST D3DXMATRIX *pInMatrix );
-inline D3DXVECTOR3 D3DXMatrixToVector3(CONST D3DXMATRIX *pInMatrix){
-	D3DXVECTOR3 work;
-	D3DXMatrixToVector3(&work, pInMatrix);
-	return work;
+namespace mglex
+{
+	DLL_EXP D3DXVECTOR3* D3DXMatrixToVector3( D3DXVECTOR3 *pOutVector3, CONST D3DXMATRIX *pInMatrix );
+	inline D3DXVECTOR3 D3DXMatrixToVector3(CONST D3DXMATRIX *pInMatrix){
+		D3DXVECTOR3 work;
+		D3DXMatrixToVector3(&work, pInMatrix);
+		return work;
+	}
+
+	DLL_EXP D3DXMATRIX* D3DXMatrixRotation( D3DXMATRIX *pOut, float fAngleX, float fAngleY, float fAngleZ );
+	inline D3DXMATRIX D3DXMatrixRotation(float fAngleX, float fAngleY, float fAngleZ){
+		D3DXMATRIX work;
+		D3DXMatrixRotation(&work, fAngleX, fAngleY, fAngleZ);
+		return work;
+	}
 }
 
 #endif//__MglGraphicUtil_H__

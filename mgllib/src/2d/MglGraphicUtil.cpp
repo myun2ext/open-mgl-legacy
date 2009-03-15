@@ -166,6 +166,11 @@ BOOL GetScreenSize( int* pnWidth, int* pnHeight )
 	return TRUE;
 }
 
+/////////////////////////////////////////////////
+
+NSMGLEX_START
+
+//	D3DXMATRIX ‚©‚ç D3DXVECTOR3 ‚Ö‚Ì•ÏŠ·
 D3DXVECTOR3* D3DXMatrixToVector3
     ( D3DXVECTOR3 *pOutVector3, CONST D3DXMATRIX *pInMatrix )
 {
@@ -188,3 +193,19 @@ D3DXVECTOR3* D3DXMatrixToVector3
 
 	return pOutVector3;
 }
+
+//	D3DXMatrixRotationŒnŽO‚Â‚¢‚Á‚Ø‚ñ‚É
+D3DXMATRIX* D3DXMatrixRotation( D3DXMATRIX *pOut, float fAngleX, float fAngleY, float fAngleZ )
+{
+	D3DXMATRIX matX;
+	D3DXMatrixRotationX(&matX, fAngleX);
+	D3DXMATRIX matY;
+	D3DXMatrixRotationY(&matY, fAngleY);
+	D3DXMATRIX matZ;
+	D3DXMatrixRotationZ(&matZ, fAngleZ);
+
+	*pOut = matX * matY * matZ;
+	return pOut;
+}
+
+NSMGLEX_END

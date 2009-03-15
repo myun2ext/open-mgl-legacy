@@ -35,6 +35,8 @@ void CMglCameraMatrixManager::Init( CMglGraphicManager* in_myudg )
 }
 
 /////////////////////////////////////////////////////////////
+void CMglCameraMatrixManager::ZoomIn(float fDistance){}
+void CMglCameraMatrixManager::ZoomOut(float fDistance){}
 
 
 //	ReTransform
@@ -52,6 +54,7 @@ void CMglCameraMatrixManager::ReTransform()
 
 void CMglCameraMatrixManager::ReCreateViewMatrix()
 {
+
 	ReCreateMatrixLookAt(m_vecCamera, m_vecTarget, D3DXVECTOR3(0,1,0));
 	//SetCamera();
 	//CameraLockAt();

@@ -80,23 +80,49 @@ public:
 		SetCameraPos(vecPos);
 	}
 
-	void SetTargetPos(float x, float y, float z){ SetTargetPos(D3DXVECTOR3(x,y,z)); }
-	void SetTargetPos(D3DXVECTOR3 &vec){ m_vecTarget = vec; }
+	//////////////////////////////////////////////////////////////////////////////
+
+	//	カメラの位置を設定
 	void SetCameraPos(float x, float y, float z){ SetCameraPos(D3DXVECTOR3(x,y,z)); }
 	void SetCameraPos(D3DXVECTOR3 &vec){ m_vecCamera = vec; }
-	void MoveTarget(float x, float y, float z){ MoveTarget(D3DXVECTOR3(x,y,z)); }
-	void MoveTarget(D3DXVECTOR3 &vec){ m_vecTarget += vec; }
+	
+	//	対象の位置を設定
+	void SetTargetPos(float x, float y, float z){ SetTargetPos(D3DXVECTOR3(x,y,z)); }
+	void SetTargetPos(D3DXVECTOR3 &vec){ m_vecTarget = vec; }
+
+	//	カメラを指定距離移動
 	void MoveCamera(float x, float y, float z){ MoveCamera(D3DXVECTOR3(x,y,z)); }
 	void MoveCamera(D3DXVECTOR3 &vec){ m_vecCamera += vec; }
 
-	void SetRotateAngleTarget(float fAngleX, float fAngleY, float fAngleZ){ SetRotateAngleTarget(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
-	void SetRotateAngleTarget(D3DXVECTOR3 &vecAngles){ m_vecRotateTarget = vecAngles; }
-	void SetRotateAngleCamera(float fAngleX, float fAngleY, float fAngleZ){ SetRotateAngleCamera(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
-	void SetRotateAngleCamera(D3DXVECTOR3 &vecAngles){ m_vecRotateCamera = vecAngles; }
-	void RotateTarget(float fAngleX, float fAngleY, float fAngleZ){ RotateTarget(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
-	void RotateTarget(D3DXVECTOR3 &vecAngles){ m_vecRotateTarget += vecAngles; }
+	//	対象を指定距離移動
+	void MoveTarget(float x, float y, float z){ MoveTarget(D3DXVECTOR3(x,y,z)); }
+	void MoveTarget(D3DXVECTOR3 &vec){ m_vecTarget += vec; }
+
+	//	画面全体を移動（対象とカメラを移動）
+	void Shift(float x, float y, float z){ Shift(D3DXVECTOR3(x,y,z)); }
+	void Shift(D3DXVECTOR3 &vec){ MoveCamera(vec); MoveTarget(vec); }
+
+	//////////////////////////////////////////////////////////////////////////////
+
+	//	カメラを（対象を軸に）回転移動
 	void RotateCamera(float fAngleX, float fAngleY, float fAngleZ){ RotateCamera(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
 	void RotateCamera(D3DXVECTOR3 &vecAngles){ m_vecRotateCamera += vecAngles; }
+
+	//	対象を（カメラを軸に）回転移動
+	void RotateTarget(float fAngleX, float fAngleY, float fAngleZ){ RotateTarget(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void RotateTarget(D3DXVECTOR3 &vecAngles){ m_vecRotateTarget += vecAngles; }
+
+	//	カメラの（対象を軸にした）絶対角度を設定
+	void SetRotateAngleCamera(float fAngleX, float fAngleY, float fAngleZ){ SetRotateAngleCamera(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void SetRotateAngleCamera(D3DXVECTOR3 &vecAngles){ m_vecRotateCamera = vecAngles; }
+
+	//	対象の（カメラを軸にした）絶対角度を設定
+	void SetRotateAngleTarget(float fAngleX, float fAngleY, float fAngleZ){ SetRotateAngleTarget(D3DXVECTOR3(fAngleX,fAngleY,fAngleZ)); }
+	void SetRotateAngleTarget(D3DXVECTOR3 &vecAngles){ m_vecRotateTarget = vecAngles; }
+	
+	//	ズームインとズームアウト
+	void ZoomIn(float fDistance);
+	void ZoomOut(float fDistance);
 
 	/////////////////////////////////////////////////////////
 

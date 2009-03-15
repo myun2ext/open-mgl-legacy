@@ -247,6 +247,11 @@ using namespace std;
 //			その他のマクロ等
 //
 
+#define NSMGLEX_START	namespace mglex {
+#define NSMGLEX_END		}
+#define NSMGLX_START	namespace mglex {
+#define NSMGLX_END		}
+
 /*
 //	便利マクロくん
 #define SAFE_DELETE(p)		{if( p != NULL ){ delete (p);		(p)=NULL; }}
