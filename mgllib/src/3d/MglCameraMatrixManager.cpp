@@ -8,6 +8,8 @@
 #include "stdafx.h"
 #include "MglCameraMatrixManager.h"
 
+using namespace mglex;
+
 //	コンストラクタ
 CMglCameraMatrixManager::CMglCameraMatrixManager()
 {
@@ -52,15 +54,28 @@ void CMglCameraMatrixManager::ReTransform()
 		"CMglCameraMatrixManager::ReTransform()  SetTransform(D3DTS_VIEW)に失敗" );
 }
 
+//	MATRIX再生成
 void CMglCameraMatrixManager::ReCreateViewMatrix()
 {
-
-	ReCreateMatrixLookAt(m_vecCamera, m_vecTarget, D3DXVECTOR3(0,1,0));
-	//SetCamera();
-	//CameraLockAt();
+	D3DXVECTOR3 vecCameraReTran = GetVec3(m_vecCamera, m_vecRotateCamera, m_vecTarget, m_vecRotateTarget);
+	D3DXVECTOR3 vecTargetReTran = GetVec3(m_vecTarget, m_vecRotateTarget, m_vecCamera, m_vecRotateCamera);
+	ReCreateMatrixLookAt(vecCameraReTran, vecTargetReTran, D3DXVECTOR3(0,1,0));
+	//ReCreateMatrixLookAt(m_vecCamera, m_vecTarget, D3DXVECTOR3(0,1,0));
 }
 
-//	カメラ位置の設定
+//	マトリックス取得
+//D3DXMATRIX CMglCameraMatrixManager::GetMat(
+D3DXVECTOR3 CMglCameraMatrixManager::GetVec3(
+	D3DXVECTOR3 &vecPos, D3DXVECTOR3 &vecRotate, D3DXVECTOR3 &vecPosOpps, D3DXVECTOR3 &vecRotateOpps)
+{
+	D3DXMATRIX shift;
+	D3DXMatrixTranslation(&shift, vecPos.x, vecPos.y, vecPos.z);
+	//return shift;
+	return mglex::D3DXMatrixToVector3(&shift);
+}
+
+
+//	D3DXMatrixLookAtRH()を呼び出す
 void CMglCameraMatrixManager::ReCreateMatrixLookAt(D3DXVECTOR3 &vecPos, D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecUp)
 {
 	InitCheck();

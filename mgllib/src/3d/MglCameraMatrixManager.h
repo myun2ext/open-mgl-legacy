@@ -40,6 +40,7 @@ protected:
 
 	//void CameraLockAt(float fPosX, float fPosY, float fPosZ, float fTargetX, float fTargetY, float fTargetZ, float fRotate);
 	void ReCreateViewMatrix();
+	D3DXVECTOR3 GetVec3(D3DXVECTOR3 &vecPos, D3DXVECTOR3 &vecRotate, D3DXVECTOR3 &vecPosOpps, D3DXVECTOR3 &vecRotateOpps);
 	void ReCreateMatrixLookAt(D3DXVECTOR3 &vecPos, D3DXVECTOR3 &vecTarget, D3DXVECTOR3 &vecUp);
 
 public:
