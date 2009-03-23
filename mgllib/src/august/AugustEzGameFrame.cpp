@@ -149,12 +149,16 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 
 			_MGL_DEBUGLOG("input.Init()..." );
 			input.Init( m_window.GetWindowHandle() );
+			_MGL_DEBUGLOG("input.Init() end." );
 
 			//	2008/11/29
-			_MGL_DEBUGLOG("audio.Init()..." );
-			if ( m_bEnabledAudio )
+			if ( m_bEnabledAudio ){
+				_MGL_DEBUGLOG("audio.Init()..." );
 				InitAudio();
+				_MGL_DEBUGLOG("audio.Init() end." );
+			}
 
+			_MGL_DEBUGLOG("Create Debug/FPS Fonts..." );
 			//m_txtDebug.InitAndEzCreate( &grp, 14 );
 			//m_txtFps.InitAndEzCreate( &grp, 14 );
 			m_txtDebug.Init( &grp );
@@ -163,6 +167,7 @@ int CAugustEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			m_txtFps.Create( 14 );
 			//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
 			//grp.Clear();
+			_MGL_DEBUGLOG("end." );
 
 			//	2009/01/23  CAugustWindow側のOnInit()呼び出し
 			_MGL_DEBUGLOG("EzFrame_OnInit()..." );

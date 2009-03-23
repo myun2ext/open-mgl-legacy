@@ -159,8 +159,8 @@ int CMglEzGameFrame::PrivateMainMethod(DWORD dwUserThreadParam)
 			//m_txtDebug.InitAndEzCreate( &grp, 14 );
 			//m_txtFps.InitAndEzCreate( &grp, 14 );
 			m_txtDebug.Init( &grp );
-			m_txtDebug.Init( &grp );
-			m_txtFps.Create( 14 );
+			m_txtFps.Init( &grp );
+			m_txtDebug.Create( 14 );
 			m_txtFps.Create( 14 );
 			//fps.SetFPS(60); <- 勝手に上書きしちゃだめ！てかデフォルト60なってるし
 			//grp.Clear();
