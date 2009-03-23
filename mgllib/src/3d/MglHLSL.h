@@ -43,6 +43,8 @@ public:
 
 	//	値の設定
 	void SetFloat( _MGL_D3DXHANDLE szValueName, float fValue );
+
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED
 	void SetInt( _MGL_D3DXHANDLE szValueName, int nValue );
 	void SetInteger( _MGL_D3DXHANDLE szValueName, int nValue ){ SetInt(szValueName, nValue); }
 	void SetBool( _MGL_D3DXHANDLE szValueName, BOOL bValue );
@@ -58,6 +60,7 @@ public:
 	void SetMatrix( _MGL_D3DXHANDLE szValueName, CONST D3DXMATRIX& matrix );
 
 	void SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, UINT nSize );
+#endif//_MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED
 };
 
 ////////////////////////////////////////////
@@ -107,9 +110,11 @@ public:
 	//	テクニックを選択
 	void SelectTechnique( const char* szTechniqueName ){ SetTechnique(szTechniqueName); }
 	void SetTechnique( const char* szTechniqueName );
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED
 	void FirstTechnique(){ NextTechnique(NULL); }
 	void NextTechnique( _MGL_D3DXHANDLE hPrevTechnique );
 	_MGL_D3DXHANDLE FindNextValidTechnique( _MGL_D3DXHANDLE hPrevTechnique=NULL );
+#endif
 
 	///////////////////////////////////////////////////////////
 

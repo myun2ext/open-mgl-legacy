@@ -9,6 +9,8 @@ void CMglHlslValue::SetFloat( _MGL_D3DXHANDLE szValueName, float fValue )
 		MGLMSGNO_SHADER(320), "CMglEffectCore::SetFloat()  m_pEffect->SetFloat()‚ÉŽ¸”s" );
 }
 
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED
+
 //	Int
 void CMglHlslValue::SetInt( _MGL_D3DXHANDLE szValueName, int nValue )
 {
@@ -57,3 +59,4 @@ void CMglHlslValue::SetValue( _MGL_D3DXHANDLE szValueName, CONST VOID* pValue, U
 		MGLMSGNO_SHADER(332), "CMglEffectCore::SetValue()  m_pEffect->SetValue()‚ÉŽ¸”s" );
 }
 
+#endif//_MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED

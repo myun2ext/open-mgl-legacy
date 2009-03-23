@@ -78,8 +78,10 @@ void CMglEffectCore::SetTechnique( _MGL_D3DXHANDLE szTechniqueName )
 		MGLMSGNO_SHADER(240), "CMglEffectCore::SetTechnique()  m_pEffect->SetTechnique()に失敗" );
 }
 
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXEFFECT_CHANGED
+
 //	次のテクニックに（NULL指定で最初のテクニック）
-void CMglEffectCore::NextTechnique( D3DXHANDLE hPrevTechnique )
+void CMglEffectCore::NextTechnique( _MGL_D3DXHANDLE hPrevTechnique )
 {
 	SetTechnique( FindNextValidTechnique(hPrevTechnique) );
 }
@@ -96,6 +98,8 @@ _MGL_D3DXHANDLE CMglEffectCore::FindNextValidTechnique( _MGL_D3DXHANDLE hPrevTec
 
 	return h;
 }
+
+#endif//_MGL_D3DXVER < MGL_D3DXVER_ID3DXEFFECT_CHANGED
 
 ////////////////////////////////
 
