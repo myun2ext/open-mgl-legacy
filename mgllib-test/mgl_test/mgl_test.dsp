@@ -92,15 +92,7 @@ LINK32=link.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\dx_graphic.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\dx_graphic.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\mgl_test.cpp
+SOURCE=".\Function Test\drag_test.cpp"
 # End Source File
 # Begin Source File
 

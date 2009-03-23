@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "MglAghImage.h"
 
 class CMglTestFrame : public CMglguiWindow
 {
@@ -9,17 +8,17 @@ private:
 public:
 	//	初期化時に呼ばれる
 	void OnInit(){
-		m_img.Load("huukei.jpg");
+		m_img.Load("test.jpg");
 
 		CMglguiWindow::RegistControl(&m_img);
 		CMglguiWindow::RegistControl(&m_text);
 
 		m_text.SetOption( AGH_FONT_OPTION_BOLD | AGH_FONT_OPTION_UNDERLINE );
 		m_text.SetFontName( "MS Pゴシック" );
-		m_text.SetFontSize(40);
-		m_text.SetPos(20,350);
-		m_text.SetColor(AGHCOLOR_ARGB(150,120,255,200));
-		m_text.SetText("てすとだ\nよーん。");
+		m_text.SetFontSize(28);
+		m_text.SetPos(20,380);
+		m_text.SetColor(AGHCOLOR_ARGB(120,180,180,255));
+		m_text.SetText("テストです。\n改行も出来ます。");
 	}
 };
 
