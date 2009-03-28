@@ -730,33 +730,64 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	//	DirectX9の場合はこーんな感じらしい。
 
 	//	拡大・縮小
-	D3DXMATRIX matrix_s;
-	D3DXMatrixScaling(&matrix_s, fScaleX, fScaleY, 1);
+	D3DXMATRIX matScale;
+	D3DXMatrixScaling(&matScale, fScaleX, fScaleY, 0.0f);
 
 	//	角度
-	D3DXMATRIX matrix_r;
-	D3DXMatrixRotationZ(&matrix_r, D3DXToRadian(fAngle));
+	D3DXMATRIX matRotation;
+	D3DXMatrixRotationZ(&matRotation, D3DXToRadian(fAngle));
 
 	//	回転の中心
 	float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX * fScaleX;
 	float fCenterY = (pSrcRect->right - pSrcRect->left) * fRotationCenterY * fScaleY;
-	D3DXMATRIX matrix_t;
-	D3DXMatrixTranslation(&matrix_t, fCenterX, fCenterY, 0);
+	D3DXMATRIX matTrans;
+	D3DXMatrixTranslation(&matTrans, fCenterX, fCenterY, 0);
 
 	//	結合
 	D3DXMATRIX matrix1;
 	D3DXMATRIX matrix;
-	D3DXMatrixMultiply(&matrix1, &matrix_r, &matrix_t);
-	D3DXMatrixMultiply(&matrix, &matrix1, &matrix_s);
+	D3DXMatrixMultiply(&matrix1, &matRotation, &matTrans);
+	D3DXMatrixMultiply(&matrix, &matrix1, &matScale);
+	//D3DXMATRIX matrix = matScale * matTrans * matRotation;
+
+/*	
+D3DXMATRIX *WINAPI D3DXMatrixTransformation2D(
+	&matrix,
+	&D3DXVECTOR2(0.5f,0.5f),
+	FLOAT ScalingRotation,
+	CONST D3DXVECTOR2 * pScaling,
+	CONST D3DXVECTOR2 * pRotationCenter,
+	FLOAT Rotation,
+	CONST D3DXVECTOR2 * pTranslation
+);
+*/
+	D3DXMatrixTransformation2D(&matrix,
+		NULL,
+		0,
+		&D3DXVECTOR2(fScaleX,fScaleY),
+		NULL,
+		0,
+		NULL);
+	/*D3DXMatrixTransformation2D(&matrix,
+		&D3DXVECTOR2(0.5f,0.5f),
+		0,
+		&D3DXVECTOR2(fScaleX,fScaleY),
+		&D3DXVECTOR2(0.5f,0.5f),
+		D3DXToRadian(fAngle),
+		NULL);*/
 
 	//	トランスフォームとして反映
 	MyuAssert2( m_pSprite->SetTransform(&matrix), D3D_OK,
 		MGLMSGNO_GRPMGR(85), "CMglGraphicManager::SpriteDraw()  m_pSprite->SetTransform()に失敗" );
 
 	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, 
-					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
+//					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
+					 &D3DXVECTOR3(0, 0, 0),
 					 &D3DXVECTOR3(x, y, 0), color), D3D_OK,
 		MGLMSGNO_GRPMGR(86), "CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
+
+//	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), NULL, NULL, NULL, color), D3D_OK,
+//		MGLMSGNO_GRPMGR(86), "CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()に失敗" );
 
 	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 	//	DirectX 8
@@ -802,10 +833,13 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 //	スプライトのBegin()
 void CMglGraphicManager::SpriteBegin()
 {
+	if( m_pSprite == NULL )
+		MyuThrow(MGLMSGNO_GRPMGR(91), "Spriteが作成されていません。");
+
 	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
 //#if _MGL_DXVER == 9
 #if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
-		MyuAssert2( m_pSprite->Begin(D3DRS_ALPHABLENDENABLE), D3D_OK,
+		MyuAssert2( m_pSprite->Begin(0), D3D_OK,
 #else
 		MyuAssert2( m_pSprite->Begin(), D3D_OK,
 #endif
@@ -816,6 +850,9 @@ void CMglGraphicManager::SpriteBegin()
 //	スプライトのEnd()
 void CMglGraphicManager::SpriteEnd()
 {
+	if( m_pSprite == NULL )
+		MyuThrow(MGLMSGNO_GRPMGR(92), "Spriteが作成されていません。");
+
 	if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){
 		MyuAssert2( m_pSprite->End(), D3D_OK,
 			MGLMSGNO_GRPMGR(90), "CMglGraphicManager::SpriteEnd()  m_pSprite->End()に失敗" );

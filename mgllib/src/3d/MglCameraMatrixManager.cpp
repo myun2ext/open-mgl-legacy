@@ -68,10 +68,13 @@ void CMglCameraMatrixManager::ReCreateViewMatrix()
 D3DXVECTOR3 CMglCameraMatrixManager::GetVec3(
 	D3DXVECTOR3 &vecPos, D3DXVECTOR3 &vecRotate, D3DXVECTOR3 &vecPosOpps, D3DXVECTOR3 &vecRotateOpps)
 {
+	D3DXVECTOR3 vecDistance = vecPos - vecPosOpps;
+
 	D3DXMATRIX shift;
 	D3DXMatrixTranslation(&shift, vecPos.x, vecPos.y, vecPos.z);
-	//return shift;
+
 	return mglex::D3DXMatrixToVector3(&shift);
+	//return shift;
 }
 
 

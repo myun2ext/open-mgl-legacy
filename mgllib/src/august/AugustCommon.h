@@ -1,11 +1,5 @@
-//////////////////////////////////////////////////////////
-//
-//	MglguiControl
-//
-//////////////////////////////////////////////////////////
-
-#ifndef __MglguiControl_H__
-#define __MglguiControl_H__
+#ifndef __AugustCommon_H__
+#define __AugustCommon_H__
 
 #include "agh.h"
 #include "MglImageCacher.h"
@@ -93,7 +87,32 @@ public:
 };
 */
 
+class DLL_EXP agh::CControlBase;
 class DLL_EXP agh::CVisualControlBase;
+class DLL_EXP agh::C3dVisualControlBase;
+
+
+
+//	クラス宣言
+//template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
+class DLL_EXP CAugustBaseCore
+{
+protected:
+	CAugustGlobalCommon *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
+
+public:
+	//	コンストラクタ
+	CAugustBaseCore(){
+		m_pGlobal = NULL;
+	}
+
+	//	公開イベントハンドラ
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
+	}
+};
 
 //	クラス宣言
 //template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
@@ -115,6 +134,50 @@ public:
 		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
 	}
 	//agh::CControlBase* _GetThisControl(){ return 
+};
+
+//	クラス宣言
+//template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
+class DLL_EXP CAugustSemiVisualControlBase : public agh::CControlBase
+{
+protected:
+	CAugustGlobalCommon *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
+
+public:
+	//	コンストラクタ
+	CAugustSemiVisualControlBase(){
+		m_pGlobal = NULL;
+	}
+
+	//	公開イベントハンドラ
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
+	}
+	//agh::CControlBase* _GetThisControl(){ return 
+};
+
+//	クラス宣言
+//template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
+class DLL_EXP CAugust3dVisualControlBase : public agh::C3dVisualControlBase, CAugustBaseCore
+{
+/*protected:
+	CAugustGlobalCommon *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
+
+public:
+	//	コンストラクタ
+	CAugust3dVisualControlBase(){
+		m_pGlobal = NULL;
+	}
+
+	//	公開イベントハンドラ
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
+	}
+	//agh::CControlBase* _GetThisControl(){ return */
 };
 
 /*
@@ -142,4 +205,4 @@ public:
 };
 */
 
-#endif//__MglguiControl_H__
+#endif//__AugustCommon_H__

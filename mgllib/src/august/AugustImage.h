@@ -27,7 +27,7 @@ protected:
 	CMglImage* m_pImg;
 	std::string m_strFilePath;
 
-protected:
+protected:	//	_AGH_EVENT_ACCESS_MODIFIER‚Å‚È‚¢‚Ì‚É‚Í‰½‚©ˆÓ–¡‚Å‚à‚ ‚é‚ñ‚¾‚ë‚¤‚©
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
 	virtual void OnDraw();
 

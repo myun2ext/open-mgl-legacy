@@ -152,10 +152,10 @@ namespace mglex
 		return work;
 	}
 
-	DLL_EXP D3DXMATRIX* D3DXMatrixRotation( D3DXMATRIX *pOut, float fAngleX, float fAngleY, float fAngleZ );
-	inline D3DXMATRIX D3DXMatrixRotation(float fAngleX, float fAngleY, float fAngleZ){
+	DLL_EXP D3DXMATRIX* D3DXMatrixRotation( D3DXMATRIX *pOut, float fRadianX, float fRadianY, float fRadianZ );
+	inline D3DXMATRIX D3DXMatrixRotation(float fRadianX, float fRadianY, float fRadianZ){
 		D3DXMATRIX work;
-		D3DXMatrixRotation(&work, fAngleX, fAngleY, fAngleZ);
+		D3DXMatrixRotation(&work, fRadianX, fRadianY, fRadianZ);
 		return work;
 	}
 }

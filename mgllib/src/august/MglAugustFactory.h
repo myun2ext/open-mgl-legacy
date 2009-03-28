@@ -13,7 +13,7 @@
 class DLL_EXP CMglAugustFactory
 {
 public:
-
+	//static agh::CImageBase* GetImage();
 };
 
 #endif//__MglAugustFactory_H__

@@ -195,14 +195,14 @@ D3DXVECTOR3* D3DXMatrixToVector3
 }
 
 //	D3DXMatrixRotationŒnŽO‚Â‚¢‚Á‚Ø‚ñ‚É
-D3DXMATRIX* D3DXMatrixRotation( D3DXMATRIX *pOut, float fAngleX, float fAngleY, float fAngleZ )
+D3DXMATRIX* D3DXMatrixRotation( D3DXMATRIX *pOut, float fRadianX, float fRadianY, float fRadianZ )
 {
 	D3DXMATRIX matX;
-	D3DXMatrixRotationX(&matX, fAngleX);
+	D3DXMatrixRotationX(&matX, fRadianX);
 	D3DXMATRIX matY;
-	D3DXMatrixRotationY(&matY, fAngleY);
+	D3DXMatrixRotationY(&matY, fRadianY);
 	D3DXMATRIX matZ;
-	D3DXMatrixRotationZ(&matZ, fAngleZ);
+	D3DXMatrixRotationZ(&matZ, fRadianZ);
 
 	*pOut = matX * matY * matZ;
 	return pOut;

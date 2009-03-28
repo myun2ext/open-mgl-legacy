@@ -102,6 +102,8 @@ public:
 	//	画面全体を移動（対象とカメラを移動）
 	void Shift(float x, float y, float z){ Shift(D3DXVECTOR3(x,y,z)); }
 	void Shift(D3DXVECTOR3 &vec){ MoveCamera(vec); MoveTarget(vec); }
+	//void Shift(float fAngleX, float fAngleY, float fAngleZ, float x, float y, float z){ Shift(D3DXVECTOR3(x,y,z)); }
+	//void Shift(D3DXVECTOR3 &vecAngle, D3DXVECTOR3 &vec){ MoveCamera(vec); MoveTarget(vec); }
 
 	//////////////////////////////////////////////////////////////////////////////
 
