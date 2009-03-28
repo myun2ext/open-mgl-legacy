@@ -955,6 +955,14 @@ SOURCE=.\src\august\AugustWindow.h
 
 SOURCE=.\src\august\mglaugust.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\src\august\MglAugustFactory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\MglAugustFactory.h
+# End Source File
 # End Group
 # Begin Group "Intellisense Files"
 
