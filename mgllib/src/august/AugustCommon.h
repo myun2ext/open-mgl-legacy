@@ -138,6 +138,52 @@ public:
 
 //	クラス宣言
 //template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
+class DLL_EXP CAugustVisualControlBase2
+{
+protected:
+	CAugustGlobalCommon *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
+
+public:
+	//	コンストラクタ
+	CAugustVisualControlBase2(){
+		m_pGlobal = NULL;
+	}
+
+	//	公開イベントハンドラ
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
+	}
+	virtual agh::CControlBase* _GetAghControl()=0;
+};
+
+//	クラス宣言
+template <typename T>
+class DLL_EXP CAugustVisualControlBaseT : public T
+{
+protected:
+	CAugustGlobalCommon *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
+
+public:
+	//	コンストラクタ
+	CAugustVisualControlBaseT(){
+		m_pGlobal = NULL;
+	}
+
+	//	公開イベントハンドラ
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
+		m_pGlobal = pGlobal;
+		m_pGrp = &(pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
+	}
+};
+
+
+/////////////////////////////////////////////////////////////////////////
+
+//	クラス宣言
+//template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
 class DLL_EXP CAugustSemiVisualControlBase : public agh::CControlBase
 {
 protected:

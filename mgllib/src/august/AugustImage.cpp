@@ -24,7 +24,7 @@ CAugustImage::~CAugustImage()
 
 void CAugustImage::OnRegist(CAugustGlobalCommon *pGlobal)
 {
-	CAugustVisualControlBase::OnRegist(pGlobal);
+	_BASE::OnRegist(pGlobal);
 
 	m_pCacher = &(pGlobal->imgCache);
 }

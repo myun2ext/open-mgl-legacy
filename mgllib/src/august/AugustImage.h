@@ -13,6 +13,41 @@
 #include "MglImageCacher.h"
 
 #pragma warning( disable : 4660 ) 
+class DLL_EXP agh::CImageBase;
+
+DLL_TMPL_EXP CAugustVisualControlBaseT<agh::CImageBase>;
+
+//	クラス宣言  /////////////////////////////////////////////////////////
+class DLL_EXP CAugustImage : public agh::CImageBase, public CAugustVisualControlBase2
+//class DLL_EXP CAugustImage : public CAugustVisualControlBaseT<agh::CImageBase>
+{
+private:
+	//typedef CAugustVisualControlBaseT<agh::CImageBase> _BASE;
+	typedef CAugustVisualControlBase2 _BASE;
+protected:
+	CMglImageCacher *m_pCacher;
+	CMglImage* m_pImg;
+	std::string m_strFilePath;
+
+protected:	//	_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
+	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
+	virtual void OnDraw();
+
+public:
+	//	コンストラクタ
+	CAugustImage(){
+		m_pCacher = NULL;
+		m_pImg = NULL;
+	}
+
+	//bool SetImageFilePath(const char* szImageFilePath);
+	virtual bool Load(const char* szImageFilePath);
+
+	virtual agh::CControlBase* _GetAghControl(){ return this; }
+};
+
+
+/*
 template class DLL_EXP agh::CImageBaseT< CAugustVisualControlBase >;
 //class DLL_EXP agh::CImageBase;
 
@@ -42,6 +77,9 @@ public:
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath);
 };
+*/
+
+
 
 typedef CAugustImage CAugustImageCtrl;
 typedef CAugustImage CAugustImage;
