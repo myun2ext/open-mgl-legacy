@@ -28,11 +28,38 @@ CMglImage::~CMglImage()
 
 //	描画
 void CMglImage::Draw(
-	float x, float y, CONST RECT *srcRect, D3DCOLOR color,
+	float x, float y, CONST RECT *pSrcRect, D3DCOLOR color,
 	float fScaleX, float fScaleY, float fRotationCenterX, float fRotationCenterY, float fAngle )
 {
 	CreateCheck();
 	LockedCheck();
+
+	/////////////////////////////////////////////////////////////////////////
+
+	//	2009/03/31  CMglGraphicsManager::DrawSprite()より移動してみた。
+
+	//	srcRectにNULLを指定された場合はBMP全てをRECTに指定
+	RECT texFullRect;
+	if ( pSrcRect == NULL ||
+		pSrcRect->left == pSrcRect->right || pSrcRect->top == pSrcRect->bottom ) // 2009/03/31
+	{
+		ZeroMemory(&texFullRect,sizeof(texFullRect));
+
+		//	サイズ設定
+		texFullRect.left = 0;
+		texFullRect.top = 0;
+		texFullRect.right = GetBmpWidth();
+		texFullRect.bottom = GetBmpHeight();
+
+		//	pSrcRect にポインタを設定
+		pSrcRect = &texFullRect;
+	}
+
+	//	スケールじゃないバージョン
+	float fRotationCenterXReal = (pSrcRect->right - pSrcRect->left) * fRotationCenterX;
+	float fRotationCenterYReal = (pSrcRect->bottom - pSrcRect->top) * fRotationCenterY;
+
+	//////////////////////////////////////////////////////////////////////
 
 	if ( m_bCenterDraw ){
 		/*x -= CMglTexture::GetBmpWidth()/2;
@@ -40,11 +67,15 @@ void CMglImage::Draw(
 
 		//	2008/01/19 拡大縮小の際に中心にならないがわざとなのかなんなのか・・・？
 		//x -= (CMglTexture::GetBmpWidth() - ((1.0f-fScaleX)*CMglTexture::GetBmpWidth())/2);
-		x -= fScaleX * CMglTexture::GetBmpWidth() / 2;
-		y -= fScaleY * CMglTexture::GetBmpHeight() / 2;
+		//x -= fScaleX * CMglTexture::GetBmpWidth() / 2; <= NG
+		//y -= fScaleY * CMglTexture::GetBmpHeight() / 2; <= NG
+		x -= fScaleX * fRotationCenterXReal;
+		y -= fScaleY * fRotationCenterYReal;
 	}
-	m_myudg->SpriteDraw( this, x, y, srcRect, color, fScaleX, fScaleY,
-		fRotationCenterX, fRotationCenterY, fAngle );
+
+	//	CMglGraphicsManager::DrawSprite() 呼び出し
+	m_myudg->SpriteDraw( this, x, y, pSrcRect, color, fScaleX, fScaleY,
+		fRotationCenterXReal, fRotationCenterYReal, fAngle );
 }
 
 

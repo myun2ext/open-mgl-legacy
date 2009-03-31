@@ -684,6 +684,7 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 
 	////// 計算処理 /////////////////////////////////
 
+	/*	2009/03/31  CMglImage 側でやった方がいいんではないかなぁ
 	//	srcRectにNULLを指定された場合はBMP全てをRECTに指定
 	RECT texFullRect;
 	if ( pSrcRect == NULL ||
@@ -700,6 +701,7 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 		//	pSrcRect にポインタを設定
 		pSrcRect = &texFullRect;
 	}
+	*/
 
 	//	中心基点絵画機能
 	/*if ( m_bSpriteCenterDraw == TRUE )
@@ -737,8 +739,11 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	//	回転の中心
 	//float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX * fScaleX;
 	//float fCenterY = (pSrcRect->bottom - pSrcRect->top) * fRotationCenterY * fScaleY;
-	float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX;
-	float fCenterY = (pSrcRect->bottom - pSrcRect->top) * fRotationCenterY;
+	/*float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX; // 2009/03/31 CMglImage 側へ移動
+	float fCenterY = (pSrcRect->bottom - pSrcRect->top) * fRotationCenterY;*/
+	float fCenterX = fRotationCenterX; // 2009/03/31 CMglImage 側へ移動
+	float fCenterY = fRotationCenterY; // 2009/03/31 CMglImage 側へ移動
+
 	D3DXMATRIX matTrans1;
 	D3DXMATRIX matTrans2;
 	D3DXMATRIX matTrans;

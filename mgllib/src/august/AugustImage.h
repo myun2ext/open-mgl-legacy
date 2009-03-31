@@ -24,6 +24,7 @@ class DLL_EXP CAugustImage : public agh::CImageBase, public CAugustVisualControl
 private:
 	//typedef CAugustVisualControlBaseT<agh::CImageBase> _BASE;
 	typedef CAugustVisualControlBase2 _BASE;
+
 protected:
 	CMglImageCacher *m_pCacher;
 	CMglImage* m_pImg;

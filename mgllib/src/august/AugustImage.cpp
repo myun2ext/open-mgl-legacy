@@ -49,7 +49,16 @@ bool CAugustImage::Load(const char* szImageFilePath)
 void CAugustImage::OnDraw()
 {
 	//_Img()->Draw( GetRect().left, GetRect().top,
-	m_pImg->Draw( GetRect().left, GetRect().top,
-		NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
+	int x = GetRect().left;
+	int y = GetRect().top;
+
+	if ( m_bCentering == true )	//	オーバーロードでやろうかとも思ったが・・・まぁこっちの方が安心か...
+		m_pImg->EnableCenterDraw();
+	else
+		m_pImg->DisableCenterDraw();
+
+	m_pImg->Draw( x, y,
+		(RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 対応
+	//	NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
 }
 

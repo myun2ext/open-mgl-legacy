@@ -87,14 +87,14 @@ public:
 
 	void Draw(){ Draw(0,0); }
 	void Draw(
-		float x, float y, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
+		float x, float y, CONST RECT *pSrcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f );
 	void Draw( CMglImage* destSurface,
-		float x, float y, CONST RECT *srcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
+		float x, float y, CONST RECT *pSrcRect=NULL, D3DCOLOR color=D3DCOLOR_FULLWHITE,
 		float fScaleX=1.0f, float fScaleY=1.0f, float fRotationCenterX=0.5f, float fRotationCenterY=0.5f, float fAngle=0.0f )
 	{
 		destSurface->SetRender();
-		Draw( x, y, srcRect, color, fScaleX, fScaleY, fRotationCenterX, fRotationCenterY, fAngle );
+		Draw( x, y, pSrcRect, color, fScaleX, fScaleY, fRotationCenterX, fRotationCenterY, fAngle );
 		m_myudg->SetRenderBackBuffer(); // 2007/02/12 ‘½•ª‚±‚ê‚à•K—v
 	}
 
