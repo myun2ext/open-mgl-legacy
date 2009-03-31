@@ -22,6 +22,8 @@ template class DLL_EXP agh::CTextBaseT< CAugustVisualControlBase >;
 class DLL_EXP CAugustText : public agh::CTextBaseT< CAugustVisualControlBase >
 {
 private:
+	typedef agh::CTextBaseT< CAugustVisualControlBase > _BASE;
+
 	//BOOL bBold, bItalic, bUnderLine, bStrikeOut;
 	void ReCreateFont();
 	DWORD GetDrawInternalOption();
@@ -56,6 +58,8 @@ public:
 		bUnderLine = FALSE;
 		bStrikeOut = FALSE;*/
 	}
+
+	virtual agh::CControlBase* _GetAghControl(){ return this; }
 };
 
 //typedef CAugustText CMglguiText;

@@ -100,8 +100,8 @@ using namespace std;
 #include <dplay.h>	//	ƒRƒCƒc‚Ì’†‚É‚ ‚éL‚¢‚Ì‚Åˆø‚Á’£‚Á‚Ä‚­‚é
 
 #ifndef _MGL_DXVER
-	#define _MGL_DXVER 8
-	//#define _MGL_DXVER 9
+	//#define _MGL_DXVER 8
+	#define _MGL_DXVER 9
 	//#define _MGL_DXVER 10
 #endif
 

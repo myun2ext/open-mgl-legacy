@@ -13,7 +13,7 @@
 #include "Mgl3dSquare.h"
 
 //	クラス宣言
-class DLL_EXP CMglTexture2// : public CMyuReleaseBase
+class DLL_EXP CMglTexture2 : public CMglD3dTexture
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納

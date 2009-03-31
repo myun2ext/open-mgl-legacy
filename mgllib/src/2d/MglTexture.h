@@ -149,7 +149,8 @@ public:
 		CreateTextureFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
 	void CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
-		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE );
+	//	DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE );
+		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_BOX );
 	//void Create( int x=0, int y=0, BOOL bRenderTarget=TRUE );
 	/*void Create( LPCSTR szFileName, BOOL bRenderTarget=TRUE, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFile( szFileName, bRenderTarget, colorKey );}*/

@@ -19,7 +19,7 @@ void CAugustText::OnRegist(CAugustGlobalCommon *pGlobal)
 	CAugustVisualControlBase::OnRegist(pGlobal);
 
 	//m_pGrp = &(pGlobal->grp);
-	ReCreateFont();	//	デフォルトフォントの作成
+	ReCreateFont();
 }
 
 //	フォントの再構築
@@ -73,18 +73,18 @@ DWORD CAugustText::GetDrawInternalOption()
 //	オプション設定
 void CAugustText::SetOption(agh::AGHDWORD dwOption)
 {
-	CTextBaseT< CAugustVisualControlBase >::SetOption(dwOption);
+	_BASE::SetOption(dwOption);
 	ReCreateFont();
 }
 void CAugustText::SetFontName(const char* szFontName){
-	CTextBaseT< CAugustVisualControlBase >::SetFontName(szFontName);
+	_BASE::SetFontName(szFontName);
 	ReCreateFont();
 }
 void CAugustText::SetFontPoint(int point){
-	CTextBaseT< CAugustVisualControlBase >::SetFontPoint(point);
+	_BASE::SetFontPoint(point);
 	ReCreateFont();
 }
 void CAugustText::SetColor(AGHCOLOR color){
-	CTextBaseT< CAugustVisualControlBase >::SetColor(color);
+	_BASE::SetColor(color);
 	ReCreateFont();
 }
