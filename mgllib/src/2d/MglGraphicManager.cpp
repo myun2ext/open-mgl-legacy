@@ -686,7 +686,8 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 
 	//	srcRect‚ÉNULL‚ðŽw’è‚³‚ê‚½ê‡‚ÍBMP‘S‚Ä‚ðRECT‚ÉŽw’è
 	RECT texFullRect;
-	if ( pSrcRect == NULL )
+	if ( pSrcRect == NULL ||
+		pSrcRect->left == pSrcRect->right || pSrcRect->top == pSrcRect->bottom ) // 2009/03/31
 	{
 		ZeroMemory(&texFullRect,sizeof(texFullRect));
 
@@ -733,22 +734,30 @@ void CMglGraphicManager::SpriteDraw( CMglTexture *pTexture, float x, float y, CO
 	D3DXMATRIX matScale;
 	D3DXMatrixScaling(&matScale, fScaleX, fScaleY, 0.0f);
 
+	//	‰ñ“]‚Ì’†S
+	//float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX * fScaleX;
+	//float fCenterY = (pSrcRect->bottom - pSrcRect->top) * fRotationCenterY * fScaleY;
+	float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX;
+	float fCenterY = (pSrcRect->bottom - pSrcRect->top) * fRotationCenterY;
+	D3DXMATRIX matTrans1;
+	D3DXMATRIX matTrans2;
+	D3DXMATRIX matTrans;
+	D3DXMatrixTranslation(&matTrans1, fCenterX, fCenterY, 0);
+	D3DXMatrixTranslation(&matTrans2, -fCenterX, -fCenterY, 0);
+	D3DXMatrixTranslation(&matTrans, x, y, 0);
+
 	//	Šp“x
 	D3DXMATRIX matRotation;
 	D3DXMatrixRotationZ(&matRotation, D3DXToRadian(fAngle));
 
-	//	‰ñ“]‚Ì’†S
-	float fCenterX = (pSrcRect->right - pSrcRect->left) * fRotationCenterX * fScaleX;
-	float fCenterY = (pSrcRect->right - pSrcRect->left) * fRotationCenterY * fScaleY;
-	D3DXMATRIX matTrans;
-	D3DXMatrixTranslation(&matTrans, fCenterX, fCenterY, 0);
-
 	//	Œ‹‡
-	D3DXMATRIX matrix1;
+	/*D3DXMATRIX matrix1;
 	D3DXMATRIX matrix;
 	D3DXMatrixMultiply(&matrix1, &matRotation, &matTrans);
-	D3DXMatrixMultiply(&matrix, &matrix1, &matScale);
-	//D3DXMATRIX matrix = matScale * matTrans * matRotation;
+	D3DXMatrixMultiply(&matrix, &matrix1, &matScale);*/
+//	D3DXMATRIX matrix = matTrans2 * matRotation * matTrans1 * matScale * matTrans;
+	//D3DXMATRIX matrix = matTrans2 * matRotation * matTrans1 * matScale * matTrans;
+	D3DXMATRIX matrix = matTrans1;
 
 /*	
 D3DXMATRIX *WINAPI D3DXMatrixTransformation2D(
@@ -761,29 +770,27 @@ D3DXMATRIX *WINAPI D3DXMatrixTransformation2D(
 	CONST D3DXVECTOR2 * pTranslation
 );
 */
+	//int nWidth = pSrcRect;
+
 	D3DXMatrixTransformation2D(&matrix,
-		NULL,
+		//&D3DXVECTOR2(200,200),
+		&D3DXVECTOR2(0,0),
 		0,
 		&D3DXVECTOR2(fScaleX,fScaleY),
-		NULL,
-		0,
-		NULL);
-	/*D3DXMatrixTransformation2D(&matrix,
-		&D3DXVECTOR2(0.5f,0.5f),
-		0,
-		&D3DXVECTOR2(fScaleX,fScaleY),
-		&D3DXVECTOR2(0.5f,0.5f),
+		&D3DXVECTOR2(0,0),//&D3DXVECTOR2(0.5f,0.5f),
 		D3DXToRadian(fAngle),
-		NULL);*/
+		//&D3DXVECTOR2(x,y));
+		&D3DXVECTOR2(x+fCenterX*fScaleX,y+fCenterY*fScaleY));
 
 	//	ƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚Æ‚µ‚Ä”½‰f
 	MyuAssert2( m_pSprite->SetTransform(&matrix), D3D_OK,
 		MGLMSGNO_GRPMGR(85), "CMglGraphicManager::SpriteDraw()  m_pSprite->SetTransform()‚ÉŽ¸”s" );
 
 	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, 
-//					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
-					 &D3DXVECTOR3(0, 0, 0),
-					 &D3DXVECTOR3(x, y, 0), color), D3D_OK,
+					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
+//					 &D3DXVECTOR3(0.5f, 0.5f, 0),
+					 NULL, color), D3D_OK,
+					 //&D3DXVECTOR3(fCenterX, fCenterY, 0), color), D3D_OK,
 		MGLMSGNO_GRPMGR(86), "CMglGraphicManager::SpriteDraw()  m_pSprite->Draw()‚ÉŽ¸”s" );
 
 //	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), NULL, NULL, NULL, color), D3D_OK,
