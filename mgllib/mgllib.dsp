@@ -925,6 +925,14 @@ SOURCE=.\src\august\AugustImage.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\august\AugustRoot.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustRoot.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\august\AugustScreen.cpp
 # End Source File
 # Begin Source File

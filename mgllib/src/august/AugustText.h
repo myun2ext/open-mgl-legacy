@@ -58,6 +58,7 @@ public:
 		bUnderLine = FALSE;
 		bStrikeOut = FALSE;*/
 	}
+	virtual ~CAugustText(){} // 作っておかないと恐らくCTextBaseからのデストラクタが上手く動かない気がする・・・
 
 	virtual agh::CControlBase* _GetAghControl(){ return this; }
 };

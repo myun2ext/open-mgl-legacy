@@ -120,6 +120,7 @@ public:
 		m_nCachedCurPosY = -1;
 		m_bUseMouseHandle = false;
 	}
+	virtual ~CAugustScreen(){}
 	void Setup(CAugustGlobalCommon *g_in){
 		g_ = g_in;
 	}

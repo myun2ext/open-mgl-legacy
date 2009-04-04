@@ -59,6 +59,7 @@ public:
 		pAudio = &audio;
 		pImgCache = &imgCache;
 	}
+	virtual ~CAugustGlobalCommon(){}
 	void Setup(){}
 };
 typedef CAugustGlobalCommon CAugustGlobal;
@@ -106,6 +107,7 @@ public:
 	CAugustBaseCore(){
 		m_pGlobal = NULL;
 	}
+	virtual ~CAugustBaseCore(){}
 
 	//	公開イベントハンドラ
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
@@ -127,6 +129,7 @@ public:
 	CAugustVisualControlBase(){
 		m_pGlobal = NULL;
 	}
+	virtual ~CAugustVisualControlBase(){}
 
 	//	公開イベントハンドラ
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
@@ -149,6 +152,7 @@ public:
 	CAugustVisualControlBase2(){
 		m_pGlobal = NULL;
 	}
+	virtual ~CAugustVisualControlBase2(){}
 
 	//	公開イベントハンドラ
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
@@ -171,6 +175,7 @@ public:
 	CAugustVisualControlBaseT(){
 		m_pGlobal = NULL;
 	}
+	virtual ~CAugustVisualControlBaseT(){}
 
 	//	公開イベントハンドラ
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
@@ -195,6 +200,7 @@ public:
 	CAugustSemiVisualControlBase(){
 		m_pGlobal = NULL;
 	}
+	virtual ~CAugustSemiVisualControlBase(){}
 
 	//	公開イベントハンドラ
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal){
