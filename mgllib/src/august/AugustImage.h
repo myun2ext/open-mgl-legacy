@@ -49,10 +49,6 @@ public:
 	virtual agh::CControlBase* _GetAghControl(){ return this; }
 };
 
-/*	いや、別にわざわざ要らないか・・・特にCImageBaseに加えて新たなメソッド
-	定義するわけでもないし。つーか定義するならCImageBaseに追加すべきだし、
-	まぁインターフェース方式の方が何かといいでしょう。
-
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CAugustImageCore : public CAugustVisualControlBase2
 {
@@ -63,7 +59,8 @@ private:
 protected:
 	CMglImageCacher *m_pCacher;
 	CMglImage* m_pImg;
-	std::string m_strFilePath;
+	agh::CImageBase *m_pBaseControl;
+	std::string m_strFilePath; //別に親でもいいか？（いやだめか？
 
 protected:	//	_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
@@ -71,17 +68,20 @@ protected:	//	_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
 
 public:
 	//	コンストラクタ
-	CAugustImage(){
+	CAugustImageCore(){
 		m_pCacher = NULL;
 		m_pImg = NULL;
+		m_pBaseControl = NULL;
 	}
+	virtual ~CAugustImageCore(){}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath);
-
-	virtual agh::CControlBase* _GetAghControl(){ return this; }
+	void SetAghControlPtr(agh::CImageBase *pControl){
+		m_pBaseControl = pControl;
+	}
 };
-*/
+typedef CAugustImageCore CAugustImageImpl;
 
 ////////////////////////////////////////////////////////////////////
 
