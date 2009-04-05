@@ -67,14 +67,14 @@ void CAugustImage::OnDraw()
 
 ////////////////////////////////////////////////////////////////
 
-void CAugustImageCore::OnRegist(CAugustGlobalCommon *pGlobal)
+void CAugustImageImpl::OnRegist(CAugustGlobalCommon *pGlobal)
 {
 	_BASE::OnRegist(pGlobal);
 
 	m_pCacher = &(pGlobal->imgCache);
 }
 
-bool CAugustImageCore::Load(const char* szImageFilePath)
+bool CAugustImageImpl::Load(const char* szImageFilePath)
 {
 	m_strFilePath = szImageFilePath;
 	
@@ -91,7 +91,7 @@ bool CAugustImageCore::Load(const char* szImageFilePath)
 	return true;
 }
 
-void CAugustImageCore::OnDraw()
+void CAugustImageImpl::OnDraw()
 {
 	//_Img()->Draw( GetRect().left, GetRect().top,
 	int x = _P->GetRect().left;
@@ -108,3 +108,20 @@ void CAugustImageCore::OnDraw()
 	//	NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
 }
 
+////////////////////////////////////////////////////////////
+
+#define _IMPL  ((CAugustImageImpl*)m_pImpl)
+
+//	コンストラクタ
+CAugustImage2::CAugustImage2(){
+	m_pImpl = new CAugustImageImpl(this);
+}
+
+//	デストラクタ
+CAugustImage2::~CAugustImage2(){
+	//SAFE_DELETE_TMPL<CAugustImageImpl*>((CAugustImageImpl**)&m_pImpl);
+	SAFE_DELETE_TMPL(CAugustImageImpl,m_pImpl);
+}
+
+void CAugustImage2::OnDraw(){ _IMPL->OnDraw(); }
+bool CAugustImage2::Load(const char* szImageFilePath){ return _IMPL->Load(szImageFilePath); }

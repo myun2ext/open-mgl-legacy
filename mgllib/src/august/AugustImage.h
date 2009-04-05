@@ -50,11 +50,11 @@ public:
 };
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustImageCore : public CAugustVisualControlBase2
+class DLL_EXP CAugustImageImpl : public agh::IImageImpl, public CAugustVisualControlBase3
 {
 private:
 	//typedef CAugustVisualControlBaseT<agh::CImageBase> _BASE;
-	typedef CAugustVisualControlBase2 _BASE;
+	typedef CAugustVisualControlBase3 _BASE;
 
 protected:
 	CMglImageCacher *m_pCacher;
@@ -62,26 +62,59 @@ protected:
 	agh::CImageBase *m_pBaseControl;
 	std::string m_strFilePath; //別に親でもいいか？（いやだめか？
 
-protected:	//	_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
+_AGH_EVENT_ACCESS_MODIFIER:	//	_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
 	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
 	virtual void OnDraw();
 
 public:
 	//	コンストラクタ
-	CAugustImageCore(){
+	CAugustImageImpl(agh::CImageBase *pControl){
+		m_pCacher = NULL;
+		m_pImg = NULL;
+		m_pBaseControl = pControl;
+	}
+	/*CAugustImageCore(){
 		m_pCacher = NULL;
 		m_pImg = NULL;
 		m_pBaseControl = NULL;
-	}
-	virtual ~CAugustImageCore(){}
+	}*/
+	virtual ~CAugustImageImpl(){}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath);
-	void SetAghControlPtr(agh::CImageBase *pControl){
+
+	////////////////////////////////////////////
+
+	/*void SetAghControlPtr(agh::CImageBase *pControl){
 		m_pBaseControl = pControl;
-	}
+	}*/
 };
-typedef CAugustImageCore CAugustImageImpl;
+typedef CAugustImageImpl CAugustImageCore;
+
+
+
+
+//	クラス宣言  /////////////////////////////////////////////////////////
+class DLL_EXP CAugustImage2 : public agh::CImageBase
+{
+protected:
+	void *m_pImpl;
+	//std::string m_strFilePath;
+
+_AGH_EVENT_ACCESS_MODIFIER:	//	protected,,,_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
+	//virtual void OnRegist(agh::CControlBase *pParentControl);	//	親コントロールでもらってくる
+	virtual void OnDraw();
+
+public:
+	//	コンストラクタ
+	CAugustImage2();
+	virtual ~CAugustImage2();
+
+	//bool SetImageFilePath(const char* szImageFilePath);
+	virtual bool Load(const char* szImageFilePath);
+
+	virtual agh::CControlBase* _GetAghControl(){ return this; }
+};
 
 ////////////////////////////////////////////////////////////////////
 
