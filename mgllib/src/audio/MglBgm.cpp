@@ -13,8 +13,10 @@ CMglBgm::CMglBgm()
 //	デストラクタ
 CMglBgm::~CMglBgm()
 {
-	SAFE_DELETE_t<CMglMp3Dshow*>((CMglMp3Dshow**)&m_pMp3Dshow);
-	SAFE_DELETE_t<CMglOgg*>((CMglOgg**)&m_pOgg);
+	//SAFE_DELETE_TMPL<CMglMp3Dshow*>((CMglMp3Dshow**)&m_pMp3Dshow);
+	//SAFE_DELETE_TMPL<CMglOgg*>((CMglOgg**)&m_pOgg);
+	SAFE_DELETE_TMPL(CMglMp3Dshow,m_pMp3Dshow);
+	SAFE_DELETE_TMPL(CMglOgg,m_pOgg);
 	/*SAFE_DELETE((CMglMp3Dshow*)m_pMp3Dshow);
 	SAFE_DELETE((CMglOgg*)m_pOgg);*/
 }
