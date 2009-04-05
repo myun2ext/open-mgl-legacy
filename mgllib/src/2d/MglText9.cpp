@@ -37,9 +37,12 @@ void CMglText::Create( int nHeight, const char* szFontName, BOOL bItalic, BOOL b
 		nWeight = FW_BOLD;
 
 	if ( szFontName == NULL || *szFontName == '\0' )
-		szFontName = "ＭＳ Ｐゴシック";
+		//szFontName = "ＭＳ Ｐゴシック";
+		//szFontName = "MS PGothic";
+		szFontName = MGL_FONT_NAME_DEFAULT;
 
-	MyuAssert( D3DXCreateFont( m_d3d, nHeight, nHeight, nWeight, 1, bItalic,
+	/* 第三引数=Widthは0を指定するとデフォルトの横幅が使用されるっぽい？ */
+	MyuAssert( D3DXCreateFont( m_d3d, nHeight, 0, nWeight, 1, bItalic,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
 		szFontName, &m_pI ), D3D_OK,
 		"CMglText::Create()  D3DXCreateFont()に失敗。" );
@@ -77,7 +80,24 @@ void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD
 	//	論理的単位でチェックしてDirectX8で動かなかったら嫌なのでチェックするのやめます(;´Д`)ゞ
 #if _MGL_DXVER == 9
 	//	DirectX9では第一引数としてスプライトを指定するとパフォーマンスが向上するらしい。とりあえず後回しで・・・ (TODO)
-	m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
+	//m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
+
+
+/*	RECT rect2 = {nX, nY, 0, 0}; //表示領域
+	rect = rect2;
+
+    //文字列サイズを計算
+    m_pI->DrawText(
+        NULL,
+        szString,
+        -1,             //表示サイズ(-1で全部)
+        &rect,          //表示範囲
+        DT_CALCRECT,    //表示範囲に調整
+        NULL);*/
+
+
+	//	2009/04/05 なんかDT_NOPREFIXつけるとちゃんと出ないみたいだぜ・・・？（何故？
+	m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | dwOption, color );
 #else
 	m_pI->DrawText( szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 #endif
@@ -109,5 +129,7 @@ void CMglText::SetDrawParam( int in_nX, int in_nY, D3DCOLOR in_color, DWORD in_d
 	m_color = in_color;
 	bSetParamFlg = TRUE;
 }
+
+//	std::vector<std::string> EnumFontNames();
 
 #endif
