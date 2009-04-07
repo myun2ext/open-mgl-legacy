@@ -21,6 +21,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 //	メインスレッド
 BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
 {
+	//CMglImage img;
 	CMglImage img;
 	//img.Create("C:\\Documents and Settings\\智章\\My Documents\\shana_36-1.jpg");
 	img.Create("font_big.tga");
@@ -30,6 +31,7 @@ BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
 	//inBitmap.Get(20,29);
 	//inBitmap.Fill(D3DCOLOR_WHITE);
 	//inBitmap.Release();
+ID3DXSprite* m_pSprite;			//	スプライト
 
 	int i=0;
 	for(;;){
@@ -38,7 +40,7 @@ BOOL WINAPI MainThread( CMglEzGameFrame *pFrame )
 
 		//inBitmap.Set(i,i,D3DCOLOR_WHITE);
 		//inBitmap.Fill(D3DCOLOR_WHITE, Rect(i*4,i*4,i*4+4,i*4*4));
-		img.Draw();
+		img.Draw(10,10,NULL,D3DCOLOR_FULLWHITE, 0.7f, 0.7f);
 
 		if ( pFrame->input.mouse.IsPressLeftButton() )
 		{
