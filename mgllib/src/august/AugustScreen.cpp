@@ -105,6 +105,7 @@ void CAugustScreen::RegistControl(CMglAghImage* pImage)
 }
 */
 
+//	RegistControl: CAugustVisualControlBase
 void CAugustScreen::RegistControl(CAugustVisualControlBase* pControl)
 {
 	pControl->OnRegist(g_);
@@ -112,9 +113,26 @@ void CAugustScreen::RegistControl(CAugustVisualControlBase* pControl)
 	_RegistControlInternal(pControl);
 }
 
+//	RegistControl: CAugustVisualControlBase2
 void CAugustScreen::RegistControl(CAugustVisualControlBase2* pControl)
 {
 	pControl->OnRegist(g_);
+
+	_RegistControlInternal(pControl->_GetAghControl());
+}
+
+//	RegistControl: CControlBase
+/*void CAugustScreen::RegistControl(CControlBase* pControl)
+{
+	pControl->SetParentControl(this);
+
+	_RegistControlInternal(pControl);
+}*/
+
+//	RegistControl: CAugustCtrlBase
+void CAugustScreen::RegistControl(CAugustCtrlBase* pControl)
+{
+	pControl->_GetAghControl()->SetParentControl(this);
 
 	_RegistControlInternal(pControl->_GetAghControl());
 }

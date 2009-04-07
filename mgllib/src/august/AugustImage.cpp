@@ -41,6 +41,10 @@ bool CAugustImageImpl::Load(const char* szImageFilePath)
 
 void CAugustImageImpl::OnDraw()
 {
+	if ( m_pImg == NULL ){
+		MyuThrow(993243, "CAugustImage::OnDraw()  親コントロールがありません。(CAugustScreen::RegistControl() による登録が行われていません。)");
+	}
+
 	//_Img()->Draw( GetRect().left, GetRect().top,
 	int x = _P->GetRect().left;
 	int y = _P->GetRect().top;
@@ -71,5 +75,5 @@ CAugustImage2::~CAugustImage2(){
 	SAFE_DELETE_TMPL(CAugustImageImpl,m_pImpl);
 }
 
-void CAugustImage2::OnDraw(){ _IMPL->OnDraw(); }
-bool CAugustImage2::Load(const char* szImageFilePath){ return _IMPL->Load(szImageFilePath); }
+/*void CAugustImage2::OnDraw(){ _IMPL->OnDraw(); }
+bool CAugustImage2::Load(const char* szImageFilePath){ return _IMPL->Load(szImageFilePath); }*/

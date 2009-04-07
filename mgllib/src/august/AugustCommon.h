@@ -6,6 +6,7 @@
 #include "MglImageLayer.h"
 #include "MglInput.h"
 #include "MglAudio.h"
+#include "AugustCtrlBase.h"
 
 //#define AUGUST_GLOBAL_COMMON_PTR
 class CAugustGlobalCommon

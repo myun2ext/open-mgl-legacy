@@ -909,6 +909,10 @@ SOURCE=.\src\august\AugustCommon.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\august\AugustCtrlBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\august\AugustEzGameFrame.cpp
 # End Source File
 # Begin Source File
