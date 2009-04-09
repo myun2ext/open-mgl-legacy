@@ -129,12 +129,18 @@ void CAugustScreen::RegistControl(CAugustVisualControlBase2* pControl)
 	_RegistControlInternal(pControl);
 }*/
 
-//	RegistControl: CAugustCtrlBase
-void CAugustScreen::RegistControl(CAugustCtrlBase* pControl)
+//	RegistSubControl: CAugustCtrlBase
+void CAugustScreen::RegistSubControl(CAugustCtrlBase* pControl)
 {
+	CControlBase::RegistSubControl(pControl->_GetAghControl());
+	pControl->_SetImplRoot(this->g_);
+
+	/*
 	pControl->_GetAghControl()->SetParentControl(this);
+	pControl->_SetImplRoot(this->g_);
 
 	_RegistControlInternal(pControl->_GetAghControl());
+	*/
 }
 
 /*void CAugustScreen::RegistControl(agh::CControlBase* pControl)

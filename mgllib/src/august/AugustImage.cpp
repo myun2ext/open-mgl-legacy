@@ -15,12 +15,14 @@ using namespace agh;
 
 ////////////////////////////////////////////////////////////////
 
+/*
 void CAugustImageImpl::OnRegist(CAugustGlobalCommon *pGlobal)
 {
 	_BASE::OnRegist(pGlobal);
 
 	m_pCacher = &(pGlobal->imgCache);
 }
+*/
 
 bool CAugustImageImpl::Load(const char* szImageFilePath)
 {

@@ -15,6 +15,7 @@ public:
 
 	virtual agh::CControlBase* _GetAghControl()=0;
 	virtual void* _GetImplRoot(){ return m_pImplRoot; }
+	virtual void _SetImplRoot(void *pImplRoot){ m_pImplRoot = pImplRoot; }
 };
 
 #endif//__AugustCtrlBase_H__

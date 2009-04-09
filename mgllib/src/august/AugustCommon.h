@@ -206,6 +206,32 @@ public:
 	}
 };
 
+//	クラス宣言
+//template <typename T> DLL_EXP CAugustVisualControlBase : public T <- これでもよかったなぁ・・・
+class DLL_EXP CAugustVisualControlBase4
+{
+protected:
+	typedef CAugustGlobalCommon IMPL_ROOT_t;
+	typedef IMPL_ROOT_t* LP_IMPL_ROOT;
+	IMPL_ROOT_t *m_pGlobal;
+	CMglGraphicManager *m_pGrp;		//	どうせみんな使うんでしょ。分かってるんだから。
+
+public:
+	//	コンストラクタ
+	CAugustVisualControlBase4(){
+		m_pGlobal = NULL;
+		m_pGrp = NULL;
+	}
+	virtual ~CAugustVisualControlBase4(){}
+
+	//	公開イベントハンドラ
+	virtual void OnRegist(void *pImplRoot){
+		m_pGlobal = (IMPL_ROOT_t*)pImplRoot;
+		m_pGrp = &(m_pGlobal->grp);	//	どうせみんな使うんでしょ。分かってるんだから。
+	}
+};
+
+
 
 /////////////////////////////////////////////////////////////////////////
 

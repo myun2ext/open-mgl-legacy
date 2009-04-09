@@ -131,7 +131,7 @@ public:
 	void RegistControl(CAugustVisualControlBase* pControl);
 	void RegistControl(CAugustVisualControlBase2* pControl);
 	//void RegistControl(agh::CControlBase* pControl);
-	void RegistControl(CAugustCtrlBase* pControl);
+	void RegistSubControl(CAugustCtrlBase* pControl);
 
 	//////////////////////////////////////////////////////
 

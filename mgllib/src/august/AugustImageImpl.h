@@ -13,11 +13,11 @@
 #include "MglImageCacher.h"
 
 //	Implクラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustImageImpl : public agh::IImageImpl, public CAugustVisualControlBase3
+class DLL_EXP CAugustImageImpl : public agh::IImageImpl, public CAugustVisualControlBase4
 {
 private:
 	//typedef CAugustVisualControlBaseT<agh::CImageBase> _BASE;
-	typedef CAugustVisualControlBase3 _BASE;
+	typedef CAugustVisualControlBase4 _BASE_AG;
 
 protected:
 	CMglImageCacher *m_pCacher;
@@ -26,7 +26,7 @@ protected:
 	std::string m_strFilePath; //別に親でもいいか？（いやだめか？
 
 _AGH_EVENT_ACCESS_MODIFIER:	//	_AGH_EVENT_ACCESS_MODIFIERでないのには何か意味でもあるんだろうか
-	virtual void OnRegist(CAugustGlobalCommon *pGlobal);
+	//virtual void OnRegist();
 	virtual void OnDraw();
 
 public:
