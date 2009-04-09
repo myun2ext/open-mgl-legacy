@@ -155,7 +155,9 @@ int CMyuEzWindow::StartWindow( const char* szAppCaption, const char* szWinClassN
 	//	スレッドが終わるのを待つです
 	//	指定ms経っても応答が無かった場合メッセージボックスを出力して
 	//	強制的にスレッドを終了させます。
-	for( int i=0; i<m_nThreadExitTimeout; i++ )
+	//for( int i=0; i<m_nThreadExitTimeout; i++ )
+	int i;
+	for( i=0; i<m_nThreadExitTimeout; i++ )
 	{
 		static DWORD exitCode; 
 		if ( GetExitCodeThread( hMainThread, &exitCode ) == 0 )
