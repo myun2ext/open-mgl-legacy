@@ -23,8 +23,10 @@ template <typename T> class DLL_EXP CMyuLoaderBase
 {
 private:
 	//	データ
-	typedef map<string,typename T> T_MAP;
-	typedef map<string,typename T>::iterator MAP_ITR;
+	//typedef map<string,typename T> T_MAP; <- なにtypenameって？
+	//typedef map<string,typename T>::iterator MAP_ITR; <- なにtypenameって？
+	typedef map<string,T> T_MAP;
+	typedef typename map<string,T>::iterator MAP_ITR;	//	なんかVC++2005で「typename」ってここに付けてみたらコンパイル出来た。（何
 	//T_MAP *p_map;	<- なんでこれ動的確保にしてるん？
 	//（あ、STLのメモリ領域の問題でか？でもエクスポートすれば問題ないような・・・
 	//　つーかヘッダに書けば案外問題なかったりするんじゃね

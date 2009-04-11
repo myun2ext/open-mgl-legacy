@@ -44,7 +44,8 @@ public:
 	virtual VOXCOMMENT* __stdcall GetComment() = 0;
 
 	// 0.61以降
-	virtual char* __stdcall ParseComment( char *pFieldName, CHARACTERCODE CharacterCode = CODE_SJIS ) = 0;
+	//virtual char* __stdcall ParseComment( char *pFieldName, CHARACTERCODE CharacterCode = CODE_SJIS ) = 0;
+	virtual char* __stdcall ParseComment( char *pFieldName, CHARACTERCODE CharacterCode ) = 0; // VC++2005対応
 };
 
 // DLLコンパイル時にはコメントアウト
@@ -65,7 +66,8 @@ typedef int  __stdcall VoxGetCurrentTime( int ID );
 typedef bool __stdcall VoxSeek( int ID, int Time );
 typedef int  __stdcall VoxGetStatus( int ID );
 typedef VOXCOMMENT* __stdcall VoxGetComment( int ID );
-typedef char* __stdcall VoxParseComment( int ID, char *pFieldName, CHARACTERCODE CharacterCode = CODE_SJIS );
+//typedef char* __stdcall VoxParseComment( int ID, char *pFieldName, CHARACTERCODE CharacterCode = CODE_SJIS );
+typedef char* __stdcall VoxParseComment( int ID, char *pFieldName, CHARACTERCODE CharacterCode ); // VC++2005対応
 
 #endif
 

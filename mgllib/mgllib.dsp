@@ -815,34 +815,6 @@ SOURCE=.\src\audio\MglDirectMusicBase.h
 # Begin Group "August Framework"
 
 # PROP Default_Filter ""
-# Begin Group "AGH"
-
-# PROP Default_Filter ""
-# Begin Source File
-
-SOURCE=..\AGH\include\agh.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_ControlBase.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_defs.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_EffectControl.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_Events.h
-# End Source File
-# Begin Source File
-
-SOURCE=..\AGH\include\agh_ScreenBase.h
-# End Source File
-# End Group
 # Begin Group "old"
 
 # PROP Default_Filter ""
@@ -897,6 +869,42 @@ SOURCE=.\src\august\August3dManager.cpp
 # Begin Source File
 
 SOURCE=.\src\august\August3dManager.h
+# End Source File
+# End Group
+# Begin Group "AGH"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\AGH\include\agh.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_control_Image.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_ControlBase.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_Controls.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_defs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_EffectControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_Events.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\AGH\include\agh_ScreenBase.h
 # End Source File
 # End Group
 # Begin Source File

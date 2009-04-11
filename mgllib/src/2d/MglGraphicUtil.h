@@ -108,7 +108,9 @@ public:
 //	実テクスチャサイズを算出
 inline int GetRealTexSize( int nVirtualSize )
 {
-	for ( int i=2; i < nVirtualSize; i <<= 1 );
+	int i;
+	for ( i=2; i < nVirtualSize; i <<= 1 )
+		;
 	return i;
 }
 
