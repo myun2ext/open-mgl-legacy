@@ -1,4 +1,4 @@
-//#include <windows.h>
+#include <windows.h>
 #include "mwlagh.h"
 
 class CMyWindow : public agh::IWindow
@@ -10,7 +10,7 @@ public:
 int _MWL_APIENTRY WinMain(
 					_MWL_HINSTANCE hInstance,
                     _MWL_HINSTANCE hPrevInstance,
-                    const char*     lpCmdLine,
+                    char*     lpCmdLine,
                     int       nCmdShow )
 //int main()
 {
