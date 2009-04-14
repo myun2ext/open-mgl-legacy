@@ -1,7 +1,5 @@
-// af2_test.cpp : アプリケーション用のエントリ ポイントの定義
-//
-
-#include "stdafx.h"
+#include <windows.h>
+#include "mwlagh.h"
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -12,6 +10,5 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	return 0;
 }
-
 
 
