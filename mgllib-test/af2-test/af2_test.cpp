@@ -6,7 +6,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow )
 {
- 	// TODO: この位置にコードを記述してください。
+ 	CMwlAghFactory fact;
+	agh::IWindow* pWindow = fact.CreateWindow(NULL);
+	pWindow->Start();
 
 	return 0;
 }
