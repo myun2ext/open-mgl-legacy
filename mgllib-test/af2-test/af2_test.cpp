@@ -7,10 +7,11 @@ public:
 	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
 };
 
-int APIENTRY WinMain(HINSTANCE hInstance,
+/*int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPSTR     lpCmdLine,
-                     int       nCmdShow )
+                     int       nCmdShow )*/
+int main()
 {
  	CMwlAghFactory fact;
 	CMyWindow myWindow;
