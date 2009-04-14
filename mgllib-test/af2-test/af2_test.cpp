@@ -1,19 +1,22 @@
-#include <windows.h>
+//#include <windows.h>
 #include "mwlagh.h"
 
 class CMyWindow : public agh::IWindow
 {
 public:
-	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
+//	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
 };
 
-/*int APIENTRY WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPSTR     lpCmdLine,
-                     int       nCmdShow )*/
-int main()
+int _MWL_APIENTRY WinMain(
+					_MWL_HINSTANCE hInstance,
+                    _MWL_HINSTANCE hPrevInstance,
+                    const char*     lpCmdLine,
+                    int       nCmdShow )
+//int main()
 {
- 	CMwlAghFactory fact;
+//::FreeConsole();
+
+	CMwlAghFactory fact;
 	CMyWindow myWindow;
 	//agh::IWindow* pWindow = fact.CreateWindow(new CMyWindow);
 	agh::IWindow* pWindow = fact.CreateWindow(&myWindow);
