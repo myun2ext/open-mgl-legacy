@@ -1,5 +1,6 @@
 #include <windows.h>
 #include "mwlagh.h"
+#include "MwlAghFactory.h"
 
 class CMyWindow : public agh::IWindow
 {
@@ -25,6 +26,7 @@ int _MWL_APIENTRY WinMain(
 	CMyWindow myWindow;
 	//agh::IWindow* pWindow = fact.CreateWindow(new CMyWindow);
 	agh::IWindow* pWindow = fact.CreateWindow(&myWindow);
+	pWindow->EnableDropFiles();
 	pWindow->Start();
 
 	delete pWindow;
