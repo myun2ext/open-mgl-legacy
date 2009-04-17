@@ -1,5 +1,8 @@
 #include <windows.h>
-#include "mwlagh.h"
+//#include "mwlagh.h"
+#include "AugustWindow2.h"
+
+class __declspec(dllimport) CMwlAghWindow;
 
 /*
 class CMyWindow : public agh::IWindow
@@ -14,7 +17,8 @@ public:
 };
 */
 
-class CMyWindow : public CMwlAghWindow
+//class CMyWindow : public CMwlAghWindow
+class CMyWindow : public CAugustWindow2
 {
 public:
 	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
