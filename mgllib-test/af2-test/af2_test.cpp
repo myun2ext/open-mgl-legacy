@@ -2,7 +2,7 @@
 //#include "mwlagh.h"
 #include "AugustWindow2.h"
 
-class __declspec(dllimport) CMwlAghWindow;
+//class __declspec(dllimport) CMwlAghWindow;
 
 /*
 class CMyWindow : public agh::IWindow

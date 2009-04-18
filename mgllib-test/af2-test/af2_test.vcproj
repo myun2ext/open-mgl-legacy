@@ -4,6 +4,7 @@
 	Version="8.00"
 	Name="af2_test"
 	ProjectGUID="{76094A10-8631-4BBE-8EAE-0B47A1D5CE65}"
+	RootNamespace="af2_test"
 	>
 	<Platforms>
 		<Platform
@@ -41,7 +42,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/af2_test.tlb"
+				TypeLibraryName=".\Debug_VC80/af2_test.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -52,10 +53,10 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug/af2_test.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				PrecompiledHeaderFile=".\Debug_VC80/af2_test.pch"
+				AssemblerListingLocation=".\Debug_VC80/"
+				ObjectFile=".\Debug_VC80/"
+				ProgramDataBaseFileName=".\Debug_VC80/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -78,7 +79,7 @@
 				OutputFile="bin/af2_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\lib\vc2005,..\lib"
+				AdditionalLibraryDirectories="..\lib\vc2005"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug_VC80/af2_test.pdb"
 				SubSystem="2"
@@ -96,7 +97,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/af2_test.bsc"
+				OutputFile=".\Debug_VC80/af2_test.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -139,7 +140,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Release/af2_test.tlb"
+				TypeLibraryName=".\Release_VC80/af2_test.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -151,10 +152,10 @@
 				StringPooling="true"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/af2_test.pch"
-				AssemblerListingLocation=".\Release/"
-				ObjectFile=".\Release/"
-				ProgramDataBaseFileName=".\Release/"
+				PrecompiledHeaderFile=".\Release_VC80/af2_test.pch"
+				AssemblerListingLocation=".\Release_VC80/"
+				ObjectFile=".\Release_VC80/"
+				ProgramDataBaseFileName=".\Release_VC80/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -176,7 +177,7 @@
 				OutputFile="bin/af2_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\lib\vc2005,..\lib"
+				AdditionalLibraryDirectories="..\lib\vc2005"
 				ProgramDatabaseFile=".\Release_VC80/af2_test.pdb"
 				SubSystem="2"
 				TargetMachine="1"
@@ -193,7 +194,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Release/af2_test.bsc"
+				OutputFile=".\Release_VC80/af2_test.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -217,26 +218,8 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="af2_test_1.cpp"
+				RelativePath=".\af2_test.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
