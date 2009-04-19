@@ -79,7 +79,7 @@
 				OutputFile="bin/af2_test.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="..\lib\vc2005"
+				AdditionalLibraryDirectories="..\lib\vc2005,..\lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug_VC80/af2_test.pdb"
 				SubSystem="2"
