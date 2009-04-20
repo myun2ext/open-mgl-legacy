@@ -2,6 +2,7 @@
 #define __AugustCommon2_H__
 
 //#define __MWLAGH_NOT_USE_SLIB
+#include "agh.h"
 #include "mwlagh.h"
 
 #ifdef MGLLIB_EXPORTS
@@ -19,5 +20,7 @@
 	#pragma comment(lib, "mgllib.lib")
 
 #endif
+
+class DLL_EXP agh::CControlBase;
 
 #endif//__AugustCommon2_H__
