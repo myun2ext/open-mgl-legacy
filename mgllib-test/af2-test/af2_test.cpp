@@ -22,20 +22,30 @@ _MWL_HINSTANCE g_hInstance;
 class CMyWindow : public CMwlAghWindow
 {
 public:
-	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
-	virtual bool OnDropFiles(std::vector<std::string> &files){
-		for(int i=0; i<files.size(); i++)
-			MessageBox((HWND)GetHwnd(),files[i].c_str(),"Drop",0);
-
+	virtual void OnCreatedWindow(){
+		//MessageBox(NULL,"sdfa","sfda",0);
+		
 		RECT rcPos;
 		rcPos.left = 10;
 		rcPos.right = 100;
 		rcPos.top = 50;
-		rcPos.bottom = 80;
-		HWND m_hWnd = ::CreateWindowEx(0, "BUTTON", "Test",
+		rcPos.bottom = 100;
+
+		HWND hParent = (HWND)GetHwnd();
+
+		HWND hWnd = ::CreateWindowEx(0, "BUTTON", "test",
 		0, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
 		rcPos.bottom - rcPos.top, (HWND)GetHwnd(), NULL,
 		g_hInstance, NULL);
+
+		//	ウインドウの表示をどうするか
+		ShowWindow( hWnd, SW_SHOWDEFAULT );
+		UpdateWindow( hWnd );
+	}
+	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
+	virtual bool OnDropFiles(std::vector<std::string> &files){
+		for(int i=0; i<files.size(); i++)
+			MessageBox((HWND)GetHwnd(),files[i].c_str(),"Drop",0);
 
 		return true;
 	}
