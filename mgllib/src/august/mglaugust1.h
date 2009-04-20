@@ -1,5 +1,5 @@
-#ifndef __MGLAUGUST_H__
-#define __MGLAUGUST_H__
+#ifndef __MGLAUGUST1_H__
+#define __MGLAUGUST1_H__
 
 #include "MglguiScreen.h"
 #include "MglguiWindow.h"
@@ -12,4 +12,4 @@
 
 #include "August3d.h"
 
-#endif//__MGLAUGUST_H__
+#endif//__MGLAUGUST1_H__
