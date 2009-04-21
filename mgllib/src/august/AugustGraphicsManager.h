@@ -14,6 +14,8 @@ class CMglGraphicManager;
 //	クラス宣言  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustGraphicsManager : public agh::CControlBase
 {
+private:
+	typedef agh::CControlBase _BASE;
 protected:
 	CMglGraphicManager *m_pGrp;
 
@@ -56,6 +58,12 @@ public:
 	CAugustGraphicsManager();
 	virtual ~CAugustGraphicsManager();
 
+	//////////////////////////////////////////////////////
+
+	virtual void Init(bool bIsFullscreen=false);
+	virtual void Release();
+	virtual void Clear();
+
 	///// コントロールの登録 /////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////
@@ -65,7 +73,8 @@ public:
 	void SetBackgroundColor(agh::AGHCOLOR color){ m_rgbBackground = color; }
 
 public:
-	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
+	virtual void* GetInternalPtr(){ return m_pGrp; }
+	virtual CMglGraphicManager* GetMglGrp(){ return m_pGrp; }
 };
 
 typedef CAugustGraphicsManager CAugustGraphicManager;

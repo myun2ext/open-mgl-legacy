@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "AugustGraphicsManager.h"
 #include "MglGraphicManager.h"
+#include "AugustWindow2.h"
 
 using namespace agh;
 using namespace std;
@@ -30,11 +31,34 @@ CAugustGraphicsManager::~CAugustGraphicsManager()
 
 //////////////////////////////////////////////////
 
-#define grp (*m_pGrp)
+#define grp		(*m_pGrp)
+#define m_grp	(*m_pGrp)
+
+void CAugustGraphicsManager::Init(bool bIsFullscreen)
+{
+	_MGL_DEBUGLOG("grp.Init()..." );
+
+	CAugustWindow2* pWindow = (CAugustWindow2*)_BASE::GetParentControl();
+	HWND hWnd = (HWND)GetValPtr(MWLAGH_VALKEY_HWND);
+
+	m_pGrp->Init( hWnd, pWindow->GetWidth(), pWindow->GetHeight(), bIsFullscreen );
+
+	Clear();
+}
+
+void CAugustGraphicsManager::Release()
+{
+	m_grp.Release();
+}
+
+void CAugustGraphicsManager::Clear()
+{
+	m_grp.Clear(m_rgbBackground);	//	2008/11/29 CAugustGraphicsManager‘Î‰ž
+}
 
 void CAugustGraphicsManager::OnDraw()
 {
-	grp.Clear(m_rgbBackground);	//	2008/11/29 CAugustGraphicsManager‘Î‰ž
+	Clear();
 
 	/*
 	for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
