@@ -1,6 +1,8 @@
 #include <windows.h>
 //#include "mwlagh.h"
-#include "AugustWindow2.h"
+//#include "AugustWindow2.h"
+#include "mglaugust2.h"
+//#include "AugustGraphicsManager.h"
 
 //class __declspec(dllimport) CMwlAghWindow;
 
@@ -18,10 +20,44 @@ public:
 */
 _MWL_HINSTANCE g_hInstance;
 
-//class CMyWindow : public CMwlAghWindow
-class CMyWindow : public CMwlAghWindow
+/*
+class CAugustWindow2 : public CMwlAghWindow
 {
 public:
+	CAugustWindow2(){
+	}
+
+	virtual void OnCreatedWindow(){
+		//MessageBox(NULL,"sdfa","sfda",0);
+		
+		RECT rcPos;
+		rcPos.left = 10;
+		rcPos.right = 100;
+		rcPos.top = 50;
+		rcPos.bottom = 100;
+
+		HWND hParent = (HWND)GetHwnd();
+
+		HWND hWnd = ::CreateWindowEx(0, "BUTTON", "test",
+		0, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
+		rcPos.bottom - rcPos.top, (HWND)GetHwnd(), NULL,
+		g_hInstance, NULL);
+
+		//	ウインドウの表示をどうするか
+		ShowWindow( hWnd, SW_SHOWDEFAULT );
+		UpdateWindow( hWnd );
+	}
+};
+*/
+//class CMyWindow : public CMwlAghWindow
+class CMyWindow : public CAugustWindow2
+{
+private:
+	CAugustGraphicsManager m_grp;
+public:
+	CMyWindow(){
+		RegistSubControl(&m_grp);
+	}
 	virtual void OnCreatedWindow(){
 		//MessageBox(NULL,"sdfa","sfda",0);
 		
