@@ -888,6 +888,14 @@ SOURCE=.\src\august\AugustGraphicsManager.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\august\AugustScreen2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustScreen2.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\august\AugustWindow2.cpp
 # End Source File
 # Begin Source File

@@ -12,7 +12,7 @@
 class CMglGraphicManager;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustGraphicsManager : public agh::CControlBase
+class _AGST_DLL_EXP CAugustGraphicsManager : public agh::CControlBase
 {
 protected:
 	CMglGraphicManager *m_pGrp;
@@ -23,7 +23,7 @@ protected:
 	//CMglLayers4 m_layer;
 	//CMglImageCacher m_imgCache;
 	//CMglImageCacher &m_imgCache;
-	D3DCOLOR m_rgbBackground;
+	agh::AGH_COLOR m_rgbBackground;
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
@@ -53,12 +53,8 @@ public:
 		m_rgbBackground = D3DCOLOR_WHITE;
 	}*/
 	//	コンストラクタ
-	CAugustGraphicsManager()
-	{
-		//m_hWnd = NULL;
-		m_rgbBackground = AGHCOLOR_WHITE;
-	}
-	virtual ~CAugustGraphicsManager(){}
+	CAugustGraphicsManager();
+	virtual ~CAugustGraphicsManager();
 
 	///// コントロールの登録 /////////////////////////////////////////////////
 
@@ -71,5 +67,7 @@ public:
 public:
 	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
+
+typedef CAugustGraphicsManager CAugustGraphicManager;
 
 #endif//__AugustGraphicsManager_H__

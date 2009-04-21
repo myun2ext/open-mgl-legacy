@@ -12,17 +12,20 @@
 using namespace agh;
 using namespace std;
 
-/*
 //	コンストラクタ
 CAugustGraphicsManager::CAugustGraphicsManager()
 {
+	m_pGrp = new CMglGraphicManager();
+
+	m_rgbBackground = AGHCOLOR_WHITE;
 }
 
 //	デストラクタ
 CAugustGraphicsManager::~CAugustGraphicsManager()
 {
+	SAFE_DELETE(m_pGrp);
 }
-*/
+
 
 
 //////////////////////////////////////////////////

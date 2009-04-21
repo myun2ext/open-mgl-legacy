@@ -21,6 +21,6 @@
 
 #endif
 
-class DLL_EXP agh::CControlBase;
+class _AGST_DLL_EXP agh::CControlBase;
 
 #endif//__AugustCommon2_H__
