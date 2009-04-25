@@ -248,10 +248,9 @@ SOURCE=.\src\2d\MglVertexManager.cpp
 SOURCE=.\src\2d\MglVertexManager.h
 # End Source File
 # End Group
-# Begin Source File
+# Begin Group "DX (internal)"
 
-SOURCE=.\src\2d\mgl2d.h
-# End Source File
+# PROP Default_Filter ""
 # Begin Source File
 
 SOURCE=.\src\2d\MglD3dTexture.cpp
@@ -259,6 +258,19 @@ SOURCE=.\src\2d\MglD3dTexture.cpp
 # Begin Source File
 
 SOURCE=.\src\2d\MglD3dTexture.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglDxSprite.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\2d\MglDxSprite.h
+# End Source File
+# End Group
+# Begin Source File
+
+SOURCE=.\src\2d\mgl2d.h
 # End Source File
 # Begin Source File
 
