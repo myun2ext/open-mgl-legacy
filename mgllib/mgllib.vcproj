@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory=".\Debug_VC80"
+			IntermediateDirectory=".\Debug_VC80"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -42,7 +42,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Debug/mgllib.tlb"
+				TypeLibraryName=".\Debug_VC80/mgllib.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -55,10 +55,10 @@
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\Debug/mgllib.pch"
-				AssemblerListingLocation=".\Debug/"
-				ObjectFile=".\Debug/"
-				ProgramDataBaseFileName=".\Debug/"
+				PrecompiledHeaderFile=".\Debug_VC80/mgllib.pch"
+				AssemblerListingLocation=".\Debug_VC80/"
+				ObjectFile=".\Debug_VC80/"
+				ProgramDataBaseFileName=".\Debug_VC80/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -77,13 +77,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib mwlagh_d.lib"
-				OutputFile="../bin/Debug/mgllib.dll"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib mwlagh_d.lib "
+				OutputFile="../bin/Debug_VC80/mgllib.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="../lib"
+				AdditionalLibraryDirectories="../lib\vc2005"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/mgllib.pdb"
+				ProgramDatabaseFile=".\Debug_VC80/mgllib.pdb"
 				ImportLibrary="../lib/mgllib.lib"
 				TargetMachine="1"
 			/>
@@ -99,7 +99,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\Debug/mgllib.bsc"
+				OutputFile=".\Debug_VC80/mgllib.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -116,8 +116,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\./Release"
-			IntermediateDirectory=".\./Release"
+			OutputDirectory=".\./Release_VC80"
+			IntermediateDirectory=".\./Release_VC80"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC60.vsprops"
 			UseOfMFC="0"
@@ -142,7 +142,7 @@
 				MkTypLibCompatible="true"
 				SuppressStartupBanner="true"
 				TargetEnvironment="1"
-				TypeLibraryName=".\./Release/mgllib.tlb"
+				TypeLibraryName=".\./Release_VC80/mgllib.tlb"
 				HeaderFileName=""
 			/>
 			<Tool
@@ -156,10 +156,10 @@
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="stdafx.h"
-				PrecompiledHeaderFile=".\./Release/mgllib.pch"
-				AssemblerListingLocation=".\./Release/"
-				ObjectFile=".\./Release/"
-				ProgramDataBaseFileName=".\./Release/"
+				PrecompiledHeaderFile=".\./Release_VC80/mgllib.pch"
+				AssemblerListingLocation=".\./Release_VC80/"
+				ObjectFile=".\./Release_VC80/"
+				ProgramDataBaseFileName=".\./Release_VC80/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
@@ -177,12 +177,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib mwlagh.lib"
-				OutputFile="../bin/Release/mgllib.dll"
+				AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib mwlagh.lib "
+				OutputFile="../bin/Release_VC80/mgllib.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="../lib"
-				ProgramDatabaseFile=".\./Release/mgllib.pdb"
+				AdditionalLibraryDirectories="../lib\vc2005"
+				ProgramDatabaseFile=".\./Release_VC80/mgllib.pdb"
 				ImportLibrary="../lib/mgllib.lib"
 				TargetMachine="1"
 			/>
@@ -198,7 +198,7 @@
 			<Tool
 				Name="VCBscMakeTool"
 				SuppressStartupBanner="true"
-				OutputFile=".\./Release/mgllib.bsc"
+				OutputFile=".\./Release_VC80/mgllib.bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -2677,19 +2677,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8caps.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
 				>
 			</File>
 			<File
@@ -2701,15 +2701,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8effect.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
 				>
 			</File>
 			<File
@@ -2717,7 +2713,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8effect.h"
 				>
 			</File>
 			<File
@@ -2725,11 +2721,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
 				>
 			</File>
 			<File
@@ -2741,19 +2741,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8tex.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
 				>
 			</File>
 			<File
@@ -2805,11 +2805,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
+				RelativePath="..\MSL\include\msl_ra_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\MSL\include\msl_ra_list.h"
+				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
 				>
 			</File>
 			<File
@@ -3064,26 +3064,6 @@
 		<File
 			RelativePath="resource.h"
 			>
-		</File>
-		<File
-			RelativePath="Script1.rc"
-			>
-			<FileConfiguration
-				Name="Debug|Win32"
-				>
-				<Tool
-					Name="VCResourceCompilerTool"
-					PreprocessorDefinitions=""
-				/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Release|Win32"
-				>
-				<Tool
-					Name="VCResourceCompilerTool"
-					PreprocessorDefinitions=""
-				/>
-			</FileConfiguration>
 		</File>
 		<File
 			RelativePath="src\stdafx.cpp"
