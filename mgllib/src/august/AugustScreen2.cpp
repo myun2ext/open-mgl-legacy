@@ -208,18 +208,18 @@ void CAugustScreen2::MainLoop()
 		DoFrame();
 
 		//	フレーム分待つよん
-		if ( DoFpsWait() == FALSE )
+		if ( DoFpsWait() == false )
 			break;
 	}
 }
 
 //	有効かどうか復帰します（FALSEになったら終了すること！）
-BOOL CAugustScreen2::DoFpsWait()
+bool CAugustScreen2::DoFpsWait()
 {
 	//	ウインドウが生きてるかのチェック
 	//if ( m_window.IsAlive() != TRUE )
 	if ( m_bEndFlg )
-		return FALSE;
+		return false;
 
 	/*
 	//	抜ける？
@@ -247,7 +247,7 @@ BOOL CAugustScreen2::DoFpsWait()
 	//	スプライト開始
 	m_grp.GetMglGrp()->SpriteBegin();
 
-	return TRUE;
+	return true;
 }
 
 bool CAugustScreen2::OnClose()

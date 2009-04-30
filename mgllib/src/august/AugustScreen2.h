@@ -9,12 +9,13 @@
 
 #include "AugustWindow2.h"
 #include "AugustGraphicsManager.h"
+#include "MyuThreadBase.h"
 
 //////////////////////////////////////////////////////////////////////////////////////
 
 class CMyuFPS;
 
-class DLL_EXP CAugustFpsManager : public agh::CControlBase
+class _AGST_DLL_EXP CAugustFpsManager : public agh::CControlBase
 {
 protected:
 	CMyuFPS* m_pInternal;
@@ -28,26 +29,6 @@ public:
 	float GetFps();
 };
 
-//////////////////////////////////////////////////////////////////////////////////////
-
-//	キーボードイベントハンドラ系
-
-#define AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_PRESS		(1)	//	押されている間
-#define AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN	(2)	//	キーボードが押された瞬間
-#define AUGUST_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP		(3)	//	キーボードが離された瞬間
-/*#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP	(8)	//	押した後話した（クリック的な）
-#define MGL_KB_EVT_HANDLER_EVTTYPE_ON_PUSH		(MGL_KB_EVT_HANDLER_EVTTYPE_ON_DOWNUP)*/
-
-//	キーボードイベントハンドラ構造体
-class CAugustScreen2;
-typedef bool (CAugustScreen2::*AUGUST_KB_EVT_HANDLER_CALLBACK)();
-typedef struct {
-	AUGUST_KB_EVT_HANDLER_CALLBACK pCallbackFunc;
-	BYTE keyCode;
-	short evtType;
-} AUGUST_KB_EVT_HANDLER;
-typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
-
 /////////////////////////////////////////////////////////////////////////
 
 class _AGST_DLL_EXP CMwlAghWindow;
@@ -56,7 +37,7 @@ class _AGST_DLL_EXP agh::CScreenBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 //class DLL_EXP CAugustScreen2 : public CAugustWindow2, public CMyuThreadBase
-class DLL_EXP CAugustScreen2 : public CMwlAghWindow, public CMyuThreadBase
+class _AGST_DLL_EXP CAugustScreen2 : public CMwlAghWindow, public CMyuThreadBase
 {
 private:
 	//typedef CAugustWindow2 _BASE;
@@ -69,12 +50,12 @@ protected:
 	CMglMouseInput *m_mouse;	//	Alias
 	CMglAudio *m_audio;			//	Alias*/
 
-	//	2008/11/26 Add. デフォルトのイメージ配列
-	//list<bool (*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
-	//list<MGL_KB_EVT_HANDLER_CALLBACK> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
-	list<AUGUST_KB_EVT_HANDLER> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
-
 	/////////////////////////////////////////////////////////
+typedef struct tagPOINT
+{
+    LONG  x;
+    LONG  y;
+} POINT, *PPOINT, NEAR *NPPOINT, FAR *LPPOINT;
 
 	//HWND m_hWnd;
 	POINT m_nCachedCurPos;
@@ -108,7 +89,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void MainLoop();
 
 protected:
-	BOOL DoFpsWait();
+	bool DoFpsWait();
 
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
@@ -146,22 +127,6 @@ public:
 	bool ThreadFunc();
 
 	///// コントロールの登録 /////////////////////////////////////////////////
-
-	//	キーボードハンドラの登録
-	void RegistKbHandler(AUGUST_KB_EVT_HANDLER &evt){
-		m_kbEventHandlers.push_back(evt);
-	}
-	void RegistKbHandler(
-		short evtType,
-		BYTE keyCode,		
-		AUGUST_KB_EVT_HANDLER_CALLBACK pCallbackFunc)
-	{
-		AUGUST_KB_EVT_HANDLER evt;
-		evt.pCallbackFunc = pCallbackFunc;
-		evt.keyCode = keyCode;
-		evt.evtType = evtType;
-		m_kbEventHandlers.push_back(evt);
-	}
 
 	void EnableMouseHandle(){ m_bUseMouseHandle = true; }
 	void DisableMouseHandle(){ m_bUseMouseHandle = false; }
