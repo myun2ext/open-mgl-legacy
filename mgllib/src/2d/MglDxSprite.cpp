@@ -34,18 +34,50 @@ void CMglDxSprite::InitSprite()
 		MGLMSGNO_GRPMGR(81), "CMglDxSprite::Init()  D3DXCreateSprite()に失敗" );
 }
 
+//	スプライトのBegin()
+void CMglDxSprite::Begin(DWORD dwFlag)
+{
+	if( m_pSprite == NULL )
+		MyuThrow(MGLMSGNO_GRPMGR(91), "Spriteが作成されていません。");
+
+	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
+//#if _MGL_DXVER == 9
+#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
+		MyuAssert2( m_pSprite->Begin(dwFlag), D3D_OK,
+		//MyuAssert2( m_pSprite->Begin(D3DXSPRITE_SORT_DEPTH_FRONTTOBACK), D3D_OK,
+#else
+		MyuAssert2( m_pSprite->Begin(), D3D_OK,
+#endif
+			MGLMSGNO_GRPMGR(89), "CMglDxSprite::Begin()  m_pSprite->Begin()に失敗" );
+		m_bSpriteBegun = TRUE;
+	}
+}
+
+//	スプライトのEnd()
+void CMglDxSprite::End()
+{
+	if( m_pSprite == NULL )
+		MyuThrow(MGLMSGNO_GRPMGR(92), "Spriteが作成されていません。");
+
+	if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){
+		MyuAssert2( m_pSprite->End(), D3D_OK,
+			MGLMSGNO_GRPMGR(90), "CMglDxSprite::End()  m_pSprite->End()に失敗" );
+		m_bSpriteBegun = FALSE;
+	}
+}
+
 //	スプライト描画
-void CMglDxSprite::SpriteDraw( _TEX *pTexture, float x, float y, CONST RECT* pSrcRect, D3DCOLOR color,
+void CMglDxSprite::Draw( _TEX *pTexture, float x, float y, CONST RECT* pSrcRect, D3DCOLOR color,
 		float fScaleX, float fScaleY, float fRotationCenterX, float fRotationCenterY, float fAngle )
 {
 	//	チェック
 	if ( m_pSprite == NULL )
-		MyuThrow( MGLMSGNO_GRPMGR(83), "CMglGraphicManage::SpriteDraw()  スプライトが無効になっているか、スプライトの初期化に失敗しました。" );
+		MyuThrow( MGLMSGNO_GRPMGR(83), "CMglDxSprite::Draw()  スプライトが無効になっているか、スプライトの初期化に失敗しました。" );
 	if ( pTexture->GetDirect3dTexturePtr() == NULL )
-		MyuThrow( MGLMSGNO_GRPMGR(84), "CMglGraphicManage::SpriteDraw()  IDirect3DTexture8 がNULLです。テクスチャが初期化されていない可能性があります。" );
+		MyuThrow( MGLMSGNO_GRPMGR(84), "CMglDxSprite::Draw()  pTexture がNULLです。テクスチャが初期化されていない可能性があります。" );
 
 	//	2009/01/07
-	SpriteBegin();
+	Begin();
 
 	////// 計算処理 /////////////////////////////////
 
@@ -154,17 +186,17 @@ D3DXMATRIX *WINAPI D3DXMatrixTransformation2D(
 
 	//	トランスフォームとして反映
 	MyuAssert2( m_pSprite->SetTransform(&matrix), D3D_OK,
-		MGLMSGNO_GRPMGR(85), "CMglDxSprite::SpriteDraw()  m_pSprite->SetTransform()に失敗" );
+		MGLMSGNO_GRPMGR(85), "CMglDxSprite::Draw()  m_pSprite->SetTransform()に失敗" );
 
 	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), pSrcRect, 
 					 &D3DXVECTOR3(fCenterX, fCenterY, 0),
 //					 &D3DXVECTOR3(0.5f, 0.5f, 0),
 					 NULL, color), D3D_OK,
 					 //&D3DXVECTOR3(fCenterX, fCenterY, 0), color), D3D_OK,
-		MGLMSGNO_GRPMGR(86), "CMglDxSprite::SpriteDraw()  m_pSprite->Draw()に失敗" );
+		MGLMSGNO_GRPMGR(86), "CMglDxSprite::Draw()  m_pSprite->Draw()に失敗" );
 
 //	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(), NULL, NULL, NULL, color), D3D_OK,
-//		MGLMSGNO_GRPMGR(86), "CMglDxSprite::SpriteDraw()  m_pSprite->Draw()に失敗" );
+//		MGLMSGNO_GRPMGR(86), "CMglDxSprite::Draw()  m_pSprite->Draw()に失敗" );
 
 	//=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*
 	//	DirectX 8
@@ -203,37 +235,6 @@ D3DXMATRIX *WINAPI D3DXMatrixTransformation2D(
 	//	絵画
 	MyuAssert2( m_pSprite->Draw( pTexture->GetDirect3dTexturePtr(),
 		pSrcRect, &vctScale, &vctRtCenter, fRad, &vctPos, color ), D3D_OK,
-		MGLMSGNO_GRPMGR(87), "CMglDxSprite::SpriteDraw()  m_pSprite->Draw()に失敗" );
+		MGLMSGNO_GRPMGR(87), "CMglDxSprite::Draw()  m_pSprite->Draw()に失敗" );
 #endif
-}
-
-//	スプライトのBegin()
-void CMglDxSprite::SpriteBegin()
-{
-	if( m_pSprite == NULL )
-		MyuThrow(MGLMSGNO_GRPMGR(91), "Spriteが作成されていません。");
-
-	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
-//#if _MGL_DXVER == 9
-#if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
-		MyuAssert2( m_pSprite->Begin(0), D3D_OK,
-		//MyuAssert2( m_pSprite->Begin(D3DXSPRITE_SORT_DEPTH_FRONTTOBACK), D3D_OK,
-#else
-		MyuAssert2( m_pSprite->Begin(), D3D_OK,
-#endif
-			MGLMSGNO_GRPMGR(89), "CMglDxSprite::SpriteBegin()  m_pSprite->Begin()に失敗" );
-		m_bSpriteBegun = TRUE;
-	}
-}
-//	スプライトのEnd()
-void CMglDxSprite::SpriteEnd()
-{
-	if( m_pSprite == NULL )
-		MyuThrow(MGLMSGNO_GRPMGR(92), "Spriteが作成されていません。");
-
-	if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){
-		MyuAssert2( m_pSprite->End(), D3D_OK,
-			MGLMSGNO_GRPMGR(90), "CMglDxSprite::SpriteEnd()  m_pSprite->End()に失敗" );
-		m_bSpriteBegun = FALSE;
-	}
 }
