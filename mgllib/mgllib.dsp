@@ -253,6 +253,10 @@ SOURCE=.\src\2d\MglVertexManager.h
 # PROP Default_Filter ""
 # Begin Source File
 
+SOURCE=.\src\2d\MglD3dBase.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\2d\MglD3dTexture.cpp
 # End Source File
 # Begin Source File
