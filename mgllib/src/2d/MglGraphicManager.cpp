@@ -10,6 +10,7 @@
 #include "MglTexture.h"
 #include "MglD3dCapsDumper.h"
 #include "Mgl3dManager.h"
+#include "MglDxSprite.h"
 
 /*
 //	VRAMサイズ取得用
@@ -53,6 +54,9 @@ CMglGraphicManager::CMglGraphicManager()
 	EnableSupportSprite(); //m_bUseSprite = TRUE;
 	//m_bSpriteCenterDraw = FALSE;
 
+	//	2009/04/30
+	m_pTextSprite = new CMglDxSprite();
+
 	g_2dgCount++;
 }
 
@@ -61,7 +65,11 @@ CMglGraphicManager::~CMglGraphicManager()
 {
 	_MGL_DEBUGLOG( "+ CMglGraphicManager::デストラクタ" );
 	CMglStackInstance("CMglGraphicManager::~CMglGraphicManager");
-	Release();
+	Release();	//	全部Release()任せなのです
+		
+	//	2009/04/30 - Releaseで開放されると面倒っちーなー（つーかなんかCreateの時に呼んでるっぽいし・・・）
+	SAFE_DELETE( m_pTextSprite );
+
 	_MGL_DEBUGLOG( "- CMglGraphicManager::デストラクタ" );
 	g_2dgCount--;
 }
@@ -75,6 +83,9 @@ void CMglGraphicManager::Release()
 	//	シーンを終了しておく
 	if ( m_pD3dDev != NULL )
 		m_pD3dDev->EndScene();
+
+	//	2009/04/30
+	m_pTextSprite->Release();
 
 	//	自動開放処理
 	_MGL_DEBUGLOG( "自動開放処理を開始します。（リファレンス数：%d）", m_autoReleaseAry.size() );
@@ -289,6 +300,8 @@ void CMglGraphicManager::InitSprite()
 
 	MyuAssert2( D3DXCreateSprite( m_pD3dDev, &m_pSprite ), D3D_OK,
 		MGLMSGNO_GRPMGR(81), "CMglGraphicManager::Init()  D3DXCreateSprite()に失敗" );
+
+	m_pTextSprite->Init(this);
 }
 
 //	D3Dオブジェクトの生成（InitEx()用に分離）
@@ -852,6 +865,7 @@ void CMglGraphicManager::SpriteBegin()
 //#if _MGL_DXVER == 9
 #if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
 		MyuAssert2( m_pSprite->Begin(0), D3D_OK,
+		//MyuAssert2( m_pSprite->Begin(D3DXSPRITE_SORT_DEPTH_FRONTTOBACK), D3D_OK,
 #else
 		MyuAssert2( m_pSprite->Begin(), D3D_OK,
 #endif

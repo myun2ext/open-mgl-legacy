@@ -90,6 +90,7 @@ extern int g_2dgCount;
 
 class CMglTexture;
 class CMgl3dManager;
+class CMglDxSprite;
 ///////////////////////////////////////
 //
 //		クラス宣言
@@ -119,6 +120,7 @@ protected:
 
 	//	2007/01/11  なんかスプライトとかSurfaceごとにいちいち作んなくてもインデネ
 	ID3DXSprite* m_pSprite;			//	スプライト
+	CMglDxSprite *m_pTextSprite;
 	BOOL m_bUseSprite;
 	BOOL m_bSpriteBegun;
 	//BOOL m_bSpriteCenterDraw;
@@ -240,11 +242,12 @@ public:
 	D3DFORMAT GetFormat() { return m_formatTexture; }
 	_MGL_IDirect3DDevice* GetD3dDevPtr() { return m_pD3dDev; }
 	_MGL_IDirect3DDevice* GetD3dDevice() { return m_pD3dDev; }
+	CMglDxSprite* GetTextMglSprite() { return m_pTextSprite; }
 	DWORD GetD3dDeviceFlg() { return m_dwD3dDeviceFlg; }
 	DWORD GetAlphaMode() { return m_dwAlphaOption; }
 	void EnableSupportSprite(){ m_bUseSprite = TRUE; }
 	void DisableSupportSprite(){ m_bUseSprite = FALSE; }
-
+;
 private:
 	void Enable3d();
 };
@@ -273,6 +276,7 @@ class DLL_EXP CMglDgBase : public CMyuReleaseBase
 {
 protected:
 	CMglGraphicManager* m_myudg;	//	DGクラスへのポインタを格納
+	CMglGraphicManager* m_pMyudg;	//	DGクラスへのポインタを格納
 	_MGL_IDirect3DDevice* d3d;		//	D3DDeviceへのポインタ
 	_MGL_IDirect3DDevice* m_d3d;	//	D3DDeviceへのポインタ
 	_MGL_IDirect3DDevice* m_pD3dDev;//	D3DDeviceへのポインタ
@@ -286,6 +290,7 @@ protected:
 public:
 	CMglDgBase(){
 		m_myudg = NULL;
+		m_pMyudg = NULL;
 		d3d = NULL;
 		m_d3d = NULL;
 		m_pD3dDev = NULL;
@@ -298,6 +303,7 @@ public:
 	//	初期化/開放
 	virtual void Init( CMglGraphicManager* in_myudg=GetDefaultGd() ){
 		m_myudg = in_myudg;
+		m_pMyudg = in_myudg;
 		d3d = m_myudg->GetD3dDevPtr();
 		m_d3d = m_myudg->GetD3dDevPtr();
 		m_pD3dDev = m_myudg->GetD3dDevPtr();

@@ -47,6 +47,8 @@ public:
 	void SpriteEnd(){ if( m_pSprite != NULL ) m_pSprite->End(); }*/
 	void Begin(DWORD dwFlag=0);
 	void End();
+
+	ID3DXSprite* GetSpritePtr(){ return m_pI; }
 };
 
 #endif//__MglDxSprite_H__

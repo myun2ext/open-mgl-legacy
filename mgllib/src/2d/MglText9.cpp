@@ -11,6 +11,7 @@
 #if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXFONT_CHANGED
 
 #include "MglText.h"
+#include "MglDxSprite.h"
 
 //	コンストラクタ
 CMglText::CMglText()
@@ -95,9 +96,22 @@ void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD
         DT_CALCRECT,    //表示範囲に調整
         NULL);*/
 
+	m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_FALSE );		// Zバッファを有効にする。
+	m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );			// Zバッファへの書き込み許可
+
+	CMglDxSprite* pMglSprite = m_myudg->GetTextMglSprite();
+
+	pMglSprite->Begin(D3DXSPRITE_SORT_TEXTURE);
 
 	//	2009/04/05 なんかDT_NOPREFIXつけるとちゃんと出ないみたいだぜ・・・？（何故？
-	m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | dwOption, color );
+	//m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | dwOption, color );
+	m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, color );
+	
+	pMglSprite->End();
+
+	m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );		// Zバッファを有効にする。
+	m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, TRUE );			// Zバッファへの書き込み許可
+
 #else
 	m_pI->DrawText( szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 #endif
