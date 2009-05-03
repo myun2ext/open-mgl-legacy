@@ -54,6 +54,7 @@ typedef struct
 
 DLL_EXP void MyuThrow2( int in_nApiResultCode, int in_nInternalCode, const char* in_szErrMsg, ... );
 DLL_EXP void MyuAssert2( long in_nApiResultCode, long nOK, int in_nInternalCode, const char* in_szErrMsg, ... );
+DLL_EXP void* MyuAssertNull( void* p, const char* in_szErrMsg, ... );
 
 DLL_EXP void MglThrow( int nErrCode, const char* szMsg, ... );
 

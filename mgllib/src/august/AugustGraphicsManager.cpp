@@ -38,7 +38,9 @@ void CAugustGraphicsManager::Init(bool bIsFullscreen)
 {
 	_MGL_DEBUGLOG("grp.Init()..." );
 
-	CAugustWindow2* pWindow = (CAugustWindow2*)_BASE::GetParentControl();
+	//CAugustWindow2* pWindow = (CAugustWindow2*)_BASE::GetParentControl();
+	CAugustWindow2* pWindow = (CAugustWindow2*)MyuAssertNull(
+		_BASE::GetParentControl(), "_BASE::GetParentControl() is NULL.");
 	HWND hWnd = (HWND)GetValPtr(MWLAGH_VALKEY_HWND);
 
 	m_pGrp->Init( hWnd, pWindow->GetWidth(), pWindow->GetHeight(), bIsFullscreen );

@@ -108,6 +108,22 @@ void MyuAssert2( long in_nApiResultCode, long nOK, int in_nInternalCode, const c
 	}
 }
 
+void* MyuAssertNull( void* p, const char* in_szErrMsg, ... )
+{
+	if ( p == NULL )
+	{
+		char szWork[ERRMSG_BUF];
+
+		va_list vl;
+		va_start( vl, in_szErrMsg );
+		ZeroMemory( szWork, sizeof(szWork) );
+		_vsnprintf( szWork, sizeof(szWork)-1, in_szErrMsg, vl );
+		va_end( vl );
+
+		MyuThrow2( 0, 0, szWork );
+	}
+	return p;
+}
 
 //////////////////////////////////////////
 //
