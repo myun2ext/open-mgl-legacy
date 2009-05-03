@@ -61,7 +61,7 @@ void _MglAugust2_se_translator_function(unsigned int code, struct _EXCEPTION_POI
 	throw ep; //•W€C++‚Ì—áŠO‚ğ”­¶‚³‚¹‚é
 }
 
-bool CAugustScreen2::ThreadFunc()
+bool CAugustScreen2::ThreadFunc(int anyParam)
 {
 	m_bEndFlg = false;
 

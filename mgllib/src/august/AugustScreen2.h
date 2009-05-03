@@ -9,7 +9,7 @@
 
 #include "AugustWindow2.h"
 #include "AugustGraphicsManager.h"
-#include "MyuThreadBase.h"
+#include "MwlMxpThreadBase.h"
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -31,18 +31,21 @@ public:
 
 /////////////////////////////////////////////////////////////////////////
 
+#define _CAugustScreen2_THREAD_BASE CMwlMxpThreadBase
+
 class _AGST_DLL_EXP CMwlAghWindow;
-class _AGST_DLL_EXP CMyuThreadBase;
+//class _AGST_DLL_EXP CMyuThreadBase;
+class _AGST_DLL_EXP _CAugustScreen2_THREAD_BASE;
 class _AGST_DLL_EXP agh::CScreenBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 //class DLL_EXP CAugustScreen2 : public CAugustWindow2, public CMyuThreadBase
-class _AGST_DLL_EXP CAugustScreen2 : public CMwlAghWindow, public CMyuThreadBase
+class _AGST_DLL_EXP CAugustScreen2 : public CMwlAghWindow, public _CAugustScreen2_THREAD_BASE
 {
 private:
 	//typedef CAugustWindow2 _BASE;
 	typedef CMwlAghWindow _BASE;
-	typedef CMyuThreadBase _THREAD_BASE;
+	typedef _CAugustScreen2_THREAD_BASE _THREAD_BASE;
 protected:
 	CAugustGraphicsManager m_grp;
 	CAugustFpsManager m_fps;
@@ -122,9 +125,9 @@ public:
 	/////////////////////////////////////////////////////////////////////////
 
 	virtual void OnCreatedWindow(){
-		_THREAD_BASE::StartThread();
+		_THREAD_BASE::StartThread(0);
 	}
-	bool ThreadFunc();
+	bool ThreadFunc(int anyParam);
 
 	///// コントロールの登録 /////////////////////////////////////////////////
 

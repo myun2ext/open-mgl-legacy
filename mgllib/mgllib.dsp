@@ -887,7 +887,7 @@ SOURCE=.\src\august\August3dManager.cpp
 SOURCE=.\src\august\August3dManager.h
 # End Source File
 # End Group
-# Begin Group "Ver 1.1"
+# Begin Group "Ver. 2"
 
 # PROP Default_Filter ""
 # Begin Source File
