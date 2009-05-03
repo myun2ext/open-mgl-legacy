@@ -20,37 +20,7 @@ public:
 */
 _MWL_HINSTANCE g_hInstance;
 
-/*
-class CAugustWindow2 : public CMwlAghWindow
-{
-public:
-	CAugustWindow2(){
-	}
-
-	virtual void OnCreatedWindow(){
-		//MessageBox(NULL,"sdfa","sfda",0);
-		
-		RECT rcPos;
-		rcPos.left = 10;
-		rcPos.right = 100;
-		rcPos.top = 50;
-		rcPos.bottom = 100;
-
-		HWND hParent = (HWND)GetHwnd();
-
-		HWND hWnd = ::CreateWindowEx(0, "BUTTON", "test",
-		0, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
-		rcPos.bottom - rcPos.top, (HWND)GetHwnd(), NULL,
-		g_hInstance, NULL);
-
-		//	ウインドウの表示をどうするか
-		ShowWindow( hWnd, SW_SHOWDEFAULT );
-		UpdateWindow( hWnd );
-	}
-};
-*/
-//class CMyWindow : public CMwlAghWindow
-class CMyWindow : public CAugustWindow2
+class CMyWindow : public CMwlAghWindow
 {
 private:
 	CAugustGraphicsManager m_grp;
@@ -96,7 +66,8 @@ int _MWL_APIENTRY WinMain(
 {
 	g_hInstance = hInstance;
 //::FreeConsole();
-	CMyWindow myWindow;
+	//CMyWindow myWindow;
+	CAugustScreen2 myWindow;
 	myWindow.EnableDropFiles();
 	myWindow.Start();
 
