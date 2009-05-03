@@ -20,9 +20,11 @@ public:
 */
 _MWL_HINSTANCE g_hInstance;
 
-class CMyWindow : public CMwlAghWindow
+//class CMyWindow : public CMwlAghWindow
+class CMyWindow : public CAugustScreen2
 {
 private:
+	typedef CAugustScreen2 _BASE;
 	CAugustGraphicsManager m_grp;
 public:
 	CMyWindow(){
@@ -30,6 +32,7 @@ public:
 	}
 	virtual void OnCreatedWindow(){
 		//MessageBox(NULL,"sdfa","sfda",0);
+		_BASE::OnCreatedWindow();
 		
 		RECT rcPos;
 		rcPos.left = 10;
@@ -66,8 +69,8 @@ int _MWL_APIENTRY WinMain(
 {
 	g_hInstance = hInstance;
 //::FreeConsole();
-	//CMyWindow myWindow;
-	CAugustScreen2 myWindow;
+	CMyWindow myWindow;
+	//CAugustScreen2 myWindow;
 	myWindow.EnableDropFiles();
 	myWindow.Start();
 
