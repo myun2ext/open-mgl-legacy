@@ -33,43 +33,37 @@ public:
 
 #define _CAugustScreen2_THREAD_BASE CMwlMxpThreadBase
 
-class _AGST_DLL_EXP CMwlAghWindow;
-//class _AGST_DLL_EXP CMyuThreadBase;
-class _AGST_DLL_EXP _CAugustScreen2_THREAD_BASE;
-class _AGST_DLL_EXP agh::CScreenBase;
+class CMwlAghWindow;
+class _CAugustScreen2_THREAD_BASE;
+class agh::CScreenBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 //class DLL_EXP CAugustScreen2 : public CAugustWindow2, public CMyuThreadBase
-class _AGST_DLL_EXP CAugustScreen2 : public CMwlAghWindow, public _CAugustScreen2_THREAD_BASE
+class CAugustScreen2 : public CMwlAghWindow, public _CAugustScreen2_THREAD_BASE
 {
 private:
 	//typedef CAugustWindow2 _BASE;
 	typedef CMwlAghWindow _BASE;
 	typedef _CAugustScreen2_THREAD_BASE _THREAD_BASE;
+
 protected:
-	CAugustGraphicsManager m_grp;
-	CAugustFpsManager m_fps;
+	CAugustGraphicsManager m_grp;	//	Control
+	CAugustFpsManager m_fps;		//	Control
+	void* m_vphWnd;
+
 	/*CMglInput *m_input;			//	Alias
-	CMglMouseInput *m_mouse;	//	Alias
-	CMglAudio *m_audio;			//	Alias*/
+	CMglMouseInput *m_mouse;		//	Alias
+	CMglAudio *m_audio;				//	Alias*/
 
 	/////////////////////////////////////////////////////////
-typedef struct tagPOINT
-{
-    LONG  x;
-    LONG  y;
-} POINT, *PPOINT, NEAR *NPPOINT, FAR *LPPOINT;
 
 	//HWND m_hWnd;
-	POINT m_nCachedCurPos;
-	int m_nCachedCurPosX;
-	int m_nCachedCurPosY;
 	bool m_bUseMouseHandle;
 	bool m_bEndFlg;
 
-	agh::_AGH_POINT GetCurPos(){
-		return *((agh::_AGH_POINT*)&m_nCachedCurPos);
-	}
+protected:
+	bool _AGST_DLL_EXP DoFpsWait();
+	bool _AGST_DLL_EXP ThreadFunc(int anyParam);	//	From mxp::CThreadBase overrided
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
@@ -78,9 +72,9 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	  ここにあった OnControl, OnBackground は下に移動しといたよ。
 	**/
 
-	virtual void OnDraw();
-	virtual bool DoFrame();
-	virtual bool OnClose();
+	virtual _AGST_DLL_EXP void OnDraw();
+	virtual _AGST_DLL_EXP bool DoFrame();
+	virtual _AGST_DLL_EXP bool OnClose();
 
 	//	このクラスから
 	virtual bool OnFrameDoUser(){return true;}
@@ -89,10 +83,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 
 	virtual bool OnInitFirst(){ return true; }	//	falseを返すとプログラム終了
 	virtual bool OnGraphicInitEnded(){ return true; }	//	falseを返すとプログラム終了
-	virtual void MainLoop();
-
-protected:
-	bool DoFpsWait();
+	virtual _AGST_DLL_EXP void MainLoop();
 
 private:
 	//	なんでPublic？（Privateではないのか・・・？）
@@ -114,10 +105,7 @@ public:
 	{
 		m_bEndFlg = false;
 
-		//m_hWnd = NULL;
-		ZeroMemory(&m_nCachedCurPos, sizeof(m_nCachedCurPos));
-		m_nCachedCurPosX = -1;
-		m_nCachedCurPosY = -1;
+		m_vphWnd = NULL;
 		m_bUseMouseHandle = false;
 	}
 	virtual ~CAugustScreen2(){}
@@ -125,9 +113,16 @@ public:
 	/////////////////////////////////////////////////////////////////////////
 
 	virtual void OnCreatedWindow(){
+		//m_vphWnd = (void*)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_HWND),
+		//	"CAugustScreen2::OnCreatedWindow()  ウインドウハンドルの取得に失敗");
+		m_vphWnd = (void*)GetValPtr(MWLAGH_VALKEY_HWND);
+
+		//	2009/05/03  追加してねぇじゃん・・・
+		_BASE::RegistSubControl(&m_grp);
+		_BASE::RegistSubControl(&m_fps);
+
 		_THREAD_BASE::StartThread(0);
 	}
-	bool ThreadFunc(int anyParam);
 
 	///// コントロールの登録 /////////////////////////////////////////////////
 
@@ -137,70 +132,5 @@ public:
 public:
 	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
-
-
-
-	/*virtual void OnBackgroundLButtonDown(int x, int y){}
-	virtual void OnBackgroundRButtonDown(int x, int y){}
-	virtual void OnBackgroundCButtonDown(int x, int y){}
-	virtual void OnControlLButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
-
-	//	左クリック系 : Left Click Events
-	virtual void OnLButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnLButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnLButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnLButtonUp(agh::CControlBase *pControl, int x, int y){}
-
-	//	右クリック系 : Right Click Events
-	virtual void OnRButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnRButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnRButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnRButtonUp(agh::CControlBase *pControl, int x, int y){}
-
-	//	マウス移動 : Move Mouse Events
-	virtual void OnMouseMove(agh::CControlBase *pControl, int nPosX, int nPosY, int nMoveX, int nMoveY){}
-
-	//	ホイール : Wheel Events
-	virtual void OnWheelUp(agh::CControlBase *pControl, int count){}
-	virtual void OnWheelDown(agh::CControlBase *pControl, int count){}
-	virtual void OnCButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnCButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnCButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnCButtonUp(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonUp(agh::CControlBase *pControl, int x, int y){}*/
-
-	/*
-	//	左クリック系 : Left Click Events
-	virtual void OnBackgroundLButtonClick(int x, int y){}
-	virtual void OnBackgroundLButtonDblClk(int x, int y){}
-	virtual void OnBackgroundLButtonDown(int x, int y){}
-	virtual void OnBackgroundLButtonUp(int x, int y){}
-
-	//	右クリック系 : Right Click Events
-	virtual void OnBackgroundRButtonClick(int x, int y){}
-	virtual void OnBackgroundRButtonDblClk(int x, int y){}
-	virtual void OnBackgroundRButtonDown(int x, int y){}
-	virtual void OnBackgroundRButtonUp(int x, int y){}
-
-	//	マウス移動 : Move Mouse Events
-	virtual void OnBackgroundMouseMove(int nPosX, int nPosY, int nMoveX, int nMoveY){}
-
-	//	ホイール : Wheel Events
-	virtual void OnBackgroundWheelUp(int count){}
-	virtual void OnBackgroundWheelDown(int count){}
-	virtual void OnBackgroundCButtonClick(int x, int y){}
-	virtual void OnBackgroundCButtonDblClk(int x, int y){}
-	virtual void OnBackgroundCButtonDown(int x, int y){}
-	virtual void OnBackgroundCButtonUp(int x, int y){}
-	virtual void OnBackgroundMButtonClick(int x, int y){}
-	virtual void OnBackgroundMButtonDblClk(int x, int y){}
-	virtual void OnBackgroundMButtonDown(int x, int y){}
-	virtual void OnBackgroundMButtonUp(int x, int y){}
-	*/
 
 #endif//__AugustScreen2_H__

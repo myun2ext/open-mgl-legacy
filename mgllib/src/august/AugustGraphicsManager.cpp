@@ -39,9 +39,12 @@ void CAugustGraphicsManager::Init(bool bIsFullscreen)
 	_MGL_DEBUGLOG("grp.Init()..." );
 
 	//CAugustWindow2* pWindow = (CAugustWindow2*)_BASE::GetParentControl();
-	CAugustWindow2* pWindow = (CAugustWindow2*)MyuAssertNull(
-		_BASE::GetParentControl(), "_BASE::GetParentControl() is NULL.");
-	HWND hWnd = (HWND)GetValPtr(MWLAGH_VALKEY_HWND);
+	CAugustWindow2* pWindow = (CAugustWindow2*)MyuAssertNull(_BASE::GetParentControl(),
+		"CAugustGraphicsManager: 親コントロールが見つかりません。親コントロールへの追加がされているか確認してください。");
+
+	//HWND hWnd = (HWND)GetValPtr(MWLAGH_VALKEY_HWND);
+	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_HWND),
+		"CAugustGraphicsManager::Init()  ウインドウハンドルの取得に失敗");
 
 	m_pGrp->Init( hWnd, pWindow->GetWidth(), pWindow->GetHeight(), bIsFullscreen );
 

@@ -9,10 +9,10 @@
 
 #include "AugustCommon2.h"
 
-class _AGST_DLL_EXP CMwlAghWindow;
-class _AGST_DLL_EXP CMyuThreadBase;
+class /*_AGST_DLL_EXP*/ CMwlAghWindow;
+class /*_AGST_DLL_EXP*/ CMyuThreadBase;
 
-class _AGST_DLL_EXP CAugustWindow2 : public CMwlAghWindow
+class /*_AGST_DLL_EXP*/ CAugustWindow2 : public CMwlAghWindow
 {
 public:
 	//	コンストラクタ・デストラクタ

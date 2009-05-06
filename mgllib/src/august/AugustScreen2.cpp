@@ -55,6 +55,8 @@ CAugustScreen2::~CAugustScreen2()
 
 //////////////////////////////////////////////////
 
+#define m_hWnd (HWND)m_vphWnd
+
 //構造化例外が発生すると、この関数が呼ばれる
 void _MglAugust2_se_translator_function(unsigned int code, struct _EXCEPTION_POINTERS* ep)
 {
@@ -127,7 +129,7 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 				"%s",
 				exp.szClass, exp.szMethod, exp.nInternalCode, exp.szMsg );
 
-			::MessageBox( NULL, work, NULL, MB_ICONERROR );
+			::MessageBox( m_hWnd, work, NULL, MB_ICONERROR );
 		}
 		//	例外処理
 		catch( MyuCommonException except )
@@ -140,7 +142,7 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 				"%s",
 				except.nErrCode, except.szErrMsg,
 				g_stackTrace.Dump().c_str() );
-			::MessageBox( NULL, work, NULL, MB_ICONERROR );
+			::MessageBox( m_hWnd, work, NULL, MB_ICONERROR );
 		}
 #ifndef _DEBUG
 		//	VC++の例外か
@@ -151,7 +153,7 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 
 			switch(rec->ExceptionCode){
 			case 0xc0000094:
-				::MessageBox( NULL, "0 で除算されました。", NULL, MB_ICONERROR ); break;
+				::MessageBox( m_hWnd, "0 で除算されました。", NULL, MB_ICONERROR ); break;
 			}
 
 			char work[1024];
@@ -162,12 +164,12 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 				rec->ExceptionAddress,
 				rec->NumberParameters
 			);
-			::MessageBox( NULL, work, NULL, MB_ICONERROR );
+			::MessageBox( m_hWnd, work, NULL, MB_ICONERROR );
 		}
 		//	VC++の例外か
 		catch(...)
 		{
-			::MessageBox( NULL, "fdssdff", NULL, MB_ICONERROR );
+			::MessageBox( m_hWnd, "fdssdff", NULL, MB_ICONERROR );
 		}
 #endif//_DEBUG
 	/*}
@@ -196,7 +198,10 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 	m_txtDebug.Release();*/
 	m_grp.Release();
 
-	m_bEndFlg = false;
+	//m_bEndFlg = false; <- 違くない？
+	m_bEndFlg = true;
+
+	ExitWindow();
 
 	return true;
 }
@@ -250,12 +255,14 @@ bool CAugustScreen2::DoFpsWait()
 	return true;
 }
 
+//	閉じるー
 bool CAugustScreen2::OnClose()
 {
 	m_bEndFlg = true;
 	return true;
 }
 
+//	描画ー
 void CAugustScreen2::OnDraw()
 {
 
