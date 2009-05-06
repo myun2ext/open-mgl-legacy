@@ -45,7 +45,7 @@ public:
 	void DisableCenterDraw() {	m_bSpriteCenterDraw = FALSE; }*/
 	/*void SpriteBegin(){ if( m_pSprite != NULL ) m_pSprite->Begin(); }
 	void SpriteEnd(){ if( m_pSprite != NULL ) m_pSprite->End(); }*/
-	void Begin(DWORD dwFlag=0);
+	void Begin(DWORD dwFlag=D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_DEPTH_FRONTTOBACK);
 	void End();
 
 	ID3DXSprite* GetSpritePtr(){ return m_pI; }

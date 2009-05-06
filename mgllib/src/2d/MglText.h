@@ -156,12 +156,14 @@ public:
 
 #else
 
+#include "MglImage.h"
+
 DLL_TMPL_EXP CMglDgIBase<ID3DXFont>;
 
 //	クラス宣言 - Direct9
 class DLL_EXP CMglText : public CMglDgIBase<ID3DXFont> //: public CMglDgBase
 {
-private:
+protected:
 	//	インターフェース
 	//ID3DXFont *m_text;
 
@@ -171,6 +173,8 @@ private:
 	int m_nY;
 	DWORD m_dwOption;
 	D3DCOLOR m_color;
+
+	CMglImage m_workImg;
 
 	void SetParamCheck() {
 		if ( bSetParamFlg != TRUE )

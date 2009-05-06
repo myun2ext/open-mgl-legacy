@@ -33,6 +33,8 @@ void CMglText::Create( int nHeight, const char* szFontName, BOOL bItalic, BOOL b
 	//CreatedCheck();
 	Release();	//	コイツはフォント変更でCreateしまくるのでReleaseしないと駄目か・・・
 
+	m_workImg.Create(m_myudg->GetWidth(),m_myudg->GetHeight(),TRUE);
+
 	int nWeight = FW_DONTCARE;
 	if ( bBold )
 		nWeight = FW_BOLD;
@@ -96,21 +98,37 @@ void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD
         DT_CALCRECT,    //表示範囲に調整
         NULL);*/
 
-	m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_FALSE );		// Zバッファを有効にする。
-	m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );			// Zバッファへの書き込み許可
+	//m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_FALSE );		// Zバッファを有効にする。
+	//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );			// Zバッファへの書き込み許可
 
 	CMglDxSprite* pMglSprite = m_myudg->GetTextMglSprite();
 
-	pMglSprite->Begin(D3DXSPRITE_SORT_TEXTURE);
+	//////////////////////////////////////
+	//m_workImg.Clear(0x00ffffff);
+	m_workImg.Clear(0);
+	m_workImg.SetRenderTarget();
+	//////////////////////////////////////
+
+	//pMglSprite->Begin(D3DXSPRITE_SORT_TEXTURE);
+	pMglSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+	//pMglSprite->Begin(D3DXSPRITE_BILLBOARD);
 
 	//	2009/04/05 なんかDT_NOPREFIXつけるとちゃんと出ないみたいだぜ・・・？（何故？
 	//m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | dwOption, color );
-	m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, color );
-	
+	m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, D3DCOLOR_FULLALPHA_FILTER(color) );
+	//m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, 0 );
+
 	pMglSprite->End();
 
-	m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );		// Zバッファを有効にする。
-	m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, TRUE );			// Zバッファへの書き込み許可
+	//m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );		// Zバッファを有効にする。
+	//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, TRUE );			// Zバッファへの書き込み許可
+
+	//////////////////////////////////////
+	m_myudg->SetRenderBackBuffer();
+	m_workImg.Draw((float)0,0,NULL,D3DCOLOR_A(D3DCOLOR_GETA(color)) );
+	//m_workImg.Draw((float)0,0,NULL,0);
+	//m_workImg.Draw();
+	//////////////////////////////////////
 
 #else
 	m_pI->DrawText( szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
