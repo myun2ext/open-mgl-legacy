@@ -14,6 +14,14 @@
 #ifndef __MglDirectMusicBase_H__
 #define __MglDirectMusicBase_H__
 
+//	DirectShow
+#include <DShow.h>/*
+#ifdef _DEBUG
+	#pragma comment(lib, "Strmbasd.lib")
+#else
+	#pragma comment(lib, "Strmbase.lib")
+#endif//_DEBUG*/
+
 //#include "MyuStringNameMap.h"
 
 //	ƒNƒ‰ƒXéŒ¾

@@ -8,6 +8,12 @@
 #include "stdafx.h"
 #include "MglDirectMusicBase.h"
 
+#ifdef _DEBUG
+	#pragma comment(lib, "Strmbasd.lib")
+#else
+	#pragma comment(lib, "Strmbase.lib")
+#endif//_DEBUG
+
 //template class DLL_EXP std::map<std::string,IDirectMusicSegment8*>;
 
 #define ENBL_CHK()	if(m_flgEnable!=TRUE)return;

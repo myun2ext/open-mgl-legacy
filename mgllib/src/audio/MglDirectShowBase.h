@@ -16,6 +16,9 @@
 
 #include "MglBgmBase.h"
 
+//	DirectShow
+#include <DShow.h>
+
 //	ƒNƒ‰ƒXéŒ¾
 class DLL_EXP CMglDirectShowBase : public IMglBgmBase
 {

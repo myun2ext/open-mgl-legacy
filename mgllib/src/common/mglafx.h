@@ -50,6 +50,12 @@
 
 #pragma warning( disable : 4251 )	//	template classのエクスポートしてるのにワーニングが出てしまうので消す
 
+//	for VC++2008 Warning disable
+#pragma warning( disable : 4018 )
+#pragma warning( disable : 4244 )
+#pragma warning( disable : 4995 )
+#pragma warning( disable : 4996 )
+
 //	なんで除外してあんだろ (2008/06/01)
 #include <msl.h>	//	07/01/01 Add.
 #include <mwl.h>	//	07/01/02 Add.
@@ -230,6 +236,7 @@ using namespace std;
 #include <dmusici.h>
 #pragma comment(lib, "dxguid.lib")
 
+/*
 //	DirectShow
 #include <DShow.h>
 #ifdef _DEBUG
@@ -237,7 +244,7 @@ using namespace std;
 #else
 	#pragma comment(lib, "Strmbase.lib")
 #endif//_DEBUG
-
+*/
 
 #endif//_MGL_NOUSE_DIRECTX
 

@@ -82,7 +82,7 @@
 				OutputFile="../bin/Debug/mgllib.dll"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="../lib\vc2008"
+				AdditionalLibraryDirectories="../lib\vc2008,C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\2"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug_VC90/mgllib.pdb"
 				RandomizedBaseAddress="1"
@@ -163,6 +163,7 @@
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="true"
+				DebugInformationFormat="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -181,7 +182,7 @@
 				OutputFile="../bin/Release/mgllib.dll"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="../lib\vc2008"
+				AdditionalLibraryDirectories="../lib\vc2008,C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib\2"
 				ProgramDatabaseFile=".\./Release_VC90/mgllib.pdb"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
@@ -2570,7 +2571,7 @@
 				</File>
 			</Filter>
 			<Filter
-				Name="Ver 1.1"
+				Name="Ver 2"
 				>
 				<File
 					RelativePath="src\august\AugustCommon2.h"
@@ -2684,19 +2685,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8caps.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8types.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8caps.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8types.h"
 				>
 			</File>
 			<File
@@ -2708,15 +2709,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8core.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8effect.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8core.h"
 				>
 			</File>
 			<File
@@ -2724,7 +2721,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8effect.h"
 				>
 			</File>
 			<File
@@ -2732,11 +2729,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.inl"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.inl"
 				>
 			</File>
 			<File
@@ -2748,19 +2749,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8shape.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8tex.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8tex.h"
 				>
 			</File>
 			<File
@@ -2812,11 +2813,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\MSL\include\msl_ra_list.h"
+				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
+				RelativePath="..\MSL\include\msl_ra_list.h"
 				>
 			</File>
 			<File
