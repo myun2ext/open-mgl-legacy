@@ -25,11 +25,11 @@ class CMyWindow : public CAugustScreen2
 {
 private:
 	typedef CAugustScreen2 _BASE;
-	CAugustGraphicsManager m_grp;
+//	CAugustGraphicsManager m_grp;
 public:
-	CMyWindow(){
+/*	CMyWindow(){
 		RegistSubControl(&m_grp);
-	}
+	}*/
 	virtual void OnCreatedWindow(){
 		//MessageBox(NULL,"sdfa","sfda",0);
 		_BASE::OnCreatedWindow();
@@ -50,12 +50,30 @@ public:
 		//	ウインドウの表示をどうするか
 		ShowWindow( hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( hWnd );
+
+		//m_grp.SetBackgroundColor(12131);
+		//SetColor(12131);
 	}
 	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
 	virtual bool OnDropFiles(std::vector<std::string> &files){
 		for(int i=0; i<files.size(); i++)
 			MessageBox((HWND)GetHwnd(),files[i].c_str(),"Drop",0);
 
+		return true;
+	}
+	//	ウインドウ生成前に呼ばれる
+	virtual void OnCreateWindow(agh::CREATE_WINDOW_INFO *pWindowInfo){
+		pWindowInfo->nWinWidthSize = 800;
+		pWindowInfo->nWinHeightSize = 600;
+		pWindowInfo->strWindowTitle = "aa";
+		//pWindowInfo->strWindowTitle = "さんぷるぷろぐらむｆさｄふぁｓｄふぁあｓｄふぁｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄｄふぁ";
+	}
+
+	virtual bool OnFrameDoUser(){
+		//m_grp.Clear();
+		static int i=0;
+		SetColor(AGHCOLOR_RGB(i,i,i));
+		i++;
 		return true;
 	}
 };
