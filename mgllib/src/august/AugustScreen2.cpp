@@ -292,15 +292,29 @@ bool CAugustScreen2::DoFrame()
 	for(citr it=cbegin(); it != cend(); it++)
 	//for(vector<CControlBase*>::iterator it=cbegin(); it != cend(); it++)
 	{
-		it->OnFrame();
+		if ( it->OnFrame() == false )
+			return false;
 		//(*it)->OnFrame();
 		//((CControlBase*)it)->OnFrame();
 		//m_ctrlPtrAry[i]->OnFrame();
 		//GetVCtrlPtr(i)->Draw();
 
+		/*	2009/05/10  処理速度的にはアレだけど、OnFrame()が全て終わってからOnDraw()呼び出したほうがいいでしょう・・・
 		if ( it->IsVisual() )
 			((agh::CVisualControlBase*)it.get())->OnDraw();
 			//((agh::CVisualControlBase*)it.operator ->())->OnDraw();
+		*/
+	}
+
+	this->OnDraw();
+
+	//	各コントロールのフレーム処理
+	//for(int i=0; i<m_ctrlPtrAry.size(); i++)
+	//for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
+	for(vcitr it2=vcbegin(); it2 != vcend(); it2++)
+	//for(vector<CControlBase*>::iterator it=cbegin(); it != cend(); it++)
+	{
+		it2->OnDraw();
 	}
 
 	return true;
