@@ -232,11 +232,7 @@ bool CAugustScreen2::DoFpsWait()
 		return FALSE;
 	*/
 
-	//	スプライト終了
-	m_grp.GetMglGrp()->SpriteEnd();
-
-	//	スクリーンのアップデート
-	m_grp.GetMglGrp()->UpdateScreen();
+	m_grp.FrameEnd();
 
 	//	待つよん
 	m_fps.DoWait();
@@ -249,8 +245,7 @@ bool CAugustScreen2::DoFpsWait()
 			return FALSE;
 	}*/
 
-	//	スプライト開始
-	m_grp.GetMglGrp()->SpriteBegin();
+	m_grp.FrameStart();
 
 	return true;
 }
@@ -266,12 +261,14 @@ bool CAugustScreen2::OnClose()
 void CAugustScreen2::OnDraw()
 {
 
-	m_grp.OnDraw();
+	//m_grp.OnDraw();	//	<- 子コントロールになってるからやっちゃ駄目じゃない？多分
 }
 
 //	フレーム処理
 bool CAugustScreen2::DoFrame()
 {
+	m_grp.OnDraw();	//	とりあえずー
+
 	//	2009/01/23 マウスのハンドルは無効に出来るように。
 	//	（結構処理長いし、うっかりクリックとかで余計な処理走るとまずいし・・・）
 	if ( m_bUseMouseHandle == true )
@@ -300,6 +297,10 @@ bool CAugustScreen2::DoFrame()
 		//((CControlBase*)it)->OnFrame();
 		//m_ctrlPtrAry[i]->OnFrame();
 		//GetVCtrlPtr(i)->Draw();
+
+		if ( it->IsVisual() )
+			((agh::CVisualControlBase*)it.get())->OnDraw();
+			//((agh::CVisualControlBase*)it.operator ->())->OnDraw();
 	}
 
 	return true;

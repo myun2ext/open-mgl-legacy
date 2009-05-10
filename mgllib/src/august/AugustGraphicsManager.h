@@ -10,6 +10,7 @@
 #include "AugustCommon2.h"
 
 class CMglGraphicManager;
+class CAugustWindow2;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustGraphicsManager : public agh::CControlBase
@@ -25,7 +26,8 @@ protected:
 	//CMglLayers4 m_layer;
 	//CMglImageCacher m_imgCache;
 	//CMglImageCacher &m_imgCache;
-	agh::AGH_COLOR m_rgbBackground;
+	//agh::AGH_COLOR m_rgbBackground;	2009/05/10  GetColor()から取ればよかろう？
+	CAugustWindow2* m_pWindow;
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
@@ -65,13 +67,16 @@ public:
 	virtual void Clear();
 	virtual void Clear(agh::AGHCOLOR color);
 
+	void FrameEnd();
+	void FrameStart();
+
 	///// コントロールの登録 /////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////////
 
 	//BOOL IsExistPool(const char* szAlias); <- ?
 
-	void SetBackgroundColor(agh::AGHCOLOR color){ m_rgbBackground = color; }
+	//void SetBackgroundColor(agh::AGHCOLOR color){ m_rgbBackground = color; }
 
 public:
 	virtual void* GetInternalPtr(){ return m_pGrp; }

@@ -113,6 +113,8 @@ public:
 	/////////////////////////////////////////////////////////////////////////
 
 	virtual void OnCreatedWindow(){
+		_BASE::OnCreatedWindow();
+
 		//m_vphWnd = (void*)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_HWND),
 		//	"CAugustScreen2::OnCreatedWindow()  ウインドウハンドルの取得に失敗");
 		m_vphWnd = (void*)GetValPtr(MWLAGH_VALKEY_HWND);
