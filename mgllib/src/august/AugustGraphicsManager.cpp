@@ -43,7 +43,8 @@ void CAugustGraphicsManager::Init(bool bIsFullscreen)
 		"CAugustGraphicsManager: 親コントロールが見つかりません。親コントロールへの追加がされているか確認してください。");
 
 	//HWND hWnd = (HWND)GetValPtr(MWLAGH_VALKEY_HWND);
-	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_HWND),
+	//HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_HWND),
+	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustGraphicsManager::Init()  ウインドウハンドルの取得に失敗");
 
 	m_pGrp->Init( hWnd, pWindow->GetWidth(), pWindow->GetHeight(), bIsFullscreen );
@@ -56,9 +57,11 @@ void CAugustGraphicsManager::Release()
 	m_grp.Release();
 }
 
-void CAugustGraphicsManager::Clear()
-{
+void CAugustGraphicsManager::Clear(){
 	m_grp.Clear(m_rgbBackground);	//	2008/11/29 CAugustGraphicsManager対応
+}
+void CAugustGraphicsManager::Clear(agh::AGHCOLOR color){
+	m_grp.Clear(color);	//	2008/11/29 CAugustGraphicsManager対応
 }
 
 void CAugustGraphicsManager::OnDraw()

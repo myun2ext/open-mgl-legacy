@@ -2660,6 +2660,54 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="AGH"
+				>
+				<File
+					RelativePath="..\AGH\include\agh.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_control_Image.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_control_Window.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_ControlBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_Controls.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_defs.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_EffectControl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_Events.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_Factory.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\agh_ScreenBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\AGH\include\mxp.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Intellisense Files"
@@ -2685,19 +2733,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8caps.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
 				>
 			</File>
 			<File
@@ -2709,15 +2757,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8effect.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
 				>
 			</File>
 			<File
@@ -2725,7 +2769,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8effect.h"
 				>
 			</File>
 			<File
@@ -2733,11 +2777,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
 				>
 			</File>
 			<File
@@ -2749,19 +2797,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8tex.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
 				>
 			</File>
 			<File
@@ -2813,11 +2861,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
+				RelativePath="..\MSL\include\msl_ra_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\MSL\include\msl_ra_list.h"
+				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
 				>
 			</File>
 			<File

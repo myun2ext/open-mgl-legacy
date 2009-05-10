@@ -63,6 +63,7 @@ public:
 	virtual void Init(bool bIsFullscreen=false);
 	virtual void Release();
 	virtual void Clear();
+	virtual void Clear(agh::AGHCOLOR color);
 
 	///// ƒRƒ“ƒgƒ[ƒ‹‚Ì“o˜^ /////////////////////////////////////////////////
 
