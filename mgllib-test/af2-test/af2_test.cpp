@@ -26,10 +26,22 @@ class CMyWindow : public CAugustScreen2
 private:
 	typedef CAugustScreen2 _BASE;
 //	CAugustGraphicsManager m_grp;
+
+	agh::CFadeEffect m_fade1;
+
 public:
-/*	CMyWindow(){
-		RegistSubControl(&m_grp);
+	CMyWindow(){
+		RegistSubControl(&m_fade1);
+		
+		//m_fade1.Setup(this, 0, 0xffffffff, 100);
+		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
+		m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 3);
+		//m_fade1.FadeIn(this, 100);
+	}
+/*	virtual bool OnInit(){
+
 	}*/
+
 	virtual void OnCreatedWindow(){
 		//MessageBox(NULL,"sdfa","sfda",0);
 		_BASE::OnCreatedWindow();
@@ -43,9 +55,9 @@ public:
 		HWND hParent = (HWND)GetHwnd();
 
 		HWND hWnd = ::CreateWindowEx(0, "BUTTON", "test",
-		0, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
-		rcPos.bottom - rcPos.top, (HWND)GetHwnd(), NULL,
-		g_hInstance, NULL);
+			0, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
+			rcPos.bottom - rcPos.top, (HWND)GetHwnd(), NULL,
+			g_hInstance, NULL);
 
 		//	ウインドウの表示をどうするか
 		ShowWindow( hWnd, SW_SHOWDEFAULT );
@@ -70,10 +82,12 @@ public:
 	}
 
 	virtual bool OnFrameDoUser(){
+		Sleep(1000);
 		//m_grp.Clear();
+		/*
 		static int i=0;
 		SetColor(AGHCOLOR_RGB(i,i,i));
-		i++;
+		i++;*/
 		return true;
 	}
 };
