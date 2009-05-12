@@ -8,17 +8,27 @@
 #define __AugustGraphicsManager_H__
 
 #include "AugustCommon2.h"
+//#include "AugustImage2.h"
+
+#define AUGUST_VALKEY_					(AGH_VALKEY_USER_FIRST+0x18A69000)
+#define AUGUST_VALKEY_GRP				(AUGUST_VALKEY_ + 0x359)
+#define AUGUST_VALKEY_PGRP				(AUGUST_VALKEY_GRP)
+#define AUGUST_VALKEY_P_GRP				(AUGUST_VALKEY_GRP)
+
+//	クラス宣言  /////////////////////////////////////////////////////////
 
 class CMglGraphicManager;
 class CAugustWindow2;
+class CAugustImageLoader;
 
-//	クラス宣言  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustGraphicsManager : public agh::CControlBase
 {
 private:
 	typedef agh::CControlBase _BASE;
 protected:
 	CMglGraphicManager *m_pGrp;
+	CAugustImageLoader *m_pImageLoader;
+	//CAugustImageLoader m_imageLoader;
 
 	/////////////////////////////////////////////////////////
 
