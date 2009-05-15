@@ -6,6 +6,8 @@
 
 #include "stdafx.h"
 #include "AugustImage2.h"
+#include "MglImage.h"
+#include "AugustGraphicsManager.h"
 
 using namespace agh;
 
@@ -23,24 +25,15 @@ CAugustImage2::~CAugustImage2()
 }
 */
 
-void CAugustImage2::OnRegist(CAugustGlobalCommon *pGlobal)
-{
-	_BASE::OnRegist(pGlobal);
-
-	m_pCacher = &(pGlobal->imgCache);
-}
-
 bool CAugustImage2::Load(const char* szImageFilePath)
 {
 	m_strFilePath = szImageFilePath;
 	
-	if ( m_pCacher == NULL ){
-		MyuThrow(993243, "CAugustImage2::Load()  親コントロールがありません。(CAugustScreen::RegistControl() による登録が行われていません。)");
-	}
+	CAugustImageLoader* pImgLoader = (CAugustImageLoader*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_IMAGE_LOADER),
+		"CAugustImage2:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。");
 
 	//	読み込み
-	m_pCacher->Cache(szImageFilePath);
-	m_pImg = m_pCacher->Get(szImageFilePath);
+	m_pImg = pImgLoader->Load(szImageFilePath);	//	基本的に例外で飛ぶはずー
 
 	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
 

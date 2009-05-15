@@ -2217,32 +2217,6 @@
 				>
 			</File>
 			<File
-				RelativePath="src\august\AugustImage.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustImage.h"
-				>
-			</File>
-			<File
 				RelativePath="src\august\AugustImage1.cpp"
 				>
 				<FileConfiguration
@@ -2601,6 +2575,14 @@
 				</File>
 				<File
 					RelativePath="src\august\AugustGraphicsManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\src\august\AugustImage2.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\august\AugustImage2.h"
 					>
 				</File>
 				<File

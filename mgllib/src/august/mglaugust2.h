@@ -4,5 +4,6 @@
 #include "AugustWindow2.h"
 #include "AugustGraphicsManager.h"
 #include "AugustScreen2.h"
+#include "AugustImage2.h"
 
 #endif//__MGLAUGUST2_H__

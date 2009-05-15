@@ -12,31 +12,30 @@
 #pragma warning( disable : 4660 ) 
 //class DLL_EXP agh::CImageBase;
 
+class CMglImage;
+
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustImage2 : public agh::CImageBase
+class CAugustImage2 : public agh::CImageBase
 {
 private:
-	//typedef CAugustVisualControlBaseT<agh::CImageBase> _BASE;
-	typedef CAugustVisualControlBase2 _BASE;
+	typedef agh::CImageBase _BASE;
 
 protected:
-	CMglImageCacher *m_pCacher;
 	CMglImage* m_pImg;
 	std::string m_strFilePath;
 
 _AGH_EVENT_ACCESS_MODIFIER:
-	virtual void OnDraw();
+	virtual void DLL_EXP OnDraw();
 
 public:
 	//	コンストラクタ
 	CAugustImage2(){
-		m_pCacher = NULL;
 		m_pImg = NULL;
 	}
-	virtual ~CAugustImage2(){} // 作っておかないと恐らくCImageBaseからのデストラクタが上手く動かない気がする・・・
+	virtual ~CAugustImage2(){}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
-	virtual bool Load(const char* szImageFilePath);
+	virtual bool DLL_EXP Load(const char* szImageFilePath);
 };
 
 /*
