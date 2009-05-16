@@ -11,6 +11,45 @@
 #include "MglImage.h"
 #include "AugustWindow2.h"
 
+
+////////////////////////////////////////////////////////
+
+class CMglImage;
+class CMglGraphicManager;
+
+//class _AGST_DLL_EXP CAugustImageLoader : public agh::util::CLoaderBase<CAugustImage2_2>
+class _AGST_DLL_EXP CAugustImageLoader : public agh::util::CLoaderBase<CMglImage>
+{
+private:
+	//typedef CAugustImage2_2 _IMG;
+	typedef CMglImage _IMG;
+	typedef agh::util::CLoaderBase<_IMG> _BASE;
+
+protected:
+	CMglGraphicManager *m_pGrp;
+
+public:
+	//	コンストラクタ・デストラクタ
+	CAugustImageLoader(){
+		m_pGrp = NULL;
+	}
+	virtual ~CAugustImageLoader(){}
+
+	/*virtual _IMG* Load(const char* szName){
+
+	}*/
+
+//	イベントハンドラの実装
+_AGH_EVENT_ACCESS_MODIFIER:
+
+	virtual void OnRegist(){
+		m_pGrp = (CMglGraphicManager*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_GRP),
+			"CAugustImageLoader: GetValPtr(AUGUST_VALKEY_GRP) の取得に失敗。");
+	}
+
+	virtual bool OnNewLoaderAppend(const char* szName, _IMG* pItem);
+};
+
 /*
 //class _AGST_DLL_EXP CAugustImageLoader : public agh::util::CLoaderBase<CAugustImage2_2>
 class _AGST_DLL_EXP CAugustImageLoader : public agh::util::CLoaderBase<CMglImage>
@@ -71,6 +110,7 @@ CAugustGraphicsManager::CAugustGraphicsManager()
 
 	//	2009/05/13
 	SetValPtr(AUGUST_VALKEY_GRP, m_pGrp);
+	SetValPtr(AUGUST_VALKEY_AGRPM, this);
 	SetValPtr(AUGUST_VALKEY_IMAGE_LOADER, m_pImageLoader);
 
 	//	2009/05/13
@@ -183,3 +223,5 @@ void CAugustGraphicsManager::FrameEnd()
 	//	スクリーンのアップデート
 	m_pGrp->UpdateScreen();
 }
+
+CMglImage* CAugustGraphicsManager::LoadImage(const char* szImageFilepath){ return m_pImageLoader->Load(szImageFilepath); }

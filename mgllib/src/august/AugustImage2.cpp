@@ -13,7 +13,6 @@ using namespace agh;
 
 #define _P m_pBaseControl
 
-/*
 //	コンストラクタ
 CAugustImage2::CAugustImage2()
 {
@@ -23,17 +22,20 @@ CAugustImage2::CAugustImage2()
 CAugustImage2::~CAugustImage2()
 {
 }
-*/
+
 
 bool CAugustImage2::Load(const char* szImageFilePath)
 {
 	m_strFilePath = szImageFilePath;
 	
-	CAugustImageLoader* pImgLoader = (CAugustImageLoader*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_IMAGE_LOADER),
+	//CAugustImageLoader* pImgLoader = (CAugustImageLoader*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_IMAGE_LOADER),
+	//	"CAugustImage2:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。");
+	//m_pImg = pImgLoader->Load(szImageFilePath);	//	基本的に例外で飛ぶはずー
+	CAugustGraphicsManager* pAGrpMgr = (CAugustGraphicsManager*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_AGRPM),
 		"CAugustImage2:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。");
 
 	//	読み込み
-	m_pImg = pImgLoader->Load(szImageFilePath);	//	基本的に例外で飛ぶはずー
+	m_pImg = pAGrpMgr->LoadImageA(szImageFilePath);	//	基本的に例外で飛ぶはずー
 
 	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
 

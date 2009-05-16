@@ -15,53 +15,17 @@
 #define AUGUST_VALKEY_PGRP				(AUGUST_VALKEY_GRP)	//	Alias
 #define AUGUST_VALKEY_P_GRP				(AUGUST_VALKEY_GRP)	//	Alias
 
+#define AUGUST_VALKEY_AGRPM				(AUGUST_VALKEY_ + 0x0381)
+
 #define AUGUST_VALKEY_IMG_LOADER		(AUGUST_VALKEY_ + 0x0382)
 #define AUGUST_VALKEY_IMAGE_LOADER		(AUGUST_VALKEY_ + 0x0382)
-
-
-////////////////////////////////////////////////////////
-
-class CMglImage;
-class CMglGraphicManager;
-
-//class _AGST_DLL_EXP CAugustImageLoader : public agh::util::CLoaderBase<CAugustImage2_2>
-class _AGST_DLL_EXP CAugustImageLoader : public agh::util::CLoaderBase<CMglImage>
-{
-private:
-	//typedef CAugustImage2_2 _IMG;
-	typedef CMglImage _IMG;
-	typedef agh::util::CLoaderBase<_IMG> _BASE;
-
-protected:
-	CMglGraphicManager *m_pGrp;
-
-public:
-	//	コンストラクタ・デストラクタ
-	CAugustImageLoader(){
-		m_pGrp = NULL;
-	}
-	virtual ~CAugustImageLoader(){}
-
-	/*virtual _IMG* Load(const char* szName){
-
-	}*/
-
-//	イベントハンドラの実装
-_AGH_EVENT_ACCESS_MODIFIER:
-
-	virtual void OnRegist(){
-		m_pGrp = (CMglGraphicManager*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_GRP),
-			"CAugustImageLoader: GetValPtr(AUGUST_VALKEY_GRP) の取得に失敗。");
-	}
-
-	virtual bool OnNewLoaderAppend(const char* szName, _IMG* pItem);
-};
 
 
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 
 class CMglGraphicManager;
+class CMglImage;
 class CAugustWindow2;
 class CAugustImageLoader;
 
@@ -136,6 +100,7 @@ public:
 	virtual void* GetInternalPtr(){ return m_pGrp; }
 	virtual CMglGraphicManager* GetMglGrp(){ return m_pGrp; }
 	//virtual CMglImage* LoadImage(const char* szImageFilepath){ return m_pImageLoader->Load(szImageFilepath); }
+	virtual CMglImage* LoadImage(const char* szImageFilepath);
 };
 
 typedef CAugustGraphicsManager CAugustGraphicManager;

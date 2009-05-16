@@ -29,10 +29,12 @@ _AGH_EVENT_ACCESS_MODIFIER:
 
 public:
 	//	コンストラクタ
-	CAugustImage2(){
+	CAugustImage2();
+	virtual ~CAugustImage2();
+	/*CAugustImage2(){
 		m_pImg = NULL;
 	}
-	virtual ~CAugustImage2(){}
+	virtual ~CAugustImage2(){}*/
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool DLL_EXP Load(const char* szImageFilePath);
