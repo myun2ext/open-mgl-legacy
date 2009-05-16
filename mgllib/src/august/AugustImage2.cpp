@@ -7,21 +7,20 @@
 #include "stdafx.h"
 #include "AugustImage2.h"
 #include "MglImage.h"
-#include "AugustGraphicsManager.h"
 
 using namespace agh;
 
 #define _P m_pBaseControl
 
 //	コンストラクタ
-CAugustImage2::CAugustImage2()
+/*CAugustImage2::CAugustImage2()
 {
 }
 
 //	デストラクタ
 CAugustImage2::~CAugustImage2()
 {
-}
+}*/
 
 
 bool CAugustImage2::Load(const char* szImageFilePath)

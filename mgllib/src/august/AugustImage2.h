@@ -8,6 +8,7 @@
 #define __AugustImage2_H__
 
 #include "agh.h"
+#include "AugustGraphicsManager.h"
 
 #pragma warning( disable : 4660 ) 
 //class DLL_EXP agh::CImageBase;
@@ -15,7 +16,7 @@
 class CMglImage;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class CAugustImage2 : public agh::CImageBase
+class _AGST_DLL_EXP CAugustImage2 : public agh::CImageBase
 {
 private:
 	typedef agh::CImageBase _BASE;
@@ -25,19 +26,19 @@ protected:
 	std::string m_strFilePath;
 
 _AGH_EVENT_ACCESS_MODIFIER:
-	virtual void DLL_EXP OnDraw();
+	virtual void OnDraw();
 
 public:
 	//	コンストラクタ
-	CAugustImage2();
-	virtual ~CAugustImage2();
-	/*CAugustImage2(){
+	//CAugustImage2();
+	//virtual ~CAugustImage2();
+	CAugustImage2(){
 		m_pImg = NULL;
 	}
-	virtual ~CAugustImage2(){}*/
+	virtual ~CAugustImage2(){}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
-	virtual bool DLL_EXP Load(const char* szImageFilePath);
+	virtual bool Load(const char* szImageFilePath);
 };
 
 /*
