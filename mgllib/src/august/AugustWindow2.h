@@ -14,32 +14,18 @@ class /*_AGST_DLL_EXP*/ CMyuThreadBase;
 
 class /*_AGST_DLL_EXP*/ CAugustWindow2 : public CMwlAghWindow
 {
+private:
+	typedef CMwlAghWindow _BASE;
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustWindow2(){}
 	virtual ~CAugustWindow2(){}
 
-	virtual void OnCreatedWindow(){
-		//MessageBox(NULL,"sdfa","sfda",0);
-		/*
-		RECT rcPos;
-		rcPos.left = 10;
-		rcPos.right = 100;
-		rcPos.top = 50;
-		rcPos.bottom = 100;
-
-		HWND hParent = (HWND)GetHwnd();
-
-		HWND hWnd = ::CreateWindowEx(0, "BUTTON", "test",
-		0, rcPos.left, rcPos.top, rcPos.right - rcPos.left,
-		rcPos.bottom - rcPos.top, (HWND)GetHwnd(), NULL,
-		g_hInstance, NULL);
-
-		//	ウインドウの表示をどうするか
-		ShowWindow( hWnd, SW_SHOWDEFAULT );
-		UpdateWindow( hWnd );
-		*/
-	}
+	/*int Start( const char* szWindowTitle, const char* szWinClassName,
+		int nWinWidthSize, int nWinHeightSize, int nWinXPos=MYU_WINPOS_AUTO, int nWinYPos=MYU_WINPOS_AUTO,
+		DWORD dwWinStyle=MYU_WINDOW_DEFAULT_STYLE, int nWindowShow=SW_SHOWDEFAULT );*/
+	virtual void _AGST_DLL_EXP Start();
+	//virtual void OnCreatedWindow(){}
 };
 
 #endif//__AugustWindow2_H__

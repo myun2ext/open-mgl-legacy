@@ -67,14 +67,17 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 {
 	m_bEndFlg = false;
 
-	if ( OnInitFirst() == false )
-		return false;
-
 	_set_se_translator(_MglAugust2_se_translator_function);
 
 	//__try{
 		try	//	例外処理受け付け開始
 		{
+			if ( OnInit() == false )
+				return false;
+
+			if ( OnInitFirst() == false )
+				return false;
+
 			CMglStackInstance("CAugustEzGameFrame::PrivateMainMethod");
 
 			m_grp.Init();
@@ -119,7 +122,7 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 			MainLoop();
 		}
 		//	例外処理 V3.0
-		catch( MglException exp )
+		catch( MglException& exp )
 		{
 			char work[1024];
 			snprintf( work, sizeof(work),
@@ -132,7 +135,7 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 			::MessageBox( m_hWnd, work, NULL, MB_ICONERROR );
 		}
 		//	例外処理
-		catch( MyuCommonException except )
+		catch( MyuCommonException& except )
 		{
 			char work[512];
 			//snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );

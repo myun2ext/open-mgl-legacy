@@ -32,18 +32,20 @@ public:
 /////////////////////////////////////////////////////////////////////////
 
 #define _CAugustScreen2_THREAD_BASE CMwlMxpThreadBase
+//#define _CAugustScreen2_WINDOW_BASE CMwlAghWindow
+#define _CAugustScreen2_WINDOW_BASE CAugustWindow2
 
-class CMwlAghWindow;
 class _CAugustScreen2_THREAD_BASE;
+class _CAugustScreen2_WINDOW_BASE;
 class agh::CScreenBase;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
 //class DLL_EXP CAugustScreen2 : public CAugustWindow2, public CMyuThreadBase
-class CAugustScreen2 : public CMwlAghWindow, public _CAugustScreen2_THREAD_BASE
+class CAugustScreen2 : public _CAugustScreen2_WINDOW_BASE, public _CAugustScreen2_THREAD_BASE
 {
 private:
 	//typedef CAugustWindow2 _BASE;
-	typedef CMwlAghWindow _BASE;
+	typedef _CAugustScreen2_WINDOW_BASE _BASE, _WIN_BASE, _WINDOW_BASE;
 	typedef _CAugustScreen2_THREAD_BASE _THREAD_BASE;
 
 protected:
