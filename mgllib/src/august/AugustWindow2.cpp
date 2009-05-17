@@ -11,11 +11,12 @@ int CAugustWindow2::Start( const char* szWindowTitle, const char* szWinClassName
 		nWinXPos, nWinYPos, dwWinStyle, nWindowShow );
 }
 */
-void CAugustWindow2::Start()
+void CAugustWindow2::_Start()
 {
 	try	//	例外処理受け付け開始
 	{
-		_BASE::Start();
+		//_BASE::Start();
+		_Start2();
 	}
 	//	例外処理 V3.0
 	catch( MglException& exp )

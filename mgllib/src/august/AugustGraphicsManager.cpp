@@ -106,6 +106,7 @@ CAugustGraphicsManager::CAugustGraphicsManager()
 	m_pGrp = new CMglGraphicManager();
 	m_pImageLoader = new CAugustImageLoader();	//	どっちでも行けるようにnewのままにしてるのかな・・・？
 
+	/*	2009/05/16  後でやらないと属性のコピーが行われないっち・・・
 	//m_rgbBackground = AGHCOLOR_WHITE;
 
 	//	2009/05/13
@@ -116,6 +117,7 @@ CAugustGraphicsManager::CAugustGraphicsManager()
 	//	2009/05/13
 	RegistSubControl(m_pImageLoader);
 	//RegistSubControl(m_imageLoader);
+	*/
 }
 
 //	デストラクタ
@@ -146,6 +148,20 @@ void CAugustGraphicsManager::Init(bool bIsFullscreen)
 		"CAugustGraphicsManager::Init()  ウインドウハンドルの取得に失敗");
 
 	m_pGrp->Init( hWnd, m_pWindow->GetWidth(), m_pWindow->GetHeight(), bIsFullscreen );
+
+	/////////////////////////////////////////////////////////////
+	//
+	//	2009/05/16  ここでやらないと属性のコピーが行われないっち・・・
+	
+	//	2009/05/13
+	SetValPtr(AUGUST_VALKEY_GRP, m_pGrp);
+	SetValPtr(AUGUST_VALKEY_AGRPM, this);
+
+	//	2009/05/13
+	RegistSubControl(m_pImageLoader);
+	SetValPtr(AUGUST_VALKEY_IMAGE_LOADER, m_pImageLoader);
+
+	////////////////////////////////////////////////
 
 	Clear();
 }
