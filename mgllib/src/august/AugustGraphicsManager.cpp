@@ -196,7 +196,8 @@ void CAugustGraphicsManager::OnDraw()
 	{
 		agh::CControlBase *pCtrl = m_ctrlPtrAry[i];
 		if ( pCtrl->IsVisual() )
-			((agh::CVisualControlBase*)pCtrl)->Draw();
+			((agh::CVisualControlBase*)pCtrl)->OnDraw();
+			//((agh::CVisualControlBase*)pCtrl)->Draw();
 	}
 }
 

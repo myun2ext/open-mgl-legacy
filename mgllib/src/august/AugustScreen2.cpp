@@ -245,7 +245,8 @@ void CAugustScreen2::MainLoop()
 {
 	for(;;)
 	{
-		DoFrame();
+		if ( DoFrame() == false )
+			break;
 
 		//	フレーム分待つよん
 		if ( DoFpsWait() == false )
@@ -302,7 +303,7 @@ void CAugustScreen2::OnDraw()
 //	フレーム処理
 bool CAugustScreen2::DoFrame()
 {
-	m_grp.OnDraw();	//	とりあえずー
+	//m_grp.OnDraw();	//	とりあえずー	//	2009/05/17 コメントアウト
 
 	//	2009/01/23 マウスのハンドルは無効に出来るように。
 	//	（結構処理長いし、うっかりクリックとかで余計な処理走るとまずいし・・・）
