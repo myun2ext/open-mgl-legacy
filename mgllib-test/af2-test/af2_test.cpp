@@ -33,33 +33,19 @@ private:
 
 public:
 	//	コンストラクタ・デストラクタ
-	CMyWindow(){
-		/*
-		RegistSubControl(&m_fade1);
-		RegistSubControl(&m_img);
-
-		m_img.Load("shana_36-1.jpg");
-		
-		//m_fade1.Setup(this, 0, 0xffffffff, 100);
-		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
-		//m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 30);
-		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
-		//m_fade1.FadeIn(this, 100);
-		*/
-	}
+	CMyWindow(){}
 	virtual ~CMyWindow(){}
 
 	/*virtual bool OnInit(){
 		return false;
 	}*/
-
 	
 	virtual bool OnGraphicInitEnded()
 	{
 		RegistSubControl(&m_fade1);
-		/*RegistSubControl(&m_img);
+		RegistSubControl(&m_img);
 
-		m_img.Load("shana_36-1.jpg");*/
+		m_img.Load("shana_36-1.jpg");
 		
 		//m_fade1.Setup(this, 0, 0xffffffff, 100);
 		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
@@ -90,8 +76,7 @@ public:
 		ShowWindow( hWnd, SW_SHOWDEFAULT );
 		UpdateWindow( hWnd );
 
-		//m_grp.SetBackgroundColor(12131);
-		//SetColor(12131);
+		SetColor(12131);
 	}
 	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
 	virtual bool OnDropFiles(std::vector<std::string> &files){
