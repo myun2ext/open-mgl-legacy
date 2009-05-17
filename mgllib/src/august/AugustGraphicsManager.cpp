@@ -156,10 +156,13 @@ void CAugustGraphicsManager::Init(bool bIsFullscreen)
 	//	2009/05/13
 	SetValPtr(AUGUST_VALKEY_GRP, m_pGrp);
 	SetValPtr(AUGUST_VALKEY_AGRPM, this);
+	m_pWindow->SetValPtr(AUGUST_VALKEY_GRP, m_pGrp);	//	2009/05/18
+	m_pWindow->SetValPtr(AUGUST_VALKEY_AGRPM, this);	//	2009/05/18
 
 	//	2009/05/13
 	RegistSubControl(m_pImageLoader);
 	SetValPtr(AUGUST_VALKEY_IMAGE_LOADER, m_pImageLoader);
+	m_pWindow->SetValPtr(AUGUST_VALKEY_IMAGE_LOADER, m_pImageLoader);	//	2009/05/18
 
 	////////////////////////////////////////////////
 
