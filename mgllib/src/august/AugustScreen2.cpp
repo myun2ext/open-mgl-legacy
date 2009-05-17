@@ -69,6 +69,33 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 
 	_set_se_translator(_MglAugust2_se_translator_function);
 
+	///////////////////////////////////////////
+
+	//	2009/05/17  分離
+	bool bRet = ThreadFuncMain();
+
+	///////////////////////////////////////////
+
+	m_grp.Release();
+
+	//m_bEndFlg = false; <- 違くない？
+	m_bEndFlg = true;
+
+	ExitWindow();
+
+	return bRet;
+}
+
+bool CAugustScreen2::ThreadFuncMain()
+{
+	/*
+	m_bEndFlg = false;
+
+	_set_se_translator(_MglAugust2_se_translator_function);
+	*/
+
+	///////////////////////////////////////////////////////////
+
 	//__try{
 		try	//	例外処理受け付け開始
 		{
@@ -199,12 +226,17 @@ bool CAugustScreen2::ThreadFunc(int anyParam)
 	input.Release();
 	input.FinalRelease();
 	m_txtDebug.Release();*/
+
+	///////////////////////////////////////////////////////////
+
+	/*
 	m_grp.Release();
 
 	//m_bEndFlg = false; <- 違くない？
 	m_bEndFlg = true;
 
 	ExitWindow();
+	*/
 
 	return true;
 }

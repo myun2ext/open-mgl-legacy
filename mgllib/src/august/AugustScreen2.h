@@ -48,6 +48,8 @@ private:
 	typedef _CAugustScreen2_WINDOW_BASE _BASE, _WIN_BASE, _WINDOW_BASE;
 	typedef _CAugustScreen2_THREAD_BASE _THREAD_BASE;
 
+	bool _AGST_DLL_EXP ThreadFuncMain();
+
 protected:
 	CAugustGraphicsManager m_grp;	//	Control
 	CAugustFpsManager m_fps;		//	Control
