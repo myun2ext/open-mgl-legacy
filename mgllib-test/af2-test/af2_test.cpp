@@ -29,18 +29,45 @@ private:
 
 	agh::CFadeEffect m_fade1;
 
+	CAugustImage2 m_img;
+
 public:
+	//	コンストラクタ・デストラクタ
 	CMyWindow(){
+		/*
 		RegistSubControl(&m_fade1);
+		RegistSubControl(&m_img);
+
+		m_img.Load("shana_36-1.jpg");
 		
 		//m_fade1.Setup(this, 0, 0xffffffff, 100);
 		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
-		m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 3);
+		//m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 30);
+		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
 		//m_fade1.FadeIn(this, 100);
+		*/
 	}
-/*	virtual bool OnInit(){
+	virtual ~CMyWindow(){}
 
+	/*virtual bool OnInit(){
+		return false;
 	}*/
+
+	
+	virtual bool OnGraphicInitEnded()
+	{
+		RegistSubControl(&m_fade1);
+		/*RegistSubControl(&m_img);
+
+		m_img.Load("shana_36-1.jpg");*/
+		
+		//m_fade1.Setup(this, 0, 0xffffffff, 100);
+		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
+		//m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 30);
+		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
+		//m_fade1.FadeIn(this, 100);
+		return true;
+	}
 
 	virtual void OnCreatedWindow(){
 		//MessageBox(NULL,"sdfa","sfda",0);
@@ -82,7 +109,7 @@ public:
 	}
 
 	virtual bool OnFrameDoUser(){
-		Sleep(1000);
+		//Sleep(1000);
 		//m_grp.Clear();
 		/*
 		static int i=0;
