@@ -1,11 +1,11 @@
 //////////////////////////////////////////////////////////
 //
-//	AugustImage2
+//	AugustText2
 //
 //////////////////////////////////////////////////////////
 
-#ifndef __AugustImage2_H__
-#define __AugustImage2_H__
+#ifndef __AugustText2_H__
+#define __AugustText2_H__
 
 #include "agh.h"
 #include "AugustGraphicsManager.h"
@@ -18,7 +18,7 @@ class CMglImage;
 //class _AGST_DLL_EXP agh::CImageBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class _AGST_DLL_EXP CAugustImage2 : public agh::CImageBase
+class _AGST_DLL_EXP CAugustText2 : public agh::CImageBase
 {
 private:
 	typedef agh::CImageBase _BASE;
@@ -32,19 +32,19 @@ _AGH_EVENT_ACCESS_MODIFIER:
 
 public:
 	//	コンストラクタ
-	//CAugustImage2();
-	//virtual ~CAugustImage2();
-	CAugustImage2(){
+	//CAugustText2();
+	//virtual ~CAugustText2();
+	CAugustText2(){
 		m_pImg = NULL;
 	}
-	virtual ~CAugustImage2(){}
+	virtual ~CAugustText2(){}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath);
 };
 
 /*
-typedef CAugustImage2 CAugustImage2Ctrl;
-typedef CAugustImage2 CAugustImage2;
+typedef CAugustText2 CAugustText2Ctrl;
+typedef CAugustText2 CAugustText2;
 */
-#endif//__AugustImage2_H__
+#endif//__AugustText2_H__
