@@ -296,8 +296,8 @@ bool CAugustScreen2::OnClose()
 //	描画ー
 void CAugustScreen2::OnDraw()
 {
-
-	//m_grp.OnDraw();	//	<- 子コントロールになってるからやっちゃ駄目じゃない？多分
+	//	CAugustGraphicsManager は CControlBase を継承したクラスなんですねぇー。
+	m_grp.OnDraw();
 }
 
 //	フレーム処理
