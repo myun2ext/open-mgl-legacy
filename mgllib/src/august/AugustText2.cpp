@@ -6,53 +6,88 @@
 
 #include "stdafx.h"
 #include "AugustText2.h"
-#include "MglImage.h"
+#include "MglText.h"
 
 using namespace agh;
 
 #define _P m_pBaseControl
 
 //	コンストラクタ
-/*CAugustText2::CAugustText2()
+CAugustText2::CAugustText2()
 {
+	m_pText = new CMglText();
 }
 
 //	デストラクタ
 CAugustText2::~CAugustText2()
 {
-}*/
-
-
-bool CAugustText2::Load(const char* szImageFilePath)
-{
-	m_strFilePath = szImageFilePath;
-	
-	//CAugustImageLoader* pImgLoader = (CAugustImageLoader*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_IMAGE_LOADER),
-	//	"CAugustText2:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。");
-	//m_pImg = pImgLoader->Load(szImageFilePath);	//	基本的に例外で飛ぶはずー
-	CAugustGraphicsManager* pAGrpMgr = (CAugustGraphicsManager*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_AGRPM),
-		"CAugustText2:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。");
-
-	//	読み込み
-	m_pImg = pAGrpMgr->LoadImageA(szImageFilePath);	//	基本的に例外で飛ぶはずー
-
-	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
-
-	return true;
+	delete m_pText;
 }
 
+////////////////////////////////////
+
+//	フォントの再構築
+void CAugustText2::ReCreateFont()
+{
+	BOOL bBold, bItalic, bUnderLine, bStrikeOut;
+
+	bBold =		m_dwOption & AGH_FONT_OPTION_BOLD;
+	bItalic =	m_dwOption & AGH_FONT_OPTION_ITALIC;
+	bUnderLine=	m_dwOption & AGH_FONT_OPTION_UNDERLINE;
+	bStrikeOut=	m_dwOption & AGH_FONT_OPTION_STRIKEOUT;
+
+#if _MGL_DXVER == 8
+	m_text.Create(m_pGrp, m_nPoint, m_strFontName.c_str(),
+		bItalic, bBold, bUnderLine, bStrikeOut);
+	/* CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
+			BOOL bItalic, BOOL bBold, BOOL bUnderLine, BOOL bStrikeOut, float fAngle )*/
+#else
+	m_pText->Init(m_pGrp);
+	m_pText->Create(m_nPoint, m_strFontName.c_str(), bItalic, bBold);
+#endif
+}
+
+//	オプションのDWORD取得
+DWORD CAugustText2::GetDrawInternalOption()
+{
+	DWORD dwOption = 0;
+	switch(_AGH_TEXT_ALIGN_HFILTER(m_nAlign))
+	{
+		case AGH_TEXT_ALIGN_LEFT:	dwOption |= DT_LEFT; break;
+		case AGH_TEXT_ALIGN_RIGHT:	dwOption |= DT_RIGHT; break;
+		case AGH_TEXT_ALIGN_CENTER:	dwOption |= DT_CENTER; break;
+	}
+	switch(_AGH_TEXT_ALIGN_VFILTER(m_nAlign))
+	{
+		case AGH_TEXT_ALIGN_TOP:	dwOption |= DT_TOP; break;
+		case AGH_TEXT_ALIGN_BOTTOM:	dwOption |= DT_BOTTOM; break;
+		case AGH_TEXT_ALIGN_VCENTER:	dwOption |= DT_VCENTER; break;
+	}
+	return dwOption;
+}
+
+//	オプション設定
+void CAugustText2::SetOption(agh::AGHDWORD dwOption)
+{
+	_BASE::SetOption(dwOption);
+	ReCreateFont();
+}
+void CAugustText2::SetFontName(const char* szFontName){
+	_BASE::SetFontName(szFontName);
+	ReCreateFont();
+}
+void CAugustText2::SetFontPoint(int point){
+	_BASE::SetFontPoint(point);
+	ReCreateFont();
+}
+void CAugustText2::SetColor(AGHCOLOR color){
+	_BASE::SetColor(color);
+	ReCreateFont();
+}
+
+//	描画
 void CAugustText2::OnDraw()
 {
-	//_Img()->Draw( GetRect().left, GetRect().top,
-	int x = GetRect().left;
-	int y = GetRect().top;
-
-	if ( m_bCentering == true )	//	オーバーロードでやろうかとも思ったが・・・まぁこっちの方が安心か...
-		m_pImg->EnableCenterDraw();
-	else
-		m_pImg->DisableCenterDraw();
-
-	m_pImg->Draw( x, y,
-		(RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 対応
-	//	NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
+	DWORD dwOption = 0;
+	m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }
