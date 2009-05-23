@@ -904,11 +904,27 @@ SOURCE=.\src\august\AugustGraphicsManager.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\src\august\AugustImage2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustImage2.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\src\august\AugustScreen2.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\src\august\AugustScreen2.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustText2.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\src\august\AugustText2.h
 # End Source File
 # Begin Source File
 
@@ -942,14 +958,6 @@ SOURCE=.\src\august\AugustEzGameFrame.cpp
 # Begin Source File
 
 SOURCE=.\src\august\AugustEzGameFrame.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustImage.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\src\august\AugustImage.h
 # End Source File
 # Begin Source File
 
