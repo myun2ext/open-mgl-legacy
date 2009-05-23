@@ -20,6 +20,12 @@ public:
 */
 _MWL_HINSTANCE g_hInstance;
 
+class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntSineWave>
+{
+public:
+	virtual bool OnFadeStop(){return false;}
+};
+
 //class CMyWindow : public CMwlAghWindow
 class CMyWindow : public CAugustScreen2
 {
@@ -27,7 +33,11 @@ private:
 	typedef CAugustScreen2 _BASE;
 //	CAugustGraphicsManager m_grp;
 
-	agh::CFadeEffect m_fade1;
+	//agh::CFadeEffect m_fade1;
+	//agh::TColorFadeEffect<agh::math::CIntSineWave> m_fade1;
+	CMyColorFade m_fade1;
+	agh::math::CIntSineWave m_sinX;
+	agh::math::CIntCosWave m_cosY;
 
 	CAugustImage2 m_img;
 	CAugustText2 m_text;
@@ -44,6 +54,12 @@ public:
 	
 	virtual bool OnGraphicInitEnded()
 	{
+		//m_sinX.SetRange(-2147483648, 2147483647);
+		m_sinX.SetRange(0, 300);
+		m_cosY.SetRange(0, 300);
+
+		/////////////////////////////////////////////////////
+
 		RegistSubControl(&m_fade1);
 		RegistSubControl(&m_img);
 		RegistSubControl(&m_text);
@@ -62,16 +78,16 @@ public:
 
 		m_text2.SetText("ŒYŽ–‚¢");
 		m_text2.SetColor(0x99000077);
-		m_text2.SetPoint(250);
+		m_text2.SetPoint(150);
 		m_text2.SetFontName("MS Mincho");
 		m_text2.SetOption(AGH_FONT_OPTION_BOLD);
 		m_text2.SetPos(50,80);
-		//m_text
 		
 		//m_fade1.Setup(this, 0, 0xffffffff, 100);
 		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
 		//m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 30);
-		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
+		//m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
+		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 40);
 		//m_fade1.FadeIn(this, 100);
 		return true;
 	}
@@ -99,7 +115,7 @@ public:
 
 		SetColor(12131);
 	}
-	virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
+	//virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
 	virtual bool OnDropFiles(std::vector<std::string> &files){
 		for(int i=0; i<files.size(); i++)
 			MessageBox((HWND)GetHwnd(),files[i].c_str(),"Drop",0);
@@ -115,12 +131,18 @@ public:
 	}
 
 	virtual bool OnFrameDoUser(){
+		static int i=0;
 		//Sleep(1000);
 		//m_grp.Clear();
 		/*
-		static int i=0;
 		SetColor(AGHCOLOR_RGB(i,i,i));
-		i++;*/
+		*/
+		m_text2.SetPos(
+			m_sinX.Get(i/20.0f),
+			m_cosY.Get(i/20.0f)
+			);
+
+		i++;
 		return true;
 	}
 };
