@@ -30,6 +30,8 @@ private:
 	agh::CFadeEffect m_fade1;
 
 	CAugustImage2 m_img;
+	CAugustText2 m_text;
+	CAugustText2 m_text2;
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -44,8 +46,27 @@ public:
 	{
 		RegistSubControl(&m_fade1);
 		RegistSubControl(&m_img);
+		RegistSubControl(&m_text);
+		RegistSubControl(&m_text2);
 
+		m_img.SetScale(0.4f);
 		m_img.Load("shana_36-1.jpg");
+		m_img.SetAlpha(0x80);
+
+		m_text.SetText("ほげほげほげほげほげおｇへごえｇへおｇ");
+		m_text.SetColor(0x99006600);
+		m_text.SetPoint(56);
+		m_text.SetFontName("MS Mincho");
+		m_text.SetOption(AGH_FONT_OPTION_BOLD);
+		m_text.SetPos(10,50);
+
+		m_text2.SetText("刑事い");
+		m_text2.SetColor(0x99000077);
+		m_text2.SetPoint(250);
+		m_text2.SetFontName("MS Mincho");
+		m_text2.SetOption(AGH_FONT_OPTION_BOLD);
+		m_text2.SetPos(50,80);
+		//m_text
 		
 		//m_fade1.Setup(this, 0, 0xffffffff, 100);
 		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
