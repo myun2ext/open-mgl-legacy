@@ -24,7 +24,13 @@ private:
 	typedef agh::CTextBase _BASE;
 
 protected:
+	CMglGraphicManager *m_pGrp;
 	CMglText* m_pText;
+	bool m_bChanged;
+
+	void OnChanged(){ m_bChanged = true; }
+	void ReCreateFont();
+	DWORD GetDrawInternalOption();
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnDraw();

@@ -16,6 +16,8 @@ using namespace agh;
 CAugustText2::CAugustText2()
 {
 	m_pText = new CMglText();
+
+	m_bChanged = true;
 }
 
 //	デストラクタ
@@ -29,6 +31,9 @@ CAugustText2::~CAugustText2()
 //	フォントの再構築
 void CAugustText2::ReCreateFont()
 {
+	m_pGrp = (CMglGraphicManager*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_GRP),
+		"CAugustText2: GetValPtr(AUGUST_VALKEY_GRP) の取得に失敗。");
+
 	BOOL bBold, bItalic, bUnderLine, bStrikeOut;
 
 	bBold =		m_dwOption & AGH_FONT_OPTION_BOLD;
@@ -70,24 +75,27 @@ DWORD CAugustText2::GetDrawInternalOption()
 void CAugustText2::SetOption(agh::AGHDWORD dwOption)
 {
 	_BASE::SetOption(dwOption);
-	ReCreateFont();
+	OnChanged();
 }
 void CAugustText2::SetFontName(const char* szFontName){
 	_BASE::SetFontName(szFontName);
-	ReCreateFont();
+	OnChanged();
 }
 void CAugustText2::SetFontPoint(int point){
 	_BASE::SetFontPoint(point);
-	ReCreateFont();
+	OnChanged();
 }
 void CAugustText2::SetColor(AGHCOLOR color){
 	_BASE::SetColor(color);
-	ReCreateFont();
+	OnChanged();
 }
 
 //	描画
 void CAugustText2::OnDraw()
 {
+	if ( m_bChanged )
+		ReCreateFont();
+
 	DWORD dwOption = 0;
 	m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }

@@ -2161,227 +2161,11 @@
 			Name="August Framework"
 			>
 			<File
-				RelativePath="src\august\AugustCommon.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustCommon.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustCtrlBase.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustEzGameFrame.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustEzGameFrame.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustImage1.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustImage1.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustImageImpl.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustRoot.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustRoot.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustScreen.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustScreen.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustScreen_Events.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustText.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustText.h"
-				>
-			</File>
-			<File
-				RelativePath="src\august\AugustWindow.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="src\august\AugustWindow.h"
-				>
-			</File>
-			<File
 				RelativePath="src\august\mglaugust.h"
 				>
 			</File>
-			<File
-				RelativePath="src\august\mglaugust1.h"
-				>
-			</File>
 			<Filter
-				Name="old"
+				Name="Ver 1.0"
 				>
 				<File
 					RelativePath="src\mglgui\MglAghImage.cpp"
@@ -2702,6 +2486,226 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Ver 1.1"
+				>
+				<File
+					RelativePath="src\august\AugustCommon.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustCommon.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustCtrlBase.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustEzGameFrame.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustEzGameFrame.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustImage1.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustImage1.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustImageImpl.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustRoot.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustRoot.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustScreen.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustScreen.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustScreen_Events.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustText.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustText.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\AugustWindow.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							AdditionalIncludeDirectories=""
+							PreprocessorDefinitions=""
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="src\august\AugustWindow.h"
+					>
+				</File>
+				<File
+					RelativePath="src\august\mglaugust1.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Intellisense Files"
@@ -2727,19 +2731,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8caps.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8caps.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8types.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8caps.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3d8types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3d8types.h"
 				>
 			</File>
 			<File
@@ -2751,15 +2755,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8core.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8core.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8effect.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8core.h"
 				>
 			</File>
 			<File
@@ -2767,7 +2767,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8effect.h"
 				>
 			</File>
 			<File
@@ -2775,11 +2775,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.inl"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8math.inl"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8math.inl"
 				>
 			</File>
 			<File
@@ -2791,19 +2795,19 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8shape.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8tex.h"
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8shape.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\..\..\..\Program Files\Microsoft DirectX 9.0 SDK (October 2004)\Include\d3dx8tex.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\..\..\..\dxsdk90b\Include\d3dx8tex.h"
 				>
 			</File>
 			<File
@@ -2855,11 +2859,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\MSL\include\msl_ra_list.h"
+				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\MSL\trunk\MSL\header\msl_ra_list.h"
+				RelativePath="..\MSL\include\msl_ra_list.h"
 				>
 			</File>
 			<File
