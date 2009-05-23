@@ -20,7 +20,8 @@ public:
 */
 _MWL_HINSTANCE g_hInstance;
 
-class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntSineWave>
+//class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntSineWave>
+class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntSquareWave>
 {
 public:
 	virtual bool OnFadeStop(){return false;}
@@ -36,8 +37,8 @@ private:
 	//agh::CFadeEffect m_fade1;
 	//agh::TColorFadeEffect<agh::math::CIntSineWave> m_fade1;
 	CMyColorFade m_fade1;
-	agh::math::CIntSineWave m_sinX;
-	agh::math::CIntCosWave m_cosY;
+	agh::math::CIntSineWave m_waveY;
+	agh::math::CIntCosWave m_waveX;
 
 	CAugustImage2 m_img;
 	CAugustText2 m_text;
@@ -55,8 +56,8 @@ public:
 	virtual bool OnGraphicInitEnded()
 	{
 		//m_sinX.SetRange(-2147483648, 2147483647);
-		m_sinX.SetRange(0, 300);
-		m_cosY.SetRange(0, 300);
+		m_waveX.SetRange(0, 300);
+		m_waveY.SetRange(0, 300);
 
 		/////////////////////////////////////////////////////
 
@@ -87,7 +88,7 @@ public:
 		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
 		//m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 30);
 		//m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
-		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 40);
+		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 4);
 		//m_fade1.FadeIn(this, 100);
 		return true;
 	}
@@ -131,15 +132,15 @@ public:
 	}
 
 	virtual bool OnFrameDoUser(){
-		static int i=0;
+		static int i=-20;
 		//Sleep(1000);
 		//m_grp.Clear();
 		/*
 		SetColor(AGHCOLOR_RGB(i,i,i));
 		*/
 		m_text2.SetPos(
-			m_sinX.Get(i/20.0f),
-			m_cosY.Get(i/20.0f)
+			m_waveX.Get(i/20.0f),
+			m_waveY.Get(i/20.0f)
 			);
 
 		i++;
