@@ -8,15 +8,6 @@
 #define __AugustMouseInput_H__
 
 #include "agh.h"
-#include "MglImageCacher.h"
-#include "MglImageLayer.h"
-#include "MglInput.h"
-#include "MglAudio.h"
-#include "MglAghImage.h"
-#include "AugustCommon.h"
-//#include "MglMouseInput.h"
-
-class DLL_EXP agh::CScreenBase;
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -38,34 +29,22 @@ typedef struct {
 } AUGUST_KB_EVT_HANDLER;
 typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 
+class CMglMouseInput;
+
 /////////////////////////////////////////////////////////////////////////
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustMouseInput : public agh::CScreenBase
+class DLL_EXP CAugustMouseInput : public agh::CControlBase
 {
 protected:
-	CAugustGlobalCommon *g_;
-	//CMglGraphicManager m_grp; <- 間違いでは・・・？
-	/*CMglGraphicManager *m_grp;	//	Alias
-	CMglInput *m_input;			//	Alias
-	CMglMouseInput *m_mouse;	//	Alias
-	CMglAudio *m_audio;			//	Alias*/
+	CMglMouseInput *m_pMouse;
 
-	//	2008/11/26 Add. デフォルトのイメージ配列
-	//map<std::string,CAugustImage> m_imgAry;
-
-	//	2008/11/26 Add. デフォルトのイメージ配列
 	//list<bool (*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 	//list<MGL_KB_EVT_HANDLER_CALLBACK> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 	list<AUGUST_KB_EVT_HANDLER> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 
 	/////////////////////////////////////////////////////////
 
-	//HWND m_hWnd;
-	//CMglLayers4 m_layer;
-	//CMglImageCacher m_imgCache;
-	//CMglImageCacher &m_imgCache;
-	D3DCOLOR m_rgbBackground;
 	POINT m_nCachedCurPos;
 	int m_nCachedCurPosX;
 	int m_nCachedCurPosY;
@@ -81,14 +60,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	/**
 	  ここにあった OnControl, OnBackground は下に移動しといたよ。
 	**/
-
-	virtual void OnDraw();
 	virtual bool DoFrame();
-
-	//	このクラスから
-	virtual bool OnFrameDoUser(){return true;}
-	virtual bool OnFrameKeyboardInput();
-	virtual bool OnFrameMouseInput();
 
 protected:
 
@@ -97,8 +69,6 @@ private:
 	//void OnLButtonDown(int x, int y);
 
 	//void ScreenUpdate();
-
-	void _RegistControlInternal(agh::CControlBase* pCtrl);// <- なんのためにあるの・・・？旧時代の遺物か？ 
 
 public:
 	//	コンストラクタ
@@ -113,34 +83,14 @@ public:
 	CAugustMouseInput()
 	{
 		//m_hWnd = NULL;
-		m_rgbBackground = D3DCOLOR_WHITE;
-		g_ = NULL;
 		ZeroMemory(&m_nCachedCurPos, sizeof(m_nCachedCurPos));
 		m_nCachedCurPosX = -1;
 		m_nCachedCurPosY = -1;
 		m_bUseMouseHandle = false;
 	}
 	virtual ~CAugustMouseInput(){}
-	void Setup(CAugustGlobalCommon *g_in){
-		g_ = g_in;
-	}
-
-	///// コントロールの登録 /////////////////////////////////////////////////
-
-	//void RegistControl(CMglAghImage* pImage);
-	void RegistControl(CAugustVisualControlBase* pControl);
-	void RegistControl(CAugustVisualControlBase2* pControl);
-	//void RegistControl(agh::CControlBase* pControl);
-	void RegistSubControl(CAugustCtrlBase* pControl);
 
 	//////////////////////////////////////////////////////
-
-	//BOOL IsExistPool(const char* szAlias); <- ?
-
-	/*BOOL InsertImage(IMGLIST_ITR it);
-	BOOL InsertImage(){ return InsertImage(GetScene()->m_images.begin()); }*/
-
-	void SetBackgroundColor(D3DCOLOR color){ m_rgbBackground = color; }
 
 	//	キーボードハンドラの登録
 	void RegistKbHandler(AUGUST_KB_EVT_HANDLER &evt){

@@ -8,15 +8,6 @@
 #define __AugustKeyboardInput_H__
 
 #include "agh.h"
-#include "MglImageCacher.h"
-#include "MglImageLayer.h"
-#include "MglInput.h"
-#include "MglAudio.h"
-#include "MglAghImage.h"
-#include "AugustCommon.h"
-//#include "MglMouseInput.h"
-
-class DLL_EXP agh::CScreenBase;
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -38,34 +29,22 @@ typedef struct {
 } AUGUST_KB_EVT_HANDLER;
 typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 
+class CMglKeyboardInput;
+
 /////////////////////////////////////////////////////////////////////////
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class DLL_EXP CAugustKeyboardInput : public agh::CScreenBase
+class DLL_EXP CAugustKeyboardInput : public agh::CControlBase
 {
 protected:
-	CAugustGlobalCommon *g_;
-	//CMglGraphicManager m_grp; <- 間違いでは・・・？
-	/*CMglGraphicManager *m_grp;	//	Alias
-	CMglInput *m_input;			//	Alias
-	CMglMouseInput *m_mouse;	//	Alias
-	CMglAudio *m_audio;			//	Alias*/
+	CMglInput *m_pInput;			//	Alias
 
-	//	2008/11/26 Add. デフォルトのイメージ配列
-	//map<std::string,CAugustImage> m_imgAry;
-
-	//	2008/11/26 Add. デフォルトのイメージ配列
 	//list<bool (*)()> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 	//list<MGL_KB_EVT_HANDLER_CALLBACK> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 	list<AUGUST_KB_EVT_HANDLER> m_kbEventHandlers;	//	本当はvector_list使うネ・・・
 
 	/////////////////////////////////////////////////////////
 
-	//HWND m_hWnd;
-	//CMglLayers4 m_layer;
-	//CMglImageCacher m_imgCache;
-	//CMglImageCacher &m_imgCache;
-	D3DCOLOR m_rgbBackground;
 	POINT m_nCachedCurPos;
 	int m_nCachedCurPosX;
 	int m_nCachedCurPosY;
@@ -81,14 +60,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	/**
 	  ここにあった OnControl, OnBackground は下に移動しといたよ。
 	**/
-
-	virtual void OnDraw();
 	virtual bool DoFrame();
-
-	//	このクラスから
-	virtual bool OnFrameDoUser(){return true;}
-	virtual bool OnFrameKeyboardInput();
-	virtual bool OnFrameMouseInput();
 
 protected:
 
@@ -97,8 +69,6 @@ private:
 	//void OnLButtonDown(int x, int y);
 
 	//void ScreenUpdate();
-
-	void _RegistControlInternal(agh::CControlBase* pCtrl);// <- なんのためにあるの・・・？旧時代の遺物か？ 
 
 public:
 	//	コンストラクタ
@@ -113,34 +83,14 @@ public:
 	CAugustKeyboardInput()
 	{
 		//m_hWnd = NULL;
-		m_rgbBackground = D3DCOLOR_WHITE;
-		g_ = NULL;
 		ZeroMemory(&m_nCachedCurPos, sizeof(m_nCachedCurPos));
 		m_nCachedCurPosX = -1;
 		m_nCachedCurPosY = -1;
 		m_bUseMouseHandle = false;
 	}
 	virtual ~CAugustKeyboardInput(){}
-	void Setup(CAugustGlobalCommon *g_in){
-		g_ = g_in;
-	}
-
-	///// コントロールの登録 /////////////////////////////////////////////////
-
-	//void RegistControl(CMglAghImage* pImage);
-	void RegistControl(CAugustVisualControlBase* pControl);
-	void RegistControl(CAugustVisualControlBase2* pControl);
-	//void RegistControl(agh::CControlBase* pControl);
-	void RegistSubControl(CAugustCtrlBase* pControl);
 
 	//////////////////////////////////////////////////////
-
-	//BOOL IsExistPool(const char* szAlias); <- ?
-
-	/*BOOL InsertImage(IMGLIST_ITR it);
-	BOOL InsertImage(){ return InsertImage(GetScene()->m_images.begin()); }*/
-
-	void SetBackgroundColor(D3DCOLOR color){ m_rgbBackground = color; }
 
 	//	キーボードハンドラの登録
 	void RegistKbHandler(AUGUST_KB_EVT_HANDLER &evt){
@@ -165,69 +115,5 @@ public:
 	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
 
-
-
-	/*virtual void OnBackgroundLButtonDown(int x, int y){}
-	virtual void OnBackgroundRButtonDown(int x, int y){}
-	virtual void OnBackgroundCButtonDown(int x, int y){}
-	virtual void OnControlLButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnControlRButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnControlCButtonDown(agh::CControlBase *pControl, int x, int y){}
-
-	//	左クリック系 : Left Click Events
-	virtual void OnLButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnLButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnLButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnLButtonUp(agh::CControlBase *pControl, int x, int y){}
-
-	//	右クリック系 : Right Click Events
-	virtual void OnRButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnRButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnRButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnRButtonUp(agh::CControlBase *pControl, int x, int y){}
-
-	//	マウス移動 : Move Mouse Events
-	virtual void OnMouseMove(agh::CControlBase *pControl, int nPosX, int nPosY, int nMoveX, int nMoveY){}
-
-	//	ホイール : Wheel Events
-	virtual void OnWheelUp(agh::CControlBase *pControl, int count){}
-	virtual void OnWheelDown(agh::CControlBase *pControl, int count){}
-	virtual void OnCButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnCButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnCButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnCButtonUp(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonClick(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonDblClk(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonDown(agh::CControlBase *pControl, int x, int y){}
-	virtual void OnMButtonUp(agh::CControlBase *pControl, int x, int y){}*/
-
-	/*
-	//	左クリック系 : Left Click Events
-	virtual void OnBackgroundLButtonClick(int x, int y){}
-	virtual void OnBackgroundLButtonDblClk(int x, int y){}
-	virtual void OnBackgroundLButtonDown(int x, int y){}
-	virtual void OnBackgroundLButtonUp(int x, int y){}
-
-	//	右クリック系 : Right Click Events
-	virtual void OnBackgroundRButtonClick(int x, int y){}
-	virtual void OnBackgroundRButtonDblClk(int x, int y){}
-	virtual void OnBackgroundRButtonDown(int x, int y){}
-	virtual void OnBackgroundRButtonUp(int x, int y){}
-
-	//	マウス移動 : Move Mouse Events
-	virtual void OnBackgroundMouseMove(int nPosX, int nPosY, int nMoveX, int nMoveY){}
-
-	//	ホイール : Wheel Events
-	virtual void OnBackgroundWheelUp(int count){}
-	virtual void OnBackgroundWheelDown(int count){}
-	virtual void OnBackgroundCButtonClick(int x, int y){}
-	virtual void OnBackgroundCButtonDblClk(int x, int y){}
-	virtual void OnBackgroundCButtonDown(int x, int y){}
-	virtual void OnBackgroundCButtonUp(int x, int y){}
-	virtual void OnBackgroundMButtonClick(int x, int y){}
-	virtual void OnBackgroundMButtonDblClk(int x, int y){}
-	virtual void OnBackgroundMButtonDown(int x, int y){}
-	virtual void OnBackgroundMButtonUp(int x, int y){}
-	*/
 
 #endif//__AugustKeyboardInput_H__
