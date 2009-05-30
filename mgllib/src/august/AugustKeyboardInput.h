@@ -45,15 +45,6 @@ protected:
 
 	/////////////////////////////////////////////////////////
 
-	POINT m_nCachedCurPos;
-	int m_nCachedCurPosX;
-	int m_nCachedCurPosY;
-	bool m_bUseMouseHandle;
-
-	agh::_AGH_POINT GetCurPos(){
-		return *((agh::_AGH_POINT*)&m_nCachedCurPos);
-	}
-
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
@@ -62,32 +53,10 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	**/
 	virtual bool DoFrame();
 
-protected:
-
-private:
-	//	なんでPublic？（Privateではないのか・・・？）
-	//void OnLButtonDown(int x, int y);
-
-	//void ScreenUpdate();
-
 public:
 	//	コンストラクタ
-	/*CAugustKeyboardInput(CAugustGlobalCommon &g_in) : g_(g_in),
-		m_mouse(g_in.input.mouse), m_grp(g_in.grp), m_input(g_in.input), m_audio(g_in.audio),
-		m_imgCache(g_in.imgCache)
-	{
-		//m_hWnd = NULL;
-		m_rgbBackground = D3DCOLOR_WHITE;
-	}*/
 	//	コンストラクタ
-	CAugustKeyboardInput()
-	{
-		//m_hWnd = NULL;
-		ZeroMemory(&m_nCachedCurPos, sizeof(m_nCachedCurPos));
-		m_nCachedCurPosX = -1;
-		m_nCachedCurPosY = -1;
-		m_bUseMouseHandle = false;
-	}
+	CAugustKeyboardInput(){}
 	virtual ~CAugustKeyboardInput(){}
 
 	//////////////////////////////////////////////////////
@@ -107,12 +76,6 @@ public:
 		evt.evtType = evtType;
 		m_kbEventHandlers.push_back(evt);
 	}
-
-	void EnableMouseHandle(){ m_bUseMouseHandle = true; }
-	void DisableMouseHandle(){ m_bUseMouseHandle = false; }
-
-public:
-	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
 
 
