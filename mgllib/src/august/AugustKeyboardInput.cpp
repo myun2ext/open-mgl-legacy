@@ -33,6 +33,11 @@ private:
 	void GenKcTable();
 
 public:
+	//	コンストラクタ・デストラクタ
+	CAugustKeyboardCore(){ GenKcTable(); }
+	virtual ~CAugustKeyboardCore(){}
+
+	/* override */
 	virtual bool IsOnKeyEvt(agh::KB_EVTTYPE_t evtType, agh::KEYCODE_t keyCode)
 	{
 		switch(evtType)
@@ -55,8 +60,13 @@ public:
 	}
 };
 
+////////////////////////////////////////////////////////////////////////
+
+//	staticな変数の実体
 int CAugustKeyboardCore::m_keyCodeTable[AUGUST_KEYCODE_TABLE_SIZE];
 bool CAugustKeyboardCore::m_bKeyCodeTableInited = false;
+
+////////////////////////////////////////////////////////////////////////
 
 //	テーブルの生成
 void CAugustKeyboardCore::GenKcTable()
