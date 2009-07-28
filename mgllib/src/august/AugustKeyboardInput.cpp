@@ -38,26 +38,42 @@ public:
 	virtual ~CAugustKeyboardCore(){}
 
 	/* override */
+	//	多分trueで帰ることにより処理続行？
+	//	2009/07/28  ぎゃくぎゃく
 	virtual bool IsOnKeyEvt(agh::KB_EVTTYPE_t evtType, agh::KEYCODE_t keyCode)
 	{
+		BYTE dik = GetAghKeyToDik(keyCode);
+		if ( dik == 0 )
+			return false;
+			//return true;	2009/07/28  ぎゃくぎゃく
+
+		BOOL isOnEvt = FALSE;
 		switch(evtType)
 		{
 		//	押されている間
 		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
-			
+			isOnEvt = m_input.IsPressKey(dik);
 			break;
 
 		//	キーボードが押された瞬間
 		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+			isOnEvt = m_input.IsOnDownKey(dik);
 			break;
 
 		//	キーボードが話された瞬間
 		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+			isOnEvt = m_input.IsOnUpKey(dik);
 			break;
 		}
 
-		return false;
+		if ( isOnEvt )
+			return true;
+		else
+			return false;
+		//return true;	2009/07/28  ぎゃくぎゃく
 	}
+
+	static BYTE GetAghKeyToDik(KEYCODE_t aghKey){ return m_keyCodeTable[aghKey]; }	//	255以上の値で来た場合の動作は未定義
 };
 
 ////////////////////////////////////////////////////////////////////////
