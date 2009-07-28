@@ -8,10 +8,11 @@
 #define __AugustKeyboardInput_H__
 
 #include "agh.h"
+#include "AugustCommon2.h"
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 
-class DLL_EXP CAugustKeyboardInput : public agh::CKeyboardBase
+class _AGST_DLL_EXP CAugustKeyboardInput : public agh::CKeyboardBase
 {
 public:
 	//	コンストラクタ・デストラクタ
