@@ -12,6 +12,8 @@
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 
+class _AGST_DLL_EXP agh::CMouseBase;
+
 class _AGST_DLL_EXP CAugustMouseInput : public agh::CMouseBase
 {
 	//	イベントハンドラの実装
