@@ -20,6 +20,9 @@ class _AGST_DLL_EXP CAugustMouseInput : public agh::CMouseBase
 _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnRegist();
 
+	virtual bool OnFrame();	//	override
+	virtual agh::_AGH_POINT GetCursorPos();
+
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustMouseInput();

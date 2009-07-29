@@ -93,6 +93,12 @@ public:
 	{
 		m_mouse.Init(hWnd);
 	}
+
+	//	バッファの更新
+	void Update()
+	{
+		m_mouse.UpdateStateBuf();
+	}
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -109,6 +115,7 @@ CAugustMouseInput::~CAugustMouseInput()
 	delete m_pCore;
 }
 
+//	登録時にInitを呼び出す
 void CAugustMouseInput::OnRegist()
 {
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
@@ -117,4 +124,18 @@ void CAugustMouseInput::OnRegist()
 	((CAugustMouseCore*)m_pCore)->Init(hWnd);
 }
 
+//	毎フレーム毎にUpdate()呼び出すの忘れてた・・・
+bool CAugustMouseInput::OnFrame()
+{
+	//	ステータスバッファの更新
+	((CAugustMouseCore*)m_pCore)->Update();
 
+	//	スーパークラスのOnFrame()呼び出し
+	return agh::CMouseBase::OnFrame();
+}
+
+//	カーソル取得の実装
+_AGH_POINT CAugustMouseInput::GetCursorPos()
+{
+	return ((CAugustMouseCore*)m_pCore)->GetCursorPos();
+}
