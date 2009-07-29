@@ -38,30 +38,30 @@ public:
 		switch(evtType)
 		{
 		//	押されている間
-		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_PRESS:
-			isOnEvt = m_input.IsPressKey(dik);
+		case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_PRESS:
+			isOnEvt = m_mouse.IsPressButton(mouseCode - 0x11);
 			break;
 
-		//	キーボードが押された瞬間
-		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
-			isOnEvt = m_input.IsOnDownKey(dik);
+		//	押された瞬間
+		case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+			isOnEvt = m_mouse.IsOnDownButton(mouseCode - 0x11);
 			break;
 
-		//	キーボードが話された瞬間
-		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
-			isOnEvt = m_input.IsOnUpKey(dik);
+		//	離された瞬間
+		case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+			isOnEvt = m_mouse.IsOnUpButton(mouseCode - 0x11);
 			break;
 		}
 
 		if ( isOnEvt )
-			return true;
+			return GetCursorPos();
 		else
-			return false;
-		//return true;	2009/07/28  ぎゃくぎゃく
+			return _AGH_POINT(INVALID_POINT, INVALID_POINT);
 	}
 	
 	virtual _AGH_POINT GetCursorPos(){
-		return m_mouse.GetCursorPos();
+		POINT point = m_mouse.GetCursorPos();
+		return _AGH_POINT(point.x, point.y);
 	}
 
 	//	初期化
