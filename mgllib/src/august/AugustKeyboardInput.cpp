@@ -79,6 +79,12 @@ public:
 		m_input.Init(hWnd);
 	}
 
+	//	バッファの更新
+	void Update()
+	{
+		m_input.Update();
+	}
+
 	static BYTE GetAghKeyToDik(KEYCODE_t aghKey){ return m_keyCodeTable[aghKey]; }	//	255以上の値で来た場合の動作は未定義
 };
 
@@ -271,10 +277,21 @@ CAugustKeyboardInput::~CAugustKeyboardInput()
 	delete m_pCore;
 }
 
+//	登録時にInitを呼び出す
 void CAugustKeyboardInput::OnRegist()
 {
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustKeyboardInput::Init()  ウインドウハンドルの取得に失敗");
 
 	((CAugustKeyboardCore*)m_pCore)->Init(hWnd);
+}
+
+//	毎フレーム毎にUpdate()呼び出すの忘れてた・・・
+bool CAugustKeyboardInput::OnFrame()
+{
+	//	ステータスバッファの更新
+	((CAugustKeyboardCore*)m_pCore)->Update();
+
+	//	スーパークラスのOnFrame()呼び出し
+	return agh::CKeyboardBase::OnFrame();
 }

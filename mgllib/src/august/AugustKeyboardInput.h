@@ -18,6 +18,8 @@ class _AGST_DLL_EXP CAugustKeyboardInput : public agh::CKeyboardBase
 _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnRegist();
 
+	virtual bool OnFrame();	//	override
+
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustKeyboardInput();
