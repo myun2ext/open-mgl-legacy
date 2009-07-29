@@ -51,7 +51,7 @@ private:
 	CAugustText2 m_text;
 	CAugustText2 m_text2;
 	CAugustText2 m_text2_bl[BLUR_COUNT];
-public:
+
 	CAugustKeyboardInput m_input;
 
 public:
@@ -87,13 +87,6 @@ public:
 		m_text.SetFontName("MS Mincho");
 		m_text.SetOption(AGH_FONT_OPTION_BOLD);
 		m_text.SetPos(10,50);
-
-		
-		/*bool (CMyWindow::*f1)() = &CMyWindow::OnZ;
-		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = (bool (agh::_CKeyboardBase_CDummyBase::*)())&CMyWindow::OnZ;
-		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = reinterpret_cast<bool (agh::_CKeyboardBase_CDummyBase::*)()>(&CMyWindow::OnZ);
-		bool (agh::_CKeyboardBase_CDummyBase::*f2)() = reinterpret_cast<bool (QQQQ::*)()>(&CMyWindow::OnZ);*/
-		
 
 		//m_input.RegistHandler(AGH_KB_EVT_HANDLER_EVTTYPE_ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
 		//m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
@@ -254,12 +247,6 @@ int _MWL_APIENTRY WinMain(
 	//CAugustScreen2 myWindow;
 	myWindow.EnableDropFiles();
 	myWindow.Start();
-
-
-	
-typedef bool (CMyWindow::*HOGGGG)();
-
-myWindow.m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
 
 	return 0;
 }
