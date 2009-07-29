@@ -7,6 +7,5 @@
 #include "AugustImage2.h"
 #include "AugustText2.h"
 #include "AugustInput.h"
-#include "AugustMouse.h"
 
 #endif//__MGLAUGUST2_H__
