@@ -73,6 +73,12 @@ public:
 		//return true;	2009/07/28  ぎゃくぎゃく
 	}
 
+	//	初期化
+	void Init(HWND hWnd)
+	{
+		m_input.Init(hWnd);
+	}
+
 	static BYTE GetAghKeyToDik(KEYCODE_t aghKey){ return m_keyCodeTable[aghKey]; }	//	255以上の値で来た場合の動作は未定義
 };
 
@@ -265,6 +271,10 @@ CAugustKeyboardInput::~CAugustKeyboardInput()
 	delete m_pCore;
 }
 
+void CAugustKeyboardInput::OnRegist()
+{
+	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
+		"CAugustKeyboardInput::Init()  ウインドウハンドルの取得に失敗");
 
-
-
+	((CAugustKeyboardCore*)m_pCore)->Init(hWnd);
+}

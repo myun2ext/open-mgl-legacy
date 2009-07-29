@@ -14,6 +14,10 @@
 
 class _AGST_DLL_EXP CAugustKeyboardInput : public agh::CKeyboardBase
 {
+	//	イベントハンドラの実装
+_AGH_EVENT_ACCESS_MODIFIER:
+	virtual void OnRegist();
+
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustKeyboardInput();
