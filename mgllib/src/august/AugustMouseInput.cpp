@@ -16,8 +16,6 @@ class DLL_EXP agh::CControlBase;
 
 ///////////////////////////////////////////////////////////////
 
-#define AUGUST_KEYCODE_TABLE_SIZE	(256)
-
 //#define PRESSKEY(DIK_CODE)	(DIK_CODE & 0x80)
 
 //	コアの基底クラス
@@ -25,6 +23,21 @@ class CAugustMouseCore : public agh::CMouseCoreBase
 {
 protected:
 	CMglMouseInput m_mouse;
+
+private:
+	_AGH_POINT GetMoveCount(agh::MOUSECODE_t mouseCode)
+	{
+		if ( mouseCode == agh::CMouseBase::CBUTTON ){
+			long z = m_mouse.GetZMoveCount();
+			return _AGH_POINT(z, INVALID_POINT);	//	xにzを入れる、yは使ってない。
+		}
+		else
+		{
+			long x = m_mouse.GetXMoveCount();
+			long y = m_mouse.GetYMoveCount();
+			return _AGH_POINT(x, y);
+		}
+	}
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -35,24 +48,35 @@ public:
 	virtual _AGH_POINT IsOnMouseEvt(agh::MOUSE_EVTTYPE_t evtType, agh::MOUSECODE_t mouseCode)
 	{
 		BOOL isOnEvt = FALSE;
-		switch(evtType)
+
+		//	mouseCodeが有効な範囲内かどうか？
+		if ( mouseCode >= AGH_MOUSECODE_LBUTTON && mouseCode <= AGH_MOUSECODE_8TH_BTN )
 		{
-		//	押されている間
-		case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_PRESS:
-			isOnEvt = m_mouse.IsPressButton(mouseCode - 0x11);
-			break;
+			switch(evtType)
+			{
+			//	押されている間
+			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_PRESS:
+				isOnEvt = m_mouse.IsPressButton(mouseCode - 0x11);
+				break;
 
-		//	押された瞬間
-		case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
-			isOnEvt = m_mouse.IsOnDownButton(mouseCode - 0x11);
-			break;
+			//	押された瞬間
+			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+				isOnEvt = m_mouse.IsOnDownButton(mouseCode - 0x11);
+				break;
 
-		//	離された瞬間
-		case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYUP:
-			isOnEvt = m_mouse.IsOnUpButton(mouseCode - 0x11);
-			break;
+			//	離された瞬間
+			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+				isOnEvt = m_mouse.IsOnUpButton(mouseCode - 0x11);
+				break;
+
+			//	移動
+			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_MOVE:
+				return GetMoveCount(mouseCode);
+			}
 		}
 
+		//	有効な場合は現在のカーソル位置を、無効な場合は(-9999,-9999)を返す。
+		//	（ちなみに移動の場合は既にswitch文の中でreturnしている）
 		if ( isOnEvt )
 			return GetCursorPos();
 		else
