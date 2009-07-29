@@ -21,14 +21,18 @@ public:
 _MWL_HINSTANCE g_hInstance;
 
 //class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntSineWave>
-class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntSquareWave>
+class CMyColorFade : public agh::TColorFadeEffect<agh::math::CIntTriWave>
 {
 public:
 	virtual bool OnFadeStop(){return false;}
 };
 
+#define BLUR_COUNT	(8)
+
+		class QQQQ{};
+
 //class CMyWindow : public CMwlAghWindow
-class CMyWindow : public CAugustScreen2
+class CMyWindow : public CAugustScreen2, public agh::_CKeyboardBase_CDummyBase
 {
 private:
 	typedef CAugustScreen2 _BASE;
@@ -37,12 +41,18 @@ private:
 	//agh::CFadeEffect m_fade1;
 	//agh::TColorFadeEffect<agh::math::CIntSineWave> m_fade1;
 	CMyColorFade m_fade1;
+	CMyColorFade m_fade2;
 	agh::math::CIntSineWave m_waveY;
 	agh::math::CIntCosWave m_waveX;
 
 	CAugustImage2 m_img;
+	CAugustImage2 m_img_bl[BLUR_COUNT];
+
 	CAugustText2 m_text;
 	CAugustText2 m_text2;
+	CAugustText2 m_text2_bl[BLUR_COUNT];
+public:
+	CAugustKeyboardInput m_input;
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -65,6 +75,7 @@ public:
 		RegistSubControl(&m_img);
 		RegistSubControl(&m_text);
 		RegistSubControl(&m_text2);
+		RegistSubControl(&m_input);
 
 		m_img.SetScale(0.4f);
 		m_img.Load("shana_36-1.jpg");
@@ -77,18 +88,63 @@ public:
 		m_text.SetOption(AGH_FONT_OPTION_BOLD);
 		m_text.SetPos(10,50);
 
-		m_text2.SetText("刑事い");
-		m_text2.SetColor(0x99000077);
-		m_text2.SetPoint(150);
-		m_text2.SetFontName("MS Mincho");
-		m_text2.SetOption(AGH_FONT_OPTION_BOLD);
-		m_text2.SetPos(50,80);
+		
+		/*bool (CMyWindow::*f1)() = &CMyWindow::OnZ;
+		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = (bool (agh::_CKeyboardBase_CDummyBase::*)())&CMyWindow::OnZ;
+		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = reinterpret_cast<bool (agh::_CKeyboardBase_CDummyBase::*)()>(&CMyWindow::OnZ);
+		bool (agh::_CKeyboardBase_CDummyBase::*f2)() = reinterpret_cast<bool (QQQQ::*)()>(&CMyWindow::OnZ);*/
+		
+
+		//m_input.RegistHandler(AGH_KB_EVT_HANDLER_EVTTYPE_ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
+		//m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
+		m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (CAugustKeyboardInput::CALLBACK_TYPE)&CMyWindow::OnZ);
+		//m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', dynamic_cast<CAugustKeyboardInput::CALLBACK_TYPE*>(&CMyWindow::OnZ) );
+
+		///////////////////////
+		CAugustImage2 *pImg ;
+		int a = 0x80;
+		for(int i=0; i<BLUR_COUNT; i++){
+			pImg = &m_img_bl[i];
+			RegistSubControl(pImg);
+
+			pImg->SetScale(0.4f);
+			pImg->Load("shana_36-1.jpg");
+
+			a *= 0.7f;
+			//pImg->SetAlpha(0x60-(0x0c*i));
+			pImg->SetAlpha(a);
+		}
+		/////////////////////
+
+		CAugustText2 *pText = &m_text2;
+		for(int i=-1; i<BLUR_COUNT; i++){
+			if ( i == -1 ){
+				pText = &m_text2;
+				//pText->SetColor(AGHCOLOR_ARGB(0x99-((0x25*i)), 0,0, 0x77));
+				pText->SetColor(AGHCOLOR_ARGB(0, 0,0, 0x77));
+			}
+			else{
+				pText = &m_text2_bl[i];
+				RegistSubControl(pText);
+				//pText->SetColor(AGHCOLOR_ARGB(0x40-((0x04*i)), 0,0, 0x77));
+				pText->SetColor(AGHCOLOR_ARGB(0, 0,0, 0x77));
+			}
+
+			pText->SetText("刑事い");
+			//pText->SetColor(0x99000077);
+			pText->SetPoint(150);
+			pText->SetFontName("MS Mincho");
+			pText->SetOption(AGH_FONT_OPTION_BOLD);
+			pText->SetPos(50,80);
+		}
 		
 		//m_fade1.Setup(this, 0, 0xffffffff, 100);
 		//m_fade1.Setup(this, AGHCOLOR_BLACK, AGHCOLOR_WHITE, 4);
 		//m_fade1.Setup(this, AGHCOLOR_BLUE, AGHCOLOR_YELLOW, 30);
 		//m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 600);
-		m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 4);
+		//m_fade1.Setup(this, 0xffbbffff, 0xffff6600, 40);
+		m_fade1.Setup(this, 0xffff6600, 0xffbbffff, 600);
+		m_fade2.Setup(&m_img, 0xffffffff, 0x00ffffff, 60);
 		//m_fade1.FadeIn(this, 100);
 		return true;
 	}
@@ -132,21 +188,58 @@ public:
 	}
 
 	virtual bool OnFrameDoUser(){
-		static int i=-20;
+		static const int _SPEED = 10;
+		static const float _SPEEDF = 10;
+		static const float _BLUR = 60;
+		static int i=-_SPEED;
 		//Sleep(1000);
 		//m_grp.Clear();
 		/*
 		SetColor(AGHCOLOR_RGB(i,i,i));
 		*/
 		m_text2.SetPos(
-			m_waveX.Get(i/20.0f),
-			m_waveY.Get(i/20.0f)
+			m_waveX.Get(i/_SPEEDF),
+			m_waveY.Get(i/_SPEEDF)
 			);
+
+		m_img.SetPos(
+			m_waveX.Get(i/_SPEEDF),
+			m_waveY.Get(i/_SPEEDF)
+			);
+
+		CAugustText2 *pText = &m_text2;
+		for(int j=-1; j<BLUR_COUNT; j++){
+			if ( j == -1 )
+				pText = &m_text2;
+			else
+				pText = &m_text2_bl[j];
+
+			pText->SetPos(
+				m_waveX.Get(i/_SPEEDF - (j/_BLUR)),
+				m_waveY.Get(i/_SPEEDF - (j/_BLUR))
+				);
+		}
+
+		CAugustImage2 *pImg ;
+		for(int j=0; j<BLUR_COUNT; j++){
+			pImg = &m_img_bl[j];
+
+			pImg->SetPos(
+				m_waveX.Get(i/_SPEEDF - (j/_BLUR)),
+				m_waveY.Get(i/_SPEEDF - (j/_BLUR))
+				);
+		}
 
 		i++;
 		return true;
 	}
+
+	bool OnZ(){
+		MessageBox(NULL,NULL,NULL,NULL);
+		return true;
+	}
 };
+
 
 int _MWL_APIENTRY WinMain(
 					_MWL_HINSTANCE hInstance,
@@ -161,6 +254,12 @@ int _MWL_APIENTRY WinMain(
 	//CAugustScreen2 myWindow;
 	myWindow.EnableDropFiles();
 	myWindow.Start();
+
+
+	
+typedef bool (CMyWindow::*HOGGGG)();
+
+myWindow.m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
 
 	return 0;
 }
