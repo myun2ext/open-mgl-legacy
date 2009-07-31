@@ -269,31 +269,33 @@ int _MWL_APIENTRY WinMain(
 
 /////////////////////////////////////////////////////////
 
-class CHoge1{
-private:
-	int a;
-public:
-	CHoge1(){a=333;}
-};
 
-class CHoge3{};
-
-class CHoge2 : public CHoge3
+//class CMyWindow : public CMwlAghWindow
+class CMyWindow2 : public CAugustScreen2//, public agh::_CKeyboardBase_CDummyBase
 {
 private:
-	int a;
+	typedef CAugustScreen2 _BASE;
+
+	CAugustKeyboardInput m_input;
+	CAugustMouseInput m_mouse;
+
 public:
-	CHoge2(){a=0;}
-
-	void Hoge2(){
-		bool (CHoge2::*f1)() = &CHoge2::Hoge;
-		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = (bool (agh::_CKeyboardBase_CDummyBase::*)())&CMyWindow::OnZ;
-		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = reinterpret_cast<bool (agh::_CKeyboardBase_CDummyBase::*)()>(&CMyWindow::OnZ);
-		//void (CHoge1::*f2)() = reinterpret_cast<void (CHoge1::*)()>(f1);
-		bool (CHoge1::*f2)() = (bool (CHoge1::*)())(f1);
-
-		
-		bool (CHoge1::*a)(long,long) = (bool (CHoge1::*)(long,long))&CHoge2::Hoge;
+	//	コンストラクタ・デストラクタ
+	CMyWindow2(){}
+	virtual ~CMyWindow2(){}
+	
+	bool OnGraphicInitEnded()
+	{
+		(bool (QQQQ::*)())&CMyWindow2::OnZ;
+		(bool (QQQQ::*)(long,long))&CMyWindow2::OnClick;
 	}
-	bool Hoge(){printf("%d adsfafs\n",a);return true;};
+
+	bool OnZ(){
+		MessageBox(NULL,NULL,NULL,NULL);
+		return true;
+	}
+	bool OnClick(long x, long y){
+		MessageBox(NULL,NULL,NULL,NULL);
+		return true;
+	}
 };
