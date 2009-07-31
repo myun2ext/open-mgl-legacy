@@ -29,10 +29,10 @@ public:
 
 #define BLUR_COUNT	(8)
 
-		class QQQQ{};
+class QQQQ{};
 
 //class CMyWindow : public CMwlAghWindow
-class CMyWindow : public CAugustScreen2, public agh::_CKeyboardBase_CDummyBase
+class CMyWindow : public CAugustScreen2//, public agh::_CKeyboardBase_CDummyBase
 {
 private:
 	typedef CAugustScreen2 _BASE;
@@ -53,6 +53,7 @@ private:
 	CAugustText2 m_text2_bl[BLUR_COUNT];
 
 	CAugustKeyboardInput m_input;
+	CAugustMouseInput m_mouse;
 
 public:
 	//	コンストラクタ・デストラクタ
@@ -63,7 +64,7 @@ public:
 		return false;
 	}*/
 	
-	virtual bool OnGraphicInitEnded()
+	bool OnGraphicInitEnded()
 	{
 		//m_sinX.SetRange(-2147483648, 2147483647);
 		m_waveX.SetRange(0, 300);
@@ -76,6 +77,7 @@ public:
 		RegistSubControl(&m_text);
 		RegistSubControl(&m_text2);
 		RegistSubControl(&m_input);
+		RegistSubControl(&m_mouse);
 
 		m_img.SetScale(0.4f);
 		m_img.Load("shana_36-1.jpg");
@@ -93,6 +95,14 @@ public:
 		m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (CAugustKeyboardInput::CALLBACK_TYPE)&CMyWindow::OnZ);
 		//m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', dynamic_cast<CAugustKeyboardInput::CALLBACK_TYPE*>(&CMyWindow::OnZ) );
 
+		CAugustKeyboardInput::CALLBACK_TYPE c = (CAugustKeyboardInput::CALLBACK_TYPE)&CMyWindow::OnZ;
+
+		(bool (QQQQ::*)())&CMyWindow::OnZ;
+		(bool (QQQQ::*)(long,long))&CMyWindow::OnClick;
+		CAugustMouseInput::CALLBACK_TYPE b = (bool (QQQQ::*)(long,long))&CMyWindow::OnClick;
+
+		m_mouse.RegistHandler(CAugustMouseInput::ON_PRESS, CAugustMouseInput::LBUTTON, (CAugustMouseInput::CALLBACK_TYPE)&CMyWindow::OnClick);
+
 		///////////////////////
 		CAugustImage2 *pImg ;
 		int a = 0x80;
@@ -103,7 +113,7 @@ public:
 			pImg->SetScale(0.4f);
 			pImg->Load("shana_36-1.jpg");
 
-			a *= 0.7f;
+			a *= (int)0.7f;
 			//pImg->SetAlpha(0x60-(0x0c*i));
 			pImg->SetAlpha(a);
 		}
@@ -167,7 +177,7 @@ public:
 	}
 	//virtual bool OnClose(){ MessageBox(NULL,"sdfa","sfda",0); return true; }
 	virtual bool OnDropFiles(std::vector<std::string> &files){
-		for(int i=0; i<files.size(); i++)
+		for(int i=0; i<(int)files.size(); i++)
 			MessageBox((HWND)GetHwnd(),files[i].c_str(),"Drop",0);
 
 		return true;
@@ -231,6 +241,10 @@ public:
 		MessageBox(NULL,NULL,NULL,NULL);
 		return true;
 	}
+	bool OnClick(long x, long y){
+		MessageBox(NULL,NULL,NULL,NULL);
+		return true;
+	}
 };
 
 
@@ -252,3 +266,34 @@ int _MWL_APIENTRY WinMain(
 }
 
 
+
+/////////////////////////////////////////////////////////
+
+class CHoge1{
+private:
+	int a;
+public:
+	CHoge1(){a=333;}
+};
+
+class CHoge3{};
+
+class CHoge2 : public CHoge3
+{
+private:
+	int a;
+public:
+	CHoge2(){a=0;}
+
+	void Hoge2(){
+		bool (CHoge2::*f1)() = &CHoge2::Hoge;
+		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = (bool (agh::_CKeyboardBase_CDummyBase::*)())&CMyWindow::OnZ;
+		//bool (agh::_CKeyboardBase_CDummyBase::*f2)() = reinterpret_cast<bool (agh::_CKeyboardBase_CDummyBase::*)()>(&CMyWindow::OnZ);
+		//void (CHoge1::*f2)() = reinterpret_cast<void (CHoge1::*)()>(f1);
+		bool (CHoge1::*f2)() = (bool (CHoge1::*)())(f1);
+
+		
+		bool (CHoge1::*a)(long,long) = (bool (CHoge1::*)(long,long))&CHoge2::Hoge;
+	}
+	bool Hoge(){printf("%d adsfafs\n",a);return true;};
+};
