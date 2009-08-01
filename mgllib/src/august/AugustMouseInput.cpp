@@ -60,12 +60,12 @@ public:
 				break;
 
 			//	âüÇ≥ÇÍÇΩèuä‘
-			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_DOWN:
 				isOnEvt = m_mouse.IsOnDownButton(mouseCode - 0x11);
 				break;
 
 			//	ó£Ç≥ÇÍÇΩèuä‘
-			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_UP:
 				isOnEvt = m_mouse.IsOnUpButton(mouseCode - 0x11);
 				break;
 
