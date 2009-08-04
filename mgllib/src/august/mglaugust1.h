@@ -6,10 +6,10 @@
 #include "MglAghImage.h"
 #include "MglguiText.h"
 
-#include "AugustWindow.h"
+/*#include "AugustWindow.h"
 #include "AugustText.h"
 #include "AugustImage.h"
 
-#include "August3d.h"
+#include "August3d.h"*/
 
 #endif//__MGLAUGUST1_H__
