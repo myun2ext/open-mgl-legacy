@@ -139,4 +139,6 @@ public:
 	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
 };
 
+typedef CAugustScreen2 CAugustFrame2, CAugustWindowFrame2;
+
 #endif//__AugustScreen2_H__
