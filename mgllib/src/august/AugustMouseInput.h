@@ -29,5 +29,6 @@ public:
 	virtual ~CAugustMouseInput();
 };
 
+typedef CAugustMouseInput CAugustMouseInput2;
 
 #endif//__AugustMouseInput_H__

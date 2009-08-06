@@ -26,5 +26,6 @@ public:
 	virtual ~CAugustKeyboardInput();
 };
 
+typedef CAugustKeyboardInput CAugustKeyboardInput2;
 
 #endif//__AugustKeyboardInput_H__
