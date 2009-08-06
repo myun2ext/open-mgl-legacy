@@ -56,12 +56,12 @@ public:
 			break;
 
 		//	キーボードが押された瞬間
-		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_KEYDOWN:
+		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_DOWN:
 			isOnEvt = m_input.IsOnDownKey(dik);
 			break;
 
 		//	キーボードが話された瞬間
-		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_KEYUP:
+		case AGH_KB_EVT_HANDLER_EVTTYPE_ON_UP:
 			isOnEvt = m_input.IsOnUpKey(dik);
 			break;
 		}
