@@ -28,13 +28,21 @@ private:
 	_AGH_POINT GetMoveCount(agh::MOUSECODE_t mouseCode)
 	{
 		if ( mouseCode == agh::CMouseBase::CBUTTON ){
+
 			long z = m_mouse.GetZMoveCount();
+			if ( z == 0 )
+				return _AGH_POINT(INVALID_POINT, INVALID_POINT);
+
 			return _AGH_POINT(z, INVALID_POINT);	//	xにzを入れる、yは使ってない。
 		}
 		else
 		{
 			long x = m_mouse.GetXMoveCount();
 			long y = m_mouse.GetYMoveCount();
+
+			if ( x == 0 && y == 0 )
+				return _AGH_POINT(INVALID_POINT, INVALID_POINT);
+
 			return _AGH_POINT(x, y);
 		}
 	}
@@ -47,6 +55,10 @@ public:
 	/* override */
 	virtual _AGH_POINT IsOnMouseEvt(agh::MOUSE_EVTTYPE_t evtType, agh::MOUSECODE_t mouseCode)
 	{
+		//	移動
+		if ( evtType == AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_MOVE )
+			return GetMoveCount(mouseCode);
+
 		BOOL isOnEvt = FALSE;
 
 		//	mouseCodeが有効な範囲内かどうか？
@@ -69,9 +81,9 @@ public:
 				isOnEvt = m_mouse.IsOnUpButton(mouseCode - 0x11);
 				break;
 
-			//	移動
-			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_MOVE:
-				return GetMoveCount(mouseCode);
+//			//	移動
+//			case AGH_MOUSE_EVT_HANDLER_EVTTYPE_ON_MOVE:
+//				return GetMoveCount(mouseCode);
 			}
 		}
 
