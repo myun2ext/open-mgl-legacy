@@ -60,6 +60,6 @@ void CAugustImage1::OnDraw()
 		m_pImg->DisableCenterDraw();
 
 	m_pImg->Draw( x, y,
-		(RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 ‘Î‰ž
+		(::RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 ‘Î‰ž
 	//	NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
 }

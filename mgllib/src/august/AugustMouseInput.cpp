@@ -96,7 +96,7 @@ public:
 	}
 	
 	virtual _AGH_POINT GetCursorPos(){
-		POINT point = m_mouse.GetCursorPos();
+		::POINT point = m_mouse.GetCursorPos();
 		return _AGH_POINT(point.x, point.y);
 	}
 

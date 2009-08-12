@@ -34,7 +34,8 @@ bool CAugustImage2::Load(const char* szImageFilePath)
 		"CAugustImage2:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。");
 
 	//	読み込み
-	m_pImg = pAGrpMgr->LoadImageA(szImageFilePath);	//	基本的に例外で飛ぶはずー
+	//m_pImg = pAGrpMgr->LoadImageA(szImageFilePath);	//	基本的に例外で飛ぶはずー
+	m_pImg = pAGrpMgr->LoadImage(szImageFilePath);	//	基本的に例外で飛ぶはずー
 
 	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
 
@@ -52,7 +53,14 @@ void CAugustImage2::OnDraw()
 	else
 		m_pImg->DisableCenterDraw();
 
+/*	char work[1024];
+	sprintf(work, "%d, %d, (%d, %d, %d, %d), color=%08X, %f, %f, %f", x, y,
+		m_srcRect.left, m_srcRect.top, m_srcRect.right, m_srcRect.bottom,
+		m_color, m_fScaleX, m_fScaleY, m_fAngle);*/
+
 	m_pImg->Draw( x, y,
-		(RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 対応
+		(::RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 対応
 	//	NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
+
+//	MessageBox(NULL,work,NULL,NULL);
 }
