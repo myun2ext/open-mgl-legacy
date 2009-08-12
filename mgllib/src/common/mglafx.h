@@ -13,6 +13,8 @@
     typedef long LONG_PTR;
 #endif
 
+//DWORD_PTR ‚¾‚Á‚¯
+
 /*
 #define MGLVER_DATE	(0x050129)
 #define MGLVER_REV	(0x02)

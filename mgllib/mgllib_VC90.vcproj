@@ -2498,6 +2498,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\AGH\include\agh_Mouse.h"
+					>
+				</File>
+				<File
 					RelativePath="..\AGH\include\agh_ScreenBase.h"
 					>
 				</File>
