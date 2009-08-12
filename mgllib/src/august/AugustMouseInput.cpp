@@ -133,6 +133,8 @@ void CAugustMouseInput::OnRegist()
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustMouseInput::Init()  ウインドウハンドルの取得に失敗");
 
+	m_pParent->SetValPtr(AUGUST_VALKEY_MOUSE, this);	//	2009/05/18
+
 	((CAugustMouseCore*)m_pCore)->Init(hWnd);
 }
 

@@ -10,17 +10,6 @@
 #include "AugustCommon2.h"
 //#include "AugustImage2.h"
 
-#define AUGUST_VALKEY_					(AGH_VALKEY_USER_FIRST+0x18A60000)
-#define AUGUST_VALKEY_GRP				(AUGUST_VALKEY_ + 0x0359)
-#define AUGUST_VALKEY_PGRP				(AUGUST_VALKEY_GRP)	//	Alias
-#define AUGUST_VALKEY_P_GRP				(AUGUST_VALKEY_GRP)	//	Alias
-
-#define AUGUST_VALKEY_AGRPM				(AUGUST_VALKEY_ + 0x0381)
-
-#define AUGUST_VALKEY_IMG_LOADER		(AUGUST_VALKEY_ + 0x0382)
-#define AUGUST_VALKEY_IMAGE_LOADER		(AUGUST_VALKEY_ + 0x0382)
-
-
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
 
