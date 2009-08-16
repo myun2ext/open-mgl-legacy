@@ -49,7 +49,7 @@ public:
 	virtual void SetFontPoint(int point);
 	//virtual void SetStr(const char* szStr){ m_textData = szStr; }
 	//virtual const char* GetStr(){ return m_textData.c_str(); }
-	virtual void SetColor(agh::AGHCOLOR color);
+	virtual void SetColor(agh::COLOR color);
 	//virtual void SetOption(AGHDWORD dwOption);
 	//virtual AGHCOLOR GetColor(){ return m_color; }
 	//virtual AGHDWORD GetOption(){ return m_dwOption; }

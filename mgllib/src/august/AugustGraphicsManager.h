@@ -72,7 +72,7 @@ public:
 	virtual void Init(bool bIsFullscreen=false);
 	virtual void Release();
 	virtual void Clear();
-	virtual void Clear(agh::AGHCOLOR color);
+	virtual void Clear(agh::COLOR color);
 
 	void FrameEnd();
 	void FrameStart();

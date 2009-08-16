@@ -180,7 +180,7 @@ void CAugustGraphicsManager::Clear(){
 	//m_grp.Clear(m_rgbBackground);	//	2008/11/29 CAugustGraphicsManager‘Î‰ž
 	m_grp.Clear(m_pWindow->GetColor());
 }
-void CAugustGraphicsManager::Clear(agh::AGHCOLOR color){
+void CAugustGraphicsManager::Clear(agh::COLOR color){
 	m_grp.Clear(color);	//	2008/11/29 CAugustGraphicsManager‘Î‰ž
 }
 

@@ -85,7 +85,7 @@ void CMglguiText::SetFontPoint(int point){
 	CTextBaseT< CAugustVisualControlBase >::SetFontPoint(point);
 	ReCreateFont();
 }
-void CMglguiText::SetColor(AGHCOLOR color){
+void CMglguiText::SetColor(agh::COLOR color){
 	CTextBaseT< CAugustVisualControlBase >::SetColor(color);
 	ReCreateFont();
 }

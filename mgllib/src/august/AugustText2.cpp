@@ -85,7 +85,7 @@ void CAugustText2::SetFontPoint(int point){
 	_BASE::SetFontPoint(point);
 	OnChanged();
 }
-void CAugustText2::SetColor(AGHCOLOR color){
+void CAugustText2::SetColor(agh::COLOR color){
 	_BASE::SetColor(color);
 	OnChanged();
 }
