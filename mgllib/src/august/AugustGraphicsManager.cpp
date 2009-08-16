@@ -96,10 +96,10 @@ bool CAugustImageLoader::OnNewLoaderAppend(const char* szName, _IMG* pItem)
 {
 	pItem->Init(m_pGrp);
 
-	if ( m_colorKey == 0 )
+	/*if ( m_colorKey == 0 )
 		pItem->Create(szName);
-	else
-		pItem->Create(szName, FALSE, m_colorKey);
+	else*/
+	pItem->Create(szName, FALSE, m_colorKey);
 
 	return true;
 }
