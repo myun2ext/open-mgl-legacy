@@ -95,8 +95,12 @@ _AGH_EVENT_ACCESS_MODIFIER:
 bool CAugustImageLoader::OnNewLoaderAppend(const char* szName, _IMG* pItem)
 {
 	pItem->Init(m_pGrp);
-	//pItem->Create(szName);
-	pItem->Create(szName, FALSE, m_colorKey);
+
+	if ( m_colorKey == 0 )
+		pItem->Create(szName);
+	else
+		pItem->Create(szName, FALSE, m_colorKey);
+
 	return true;
 }
 
