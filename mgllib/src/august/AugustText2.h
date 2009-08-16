@@ -15,7 +15,9 @@
 
 class CMglText;
 
-//class _AGST_DLL_EXP agh::CTextBase;
+//class _AGST_DLL_EXP agh::CTextBase;	<- é¿ë‘ÇÕtypedef
+class _AGST_DLL_EXP agh::CVisualControlBase;
+template class _AGST_DLL_EXP agh::CTextBaseT<agh::CVisualControlBase>;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustText2 : public agh::CTextBase

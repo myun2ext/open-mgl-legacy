@@ -12,6 +12,8 @@
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 
+class _AGST_DLL_EXP agh::CKeyboardBase;
+
 class _AGST_DLL_EXP CAugustKeyboardInput : public agh::CKeyboardBase
 {
 	//	イベントハンドラの実装

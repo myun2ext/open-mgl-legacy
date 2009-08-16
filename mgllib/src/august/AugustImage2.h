@@ -11,11 +11,11 @@
 #include "AugustGraphicsManager.h"
 
 #pragma warning( disable : 4660 ) 
-//class DLL_EXP agh::CImageBase;
 
 class CMglImage;
 
-class _AGST_DLL_EXP agh::CImageBase;	//	なんでこうしてるんだっけ？忘れないように・・・？
+//class _AGST_DLL_EXP agh::CImageBase;	//	なんでこうしてるんだっけ？忘れないように・・・？
+class _AGST_DLL_EXP agh::CImageBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustImage2 : public agh::CImageBase

@@ -89,7 +89,7 @@ public:
 	virtual void* GetInternalPtr(){ return m_pGrp; }
 	virtual CMglGraphicManager* GetMglGrp(){ return m_pGrp; }
 	//virtual CMglImage* LoadImage(const char* szImageFilepath){ return m_pImageLoader->Load(szImageFilepath); }
-	virtual CMglImage* LoadImage(const char* szImageFilepath, D3DCOLOR colorKey);
+	virtual CMglImage* LoadImage(const char* szImageFilepath, agh::COLOR colorKey);
 };
 
 typedef CAugustGraphicsManager CAugustGraphicManager;
