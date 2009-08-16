@@ -25,6 +25,8 @@ private:
 	typedef CMglImage _IMG;
 	typedef agh::util::CLoaderBase<_IMG> _BASE;
 
+	D3DCOLOR m_colorKey;
+
 protected:
 	CMglGraphicManager *m_pGrp;
 
@@ -38,6 +40,8 @@ public:
 	/*virtual _IMG* Load(const char* szName){
 
 	}*/
+
+	void SetColorKey(D3DCOLOR colorKey){ m_colorKey = colorKey; }
 
 //	イベントハンドラの実装
 _AGH_EVENT_ACCESS_MODIFIER:
@@ -88,9 +92,11 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	}
 };*/
 
-bool CAugustImageLoader::OnNewLoaderAppend(const char* szName, _IMG* pItem){
+bool CAugustImageLoader::OnNewLoaderAppend(const char* szName, _IMG* pItem)
+{
 	pItem->Init(m_pGrp);
-	pItem->Create(szName);
+	//pItem->Create(szName);
+	pItem->Create(szName, FALSE, m_colorKey);
 	return true;
 }
 
@@ -244,4 +250,8 @@ void CAugustGraphicsManager::FrameEnd()
 	m_pGrp->UpdateScreen();
 }
 
-CMglImage* CAugustGraphicsManager::LoadImage(const char* szImageFilepath){ return m_pImageLoader->Load(szImageFilepath); }
+CMglImage* CAugustGraphicsManager::LoadImage(const char* szImageFilepath, D3DCOLOR colorKey)
+{
+	m_pImageLoader->SetColorKey(colorKey);
+	return m_pImageLoader->Load(szImageFilepath);
+}

@@ -23,7 +23,7 @@ CAugustImage2::~CAugustImage2()
 }*/
 
 
-bool CAugustImage2::Load(const char* szImageFilePath)
+bool CAugustImage2::LoadEx(const char* szImageFilePath, agh::COLOR transparentColor)
 {
 	m_strFilePath = szImageFilePath;
 	
@@ -35,7 +35,7 @@ bool CAugustImage2::Load(const char* szImageFilePath)
 
 	//	読み込み
 	//m_pImg = pAGrpMgr->LoadImageA(szImageFilePath);	//	基本的に例外で飛ぶはずー
-	m_pImg = pAGrpMgr->LoadImage(szImageFilePath);	//	基本的に例外で飛ぶはずー
+	m_pImg = pAGrpMgr->LoadImage(szImageFilePath, transparentColor);	//	基本的に例外で飛ぶはずー
 
 	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
 

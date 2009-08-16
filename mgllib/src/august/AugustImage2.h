@@ -40,8 +40,8 @@ public:
 	virtual ~CAugustImage2(){}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
-	virtual bool Load(const char* szImageFilePath);
-	bool Load(const char* szImageFilePath, agh::COLOR transparentColor);
+	virtual bool Load(const char* szImageFilePath){ return LoadEx(szImageFilePath); }
+	bool LoadEx(const char* szImageFilePath, agh::COLOR transparentColor=0);
 	
 	//void SetTransparentColor(AGHCOLOR color);
 };
