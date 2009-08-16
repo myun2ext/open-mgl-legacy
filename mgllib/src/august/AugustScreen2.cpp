@@ -146,6 +146,10 @@ bool CAugustScreen2::ThreadFuncMain()
 			//→ やっぱやめ -> ない！（どっちだよ：笑）
 			*/
 
+			//	ユーザコールバック
+			if ( OnInited() == false )
+				return false;
+
 			MainLoop();
 		}
 		//	例外処理 V3.0

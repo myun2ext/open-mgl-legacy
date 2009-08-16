@@ -41,6 +41,9 @@ public:
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath);
+	bool Load(const char* szImageFilePath, agh::COLOR transparentColor);
+	
+	//void SetTransparentColor(AGHCOLOR color);
 };
 
 /*
