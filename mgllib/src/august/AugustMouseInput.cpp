@@ -40,10 +40,16 @@ private:
 			long x = m_mouse.GetXMoveCount();
 			long y = m_mouse.GetYMoveCount();
 
-			if ( x == 0 && y == 0 )
+			if ( x == 0 && y == 0 )	//	xもyも移動量0ならコールバックを呼ばないようにする
 				return _AGH_POINT(INVALID_POINT, INVALID_POINT);
+			else	
+				return _AGH_POINT(x, y);
 
-			return _AGH_POINT(x, y);
+			/*if ( x != 0 && y != 0 )
+				return _AGH_POINT(x, y);
+
+			else	//	xもyも移動量0ならコールバックを呼ばないようにする
+				return _AGH_POINT(INVALID_POINT, INVALID_POINT);*/
 		}
 	}
 
@@ -100,6 +106,11 @@ public:
 		return _AGH_POINT(point.x, point.y);
 	}
 
+	agh::CPoint GetPrimitiveMoveCount()
+	{
+		return agh::CPoint( m_mouse.GetXMoveCount(), m_mouse.GetYMoveCount() );
+	}
+
 	//	初期化
 	void Init(HWND hWnd)
 	{
@@ -152,4 +163,9 @@ bool CAugustMouseInput::OnFrame()
 _AGH_POINT CAugustMouseInput::GetCursorPos()
 {
 	return ((CAugustMouseCore*)m_pCore)->GetCursorPos();
+}
+
+agh::CPoint CAugustMouseInput::GetPrimitiveMoveCount()
+{
+	return ((CAugustMouseCore*)m_pCore)->GetPrimitiveMoveCount();
 }

@@ -21,12 +21,14 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnRegist();
 
 	virtual bool OnFrame();	//	override
-	virtual agh::_AGH_POINT GetCursorPos();
 
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustMouseInput();
 	virtual ~CAugustMouseInput();
+
+	agh::_AGH_POINT GetCursorPos();
+	agh::CPoint GetPrimitiveMoveCount(); 
 };
 
 typedef CAugustMouseInput CAugustMouseInput2;
