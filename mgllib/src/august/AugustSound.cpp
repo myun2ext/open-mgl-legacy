@@ -7,7 +7,8 @@
 
 #include "stdafx.h"
 #include "AugustSound.h"
-#include "MglInput.h"
+
+#include "MglAudio.h"
 
 using namespace agh;
 using namespace std;
@@ -21,21 +22,17 @@ class DLL_EXP agh::CControlBase;
 //#define PRESSKEY(DIK_CODE)	(DIK_CODE & 0x80)
 
 //	コアの基底クラス
-class CAugustKeyboardCore : public agh::CKeyboardCoreBase
+class CAugustSoundCore
 {
 protected:
-	CMglKeyboardInput m_input;
-
-	static int m_keyCodeTable[AUGUST_KEYCODE_TABLE_SIZE];
-	static bool m_bKeyCodeTableInited;
 
 private:
 	void GenKcTable();
 
 public:
 	//	コンストラクタ・デストラクタ
-	CAugustKeyboardCore(){ GenKcTable(); }
-	virtual ~CAugustKeyboardCore(){}
+	CAugustSoundCore(){ GenKcTable(); }
+	virtual ~CAugustSoundCore(){}
 
 	/* override */
 	//	多分trueで帰ることにより処理続行？
@@ -91,13 +88,13 @@ public:
 ////////////////////////////////////////////////////////////////////////
 
 //	staticな変数の実体
-int CAugustKeyboardCore::m_keyCodeTable[AUGUST_KEYCODE_TABLE_SIZE];
-bool CAugustKeyboardCore::m_bKeyCodeTableInited = false;
+int CAugustSoundCore::m_keyCodeTable[AUGUST_KEYCODE_TABLE_SIZE];
+bool CAugustSoundCore::m_bKeyCodeTableInited = false;
 
 ////////////////////////////////////////////////////////////////////////
 
 //	テーブルの生成
-void CAugustKeyboardCore::GenKcTable()
+void CAugustSoundCore::GenKcTable()
 {
 	if ( m_bKeyCodeTableInited == true )
 		return;
@@ -268,7 +265,7 @@ void CAugustKeyboardCore::GenKcTable()
 //	コンストラクタ
 CAugustSound::CAugustSound()
 {
-	m_pCore = new CAugustKeyboardCore();
+	m_pCore = new _MGL_AUGUST_SOUND_CORE_IMPL();
 }
 
 //	デストラクタ
@@ -283,14 +280,14 @@ void CAugustSound::OnRegist()
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustSound::Init()  ウインドウハンドルの取得に失敗");
 
-	((CAugustKeyboardCore*)m_pCore)->Init(hWnd);
+	((CMglSound*)m_pCore)->Init(hWnd);
 }
 
 //	毎フレーム毎にUpdate()呼び出すの忘れてた・・・
 bool CAugustSound::OnFrame()
 {
 	//	ステータスバッファの更新
-	((CAugustKeyboardCore*)m_pCore)->Update();
+	((CAugustSoundCore*)m_pCore)->Update();
 
 	//	スーパークラスのOnFrame()呼び出し
 	return agh::CKeyboardBase::OnFrame();

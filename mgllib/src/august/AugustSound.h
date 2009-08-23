@@ -4,12 +4,14 @@
 //
 //////////////////////////////////////////////////////////
 
-#ifndef __AugustSound_H__
-#define __AugustSound_H__
+#ifndef __SFJP_MGL__AugustSound_H__
+#define __SFJP_MGL__AugustSound_H__
 
 #include "agh.h"
+#include "AugustCommon2.h"
 
-class CMglSound;
+#define _MGL_AUGUST_SOUND_CORE_IMPL		CMglDirectMusicBase
+class _MGL_AUGUST_SOUND_CORE_IMPL;
 
 /////////////////////////////////////////////////////////////////////////
 
@@ -19,7 +21,7 @@ class _AGST_DLL_EXP agh::CControlBase;
 class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
 {
 protected:
-	CMglSound *m_pSound;
+	_MGL_AUGUST_SOUND_CORE_IMPL *m_pCore;
 
 	/////////////////////////////////////////////////////////
 
@@ -39,4 +41,4 @@ public:
 };
 
 
-#endif//__AugustSound_H__
+#endif//__SFJP_MGL__AugustSound_H__
