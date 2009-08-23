@@ -23,6 +23,7 @@ class CAugustMouseCore : public agh::CMouseCoreBase
 {
 protected:
 	CMglMouseInput m_mouse;
+	_AGH_POINT m_oldCurPos;
 
 private:
 	_AGH_POINT GetMoveCount(agh::MOUSECODE_t mouseCode)
@@ -37,15 +38,24 @@ private:
 		}
 		else
 		{
-			long x = m_mouse.GetXMoveCount();
-			long y = m_mouse.GetYMoveCount();
+			/*	2回呼び出すのは誤差を引き起こす可能性がある（と言うか起きてるっぽい）ので辞める
+			_AGH_POINT moveCount = GetCursorPos() - m_oldCurPos;
+			m_oldCurPos = GetCursorPos();
+			*/
+			_AGH_POINT curPos = GetCursorPos();
+			_AGH_POINT moveCount = curPos - m_oldCurPos;
+			m_oldCurPos = curPos;
 
-			if ( x == 0 && y == 0 )	//	xもyも移動量0ならコールバックを呼ばないようにする
+			if ( moveCount.x == 0 && moveCount.y == 0 )	//	xもyも移動量0ならコールバックを呼ばないようにする
 				return _AGH_POINT(INVALID_POINT, INVALID_POINT);
 			else	
-				return _AGH_POINT(x, y);
+				return moveCount;
 
-			/*if ( x != 0 && y != 0 )
+			/*
+			long x = m_mouse.GetXMoveCount();
+			long y = m_mouse.GetYMoveCount();
+			
+			if ( x != 0 && y != 0 )
 				return _AGH_POINT(x, y);
 
 			else	//	xもyも移動量0ならコールバックを呼ばないようにする
@@ -57,6 +67,15 @@ public:
 	//	コンストラクタ・デストラクタ
 	CAugustMouseCore(){}
 	virtual ~CAugustMouseCore(){}
+
+	//	初期化
+	void Init(HWND hWnd)
+	{
+		m_mouse.Init(hWnd);
+		m_oldCurPos = GetCursorPos();
+	}
+
+	//////////////////////////////////////////////////////////
 
 	/* override */
 	virtual _AGH_POINT IsOnMouseEvt(agh::MOUSE_EVTTYPE_t evtType, agh::MOUSECODE_t mouseCode)
@@ -109,12 +128,6 @@ public:
 	agh::CPoint GetPrimitiveMoveCount()
 	{
 		return agh::CPoint( m_mouse.GetXMoveCount(), m_mouse.GetYMoveCount() );
-	}
-
-	//	初期化
-	void Init(HWND hWnd)
-	{
-		m_mouse.Init(hWnd);
 	}
 
 	//	バッファの更新

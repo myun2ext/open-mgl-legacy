@@ -28,7 +28,9 @@ public:
 	virtual ~CAugustMouseInput();
 
 	agh::_AGH_POINT GetCursorPos();
-	agh::CPoint GetPrimitiveMoveCount(); 
+
+	/*	純粋なマウス移動量を取得。ウインドウにフォーカスがある時のみ	*/
+	agh::CPoint GetPrimitiveMoveCount();
 };
 
 typedef CAugustMouseInput CAugustMouseInput2;
