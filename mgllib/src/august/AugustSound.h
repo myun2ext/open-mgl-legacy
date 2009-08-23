@@ -28,6 +28,7 @@ protected:
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
+	virtual void OnRegist();
 	//virtual bool DoFrame();
 
 protected:
