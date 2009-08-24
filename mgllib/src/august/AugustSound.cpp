@@ -42,3 +42,13 @@ void CAugustSound::OnRegist()
 	//	スーパークラスのOnFrame()呼び出し
 	return agh::CKeyboardBase::OnFrame();
 }*/
+
+
+
+void CAugustSound::Load( const char* szAudioFile, const char* szAlias ){ m_pCore->Load(szAudioFile, szAlias); }
+void CAugustSound::Play( const char* szName ){ m_pCore->Load(szName); }
+void CAugustSound::LoopPlay( const char* szName, unsigned long nLoopCount ){ m_pCore->LoopPlay(szName, nLoopCount); }
+void CAugustSound::Stop( const char* szName ){ m_pCore->Stop(szName); }
+void CAugustSound::SetVolume( int nVolume ){ m_pCore->SetVolume(nVolume); }
+void CAugustSound::Disable(){ m_pCore->Disable(); }
+void CAugustSound::Enable(){ m_pCore->Enable(); }

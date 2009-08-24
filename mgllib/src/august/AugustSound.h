@@ -17,13 +17,13 @@ class _MGL_AUGUST_SOUND_CORE_IMPL;
 
 class _AGST_DLL_EXP agh::CControlBase;
 
+#define AUGUST_SOUND_LOOP_PLAY_INFINITE		(0xffffffff)
+
 //	クラス宣言  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
 {
 protected:
 	_MGL_AUGUST_SOUND_CORE_IMPL *m_pCore;
-
-	/////////////////////////////////////////////////////////
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
@@ -31,14 +31,22 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnRegist();
 	//virtual bool DoFrame();
 
-protected:
-
-
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustSound();
 	virtual ~CAugustSound();
 
+	///////////////////////////////////////////////////////////////
+
+	void Load( const char* szAudioFile, const char* szAlias=NULL );
+	void Play( const char* szName );
+	void LoopPlay( const char* szName, unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
+	void Stop( const char* szName );
+
+	void SetVolume( int nVolume=0 );
+
+	void Disable();
+	void Enable();
 };
 
 
