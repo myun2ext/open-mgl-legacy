@@ -49,6 +49,6 @@ void CAugustSound::Load( const char* szAudioFile, const char* szAlias ){ m_pCore
 void CAugustSound::Play( const char* szName ){ m_pCore->Load(szName); }
 void CAugustSound::LoopPlay( const char* szName, unsigned long nLoopCount ){ m_pCore->LoopPlay(szName, nLoopCount); }
 void CAugustSound::Stop( const char* szName ){ m_pCore->Stop(szName); }
-void CAugustSound::SetVolume( int nVolume ){ m_pCore->SetVolume(nVolume); }
+void CAugustSound::SetVolume( float fVolume ){ m_pCore->SetVolume((fVolume-100)*10); }
 void CAugustSound::Disable(){ m_pCore->Disable(); }
 void CAugustSound::Enable(){ m_pCore->Enable(); }

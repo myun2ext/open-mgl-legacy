@@ -43,11 +43,14 @@ public:
 	void LoopPlay( const char* szName, unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
 	void Stop( const char* szName );
 
-	void SetVolume( int nVolume=0 );
+	void SetVolume( float fVolume=100.0f );	/*  200.0fÅ`0.0f  */
+	//SetBalance() ñ¢é¿ëï
 
 	void Disable();
 	void Enable();
 };
+
+typedef CAugustSound CAugustSound2;
 
 
 #endif//__SFJP_MGL__AugustSound_H__
