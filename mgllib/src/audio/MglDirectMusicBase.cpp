@@ -51,12 +51,12 @@ void CMglDirectMusicBase::InitEx( HWND hWnd, const char *szBaseDirectory,
 	MyuAssert( CoCreateInstance(CLSID_DirectMusicLoader, NULL, 
                      CLSCTX_INPROC, IID_IDirectMusicLoader8,
                      (void**)&m_pLoader), S_OK,
-		"CMglDirectMusicBase::Init()  CoCreateInstance(DirectMusicLoader)に失敗。" );
+		"CMglDirectMusicBase::Init()  CoCreateInstance(IID_IDirectMusicLoader8)に失敗。" );
 
     MyuAssert( CoCreateInstance(CLSID_DirectMusicPerformance, NULL,
                      CLSCTX_INPROC, IID_IDirectMusicPerformance8,
                      (void**)&m_pPerformance ), S_OK,
-		"CMglDirectMusicBase::Init()  CoCreateInstance(DirectMusicPerformance)に失敗。" );
+		"CMglDirectMusicBase::Init()  CoCreateInstance(IID_IDirectMusicPerformance8)に失敗。" );
 
 	MyuAssert( m_pPerformance->InitAudio( 
 			NULL,                  // IDirectMusic インターフェイスは不要。

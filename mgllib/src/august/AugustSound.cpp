@@ -9,6 +9,7 @@
 #include "AugustSound.h"
 
 #include "MglAudio.h"
+#include "MglCoManager.h"
 
 using namespace agh;
 using namespace std;
@@ -30,6 +31,9 @@ CAugustSound::~CAugustSound()
 //	登録時にInitを呼び出す
 void CAugustSound::OnRegist()
 {
+	//CoInitialize(NULL);
+	g_comManager.Init();
+
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustSound::Init()  ウインドウハンドルの取得に失敗");
 
@@ -46,7 +50,7 @@ void CAugustSound::OnRegist()
 
 
 void CAugustSound::Load( const char* szAudioFile, const char* szAlias ){ m_pCore->Load(szAudioFile, szAlias); }
-void CAugustSound::Play( const char* szName ){ m_pCore->Load(szName); }
+void CAugustSound::Play( const char* szName ){ m_pCore->Play(szName); }
 void CAugustSound::LoopPlay( const char* szName, unsigned long nLoopCount ){ m_pCore->LoopPlay(szName, nLoopCount); }
 void CAugustSound::Stop( const char* szName ){ m_pCore->Stop(szName); }
 void CAugustSound::SetVolume( float fVolume ){ m_pCore->SetVolume((fVolume-100)*10); }
