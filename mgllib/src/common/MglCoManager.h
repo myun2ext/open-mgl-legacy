@@ -39,4 +39,6 @@ public:
 	}
 };
 
+extern CMglCoManager g_comManager;
+
 #endif//__MglCoManager_H__
