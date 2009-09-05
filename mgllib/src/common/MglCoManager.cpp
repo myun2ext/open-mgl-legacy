@@ -8,4 +8,4 @@
 #include "stdafx.h"
 #include "MglCoManager.h"
 
-CMglCoManager g_comManager;
+CMglCoManager g_coManager;

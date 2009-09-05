@@ -38,6 +38,7 @@ public:
 class _CAugustScreen2_THREAD_BASE;
 class _CAugustScreen2_WINDOW_BASE;
 class agh::CScreenBase;
+class CMyuReleaseBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 //class DLL_EXP CAugustScreen2 : public CAugustWindow2, public CMyuThreadBase
@@ -50,19 +51,20 @@ private:
 
 	bool _AGST_DLL_EXP ThreadFuncMain();
 
+	void PreWindowCloseRelease();
+
 protected:
 	CAugustGraphicsManager m_grp;	//	Control
 	CAugustFpsManager m_fps;		//	Control
 	void* m_vphWnd;
 
-	/*CMglInput *m_input;			//	Alias
-	CMglMouseInput *m_mouse;		//	Alias
-	CMglAudio *m_audio;				//	Alias*/
+	//	2009/08/27 - ウインドウを開放する前にReleaseを呼び出すべきクラスのリスト
+	std::vector<CMyuReleaseBase*> m_releaseList;
 
 	/////////////////////////////////////////////////////////
 
 	//HWND m_hWnd;
-	bool m_bUseMouseHandle;
+	//bool m_bUseMouseHandle; v2からは要らないっしょ
 	bool m_bEndFlg;
 
 protected:
@@ -90,32 +92,8 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual bool OnInited(){ return true; }	//	falseを返すとプログラム終了
 	virtual _AGST_DLL_EXP void MainLoop();
 
-private:
-	//	なんでPublic？（Privateではないのか・・・？）
-	//void OnLButtonDown(int x, int y);
-
-	//void ScreenUpdate();
-
-public:
-	//	コンストラクタ
-	/*CAugustScreen2(CAugustGlobalCommon &g_in) : g_(g_in),
-		m_mouse(g_in.input.mouse), m_grp(g_in.grp), m_input(g_in.input), m_audio(g_in.audio),
-		m_imgCache(g_in.imgCache)
-	{
-		//m_hWnd = NULL;
-		m_rgbBackground = D3DCOLOR_WHITE;
-	}*/
-	//	コンストラクタ
-	CAugustScreen2()
-	{
-		m_bEndFlg = false;
-
-		m_vphWnd = NULL;
-		m_bUseMouseHandle = false;
-	}
-	virtual ~CAugustScreen2(){}
-
-	/////////////////////////////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////
+	//	このクラスで実装する 
 
 	virtual void OnCreatedWindow(){
 		_BASE::OnCreatedWindow();
@@ -131,13 +109,30 @@ public:
 		_THREAD_BASE::StartThread(0);
 	}
 
-	///// コントロールの登録 /////////////////////////////////////////////////
-
-	void EnableMouseHandle(){ m_bUseMouseHandle = true; }
-	void DisableMouseHandle(){ m_bUseMouseHandle = false; }
-
 public:
-	//bool OnFrameMouseInput(); <- なんかpublicなのに理由あんのかな・・・？
+	//	コンストラクタ・デストラクタ
+	_AGST_DLL_EXP CAugustScreen2();
+	virtual ~CAugustScreen2(){}
+
+	///////////////////////////////////////////////////////
+
+	/*
+	//	friendにした方がいいだろうか・・・？
+	void _AddToReleaseList(CMyuReleaseBase* pInstance){
+		m_releaseList.push_back(pInstance);
+	}
+	*/
+};
+
+class CAugustScreen2_X : public CAugustScreen2
+{
+public:
+	CAugustScreen2_X(){}
+	virtual ~CAugustScreen2_X(){}
+
+	void AddToReleaseList(CMyuReleaseBase* pInstance){
+		m_releaseList.push_back(pInstance);
+	}
 };
 
 typedef CAugustScreen2 CAugustFrame2, CAugustWindowFrame2;

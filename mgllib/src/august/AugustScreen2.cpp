@@ -53,15 +53,34 @@ CAugustScreen2::~CAugustScreen2()
 }
 */
 
+
+
 //////////////////////////////////////////////////
 
+
+
 #define m_hWnd (HWND)m_vphWnd
+
+
 
 //構造化例外が発生すると、この関数が呼ばれる
 void _MglAugust2_se_translator_function(unsigned int code, struct _EXCEPTION_POINTERS* ep)
 {
 	throw ep; //標準C++の例外を発生させる
 }
+
+//	コンストラクタ
+CAugustScreen2::CAugustScreen2()
+{
+	m_bEndFlg = false;
+	m_vphWnd = NULL;
+	//m_bUseMouseHandle = false;
+
+	SetValPtr(AUGUST_VALKEY_SCREEN, this);
+}
+
+///////////////////////////////////////////////////////
+
 
 bool CAugustScreen2::ThreadFunc(int anyParam)
 {
@@ -97,6 +116,7 @@ bool CAugustScreen2::ThreadFuncMain()
 	///////////////////////////////////////////////////////////
 
 	//__try{
+	{
 		try	//	例外処理受け付け開始
 		{
 			if ( OnInit() == false )
@@ -206,6 +226,7 @@ bool CAugustScreen2::ThreadFuncMain()
 			::MessageBox( m_hWnd, "fdssdff", NULL, MB_ICONERROR );
 		}
 #endif//_DEBUG
+	}
 	/*}
 	__except(_EXCEPTION_POINTERS *ep = GetExceptionInformation())
 	{
@@ -242,7 +263,15 @@ bool CAugustScreen2::ThreadFuncMain()
 	ExitWindow();
 	*/
 
+	PreWindowCloseRelease();
+
 	return true;
+}
+
+void CAugustScreen2::PreWindowCloseRelease()
+{
+	for(int i=0; i<m_releaseList.size(); i++)
+		m_releaseList[i]->Release();
 }
 
 void CAugustScreen2::MainLoop()
@@ -308,15 +337,6 @@ void CAugustScreen2::OnDraw()
 bool CAugustScreen2::DoFrame()
 {
 	//m_grp.OnDraw();	//	とりあえずー	//	2009/05/17 コメントアウト
-
-	//	2009/01/23 マウスのハンドルは無効に出来るように。
-	//	（結構処理長いし、うっかりクリックとかで余計な処理走るとまずいし・・・）
-	if ( m_bUseMouseHandle == true )
-	{
-		//OnFrameMouseInput();	//	なんか拾わないとfalseを返す仕様になってるっぽい・・・
-		/*if ( OnFrameMouseInput() != true )
-			return false;*/
-	}
 
 	//	キーボードのハンドル処理
 	/*if ( OnFrameKeyboardInput() != true )

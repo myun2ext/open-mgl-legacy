@@ -19,6 +19,9 @@ public:
 	//virtual ~CMyuReleaseBase(){ Release(); }
 };
 
+typedef CMyuReleaseBase CMglReleaseBase;
+
+
 /////////////////////////////////////////////////////////////////////////////////
 /*
 //	ƒNƒ‰ƒXéŒ¾

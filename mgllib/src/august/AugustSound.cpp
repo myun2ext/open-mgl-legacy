@@ -10,6 +10,7 @@
 
 #include "MglAudio.h"
 #include "MglCoManager.h"
+#include "AugustScreen2.h"
 
 using namespace agh;
 using namespace std;
@@ -32,12 +33,17 @@ CAugustSound::~CAugustSound()
 void CAugustSound::OnRegist()
 {
 	//CoInitialize(NULL);
-	g_comManager.Init();
+	g_coManager.Init();
 
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
-		"CAugustSound::Init()  ウインドウハンドルの取得に失敗");
+		"CAugustSound::OnRegist()  ウインドウハンドルのGetValPtr()に失敗");
 
 	((CMglSound*)m_pCore)->Init(hWnd);
+
+	//	2009/09/05  ウインドウを閉じる前にReleaseしてもらうようにする
+	CAugustScreen2_X* pScreen = (CAugustScreen2_X*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_SCREEN),
+		"CAugustSound::OnRegist()  CAugustScreen2のGetValPtr()に失敗");
+	pScreen->AddToReleaseList( m_pCore );
 }
 
 //	毎フレーム毎にUpdate()呼び出すの忘れてた・・・

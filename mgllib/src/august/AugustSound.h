@@ -51,6 +51,7 @@ public:
 };
 
 typedef CAugustSound CAugustSound2;
+typedef CAugustSound CAugustSoundManager, CAugustSoundManager2;
 
 
 #endif//__SFJP_MGL__AugustSound_H__

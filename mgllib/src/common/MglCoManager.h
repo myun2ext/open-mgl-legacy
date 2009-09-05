@@ -39,6 +39,6 @@ public:
 	}
 };
 
-extern CMglCoManager g_comManager;
+extern CMglCoManager g_coManager;
 
 #endif//__MglCoManager_H__
