@@ -41,23 +41,6 @@ void CAugustFpsManager::DoWait(){
 
 //////////////////////////////////////////////////
 
-/*
-//	コンストラクタ
-CAugustScreen2::CAugustScreen2()
-{
-}
-
-//	デストラクタ
-CAugustScreen2::~CAugustScreen2()
-{
-}
-*/
-
-
-
-//////////////////////////////////////////////////
-
-
 
 #define m_hWnd (HWND)m_vphWnd
 
@@ -69,15 +52,19 @@ void _MglAugust2_se_translator_function(unsigned int code, struct _EXCEPTION_POI
 	throw ep; //標準C++の例外を発生させる
 }
 
+
+/*	DLL化、ダメ！絶対！！
+
 //	コンストラクタ
 CAugustScreen2::CAugustScreen2()
 {
-	m_bEndFlg = false;
-	m_vphWnd = NULL;
-	//m_bUseMouseHandle = false;
-
-	SetValPtr(AUGUST_VALKEY_SCREEN, this);
 }
+
+//	デストラクタ
+CAugustScreen2::~CAugustScreen2()
+{
+}
+*/
 
 ///////////////////////////////////////////////////////
 

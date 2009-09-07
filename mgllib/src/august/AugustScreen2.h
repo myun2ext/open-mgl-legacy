@@ -111,7 +111,16 @@ _AGH_EVENT_ACCESS_MODIFIER:
 
 public:
 	//	コンストラクタ・デストラクタ
-	_AGST_DLL_EXP CAugustScreen2();
+	//_AGST_DLL_EXP CAugustScreen2();	DLL_EXP化ダメ！ゼッタイ！
+	//			（原因詳しく調べてないけど上手く行かないっぽい。多分継承してるクラスのコンストラクタが呼ばれてない）
+	CAugustScreen2()
+	{
+		m_bEndFlg = false;
+		m_vphWnd = NULL;
+		//m_bUseMouseHandle = false;
+
+		SetValPtr(AUGUST_VALKEY_SCREEN, this);
+	}
 	virtual ~CAugustScreen2(){}
 
 	///////////////////////////////////////////////////////
