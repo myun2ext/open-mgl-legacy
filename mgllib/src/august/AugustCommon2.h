@@ -50,13 +50,14 @@ class _AGST_DLL_EXP agh::CControlBase;
 
 
 //	August Framework クラスの基底
-class CAugustControlBase : public virtual agh::CControlBase
+class _AGST_DLL_EXP CAugustControlBase //: public virtual agh::CControlBase
 {
 protected:
 	std::string m_strClassName;
 
 	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
 
+	virtual bool IsRegisted()=0;
 	void RegistCheck(){
 		if ( IsRegisted() == false )
 			AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
