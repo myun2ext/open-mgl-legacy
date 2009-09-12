@@ -54,11 +54,11 @@ class _AGST_DLL_EXP agh::CControlBase;
 
 
 //	August Framework クラスの基底
-class _AGST_DLL_EXP CAugustControlBase //: public virtual agh::CControlBase
+class _AGST_DLL_EXP CAugustControlBase : public virtual agh::CControlBase
 {
 public:
 	/*	agh::CControlBase で定義されている事を期待しているメソッド（て言うかまぁあるんだけど）  */
-	virtual bool IsRegisted()=0;
+	//virtual bool IsRegisted()=0;
 
 protected:
 	std::string m_strClassName;

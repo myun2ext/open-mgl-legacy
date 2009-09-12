@@ -18,7 +18,7 @@ class CMglImage;
 class _AGST_DLL_EXP agh::CImageBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class _AGST_DLL_EXP CAugustImage2 : public agh::CImageBase, public CAugustControlBase
+class _AGST_DLL_EXP CAugustImage2 : public virtual agh::CImageBase, public virtual CAugustControlBase
 {
 private:
 	typedef agh::CImageBase _BASE;
@@ -40,6 +40,14 @@ public:
 		m_pImg = NULL;
 	}
 	virtual ~CAugustImage2(){}
+
+	//	2009/09/12  CAugustControlBaseを使用するようにした結果、なんかコンパイラから作れと言われるようになったので対応・・・
+	CAugustImage2(const CAugustImage2 &in_img)
+		: CAugustControlBase("CAugustImage2")
+	{
+		m_pImg = in_img.m_pImg;
+		m_strFilePath = in_img.m_strFilePath;
+	}
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath){ return LoadEx(szImageFilePath); }
