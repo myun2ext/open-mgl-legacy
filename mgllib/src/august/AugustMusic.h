@@ -28,17 +28,17 @@ class _AGST_DLL_EXP CMglBgm;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
 //class _AGST_DLL_EXP CAugustMusic : public virtual agh::CControlBase, public CMglBgm, public CAugustControlBase
-class _AGST_DLL_EXP CAugustMusic : public CAugustControlBaseT<agh::CControlBase>, public CMglBgm
+class _AGST_DLL_EXP CAugustMusic : public CAugustControlBaseT<agh::CControlBase>//, public CMglBgm
 {
 protected:
 	_MGL_AUGUST_MUSIC_CORE_IMPL *m_pCore;
 	typedef CAugustControlBaseT<agh::CControlBase> _BASE;
 
 
-	void InitCheck(){	//	CMglBgmのを詐欺オーバーライド。（何
+/*	void InitCheck(){	//	CMglBgmのを詐欺オーバーライド。（何
 		RegistedCheck();
 		CMglBgm::InitCheck();
-	}
+	}*/
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
@@ -57,16 +57,19 @@ public:
 		RegistedCheck();
 		CMglBgm::Load(szAudioFile);
 	}*/
-	/*
-	void Play( const char* szName );
-	void LoopPlay( const char* szName, unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
-	void Stop( const char* szName );
 
-	void SetVolume( float fVolume=100.0f );
-	//SetBalance() 未実装
+	void Load( const char* szAudioFile );
+	void Unload();
 
-	void Disable();
-	void Enable();*/
+	//	再生操作系
+	void Play();
+	void LoopPlay( int nLoopCnt=MGL_AUDIO_LOOP_MAX );
+	void Stop();
+	void SetLastLoop();
+	void Pause();
+
+	void SetVolume( int nVolume=MGL_VOLUME_MAX );	//	100分率
+	void SetBalance( int nBalance=MGL_PAN_CENTER );	//	-100～100
 };
 
 typedef CAugustMusic CAugustMusic2;

@@ -11,7 +11,7 @@
 #include "MyuFPS.h"
 
 
-//#define _NO_CATCH_EXCEPTION		//	デバッグ作業中に、例外をキャッチさせたくない場合に有効にする
+#define _NO_CATCH_EXCEPTION		//	デバッグ作業中に、例外をキャッチさせたくない場合に有効にする
 
 
 using namespace agh;
