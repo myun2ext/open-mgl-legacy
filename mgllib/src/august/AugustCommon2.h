@@ -53,6 +53,9 @@ class _AGST_DLL_EXP agh::CControlBase;
 #define AugustThrow	MyuThrow
 
 
+/***********************************************************************************/
+
+
 //	August Framework クラスの基底
 class _AGST_DLL_EXP CAugustControlBase : public virtual agh::CControlBase
 {
@@ -78,6 +81,42 @@ public:
 	CAugustControlBase(const char* szClassName){ SetClassName(szClassName); }
 	virtual ~CAugustControlBase(){}
 };
+
+
+
+/***********************************************************************************/
+
+
+//	August Framework クラスの基底
+template <typename T>
+class CAugustControlBaseT : public T
+{
+public:
+	/*	agh::CControlBase で定義されている事を期待しているメソッド（て言うかまぁあるんだけど）  */
+	//virtual bool IsRegisted()=0;
+
+protected:
+	std::string m_strClassName;
+
+	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
+
+	void RegistCheck(){
+		if ( IsRegisted() == false )
+			//AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+			AugustThrow( 9999, "%s には親コントロールが必要です。 <親コントロール>.RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+	}
+	void RegistedCheck(){ RegistCheck(); }
+
+public:
+	//	コンストラクタ・デストラクタ
+	//CAugustControlBase(){}
+	CAugustControlBaseT(const char* szClassName){ SetClassName(szClassName); }
+	virtual ~CAugustControlBaseT(){}
+};
+
+
+
+/***********************************************************************************/
 
 
 
