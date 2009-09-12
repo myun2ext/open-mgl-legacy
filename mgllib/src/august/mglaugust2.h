@@ -8,5 +8,6 @@
 #include "AugustText2.h"
 #include "AugustInput.h"
 #include "AugustSound.h"
+#include "AugustMusic.h"
 
 #endif//__MGLAUGUST2_H__

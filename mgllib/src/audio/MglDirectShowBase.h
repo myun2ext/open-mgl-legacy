@@ -20,7 +20,7 @@
 #include <DShow.h>
 
 //	クラス宣言
-class DLL_EXP CMglDirectShowBase : public IMglBgmBase
+class DLL_EXP CMglDirectShowBase : public IMglBgmBase, public CMyuReleaseBase
 {
 private:
 	// DirectShowのインスタンス宣言

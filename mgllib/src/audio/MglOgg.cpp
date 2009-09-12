@@ -21,7 +21,7 @@ CMglOgg::~CMglOgg()
 }
 
 //	èâä˙âª
-void CMglOgg::Init()
+void CMglOgg::Init( HWND hWnd )
 {
 	USE_CHK();
 

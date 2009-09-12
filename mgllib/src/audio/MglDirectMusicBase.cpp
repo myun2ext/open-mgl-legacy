@@ -221,6 +221,15 @@ void CMglDirectMusicBase::StopSegment( IDirectMusicSegment* pSegment )
 		S_OK, "CMglDirectMusicBase::StopSegment()  m_pPerformance->StopEx()に失敗。" );
 }
 
+//	全部止める
+void CMglDirectMusicBase::StopAll()
+{
+	InitCheck();
+
+	for( SEG_ITR it=m_segments.begin(); it != m_segments.end(); it++ )
+		StopSegment( it->second );
+}
+
 //	ボリュームの設定
 void CMglDirectMusicBase::SetVolume( int nVolume )
 {    

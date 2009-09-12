@@ -22,7 +22,7 @@ protected:
 
 public:
 	//	‰Šú‰»/I’[Œn
-	virtual void Init()=0;
+	virtual void Init( HWND hWnd = NULL )=0;
 	virtual void Release()=0;
 	virtual void Load( const char* szAudioFile )=0;
 	virtual void Unload()=0;

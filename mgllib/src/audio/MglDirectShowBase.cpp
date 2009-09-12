@@ -49,6 +49,8 @@ void CMglDirectShowBase::Release()
 //	èâä˙âª
 void CMglDirectShowBase::Init( HWND hWnd )
 {
+	CMglStackInstance("CMglDirectShowBase::Init");
+
 	if ( hWnd == NULL )
 		hWnd = GetDefaultHwnd();
 

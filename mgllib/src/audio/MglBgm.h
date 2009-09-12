@@ -2,11 +2,11 @@
 #define __MglBgm_H__
 
 #include "MglBgmBase.h"
-#include "MglMp3Dshow.h"
-#include "MglOgg.h"
+//#include "MglMp3Dshow.h"
+//#include "MglOgg.h"
 
 //	クラス宣言
-class DLL_EXP CMglBgm : public IMglBgmBase
+class DLL_EXP CMglBgm : public IMglBgmBase, public CMyuReleaseBase
 {
 private:
 	IMglBgmBase *m_pBgm;
@@ -19,7 +19,7 @@ public:
 	virtual ~CMglBgm();
 
 	//	初期化/終端系
-	void Init();
+	void Init( HWND hWnd = NULL );
 	void Release();
 
 	void Load( const char* szAudioFile );

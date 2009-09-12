@@ -22,9 +22,9 @@ CMglBgm::~CMglBgm()
 }
 
 
-void CMglBgm::Init()
+void CMglBgm::Init( HWND hWnd )
 {
-	m_pMp3Dshow->Init();
+	m_pMp3Dshow->Init( hWnd );
 	m_pOgg->Init();
 }
 
@@ -36,10 +36,16 @@ void CMglBgm::Release()
 
 void CMglBgm::Load( const char* szAudioFile )
 {
+	//	2009/09/07  あれ？必要じゃなーい・・・？
+	Release();
+
+	/////////////////////////////////////
+
 	CMyuFilePath fp(szAudioFile);
 	const char *szExt = fp.GetExt();
 
-	if ( strcmp(szExt,"ogg") == 0 )
+	//if ( strcmp(szExt,"ogg") == 0 )
+	if ( stricmp(szExt,"ogg") == 0 )
 		m_pBgm = m_pOgg;
 	else
 		m_pBgm = m_pMp3Dshow;

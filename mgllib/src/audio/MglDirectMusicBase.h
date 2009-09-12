@@ -28,7 +28,7 @@
 
 //	クラス宣言
 //class DLL_EXP CMglDirectMusicBase
-class DLL_EXP CMglDirectMusicBase : public CMglReleaseBase	//	2009/09/05
+class DLL_EXP CMglDirectMusicBase
 {
 private:
 	IDirectMusicLoader8* m_pLoader;
@@ -80,6 +80,7 @@ public:
 	void StopSegment( const char* szSegmentName );
 	void StopSegment( IDirectMusicSegment* pSegment );
 	void Stop( const char* szSegmentName );
+	void StopAll();
 
 	void SetVolume( int nVolume=0 );
 
@@ -88,12 +89,14 @@ public:
 			全ての再生を停止。
 			ただし、再生されていないセグメントをStopSegment()するとどうなるかは不明。
 		*/
+		StopAll();
+
 		m_flgEnable = FALSE;
 	}
 	void Enable(){ m_flgEnable = TRUE; }
 
 	//	未実装
-	//void PauseSegment( const char* szSegmentName ){}
+	//void PauseSegment( const char* szSegmentName ){}-
 
 	IDirectMusicSegment8* GetSegmentPtr( const char* szSegmentName );
 };

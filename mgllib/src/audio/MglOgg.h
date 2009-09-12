@@ -16,7 +16,7 @@
 #define VOX_DEFAULT_VOLUME	(1.0f)
 
 //	クラス宣言
-class DLL_EXP CMglOgg : public CMglBgmBase
+class DLL_EXP CMglOgg : public CMglBgmBase, public CMyuReleaseBase
 {
 private:
 	HINSTANCE m_hDll;
@@ -40,7 +40,7 @@ public:
 	virtual ~CMglOgg();
 
 	//	初期化/終端系
-	void Init();
+	void Init( HWND hWnd = NULL );
 	void Release();
 	void Load( const char* szOggFile );
 	void UnLoad();
