@@ -7,7 +7,8 @@
 CMglBgm::CMglBgm()
 {
 	m_pMp3Dshow = new CMglMp3Dshow();
-	m_pOgg = new CMglOgg();
+	//m_pOgg = new CMglOgg();
+	m_pOgg = NULL;
 	m_pBgm = NULL;
 	m_hWnd = NULL;
 }
@@ -29,7 +30,7 @@ void CMglBgm::Init( HWND hWnd )
 	Release();
 
 	m_pMp3Dshow->Init( hWnd );
-	m_pOgg->Init();
+	//m_pOgg->Init();
 
 	m_hWnd = hWnd;
 }
@@ -37,7 +38,8 @@ void CMglBgm::Init( HWND hWnd )
 void CMglBgm::Release()
 {
 	m_pMp3Dshow->Release();
-	m_pOgg->Release();
+	if ( m_pOgg != NULL )
+		m_pOgg->Release();
 	m_pBgm = NULL;
 }
 
@@ -55,7 +57,13 @@ void CMglBgm::Load( const char* szAudioFile )
 
 	//if ( strcmp(szExt,"ogg") == 0 )
 	if ( stricmp(szExt,"ogg") == 0 )
+	{
+		if ( m_pOgg == NULL ){
+			m_pOgg = new CMglOgg();
+			m_pOgg->Init(m_hWnd);
+		}
 		m_pBgm = m_pOgg;
+	}
 	else
 		m_pBgm = m_pMp3Dshow;
 
