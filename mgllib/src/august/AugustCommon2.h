@@ -50,10 +50,43 @@ class _AGST_DLL_EXP agh::CControlBase;
 
 ////////////////////////////////////////////////////////////////////////////////
 
-#define AugustThrow	MyuThrow
+//#define AugustThrow	MyuThrow
+
+
+//	例外型
+#define _AUGUST_EXCEPTION_MSG_MAX		(1024)
+typedef struct
+{
+	unsigned long nCode;
+	//str::string strMsg;
+	char szMsg[_AUGUST_EXCEPTION_MSG_MAX+1];
+}
+AugustException;
+
+
+//	例外を投げる
+inline void AugustThrow( unsigned long nCode, const char* szMsgFormat, ... )
+{
+	AugustException exp;
+
+	exp.nCode = nCode;
+	va_list vl;
+	va_start( vl, szMsgFormat );
+	vsnprintf( exp.szMsg, sizeof(exp.szMsg), szMsgFormat, vl );
+	va_end( vl );
+
+/*	char szDebugLogStr[1024];
+	sprintf( szDebugLogStr, "%s", exp.szMsg );
+	_MGL_DEBUGLOG("");
+	_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
+	_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump().c_str() );*/
+
+	throw exp;
+}
 
 
 /***********************************************************************************/
+
 
 
 //	August Framework クラスの基底
@@ -87,6 +120,7 @@ public:
 /***********************************************************************************/
 
 
+
 //	August Framework クラスの基底
 template <typename T>
 class CAugustControlBaseT : public T
@@ -113,6 +147,7 @@ public:
 	CAugustControlBaseT(const char* szClassName){ SetClassName(szClassName); }
 	virtual ~CAugustControlBaseT(){}
 };
+
 
 
 
