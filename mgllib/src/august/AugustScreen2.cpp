@@ -10,6 +10,10 @@
 #include "MglGraphicManager.h"
 #include "MyuFPS.h"
 
+
+//#define _NO_CATCH_EXCEPTION		//	デバッグ作業中に、例外をキャッチさせたくない場合に有効にする
+
+
 using namespace agh;
 using namespace std;
 
@@ -104,7 +108,9 @@ bool CAugustScreen2::ThreadFuncMain()
 
 	//__try{
 	{
+#ifndef _NO_CATCH_EXCEPTION
 		try	//	例外処理受け付け開始
+#endif
 		{
 			if ( OnInit() == false )
 				return false;
@@ -159,6 +165,7 @@ bool CAugustScreen2::ThreadFuncMain()
 
 			MainLoop();
 		}
+#ifndef _NO_CATCH_EXCEPTION
 		//	例外処理 V3.0
 		catch( MglException& exp )
 		{
@@ -213,6 +220,7 @@ bool CAugustScreen2::ThreadFuncMain()
 			::MessageBox( m_hWnd, "fdssdff", NULL, MB_ICONERROR );
 		}
 #endif//_DEBUG
+#endif//_NO_CATCH_EXCEPTION
 	}
 	/*}
 	__except(_EXCEPTION_POINTERS *ep = GetExceptionInformation())
