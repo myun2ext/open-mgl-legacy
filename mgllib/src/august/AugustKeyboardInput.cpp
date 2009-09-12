@@ -7,6 +7,7 @@
 
 #include "stdafx.h"
 #include "AugustKeyboardInput.h"
+#include "AugustScreen2.h"
 #include "MglInput.h"
 
 using namespace agh;
@@ -86,6 +87,10 @@ public:
 	}
 
 	static BYTE GetAghKeyToDik(KEYCODE_t aghKey){ return m_keyCodeTable[aghKey]; }	//	255以上の値で来た場合の動作は未定義
+
+	/////////////////////////////////////////////////////////////////////////////////
+
+	CMglKeyboardInput* GetInternal(){ return &m_input; }
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -284,6 +289,14 @@ void CAugustKeyboardInput::OnRegist()
 		"CAugustKeyboardInput::Init()  ウインドウハンドルの取得に失敗");
 
 	((CAugustKeyboardCore*)m_pCore)->Init(hWnd);
+	
+	///////////////////////////////////////////////////////////////
+
+	//	2009/09/07  ウインドウを閉じる前にReleaseしてもらうようにする
+	CAugustScreen2_X* pScreen = (CAugustScreen2_X*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_SCREEN),
+		"CAugustKeyboardInput::OnRegist()  CAugustScreen2のGetValPtr()に失敗");
+
+	pScreen->AddToReleaseList( ((CAugustKeyboardCore*)m_pCore)->GetInternal() );
 }
 
 //	毎フレーム毎にUpdate()呼び出すの忘れてた・・・

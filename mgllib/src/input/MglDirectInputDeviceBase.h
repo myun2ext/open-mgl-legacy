@@ -11,7 +11,7 @@
 #include "MglDirectInputBase.h"
 
 //	ƒNƒ‰ƒXéŒ¾
-class DLL_EXP CMglDirectInputDeviceBase : public CMglDirectInputBase
+class DLL_EXP CMglDirectInputDeviceBase : public CMglDirectInputBase, public CMyuReleaseBase
 {
 protected:
 	_MGL_IDirectInputDevice *m_pDevice;
