@@ -15,13 +15,14 @@ private:
 								//	あー、もしくはInit()の都合上だったかな。でもhWnd保存しとけば・・・まぁいいか。
 	HWND m_hWnd;
 
-	void InitCheck(){
+protected:						//	CAugustMusicのために詐欺protected。（何
+	virtual void InitCheck(){	//	CAugustMusicのために詐欺virtual。（何
 		if ( m_hWnd == NULL )
 			MyuThrow(MGLMSGNO_BGM(1), "CMglBgm::Init()メソッドを呼び出してください。");
 	}
 
-protected:						//	CAugustMusicのために詐欺protected。（何
-	virtual void LoadCheck(){	//	CAugustMusicのために詐欺virtual。（何
+private:
+	void LoadCheck(){
 		if ( m_pBgm == NULL )
 			MyuThrow(MGLMSGNO_BGM(2), "CMglBgm::Load()メソッドを呼び出してください。");
 	}
