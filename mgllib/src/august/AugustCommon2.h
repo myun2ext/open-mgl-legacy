@@ -5,6 +5,10 @@
 #include "agh.h"
 #include "mwlagh.h"
 
+#include "MyuCommonException.h"
+#include "mglmsg.h"
+
+
 #ifdef MGLLIB_EXPORTS
 	#define _AGST_DLL_EXP __declspec(dllexport)
 	#define _AGST_DLL_TMPL_EXP template class _AGST_DLL_EXP			//	C4275対応
@@ -52,16 +56,21 @@ class _AGST_DLL_EXP agh::CControlBase;
 //	August Framework クラスの基底
 class _AGST_DLL_EXP CAugustControlBase //: public virtual agh::CControlBase
 {
+public:
+	/*	agh::CControlBase で定義されている事を期待しているメソッド（て言うかまぁあるんだけど）  */
+	virtual bool IsRegisted()=0;
+
 protected:
 	std::string m_strClassName;
 
 	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
 
-	virtual bool IsRegisted()=0;
 	void RegistCheck(){
 		if ( IsRegisted() == false )
-			AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+			//AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+			AugustThrow( 9999, "%s には親コントロールが必要です。 <親コントロール>.RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
 	}
+	void RegistedCheck(){ RegistCheck(); }
 
 public:
 	//	コンストラクタ・デストラクタ

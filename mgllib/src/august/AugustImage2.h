@@ -18,7 +18,7 @@ class CMglImage;
 class _AGST_DLL_EXP agh::CImageBase;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class _AGST_DLL_EXP CAugustImage2 : public agh::CImageBase
+class _AGST_DLL_EXP CAugustImage2 : public agh::CImageBase, public CAugustControlBase
 {
 private:
 	typedef agh::CImageBase _BASE;
@@ -34,7 +34,9 @@ public:
 	//	コンストラクタ
 	//CAugustImage2();
 	//virtual ~CAugustImage2();
-	CAugustImage2(){
+	CAugustImage2()
+		: CAugustControlBase("CAugustImage2")
+	{
 		m_pImg = NULL;
 	}
 	virtual ~CAugustImage2(){}

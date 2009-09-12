@@ -25,6 +25,9 @@ CAugustImage2::~CAugustImage2()
 
 bool CAugustImage2::LoadEx(const char* szImageFilePath, agh::COLOR transparentColor)
 {
+	RegistedCheck();
+	////////////////////////////////////////
+
 	m_strFilePath = szImageFilePath;
 	
 	//CAugustImageLoader* pImgLoader = (CAugustImageLoader*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_IMAGE_LOADER),
@@ -44,6 +47,9 @@ bool CAugustImage2::LoadEx(const char* szImageFilePath, agh::COLOR transparentCo
 
 void CAugustImage2::OnDraw()
 {
+	RegistedCheck();
+	////////////////////////////////////////
+
 	//_Img()->Draw( GetRect().left, GetRect().top,
 	int x = GetRect().left;
 	int y = GetRect().top;
