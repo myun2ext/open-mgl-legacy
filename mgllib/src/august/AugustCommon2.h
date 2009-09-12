@@ -44,4 +44,42 @@ class _AGST_DLL_EXP agh::CControlBase;
 #define AUGUST_VALKEY_P_MOUSE			(AUGUST_VALKEY_MOUSE)	//	Alias
 
 
+////////////////////////////////////////////////////////////////////////////////
+
+#define AugustThrow	MyuThrow
+
+
+//	August Framework クラスの基底
+class CAugustControlBase : public virtual agh::CControlBase
+{
+protected:
+	std::string m_strClassName;
+
+	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
+
+	void RegistCheck(){
+		if ( IsRegisted() == false )
+			AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+	}
+
+public:
+	//	コンストラクタ・デストラクタ
+	//CAugustControlBase(){}
+	CAugustControlBase(const char* szClassName){ SetClassName(szClassName); }
+	virtual ~CAugustControlBase(){}
+};
+
+
+
+//	Load()を実装するメソッドの基底クラス
+class CAugustLoadable
+{
+public:
+	//	コンストラクタ・デストラクタ
+	CAugustLoadable(){}
+	virtual ~CAugustLoadable(){}
+
+	virtual bool Load(const char* szFileName)=0;
+};
+
 #endif//__AugustCommon2_H__
