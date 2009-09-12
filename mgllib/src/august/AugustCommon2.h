@@ -65,60 +65,17 @@ AugustException;
 
 
 //	例外を投げる
-inline void AugustThrow( unsigned long nCode, const char* szMsgFormat, ... )
-{
-	AugustException exp;
+void _AGST_DLL_EXP AugustThrow( unsigned long nCode, const char* szMsgFormat, ... );
 
-	exp.nCode = nCode;
-	va_list vl;
-	va_start( vl, szMsgFormat );
-	vsnprintf( exp.szMsg, sizeof(exp.szMsg), szMsgFormat, vl );
-	va_end( vl );
 
-/*	char szDebugLogStr[1024];
-	sprintf( szDebugLogStr, "%s", exp.szMsg );
-	_MGL_DEBUGLOG("");
-	_MGL_DEBUGLOG("<<ThrowException>>  %s", szDebugLogStr );
-	_MGL_DEBUGLOG("StackTrace:\n%s", g_stackTrace.Dump().c_str() );*/
+/////////////////////
 
-	throw exp;
-}
+#define AUGUST_MSGNO_COMMON__(no)			MGLMSGNO_AUGUST(0x1000000+no)
+#define AUGUST_MSGNO_CONTROL_BASE_(no)		AUGUST_MSGNO_COMMON__(0x1030)
 
+#define AUGUST_MSGNO_NO_PARENT				AUGUST_MSGNO_CONTROL_BASE_(1)	/*	親コントロールがありません	*/
 
 /***********************************************************************************/
-
-
-
-//	August Framework クラスの基底
-class _AGST_DLL_EXP CAugustControlBase : public virtual agh::CControlBase
-{
-public:
-	/*	agh::CControlBase で定義されている事を期待しているメソッド（て言うかまぁあるんだけど）  */
-	//virtual bool IsRegisted()=0;
-
-protected:
-	std::string m_strClassName;
-
-	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
-
-	void RegistCheck(){
-		if ( IsRegisted() == false )
-			//AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
-			AugustThrow( 9999, "%s には親コントロールが必要です。 <親コントロール>.RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
-	}
-	void RegistedCheck(){ RegistCheck(); }
-
-public:
-	//	コンストラクタ・デストラクタ
-	//CAugustControlBase(){}
-	CAugustControlBase(const char* szClassName){ SetClassName(szClassName); }
-	virtual ~CAugustControlBase(){}
-};
-
-
-
-/***********************************************************************************/
-
 
 
 //	August Framework クラスの基底
@@ -137,7 +94,7 @@ protected:
 	void RegistCheck(){
 		if ( IsRegisted() == false )
 			//AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
-			AugustThrow( 9999, "%s には親コントロールが必要です。 <親コントロール>.RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+			AugustThrow( AUGUST_MSGNO_NO_PARENT, "%s には親コントロールが必要です。\r\n[親コントロール].RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
 	}
 	void RegistedCheck(){ RegistCheck(); }
 
@@ -167,3 +124,38 @@ public:
 };
 
 #endif//__AugustCommon2_H__
+
+
+
+
+
+#if 1 == 0
+//	August Framework クラスの基底
+class _AGST_DLL_EXP CAugustControlBase : public virtual agh::CControlBase
+{
+public:
+	/*	agh::CControlBase で定義されている事を期待しているメソッド（て言うかまぁあるんだけど）  */
+	//virtual bool IsRegisted()=0;
+
+protected:
+	std::string m_strClassName;
+
+	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
+
+	void RegistCheck(){
+		if ( IsRegisted() == false )
+			//AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+			AugustThrow( MGLMSGNO_AUGUST(0x01001031), "%s には親コントロールが必要です。 [親コントロール].RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+	}
+	void RegistedCheck(){ RegistCheck(); }
+
+public:
+	//	コンストラクタ・デストラクタ
+	//CAugustControlBase(){}
+	CAugustControlBase(const char* szClassName){ SetClassName(szClassName); }
+	virtual ~CAugustControlBase(){}
+};
+#endif
+
+
+/***********************************************************************************/

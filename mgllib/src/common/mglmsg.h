@@ -15,6 +15,8 @@
 #define MGLMSGNO_INPUT(NO)		(NO+0x21000000)
 #define MGLMSGNO_WINDOW(NO)		(NO+0x30000000)
 
+#define MGLMSGNO_AUGUST(NO)		(NO+0x60000000)
+
 //////////////////////////////////////////////////////////////////
 
 //	グラフィック
@@ -37,6 +39,11 @@
 
 //	入力
 #define MGLMSGNO_INPUT_MOUSE(NO)	((NO)+MGLMSGNO_INPUT(0x400000))
+
+//////////////////////////////////////////////////////////////////
+
+//	オーディオ
+#define MGLMSGNO_BGM(NO)			((NO)+MGLMSGNO_SOUND(0x600000))
 
 //////////////////////////////////////////////////////////////////
 
