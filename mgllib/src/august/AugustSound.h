@@ -18,6 +18,7 @@ class _MGL_AUGUST_SOUND_CORE_IMPL;
 class _AGST_DLL_EXP agh::CControlBase;
 
 #define AUGUST_SOUND_LOOP_PLAY_INFINITE		(0xffffffff)
+#define AUGUST_SOUND_LOOP_PLAY_UNLIMITED	(AUGUST_SOUND_LOOP_PLAY_INFINITE)
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
 class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
@@ -48,6 +49,11 @@ public:
 
 	void Disable();
 	void Enable();
+
+	enum {
+		LOOP_INFINITE = AUGUST_SOUND_LOOP_PLAY_INFINITE,
+		LOOP_UNLIMITED = AUGUST_SOUND_LOOP_PLAY_UNLIMITED
+	};
 };
 
 typedef CAugustSound CAugustSound2;

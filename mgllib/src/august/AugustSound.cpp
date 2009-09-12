@@ -38,22 +38,13 @@ void CAugustSound::OnRegist()
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustSound::OnRegist()  ウインドウハンドルのGetValPtr()に失敗");
 
-	((CMglSound*)m_pCore)->Init(hWnd);
+	((_MGL_AUGUST_SOUND_CORE_IMPL*)m_pCore)->Init(hWnd);
 
 	//	2009/09/05  ウインドウを閉じる前にReleaseしてもらうようにする
 	CAugustScreen2_X* pScreen = (CAugustScreen2_X*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_SCREEN),
 		"CAugustSound::OnRegist()  CAugustScreen2のGetValPtr()に失敗");
 	pScreen->AddToReleaseList( m_pCore );
 }
-
-//	毎フレーム毎にUpdate()呼び出すの忘れてた・・・
-/*bool CAugustSound::OnFrame()
-{
-	//	スーパークラスのOnFrame()呼び出し
-	return agh::CKeyboardBase::OnFrame();
-}*/
-
-
 
 void CAugustSound::Load( const char* szAudioFile, const char* szAlias ){ m_pCore->Load(szAudioFile, szAlias); }
 void CAugustSound::Play( const char* szName ){ m_pCore->Play(szName); }
