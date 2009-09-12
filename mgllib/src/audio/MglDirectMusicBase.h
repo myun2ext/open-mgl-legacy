@@ -28,7 +28,7 @@
 
 //	ƒNƒ‰ƒXéŒ¾
 //class DLL_EXP CMglDirectMusicBase
-class DLL_EXP CMglDirectMusicBase
+class DLL_EXP CMglDirectMusicBase : public CMglReleaseBase	//	2009/09/05
 {
 private:
 	IDirectMusicLoader8* m_pLoader;

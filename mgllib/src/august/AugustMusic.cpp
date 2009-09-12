@@ -18,6 +18,7 @@ using namespace std;
 
 //	コンストラクタ
 CAugustMusic::CAugustMusic()
+ : _BASE ("CAugustMusic")
 {
 	m_pCore = new _MGL_AUGUST_MUSIC_CORE_IMPL();
 }

@@ -21,15 +21,18 @@ class _MGL_AUGUST_MUSIC_CORE_IMPL;
 /////////////////////////////////////////////////////////////////////////
 
 class _AGST_DLL_EXP agh::CControlBase;
+class _AGST_DLL_EXP CMglBgm;
 
 #define AUGUST_MUSIC_LOOP_PLAY_INFINITE		(0xffffffff)
 
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class _AGST_DLL_EXP CAugustMusic : public agh::CControlBase, public CMglBgm, public CAugustControlBase
+//class _AGST_DLL_EXP CAugustMusic : public virtual agh::CControlBase, public CMglBgm, public CAugustControlBase
+class _AGST_DLL_EXP CAugustMusic : public CAugustControlBaseT<agh::CControlBase>, public CMglBgm
 {
 protected:
 	_MGL_AUGUST_MUSIC_CORE_IMPL *m_pCore;
+	typedef CAugustControlBaseT<agh::CControlBase> _BASE;
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
