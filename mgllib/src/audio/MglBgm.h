@@ -10,8 +10,19 @@ class DLL_EXP CMglBgm : public IMglBgmBase, public CMyuReleaseBase
 {
 private:
 	IMglBgmBase *m_pBgm;
-	IMglBgmBase *m_pMp3Dshow;
-	IMglBgmBase *m_pOgg;
+	IMglBgmBase *m_pMp3Dshow;	//	これ両方用意してる意味ってなんかあったっけ・・・
+	IMglBgmBase *m_pOgg;		//	これ両方用意してる意味ってなんかあったっけ・・・
+								//	あー、もしくはInit()の都合上だったかな。でもhWnd保存しとけば・・・まぁいいか。
+	HWND m_hWnd;
+
+	void InitCheck(){
+		if ( m_hWnd == NULL )
+			MyuThrow(MGLMSGNO_BGM(1), "CMglBgm::Init()メソッドを呼び出してください。");
+	}
+	void LoadCheck(){
+		if ( m_pBgm == NULL )
+			MyuThrow(MGLMSGNO_BGM(2), "CMglBgm::Load()メソッドを呼び出してください。");
+	}
 
 public:
 	//	コンストラクタ/デストラクタ
@@ -23,17 +34,18 @@ public:
 	void Release();
 
 	void Load( const char* szAudioFile );
-	void Unload(){ m_pBgm->Unload(); }
+	void Unload(){ InitCheck(); m_pBgm->Unload(); m_pBgm = NULL; }
+	//void Unload(){ Release(); }	//	こっちでいいんじゃないの・・・？違うか・・・
 
 	//	再生操作系
-	void Play(){ m_pBgm->Play(); }
-	void LoopPlay( int nLoopCnt=MGL_AUDIO_LOOP_MAX ){ m_pBgm->LoopPlay(nLoopCnt); }
-	void Stop(){ m_pBgm->Stop(); }
-	void SetLastLoop(){ m_pBgm->SetLastLoop(); }
-	void Pause(){ m_pBgm->Pause(); }
+	void Play(){ LoadCheck(); m_pBgm->Play(); }
+	void LoopPlay( int nLoopCnt=MGL_AUDIO_LOOP_MAX ){ LoadCheck(); m_pBgm->LoopPlay(nLoopCnt); }
+	void Stop(){ LoadCheck(); m_pBgm->Stop(); }
+	void SetLastLoop(){ LoadCheck(); m_pBgm->SetLastLoop(); }
+	void Pause(){ LoadCheck(); m_pBgm->Pause(); }
 
-	void SetVolume( int nVolume=MGL_VOLUME_MAX ){ m_pBgm->SetVolume(nVolume); }	//	100分率
-	void SetBalance( int nBalance=MGL_PAN_CENTER ){ m_pBgm->SetBalance(nBalance); }	//	-100～100
+	void SetVolume( int nVolume=MGL_VOLUME_MAX ){ LoadCheck(); m_pBgm->SetVolume(nVolume); }	//	100分率
+	void SetBalance( int nBalance=MGL_PAN_CENTER ){ LoadCheck(); m_pBgm->SetBalance(nBalance); }	//	-100～100
 };
 
 #endif//__MglBgm_H__

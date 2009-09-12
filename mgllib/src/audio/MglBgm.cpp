@@ -8,6 +8,8 @@ CMglBgm::CMglBgm()
 {
 	m_pMp3Dshow = new CMglMp3Dshow();
 	m_pOgg = new CMglOgg();
+	m_pBgm = NULL;
+	m_hWnd = NULL;
 }
 
 //	デストラクタ
@@ -24,20 +26,27 @@ CMglBgm::~CMglBgm()
 
 void CMglBgm::Init( HWND hWnd )
 {
+	Release();
+
 	m_pMp3Dshow->Init( hWnd );
 	m_pOgg->Init();
+
+	m_hWnd = hWnd;
 }
 
 void CMglBgm::Release()
 {
 	m_pMp3Dshow->Release();
 	m_pOgg->Release();
+	m_pBgm = NULL;
 }
 
 void CMglBgm::Load( const char* szAudioFile )
 {
 	//	2009/09/07  あれ？必要じゃなーい・・・？
 	Release();
+
+	InitCheck();
 
 	/////////////////////////////////////
 
