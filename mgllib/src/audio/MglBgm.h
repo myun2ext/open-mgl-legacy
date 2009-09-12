@@ -19,7 +19,9 @@ private:
 		if ( m_hWnd == NULL )
 			MyuThrow(MGLMSGNO_BGM(1), "CMglBgm::Init()メソッドを呼び出してください。");
 	}
-	void LoadCheck(){
+
+protected:						//	CAugustMusicのために詐欺protected。（何
+	virtual void LoadCheck(){	//	CAugustMusicのために詐欺virtual。（何
 		if ( m_pBgm == NULL )
 			MyuThrow(MGLMSGNO_BGM(2), "CMglBgm::Load()メソッドを呼び出してください。");
 	}

@@ -34,6 +34,12 @@ protected:
 	_MGL_AUGUST_MUSIC_CORE_IMPL *m_pCore;
 	typedef CAugustControlBaseT<agh::CControlBase> _BASE;
 
+
+	void LoadCheck(){	//	CMglBgmのを詐欺オーバーライド。（何
+		RegistedCheck();
+		CMglBgm::LoadCheck();
+	}
+
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
 
@@ -47,8 +53,11 @@ public:
 
 	///////////////////////////////////////////////////////////////
 
+	void Load( const char* szAudioFile){
+		RegistedCheck();
+		CMglBgm::Load(szAudioFile);
+	}
 	/*
-	void Load( const char* szAudioFile, const char* szAlias=NULL );
 	void Play( const char* szName );
 	void LoopPlay( const char* szName, unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
 	void Stop( const char* szName );
