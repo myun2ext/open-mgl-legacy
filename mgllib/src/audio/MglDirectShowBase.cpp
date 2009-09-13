@@ -65,8 +65,9 @@ void CMglDirectShowBase::Init( HWND hWnd )
 		"CMglDirectShowBase::Init()  CoCreateInstance(IGraphBuilder)に失敗。" );
 
 	//	フィルタグラフからIMediaControlを取得する
-	MyuAssert( m_pGraph->QueryInterface(IID_IMediaControl, (void **)&m_pControl), S_OK,
-		"CMglDirectShowBase::Init()  QueryInterface(IMediaControl)に失敗。" );
+	MGL_H_ASSERT( m_pGraph->QueryInterface(IID_IMediaControl, (void **)&m_pControl) );
+//	MyuAssert( m_pGraph->QueryInterface(IID_IMediaControl, (void **)&m_pControl), S_OK,
+//		"CMglDirectShowBase::Init()  QueryInterface(IMediaControl)に失敗。" );
 
 	//	フィルタグラフからIMediaEventを取得する
 	MyuAssert( m_pGraph->QueryInterface(IID_IMediaEvent, (void **)&m_pEvent), S_OK,
@@ -137,6 +138,28 @@ void CMglDirectShowBase::Load( const char* szMediaFile )
 	default:
 		MyuThrow( hRet, "ファイル \"%s\" の読み込みに失敗。", szMediaFile );
 	}
+}
+
+//	読み込んだのを破棄
+void CMglDirectShowBase::Unload()
+{
+	InitCheck();
+	//ENBL_CHK();
+
+	//IEnumFilters *pEnumFilters = NULL;
+	auto_release<IEnumFilters*> pEnumFilters = NULL;
+	MGL_H_ASSERT( m_pGraph->EnumFilters(&pEnumFilters) );
+
+	//ULONG ulFetched;	NULLでいけるらしい
+	IBaseFilter *pFilter = NULL;
+	MGL_H_ASSERT( pEnumFilters->Next(1, &pFilter, NULL) );
+
+	MGL_H_ASSERT( m_pGraph->RemoveFilter(pFilter) );
+//	MGL_H_ASSERT2( m_pGraph->RemoveFilter(NULL), "CMglDirectShowBase::Unload()" );
+//	MyuAssert( m_pGraph->RemoveFilter(m_pGraph), S_OK,
+//		"CMglDirectShowBase::Unload()  m_pGraph->RemoveFilter()に失敗。" );
+
+    pFilter->Release();
 }
 
 //	再生

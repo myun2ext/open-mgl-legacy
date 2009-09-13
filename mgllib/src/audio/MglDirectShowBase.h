@@ -54,6 +54,7 @@ public:
 	void Release();
 
 	void Load( const char* szMediaFile );
+	void Unload();
 	void Play();
 	void LoopPlay(DWORD dwLoopCount=MGL_AUDIO_LOOP_MAX );
 	void Stop();
@@ -84,7 +85,6 @@ public:
 	//	* NotImplemented!! *
 	void LoopPlay( int nLoopCnt=MGL_AUDIO_LOOP_MAX ){}
 	void SetLastLoop(){}
-	void Unload(){}
 };
 
 #endif//__MglDirectShowBase_H__

@@ -48,9 +48,9 @@ void CMglBgm::Load( const char* szAudioFile )
 	//	2009/09/07  あれ？必要じゃなーい・・・？
 	//Release();	-> 駄目ｗｗｗｗInitしたのも消えちゃうｗｗｗｗ　でも多重Loadの場合はどうすれば・・・（各クラス任せか？あ、あと再生停止しとけばいいか）
 
-	//	これでよくね
 	if ( m_pBgm != NULL )
-		Release();
+		UnLoad();
+		//Release();
 
 	InitCheck();
 
