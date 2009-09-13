@@ -269,6 +269,22 @@ using namespace std;
 */
 #define SAFE_RELEASE(p)		{if( p != NULL ){ (p)->Release();	(p)=NULL; }}
 
+template <typename T> class auto_release
+{
+protected:
+	typename T m_ptr;
+public:
+	auto_release(){ m_ptr = NULL; }
+	auto_release(typename T p){ m_ptr = p; }
+	virtual ~auto_release(){ Release(); }
+
+	void Release(){ m_ptr->Release(); }
+
+	operator typename T(){ return m_ptr; }
+	T* operator &(){ return &m_ptr; }
+	T operator ->(){ return m_ptr; }
+};
+
 //	オマケ。数学マクロ
 /*#define MGL_PI		(3.1415926)
 #define AngleToRad(V)	(V * MGL_PI / 180)
