@@ -259,6 +259,8 @@ inline void CMglDirectShowBase::EnableAudioExControl()
 		// IBasicAudioインターフェースの所得
 		MyuAssert( m_pAudioRendererFilter->QueryInterface(IID_IBasicAudio, (void**)&m_pBasicAudio), S_OK,
 			"CMglDirectShowBase::SetVolume()  QueryInterface(IID_IBasicAudio)に失敗。" );
+
+	m_pGraph->AddFilter(m_pAudioRendererFilter, NULL);
 }
 
 
