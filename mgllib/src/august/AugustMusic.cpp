@@ -38,26 +38,23 @@ void CAugustMusic::OnRegist()
 	HWND hWnd = (HWND)MyuAssertNull(GetValPtr(MWLAGH_VALKEY_ROOT_WINDOW_HWND),
 		"CAugustMusic::OnRegist()  ウインドウハンドルのGetValPtr()に失敗");
 
-	//CMglBgm::Init(hWnd);
+#ifdef _AGM_USE_INHERIT
+	CMglBgm::Init(hWnd);
+#else
 	m_pCore->Init(hWnd);
+#endif
 
 	//	2009/09/05  ウインドウを閉じる前にReleaseしてもらうようにする
 	CAugustScreen2_X* pScreen = (CAugustScreen2_X*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_SCREEN),
 		"CAugustMusic::OnRegist()  CAugustScreen2のGetValPtr()に失敗");
-	//pScreen->AddToReleaseList( this );
+#ifdef _AGM_USE_INHERIT
+	pScreen->AddToReleaseList( this );
+#else
 	pScreen->AddToReleaseList( m_pCore );
+#endif
 }
 
-/*
-void CAugustMusic::Load( const char* szAudioFile, const char* szAlias ){ m_pCore->Load(szAudioFile, szAlias); }
-void CAugustMusic::Play( const char* szName ){ m_pCore->Play(szName); }
-void CAugustMusic::LoopPlay( const char* szName, unsigned long nLoopCount ){ m_pCore->LoopPlay(szName, nLoopCount); }
-void CAugustMusic::Stop( const char* szName ){ m_pCore->Stop(szName); }
-void CAugustMusic::SetVolume( float fVolume ){ m_pCore->SetVolume((fVolume-100)*10); }
-void CAugustMusic::Disable(){ m_pCore->Disable(); }
-void CAugustMusic::Enable(){ m_pCore->Enable(); }
-*/
-
+#ifndef _AGM_USE_INHERIT
 void CAugustMusic::Load( const char* szAudioFile){ RegistedCheck(); m_pCore->Load(szAudioFile); }
 void CAugustMusic::Unload(){ RegistedCheck(); m_pCore->Unload(); }
 
@@ -69,3 +66,4 @@ void CAugustMusic::Pause(){ RegistedCheck(); m_pCore->Pause(); }
 
 void CAugustMusic::SetVolume( int nVolume ){ RegistedCheck(); m_pCore->SetVolume(nVolume); }
 void CAugustMusic::SetBalance( int nBalance ){ RegistedCheck(); m_pCore->SetBalance(nBalance); }
+#endif

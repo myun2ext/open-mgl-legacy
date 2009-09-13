@@ -94,7 +94,7 @@ protected:
 	void RegistCheck(){
 		if ( IsRegisted() == false )
 			//AugustThrow( 9999, "%s  親のコントロールが存在しません。RegistControl()にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
-			AugustThrow( AUGUST_MSGNO_NO_PARENT, "%s には親コントロールの登録が必要です。\r\n[親コントロール].RegistControl() にて親コントロールへの登録を行ってください。", m_strClassName.c_str() );
+			AugustThrow( AUGUST_MSGNO_NO_PARENT, "%s に対し操作を行うには親コントロールとの関連付けが必要です。\r\n[親コントロール].RegistControl() にて親コントロールへの関連付けを行ってください。", m_strClassName.c_str() );
 	}
 	void RegistedCheck(){ RegistCheck(); }
 
