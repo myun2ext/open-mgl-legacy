@@ -52,6 +52,18 @@ typedef struct
 	char szErrMsg[ERRMSG_BUF];
 } MyuCommonException2;
 
+
+//	MglException2
+typedef struct
+{
+	int nErrCode;
+	char szErrMsg[2048];
+	const char* szpFile;
+	int nLine;
+}
+MglException2;
+
+
 DLL_EXP void MyuThrow2( int in_nApiResultCode, int in_nInternalCode, const char* in_szErrMsg, ... );
 DLL_EXP void MyuAssert2( long in_nApiResultCode, long nOK, int in_nInternalCode, const char* in_szErrMsg, ... );
 DLL_EXP void* MyuAssertNull( void* p, const char* in_szErrMsg, ... );
@@ -80,5 +92,6 @@ typedef struct
 
 DLL_EXP void MyuThrow( int nErrCode, const char* szErrMsg, ... );
 DLL_EXP void MyuAssert( long nResult, long nOK, const char* szErrMsg, ... );
+DLL_EXP void MglAssert2( const char* szFile, int nLine, long nResult, long nOK, const char* szErrMsg, ... );
 
 #endif //_MYUCOMMONEXCEPTION_H

@@ -159,7 +159,8 @@ void MyuAssert( long nResult, long nOK, const char* szErrMsg, ... )
 		tExcep.nErrCode = nResult;
 		va_list vl;
 		va_start( vl, szErrMsg );
-		vsprintf( tExcep.szErrMsg, szErrMsg, vl );
+		//vsprintf( tExcep.szErrMsg, szErrMsg, vl );
+		vsnprintf( tExcep.szErrMsg, sizeof(tExcep.szErrMsg), szErrMsg, vl );
 		va_end( vl );
 
 		char szDebugLogStr[1024];
@@ -171,3 +172,30 @@ void MyuAssert( long nResult, long nOK, const char* szErrMsg, ... )
 		throw tExcep;
 	}
 }
+
+
+void MglAssert2( const char* szFile, int nLine, long nResult, long nOK, const char* szErrMsg, ... )
+{
+	if ( nResult != nOK )
+	{
+		MglException2 tExcep;
+
+		tExcep.nErrCode = nResult;
+		tExcep.szpFile = szFile;
+		tExcep.nLine = nLine;
+
+		va_list vl;
+		va_start( vl, szErrMsg );
+		//vsprintf( tExcep.szErrMsg, szErrMsg, vl );
+		vsnprintf( tExcep.szErrMsg, sizeof(tExcep.szErrMsg), szErrMsg, vl );
+		va_end( vl );
+
+		char szDebugLogStr[1024];
+		sprintf( szDebugLogStr, "%s", tExcep.szErrMsg );
+		_MGL_DEBUGLOG("");
+		_MGL_DEBUGLOG("<<ThrowException:MglException2>>  %s", szDebugLogStr );
+
+		throw tExcep;
+	}
+}
+

@@ -77,6 +77,7 @@ using namespace std;
 #include <stdio.h>
 #include <windows.h>*/
 //#include "MyuDebugLog.h"	//	2008/06/30  mgl_common.h ‚ÉˆÚ“®
+#include "MglException.h"
 #include "MyuCommonException.h"
 #include "MglExceptionThrowerBase.h"
 #include "MglExceptionCode.h"

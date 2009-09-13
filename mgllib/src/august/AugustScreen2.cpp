@@ -204,6 +204,22 @@ bool CAugustScreen2::ThreadFuncMain()
 				except.nCode, except.szMsg );
 			::MessageBox( m_hWnd, work, NULL, MB_ICONERROR );
 		}
+		//	ó·äOèàóù
+		catch( MglException2& e )
+		{
+			char work[2048+600];
+			//snprintf( work,sizeof(work), "ErrNo : 0x%08X\r\n%s", except.nErrCode, except.szErrMsg );
+			snprintf( work,sizeof(work),
+				"ErrNo : 0x%08X"
+				"\r\n\r\n"
+				"%s"
+				"\r\n\r\n"
+				"File(Line):\r\n"
+				"%s(%d)"
+				,
+				e.nErrCode, e.szErrMsg, e.szpFile, e.nLine );
+			::MessageBox( m_hWnd, work, NULL, MB_ICONERROR );
+		}
 #ifndef _DEBUG
 		//	VC++ÇÃó·äOÇ©
 		catch(_EXCEPTION_POINTERS *ep)
