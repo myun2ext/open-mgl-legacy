@@ -37,6 +37,7 @@ private:
 	IBasicAudio* m_pBasicAudio;
 	IMediaSeeking *m_pSeeking;
 	BOOL m_bRunReady;
+	BOOL m_bPausing;
 
 	//	存在チェック
 	void InitCheck() {

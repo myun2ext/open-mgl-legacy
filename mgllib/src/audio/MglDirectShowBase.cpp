@@ -29,6 +29,8 @@ CMglDirectShowBase::CMglDirectShowBase()
 	m_pAudioRendererFilter = NULL;
 	m_pBasicAudio = NULL;
 	m_bRunReady = FALSE;
+	//m_bPausing = TRUE;	TRUEにすると初期でPause()押しても再生される。・・・まぁ普通は再生されてないのにPauseで再生されるのはちょっと違うだろう・・・
+	m_bPausing = FALSE;
 }
 
 //	デストラクタ
@@ -143,9 +145,12 @@ inline void CMglDirectShowBase::Play()
 	InitCheck();
 	//ENBL_CHK();
 
-	/*	2009/09/13  まぁ、再生を押したらもう一回最初っから、が普通かねぇ？	*/
-	Stop();
-	
+	if ( m_bPausing == FALSE )
+	{
+		/*	2009/09/13  まぁ、再生を押したらもう一回最初っから、が普通かねぇ？	*/
+		Stop();
+	}
+
 	/*MyuAssert( m_pControl->Run(), S_OK,
 		"CMglDirectShowBase::Play()  m_pControl->Run()に失敗。" );*/
 	if ( m_pControl->Run() != S_OK ){
@@ -163,6 +168,8 @@ inline void CMglDirectShowBase::Play()
 			"CMglDirectShowBase::Play()  m_pControl->GetState()に失敗。" );*/
 		//MyuThrow( 0, "CMglDirectShowBase::Play()  m_pControl->Run()に失敗。" );
 	}
+
+	m_bPausing = FALSE;
 }
 
 //	停止
@@ -182,10 +189,18 @@ inline void CMglDirectShowBase::Pause()
 {
 	InitCheck();
 	//ENBL_CHK();
-	
-	//MyuAssert( m_pControl->Pause(), S_OK,	//	再生してないとコケるっぽい。いっそそんならStopでいいじゃん（何
-	MyuAssert( m_pControl->Stop(), S_OK,
-		"CMglDirectShowBase::Pause()  m_pControl->Pause()に失敗。" );
+
+	if ( m_bPausing == TRUE )
+		Play();
+
+	else
+	{
+		//MyuAssert( m_pControl->Pause(), S_OK,	//	再生してないとコケるっぽい。いっそそんならStopでいいじゃん（何
+		MyuAssert( m_pControl->Stop(), S_OK,
+			"CMglDirectShowBase::Pause()  m_pControl->Pause()に失敗。" );
+
+		m_bPausing = TRUE;
+	}
 }
 
 //	ボリュームの設定
