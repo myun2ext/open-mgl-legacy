@@ -31,6 +31,7 @@ CMglDirectShowBase::CMglDirectShowBase()
 	m_bRunReady = FALSE;
 	//m_bPausing = TRUE;	TRUEにすると初期でPause()押しても再生される。・・・まぁ普通は再生されてないのにPauseで再生されるのはちょっと違うだろう・・・
 	m_bPausing = FALSE;
+	m_hWnd = NULL;
 }
 
 //	デストラクタ
@@ -57,6 +58,7 @@ void CMglDirectShowBase::Init( HWND hWnd )
 
 	if ( hWnd == NULL )
 		hWnd = GetDefaultHwnd();
+	m_hWnd = hWnd;
 
 	//	フィルタグラフのインスタンスを生成
 	MyuAssert( CoCreateInstance(CLSID_FilterGraph, NULL, 
@@ -146,6 +148,10 @@ void CMglDirectShowBase::Unload()
 	InitCheck();
 	//ENBL_CHK();
 
+	Release();
+	Init(m_hWnd);
+
+#if 1 == 0
 	//IEnumFilters *pEnumFilters = NULL;
 	auto_release<IEnumFilters*> pEnumFilters = NULL;
 	MGL_H_ASSERT( m_pGraph->EnumFilters(&pEnumFilters) );
@@ -160,6 +166,7 @@ void CMglDirectShowBase::Unload()
 //		"CMglDirectShowBase::Unload()  m_pGraph->RemoveFilter()に失敗。" );
 
     pFilter->Release();
+#endif
 }
 
 //	再生

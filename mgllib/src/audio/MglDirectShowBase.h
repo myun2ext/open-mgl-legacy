@@ -38,6 +38,7 @@ private:
 	IMediaSeeking *m_pSeeking;
 	BOOL m_bRunReady;
 	BOOL m_bPausing;
+	HWND m_hWnd;
 
 	//	存在チェック
 	void InitCheck() {
