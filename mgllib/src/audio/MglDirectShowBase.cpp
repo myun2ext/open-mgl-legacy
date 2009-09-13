@@ -171,10 +171,10 @@ inline void CMglDirectShowBase::Stop()
 	InitCheck();
 	//ENBL_CHK();
 
-	SeekToHead();
-	
 	MyuAssert( m_pControl->Stop(), S_OK,
 		"CMglDirectShowBase::Stop()  m_pControl->Stop()に失敗。" );
+
+	SeekToHead();
 }
 
 //	一時停止
@@ -183,7 +183,8 @@ inline void CMglDirectShowBase::Pause()
 	InitCheck();
 	//ENBL_CHK();
 	
-	MyuAssert( m_pControl->Pause(), S_OK,
+	//MyuAssert( m_pControl->Pause(), S_OK,	//	再生してないとコケるっぽい。いっそそんならStopでいいじゃん（何
+	MyuAssert( m_pControl->Stop(), S_OK,
 		"CMglDirectShowBase::Pause()  m_pControl->Pause()に失敗。" );
 }
 
