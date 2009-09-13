@@ -18,6 +18,12 @@
 
 //	DirectShow
 #include <DShow.h>
+#include <stdio.h>
+
+#define MGL_DSHOW_SEEK_SET	(SEEK_SET)		//	絶対位置で指定
+#define MGL_DSHOW_SEEK_ABS	(MGL_DSHOW_SEEK_SET) // Absolute
+#define MGL_DSHOW_SEEK_CUR	(SEEK_CUR)		//	カレント位置からの指定
+#define MGL_DSHOW_SEEK_END	(SEEK_END)		//	最終位置からの指定
 
 //	クラス宣言
 class DLL_EXP CMglDirectShowBase : public IMglBgmBase, public CMyuReleaseBase
@@ -29,11 +35,12 @@ private:
 	IMediaEvent *m_pEvent;
 	IBaseFilter* m_pAudioRendererFilter;
 	IBasicAudio* m_pBasicAudio;
+	IMediaSeeking *m_pSeeking;
 	BOOL m_bRunReady;
 
 	//	存在チェック
 	void InitCheck() {
-		if ( m_pGraph == NULL || m_pControl == NULL || m_pEvent == NULL )
+		if ( m_pGraph == NULL || m_pControl == NULL || m_pEvent == NULL || m_pSeeking == NULL )
 			Init();
 	}
 	void EnableAudioExControl();
@@ -53,6 +60,15 @@ public:
 
 	void SetVolume( int nVolume=MGL_VOLUME_MAX );	//	100分率
 	void SetBalance( int nBalance=MGL_PAN_CENTER );	//	-100～100
+
+	////////////////////////////////////////////////////////////////
+
+	//	Seek系
+	void SeekTo( long nSeekTime, DWORD dwFlg=SEEK_SET );
+	void Seek( long nSeekTime, DWORD dwFlg=SEEK_SET ){ SeekTo(nSeekTime, dwFlg); }
+	void SeekToHead(){ SeekTo( 0, SEEK_SET ); }
+
+	////////////////////////////////////////////////////////////////
 
 	//void EnableAudioExControl();
 

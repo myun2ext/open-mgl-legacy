@@ -25,6 +25,7 @@ CMglDirectShowBase::CMglDirectShowBase()
 	m_pGraph = NULL;
 	m_pControl = NULL;
 	m_pEvent = NULL;
+	m_pSeeking = NULL;
 	m_pAudioRendererFilter = NULL;
 	m_pBasicAudio = NULL;
 	m_bRunReady = FALSE;
@@ -42,6 +43,7 @@ void CMglDirectShowBase::Release()
 	SAFE_RELEASE(m_pGraph);
 	SAFE_RELEASE(m_pControl);
 	SAFE_RELEASE(m_pEvent);
+	SAFE_RELEASE(m_pSeeking);
 	SAFE_RELEASE(m_pAudioRendererFilter);
 	SAFE_RELEASE(m_pBasicAudio);
 }
@@ -68,6 +70,10 @@ void CMglDirectShowBase::Init( HWND hWnd )
 	MyuAssert( m_pGraph->QueryInterface(IID_IMediaEvent, (void **)&m_pEvent), S_OK,
 		"CMglDirectShowBase::Init()  QueryInterface(IMediaEvent)に失敗。" );
 
+	//	フィルタグラフからIMediaSeekingを取得する
+	MyuAssert( m_pGraph->QueryInterface(IID_IMediaSeeking, (void **)&m_pSeeking), S_OK,
+		"CMglDirectShowBase::Init()  QueryInterface(IMediaSeeking)に失敗。" );
+	
 	EnableAudioExControl();
 }
 
@@ -136,6 +142,9 @@ inline void CMglDirectShowBase::Play()
 {
 	InitCheck();
 	//ENBL_CHK();
+
+	/*	2009/09/13  まぁ、再生を押したらもう一回最初っから、が普通かねぇ？	*/
+	Stop();
 	
 	/*MyuAssert( m_pControl->Run(), S_OK,
 		"CMglDirectShowBase::Play()  m_pControl->Run()に失敗。" );*/
@@ -161,6 +170,8 @@ inline void CMglDirectShowBase::Stop()
 {
 	InitCheck();
 	//ENBL_CHK();
+
+	SeekToHead();
 	
 	MyuAssert( m_pControl->Stop(), S_OK,
 		"CMglDirectShowBase::Stop()  m_pControl->Stop()に失敗。" );
@@ -202,4 +213,28 @@ inline void CMglDirectShowBase::EnableAudioExControl()
 		// IBasicAudioインターフェースの所得
 		MyuAssert( m_pAudioRendererFilter->QueryInterface(IID_IBasicAudio, (void**)&m_pBasicAudio), S_OK,
 			"CMglDirectShowBase::SetVolume()  QueryInterface(IID_IBasicAudio)に失敗。" );
+}
+
+
+//	位置変更
+void CMglDirectShowBase::SeekTo( long nSeekTime, DWORD dwFlg )
+{
+	InitCheck();
+
+	LONGLONG llSeekTime = nSeekTime;
+	DWORD dwCurrentFlags = 0;
+
+	switch(dwFlg)
+	{
+	case SEEK_SET:	dwCurrentFlags = AM_SEEKING_AbsolutePositioning;	break;
+	case SEEK_CUR:	dwCurrentFlags = AM_SEEKING_RelativePositioning;	break;
+	default:
+		MyuThrow(41166, "CMglDirectShowBase::SeekTo()  dwFlg = %d は不明です。", dwFlg);
+	}
+
+	//先頭位置に設定する
+	MyuAssert( m_pSeeking->SetPositions(&llSeekTime,
+		dwCurrentFlags, NULL, AM_SEEKING_NoPositioning), S_OK,
+		"CMglDirectShowBase::SeekTo()  m_pSeeking->SetPositions()に失敗。" );
+
 }
