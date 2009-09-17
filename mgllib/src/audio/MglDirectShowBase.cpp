@@ -19,6 +19,21 @@
 #define ENBL_CHK()	if(m_flgEnable!=TRUE)return;
 	
 
+/*	log2(x)の計算を行う	*/
+double _MGL_log2(double x)
+{
+	const double y=1;
+	__asm {
+		; st(0)=x, st(1)=y と入れておく
+		; exp(y * log(x))を求める
+		fld y;
+		fld x;
+        fyl2x;
+		fstp x;
+    }
+	return x;
+}
+
 //	コンストラクタ
 CMglDirectShowBase::CMglDirectShowBase()
 {
@@ -140,6 +155,8 @@ void CMglDirectShowBase::Load( const char* szMediaFile )
 	default:
 		MyuThrow( hRet, "ファイル \"%s\" の読み込みに失敗。", szMediaFile );
 	}
+
+	SetVolume(100);
 }
 
 //	読み込んだのを破棄
@@ -237,14 +254,20 @@ inline void CMglDirectShowBase::Pause()
 inline void CMglDirectShowBase::SetVolume( int nVolume )
 {
 	EnableAudioExControl();
-	m_pBasicAudio->put_Volume(nVolume*100-10000);
+	//m_pBasicAudio->put_Volume(nVolume*100-10000);
+	//long nVol = ( nVolume == -10000 ? 0 : _MGL_log2(100.0f/nVolume) * -1000 );
+	long nPutVol = -10000;
+	if ( nVolume != 0 )
+		nPutVol = _MGL_log2(100.0/nVolume) * -1000;
+	m_pBasicAudio->put_Volume( nPutVol );
 }
 
 //	パン設定
 inline void CMglDirectShowBase::SetBalance( int nBalance )
 {
 	EnableAudioExControl();
-	m_pBasicAudio->put_Balance(nBalance*100);
+	//m_pBasicAudio->put_Balance(nBalance*100);
+	m_pBasicAudio->put_Balance( _MGL_log2(100.0f/nBalance) );
 }
 
 inline void CMglDirectShowBase::EnableAudioExControl()
