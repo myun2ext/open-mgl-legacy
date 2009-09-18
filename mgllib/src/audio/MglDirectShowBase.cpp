@@ -259,6 +259,8 @@ inline void CMglDirectShowBase::SetVolume( int nVolume )
 	long nPutVol = -10000;
 	if ( nVolume != 0 )
 		nPutVol = _MGL_log2(100.0/nVolume) * -1000;
+	if ( nPutVol < -10000 )
+		nPutVol = -10000;
 	m_pBasicAudio->put_Volume( nPutVol );
 }
 
@@ -267,7 +269,12 @@ inline void CMglDirectShowBase::SetBalance( int nBalance )
 {
 	EnableAudioExControl();
 	//m_pBasicAudio->put_Balance(nBalance*100);
-	m_pBasicAudio->put_Balance( _MGL_log2(100.0f/nBalance) );
+	long nPutPan = 0;
+	if ( nBalance != 0 )
+		nPutPan = _MGL_log2(100.0/ (100-( nBalance < 0 ? nBalance*-1 : nBalance)) ) * 1000;
+	if ( nBalance < 0 )
+		nPutPan *= -1;
+	m_pBasicAudio->put_Balance( nPutPan );
 }
 
 inline void CMglDirectShowBase::EnableAudioExControl()
