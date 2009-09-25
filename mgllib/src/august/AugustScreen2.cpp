@@ -13,9 +13,12 @@
 
 //#define _NO_CATCH_EXCEPTION		//	デバッグ作業中に、例外をキャッチさせたくない場合に有効にする
 
-
 using namespace agh;
 using namespace std;
+
+
+#define THREAD_TIMEOUT	(30*1000)
+
 
 //////////////////////////////////////////////////
 
@@ -349,6 +352,32 @@ bool CAugustScreen2::OnClose()
 	return true;
 }
 
+//	2009/09/23  スレッドの終了を待つぜ！
+void CAugustScreen2::OnClosedWindow()
+{
+	WaitEndThread();
+}
+
+//	2009/09/23  スレッド終了待機
+bool CAugustScreen2::WaitEndThread()
+{
+	if ( _THREAD_BASE::ThreadWaitEnd( THREAD_TIMEOUT ) == false )
+	{
+		MessageBox( NULL, "CMyuEzWindow::StartWindow()  スレッドからの応答がありません。強制的にスレッドを終了させます。\r\n"
+			"\r\n"
+			"プログラマさんへ：\r\n"
+			"　CMyuEzWindow::IsAcrive() にて、ウインドウの活性状態をチェックし、FALSEだった場合、\r\n"
+			"　スレッドを終了させるような処理を追加してください。（詳細はヘルプ参照）",
+			NULL, MB_ICONERROR );
+
+		//	もう一度チェックしとく
+		if ( IsThreadEnded() == false )
+			return ThreadForceEnd();
+	}
+
+	return true;
+}
+
 //	描画ー
 void CAugustScreen2::OnDraw()
 {
@@ -403,3 +432,10 @@ bool CAugustScreen2::DoFrame()
 	return true;
 }
 
+/*
+//	スレッド終了待ちするためのオーバーライド
+void CAugustScreen2::Start()
+{
+	_BASE::Start();
+}
+*/

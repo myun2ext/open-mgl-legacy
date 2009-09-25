@@ -70,6 +70,7 @@ protected:
 protected:
 	bool _AGST_DLL_EXP DoFpsWait();
 	bool _AGST_DLL_EXP ThreadFunc(int anyParam);	//	From mxp::CThreadBase overrided
+	bool _AGST_DLL_EXP WaitEndThread();
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	///// オーバーライド可能なイベント /////////////////////////////////////////////////
@@ -81,6 +82,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	virtual _AGST_DLL_EXP void OnDraw();
 	virtual _AGST_DLL_EXP bool DoFrame();
 	virtual _AGST_DLL_EXP bool OnClose();
+	virtual _AGST_DLL_EXP void OnClosedWindow();
 
 	//	このクラスから
 	virtual bool OnFrameDoUser(){return true;}
@@ -131,6 +133,7 @@ public:
 		m_releaseList.push_back(pInstance);
 	}
 	*/
+	//virtual void Start();	//	スレッド終了待ちするためのオーバーライド
 };
 
 class CAugustScreen2_X : public CAugustScreen2
