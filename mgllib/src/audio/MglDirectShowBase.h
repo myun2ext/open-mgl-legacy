@@ -68,8 +68,8 @@ public:
 
 	//	SeekŒn
 	void SeekTo( long nSeekTime, DWORD dwFlg=SEEK_SET );
-	void Seek( long nSeekTime, DWORD dwFlg=SEEK_SET ){ SeekTo(nSeekTime, dwFlg); }
-	void SeekToHead(){ SeekTo( 0, SEEK_SET ); }
+	//void Seek( long nSeekTime, DWORD dwFlg=SEEK_SET ){ SeekTo(nSeekTime, dwFlg); }	-> IMglBgmBase‚É
+	//void SeekToHead(){ SeekTo( 0, SEEK_SET ); }										-> IMglBgmBase‚É
 
 	////////////////////////////////////////////////////////////////
 

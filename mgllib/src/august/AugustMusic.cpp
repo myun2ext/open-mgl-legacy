@@ -47,6 +47,7 @@ void CAugustMusic::OnRegist()
 	//	2009/09/05  ウインドウを閉じる前にReleaseしてもらうようにする
 	CAugustScreen2_X* pScreen = (CAugustScreen2_X*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_SCREEN),
 		"CAugustMusic::OnRegist()  CAugustScreen2のGetValPtr()に失敗");
+
 #ifdef _AGM_USE_INHERIT
 	pScreen->AddToReleaseList( this );
 #else

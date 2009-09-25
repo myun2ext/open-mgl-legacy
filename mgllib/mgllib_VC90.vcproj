@@ -2340,6 +2340,10 @@
 				Name="Ver 2"
 				>
 				<File
+					RelativePath=".\src\august\AugustCommon2.cpp"
+					>
+				</File>
+				<File
 					RelativePath="src\august\AugustCommon2.h"
 					>
 				</File>
