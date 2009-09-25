@@ -11,7 +11,6 @@
 #include "MglBgmBase.h"
 #include "Vox.h"
 
-#define VOX_DLL_NAME		"Vox.dll"
 #define VOX_LOOP_MAX		(0x7fffffff)
 #define VOX_DEFAULT_VOLUME	(1.0f)
 
@@ -60,11 +59,13 @@ public:
 	void FadeOut( int nFadeTimeMs ) { Fade( 0, nFadeTimeMs ); }
 
 
-	void Stop(){ Pause(); }
+	void Stop();
 	void SetLastLoop(){ StopLoop(); }
 	void SetVolume( int nVolume=MGL_VOLUME_MAX ){ SetVolume(nVolume/100.0f); }
 	void SetBalance( int nBalance=MGL_PAN_CENTER ){}
 
+
+	void SeekTo( long nSeekTime, DWORD dwFlg=SEEK_SET );
 
 	void Enable() { m_useFlg = TRUE; }
 	void Disable() { m_useFlg = FALSE; }

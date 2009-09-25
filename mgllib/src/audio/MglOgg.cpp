@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "MglOgg.h"
 
+#define VOX_DLL_NAME		"Vox.dll"
+//#define VOX_DLL_NAME		"Vox_d.dll"
+
 typedef Vox* __stdcall CreateVox();
 #define USE_CHK()		if(m_useFlg!=TRUE)return;
 
@@ -38,8 +41,8 @@ void CMglOgg::Release()
 {
 	if ( m_pDriver != NULL )
 	{
-		UnLoad();
-		m_pDriver->Delete();
+		//UnLoad();
+		m_pDriver->Delete(); // delete m_pDriver を行ってはいけない!!
 		m_pDriver = NULL;
 	}
 	if ( m_hDll != NULL )
@@ -57,6 +60,8 @@ void CMglOgg::Load( const char* szOggFile )
 	InitCheck();
 
 	//	読み込み
+	if ( m_loadFlg )
+		UnLoad();
 	if ( m_pDriver->Load( (char*)szOggFile ) != true )
 		MyuThrow( 0, "CMglOgg::Load()  %s の読み込みに失敗しました。", szOggFile );
 
@@ -70,8 +75,10 @@ void CMglOgg::UnLoad()
 	USE_CHK();
 	InitCheck();
 
-	m_pDriver->Release();
-	m_loadFlg = FALSE;
+	if ( m_loadFlg ){
+		m_pDriver->Release();
+		m_loadFlg = FALSE;
+	}
 }
 
 //	再生
@@ -100,6 +107,17 @@ void CMglOgg::StopLoop()
 	//	ループ再生
 	if ( m_pDriver->SetLoop(0) != true )
 		MyuThrow( 0, "CMglOgg::SetLoop()  ループ回数の設定に失敗しました。" );
+}
+
+//	停止
+void CMglOgg::Stop()
+{
+	//	チェック
+	USE_CHK();
+	LoadCheck();
+
+	Pause();
+	SeekToHead();
 }
 
 //	ポーズ
@@ -140,4 +158,16 @@ void CMglOgg::Fade( float fTargetVolume, int nFadeTime )
 		MyuThrow( 0, "CMglOgg::Fade()  フェード処理に失敗しました。" );
 
 	m_fNowVolume = fTargetVolume;
+}
+
+
+void CMglOgg::SeekTo( long nSeekTime, DWORD dwFlg )
+{
+	//	チェック
+	USE_CHK();
+	LoadCheck();
+
+	//	再生
+	if ( m_pDriver->Seek( nSeekTime ) != true )
+		MyuThrow( 0, "CMglOgg::SeekTo()  シーク処理に失敗しました。" );
 }

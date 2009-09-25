@@ -40,6 +40,11 @@ public:
 	virtual void SetBalance( int nBalance=MGL_PAN_CENTER )=0;	//	-100～100
 	virtual void SetPan( int nBalance=MGL_PAN_CENTER ){ SetBalance(nBalance); }
 
+	//	2009/09/18  シーク関連追加
+	virtual void SeekTo( long nSeekTime, DWORD dwFlg=SEEK_SET )=0;
+	void Seek( long nSeekTime, DWORD dwFlg=SEEK_SET ){ SeekTo(nSeekTime, dwFlg); }
+	void SeekToHead(){ SeekTo( 0, SEEK_SET ); }
+
 	virtual void Enable() { m_bEnable = true; }
 	virtual void Disable() { m_bEnable = false; Stop(); }
 };

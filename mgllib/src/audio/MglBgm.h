@@ -49,6 +49,8 @@ public:
 
 	void SetVolume( int nVolume=MGL_VOLUME_MAX ){ LoadCheck(); m_pBgm->SetVolume(nVolume); }	//	100•ª—¦
 	void SetBalance( int nBalance=MGL_PAN_CENTER ){ LoadCheck(); m_pBgm->SetBalance(nBalance); }	//	-100`100
+
+	void SeekTo( long nSeekTime, DWORD dwFlg=SEEK_SET ){ LoadCheck(); m_pBgm->SeekTo(nSeekTime, dwFlg); }
 };
 
 #endif//__MglBgm_H__
