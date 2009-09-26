@@ -49,6 +49,7 @@ void CAugustSoundManager::OnRegist()
 
 	//	2009/09/26
 	SetValPtr(AUGUST_VALKEY_P_SOUNDMGR, this);
+	pScreen->SetValPtr(AUGUST_VALKEY_P_SOUNDMGR, this);
 }
 
 void CAugustSoundManager::Load( const char* szAudioFile, const char* szAlias ){ m_pCore->Load(szAudioFile, szAlias); }
@@ -69,6 +70,7 @@ CAugustSound::CAugustSound()
 	: CAugustControlBase("CAugustSound")
 {
 	m_pMgr = NULL;
+	m_bMultiplePlay = true;
 }
 
 //	“o˜^Žž‚ÉInit‚ðŒÄ‚Ño‚·
@@ -97,4 +99,26 @@ void CAugustSound::SelectUniqueName( /*const char* szName*/ )
 
 		SelectUniqueName( /*szAudioFile*/ );
 	}
+}
+
+void CAugustSound::Play()
+{
+	RegistedCheck();
+	if ( !m_bMultiplePlay )
+		Stop();
+	m_pMgr->Play( m_name.c_str() );
+}
+
+void CAugustSound::LoopPlay( unsigned long nLoopCount )
+{
+	RegistedCheck();
+	if ( !m_bMultiplePlay )
+		Stop();
+	m_pMgr->LoopPlay( m_name.c_str(), nLoopCount );
+}
+
+void CAugustSound::Stop()
+{
+	RegistedCheck();
+	m_pMgr->Stop( m_name.c_str() );
 }

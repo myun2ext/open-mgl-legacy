@@ -71,6 +71,7 @@ class _AGST_DLL_EXP CAugustSound : public CAugustControlBase
 protected:
 	CAugustSoundManager* m_pMgr;
 	std::string m_name;
+	bool m_bMultiplePlay;
 
 private:
 	void SelectUniqueName( /*const char* szName*/ );
@@ -88,16 +89,18 @@ public:
 	///////////////////////////////////////////////////////////////
 
 	void Load( const char* szAudioFile );
-	void Play(){ RegistedCheck(); m_pMgr->Play( m_name.c_str() ); }
-	void LoopPlay( unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE ){
-		RegistedCheck(); m_pMgr->LoopPlay( m_name.c_str(), nLoopCount ); }
-	void Stop(){ RegistedCheck(); m_pMgr->Stop( m_name.c_str() ); }
+	void Play();
+	void LoopPlay( unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
+	void Stop();
 
 	//void SetVolume( float fVolume=100.0f );	/*  200.0fÅ`0.0f  */
 	//SetBalance() ñ¢é¿ëï
 
 	//void Disable();	Ç¢ÇÈÅHÇ¢ÇÁÇ»Ç¢Ç∆évÇ§Ç©ÇÁÇ∆ÇËÇ†Ç¶Ç∏îpé~
 	//void Enable();	Ç¢ÇÈÅHÇ¢ÇÁÇ»Ç¢Ç∆évÇ§Ç©ÇÁÇ∆ÇËÇ†Ç¶Ç∏îpé~
+
+	void EnableMultiplePlay(){ m_bMultiplePlay = true; }
+	void DisableMultiplePlay(){ m_bMultiplePlay = false; }
 };
 
 #endif//__SFJP_MGL__AugustSound_H__
