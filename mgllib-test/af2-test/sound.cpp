@@ -4,7 +4,7 @@
 class CMyFrame : public CAugustWindowFrame2
 {
 private:
-	CAugustSound m_sound;
+	CAugustSoundManager m_sound;
 	CAugustKeyboardInput m_kb;
 
 public:
@@ -18,20 +18,34 @@ public:
 
 		//	画像の読み込み
 		m_sound.Load("hoge.wav");
+		m_sound.Load("hoge2.wav", "X");
 
-		//	マウスクリックハンドラの登録
+		//	Zキーハンドラの登録
 		m_kb.RegistHandler(
 			CAugustKeyboardInput::EVTTYPE_ON_DOWN,
 			'Z',
 			(CAugustKeyboardInput::CALLBACK_TYPE_MI)&CMyFrame::OnZ,
 			this);
 
+		//	Xキーハンドラの登録
+		m_kb.RegistHandler(
+			CAugustKeyboardInput::EVTTYPE_ON_DOWN,
+			'X',
+			(CAugustKeyboardInput::CALLBACK_TYPE_MI)&CMyFrame::OnX,
+			this);
+
 		return true;
 	}
 
-	//	クリック時に呼ばれる
+	//	Zキーにて再生
 	bool OnZ(){
 		m_sound.Play("hoge.wav");
+		return true;
+	}
+
+	//	Xキーにて再生
+	bool OnX(){
+		m_sound.Play("X");
 		return true;
 	}
 };
