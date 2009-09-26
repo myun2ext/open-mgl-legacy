@@ -47,6 +47,12 @@ class _AGST_DLL_EXP agh::CControlBase;
 #define AUGUST_VALKEY_PMOUSE			(AUGUST_VALKEY_MOUSE)	//	Alias
 #define AUGUST_VALKEY_P_MOUSE			(AUGUST_VALKEY_MOUSE)	//	Alias
 
+#define AUGUST_VALKEY_SOUNDMGR			(AUGUST_VALKEY_ + 0x0600)
+#define AUGUST_VALKEY_PSOUND			(AUGUST_VALKEY_SOUNDMGR)
+#define AUGUST_VALKEY_PSOUNDMGR			(AUGUST_VALKEY_SOUNDMGR)
+#define AUGUST_VALKEY_P_SOUND			(AUGUST_VALKEY_SOUNDMGR)
+#define AUGUST_VALKEY_P_SOUNDMGR		(AUGUST_VALKEY_SOUNDMGR)
+
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -105,6 +111,7 @@ public:
 	virtual ~CAugustControlBaseT(){}
 };
 
+typedef CAugustControlBaseT<agh::CControlBase> CAugustControlBase;
 
 
 

@@ -44,6 +44,8 @@ public:
 	void LoopPlay( const char* szName, unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
 	void Stop( const char* szName );
 
+	bool IsAlreadyUsedAlias( const char* szName );
+
 	void SetVolume( float fVolume=100.0f );	/*  200.0f～0.0f  */
 	//SetBalance() 未実装
 
@@ -63,19 +65,33 @@ typedef CAugustSoundManager CAugustSoundManager2;
 
 /******************************************************************************************/
 
-class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
+//class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
+class _AGST_DLL_EXP CAugustSound : public CAugustControlBase
 {
+protected:
+	CAugustSoundManager* m_pMgr;
+	std::string m_name;
+
+private:
+	void SelectUniqueName( /*const char* szName*/ );
+
+_AGH_EVENT_ACCESS_MODIFIER:
+	///// オーバーライド可能なイベント /////////////////////////////////////////////////
+
+	virtual void OnRegist();
+
 public:
 	//	コンストラクタ・デストラクタ
 	CAugustSound();
-	virtual ~CAugustSound();
+	virtual ~CAugustSound(){}
 
 	///////////////////////////////////////////////////////////////
 
 	void Load( const char* szAudioFile );
-	void Play();
-	void LoopPlay( unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
-	void Stop();
+	void Play(){ RegistedCheck(); m_pMgr->Play( m_name.c_str() ); }
+	void LoopPlay( unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE ){
+		RegistedCheck(); m_pMgr->LoopPlay( m_name.c_str(), nLoopCount ); }
+	void Stop(){ RegistedCheck(); m_pMgr->Stop( m_name.c_str() ); }
 
 	//void SetVolume( float fVolume=100.0f );	/*  200.0f～0.0f  */
 	//SetBalance() 未実装

@@ -48,14 +48,6 @@ private:
 		if ( m_pLoader == NULL || m_pPerformance == NULL )
 			Init();
 	}
-	BOOL IsExist( const char* szSegmentName )
-	{
-		SEG_ITR itr = m_segments.find( szSegmentName );
-		if ( itr == m_segments.end() )
-			return FALSE;
-		else
-			return TRUE;
-	}
 	void ExistChk( const char* szSegmentName )
 	{
 		if ( IsExist(szSegmentName) == FALSE )
@@ -94,6 +86,16 @@ public:
 		m_flgEnable = FALSE;
 	}
 	void Enable(){ m_flgEnable = TRUE; }
+
+	//	2009/09/26  外部に公開（privateから移動）
+	BOOL IsExist( const char* szSegmentName )
+	{
+		SEG_ITR itr = m_segments.find( szSegmentName );
+		if ( itr == m_segments.end() )
+			return FALSE;
+		else
+			return TRUE;
+	}
 
 	//	未実装
 	//void PauseSegment( const char* szSegmentName ){}-

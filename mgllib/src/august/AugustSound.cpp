@@ -12,6 +12,8 @@
 #include "MglCoManager.h"
 #include "AugustScreen2.h"
 
+#include <time.h>
+
 using namespace agh;
 using namespace std;
 
@@ -44,6 +46,9 @@ void CAugustSoundManager::OnRegist()
 	CAugustScreen2_X* pScreen = (CAugustScreen2_X*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_SCREEN),
 		"CAugustSoundManager::OnRegist()  CAugustScreen2‚ÌGetValPtr()‚ÉŽ¸”s");
 	pScreen->AddToReleaseList( m_pCore );
+
+	//	2009/09/26
+	SetValPtr(AUGUST_VALKEY_P_SOUNDMGR, this);
 }
 
 void CAugustSoundManager::Load( const char* szAudioFile, const char* szAlias ){ m_pCore->Load(szAudioFile, szAlias); }
@@ -53,3 +58,43 @@ void CAugustSoundManager::Stop( const char* szName ){ m_pCore->Stop(szName); }
 void CAugustSoundManager::SetVolume( float fVolume ){ m_pCore->SetVolume((fVolume-100)*10); }
 void CAugustSoundManager::Disable(){ m_pCore->Disable(); }
 void CAugustSoundManager::Enable(){ m_pCore->Enable(); }
+bool CAugustSoundManager::IsAlreadyUsedAlias( const char* szName ){ return WINBOOL_TO_CPPBOOL( m_pCore->IsExist(szName) ); }
+
+
+
+/**************************************************************************************************/
+
+//	ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+CAugustSound::CAugustSound()
+	: CAugustControlBase("CAugustSound")
+{
+	m_pMgr = NULL;
+}
+
+//	“o˜^Žž‚ÉInit‚ðŒÄ‚Ño‚·
+void CAugustSound::OnRegist()
+{
+	m_pMgr = (CAugustSoundManager*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_P_SOUNDMGR),
+		"CAugustSound::OnRegist()  AUGUST_VALKEY_P_SOUNDMGR ‚ÌGetValPtr()‚ÉŽ¸”s");
+}
+
+void CAugustSound::Load( const char* szAudioFile )
+{
+	RegistedCheck();
+
+	m_name = szAudioFile;
+	mtsrand();
+	SelectUniqueName( /*szAudioFile*/ );
+
+	m_pMgr->Load(szAudioFile);
+}
+
+void CAugustSound::SelectUniqueName( /*const char* szName*/ )
+{
+	if ( m_pMgr->IsAlreadyUsedAlias( m_name.c_str() ) )
+	{
+		m_name += mtrand();
+
+		SelectUniqueName( /*szAudioFile*/ );
+	}
+}
