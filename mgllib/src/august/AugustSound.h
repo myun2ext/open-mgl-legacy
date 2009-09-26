@@ -60,4 +60,28 @@ public:
 //typedef CAugustSound CAugustSoundManager, CAugustSoundManager2;
 typedef CAugustSoundManager CAugustSoundManager2;
 
+
+/******************************************************************************************/
+
+class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
+{
+public:
+	//	コンストラクタ・デストラクタ
+	CAugustSound();
+	virtual ~CAugustSound();
+
+	///////////////////////////////////////////////////////////////
+
+	void Load( const char* szAudioFile );
+	void Play();
+	void LoopPlay( unsigned long nLoopCount=AUGUST_SOUND_LOOP_PLAY_INFINITE );
+	void Stop();
+
+	//void SetVolume( float fVolume=100.0f );	/*  200.0f～0.0f  */
+	//SetBalance() 未実装
+
+	//void Disable();	いる？いらないと思うからとりあえず廃止
+	//void Enable();	いる？いらないと思うからとりあえず廃止
+};
+
 #endif//__SFJP_MGL__AugustSound_H__
