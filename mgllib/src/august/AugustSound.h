@@ -21,7 +21,7 @@ class _AGST_DLL_EXP agh::CControlBase;
 #define AUGUST_SOUND_LOOP_PLAY_UNLIMITED	(AUGUST_SOUND_LOOP_PLAY_INFINITE)
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-class _AGST_DLL_EXP CAugustSound : public agh::CControlBase
+class _AGST_DLL_EXP CAugustSoundManager : public agh::CControlBase
 {
 protected:
 	_MGL_AUGUST_SOUND_CORE_IMPL *m_pCore;
@@ -34,8 +34,8 @@ _AGH_EVENT_ACCESS_MODIFIER:
 
 public:
 	//	コンストラクタ・デストラクタ
-	CAugustSound();
-	virtual ~CAugustSound();
+	CAugustSoundManager();
+	virtual ~CAugustSoundManager();
 
 	///////////////////////////////////////////////////////////////
 
@@ -56,8 +56,8 @@ public:
 	};
 };
 
-typedef CAugustSound CAugustSound2;
-typedef CAugustSound CAugustSoundManager, CAugustSoundManager2;
-
+//typedef CAugustSound CAugustSound2;
+//typedef CAugustSound CAugustSoundManager, CAugustSoundManager2;
+typedef CAugustSoundManager CAugustSoundManager2;
 
 #endif//__SFJP_MGL__AugustSound_H__
