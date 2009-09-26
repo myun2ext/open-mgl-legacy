@@ -34,5 +34,7 @@ public:
 };
 
 typedef CAugustMouseInput CAugustMouseInput2;
+typedef CAugustMouseInput CAugustMouse;
+typedef CAugustMouseInput CAugustMouse2;
 
 #endif//__AugustMouseInput_H__

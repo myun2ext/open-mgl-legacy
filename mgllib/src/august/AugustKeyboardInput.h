@@ -29,5 +29,6 @@ public:
 };
 
 typedef CAugustKeyboardInput CAugustKeyboardInput2;
+typedef CAugustKeyboardInput CAugustKeyboard, CAugustKeyboard2;
 
 #endif//__AugustKeyboardInput_H__
