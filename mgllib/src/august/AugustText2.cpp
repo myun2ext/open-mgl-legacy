@@ -23,7 +23,17 @@ CAugustText2::CAugustText2()
 //	デストラクタ
 CAugustText2::~CAugustText2()
 {
-	delete m_pText;
+	SAFE_DELETE( m_pText );
+}
+
+//	コピーコンストラクタ
+CAugustText2::CAugustText2(CAugustText2 &from)
+{
+	*this = from;
+
+	m_pText = new CMglText();	//	コピーして来たもの
+
+	m_bChanged = true;
 }
 
 ////////////////////////////////////
