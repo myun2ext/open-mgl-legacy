@@ -53,6 +53,16 @@ void CMglTexture::CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth
 	//	二回目以降の呼び出しを考慮し一端Release
 	Release();
 
+	//	2009/09/27  ファイルの存在チェックをここでしよう
+	//	（ファイルが存在しない場合、D3DXERR_INVALIDDATA を返すっぽいが、
+	//	　ファイルが壊れてる場合とか、その他の場合でも返す可能性があるしね。）
+	if ( exist_file( szFileName ) != true )
+	{
+		MyuThrow( MGLMSGNO_IMAGE_FILE_NOT_FOUND, "%s の読み込みに失敗。ファイルが存在しません。", szFileName );
+	}
+
+	/////////////////////////////////////////////////////////////////
+
 	//	bRenderTargetの反映
 	DWORD usage;
 	D3DPOOL pool;
