@@ -20,6 +20,7 @@ template class DLL_EXP agh::CImageBaseT< CAugustVisualControlBase >;
 class DLL_EXP CMglAghImage : public agh::CImageBaseT< CAugustVisualControlBase >
 {
 	friend class CMglguiScreen;
+	typedef agh::CImageBaseT< CAugustVisualControlBase > _BASE;
 private:
 	CMglGraphicManager *m_pGrp;
 	CMglImageCacher *m_pCacher;

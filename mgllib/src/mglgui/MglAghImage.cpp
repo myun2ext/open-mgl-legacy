@@ -24,7 +24,7 @@ CMglAghImage::~CMglAghImage()
 
 void CMglAghImage::OnRegist(CAugustGlobalCommon *pGlobal)
 {
-	CImageBaseT< CAugustVisualControlBase >::OnRegist(pGlobal);
+	_BASE::OnRegist(pGlobal);
 
 	const char* szFilePath = m_strFilePath.c_str();
 	const char* szAlias = m_strLayerName.c_str();

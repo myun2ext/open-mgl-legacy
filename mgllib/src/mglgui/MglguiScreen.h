@@ -38,6 +38,8 @@ typedef list<MGL_KB_EVT_HANDLER> t_MGL_KB_EVT_HANDLERS;
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CMglguiScreen : public agh::CScreenBase, public CMyuThreadBase, protected CMglEzGameFrame
 {
+private:
+	typedef agh::CScreenBase _BASE;
 protected:
 	//CMglGraphicManager m_grp; <- 間違いでは・・・？
 	CMglGraphicManager &m_grp;	//	Alias
