@@ -43,6 +43,8 @@ typedef list<AUGUST_KB_EVT_HANDLER> t_AUGUST_KB_EVT_HANDLERS;
 //	クラス宣言  /////////////////////////////////////////////////////////
 class DLL_EXP CAugustScreen : public agh::CScreenBase
 {
+private:
+	typedef agh::CScreenBase _BASE;
 protected:
 	CAugustGlobalCommon *g_;
 	//CMglGraphicManager m_grp; <- 間違いでは・・・？

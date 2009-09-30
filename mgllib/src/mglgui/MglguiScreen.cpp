@@ -57,10 +57,15 @@ void CMglguiScreen::ScreenUpdate()
 void CMglguiScreen::OnDraw()
 {
 	//for(int i=0; i<m_ctrlPtrAry.size(); i++)
-	for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
+	/*for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))		2009/10/01  ちゃんとイテレータ使いましょう
 	{
 		//m_ctrlPtrAry[i]->Draw();
 		GetVCtrlPtr(i)->Draw();
+	}*/
+
+	for(vctrl_iterator it = vcbegin(); it != vcend(); it++)
+	{
+		it->Draw();
 	}
 }
 
@@ -170,5 +175,6 @@ void CMglguiScreen::RegistControl(CMglAghText* pText)
 
 void CMglguiScreen::_RegistControl(agh::CControlBase* pCtrl)
 {
-	m_ctrlPtrAry.push_back(pCtrl);
+	//m_ctrlPtrAry.push_back(pCtrl);	2009/10/01  ????
+	_BASE::RegistControl(pCtrl);
 }

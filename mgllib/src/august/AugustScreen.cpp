@@ -33,11 +33,14 @@ void CAugustScreen::OnDraw()
 	g_->pGrp->Clear(m_rgbBackground);	//	2008/11/29 CAugustScreen対応
 
 	//for(int i=0; i<m_ctrlPtrAry.size(); i++)
+	/*	2009/10/01  ちゃんとイテレータ使いましょう
 	for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
 	{
 		//m_ctrlPtrAry[i]->Draw();
 		GetVCtrlPtr(i)->Draw();
-	}
+	}*/
+	for(vctrl_iterator it = vcbegin(); it != vcend(); it++)
+		it->Draw();
 }
 
 
@@ -152,5 +155,6 @@ void CAugustScreen::RegistSubControl(CAugustCtrlBase* pControl)
 
 void CAugustScreen::_RegistControlInternal(agh::CControlBase* pCtrl)
 {
-	m_ctrlPtrAry.push_back(pCtrl);
+	//m_ctrlPtrAry.push_back(pCtrl);	2009/10/01  ????
+	_BASE::RegistControl(pCtrl);
 }

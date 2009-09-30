@@ -205,12 +205,19 @@ void CAugustGraphicsManager::OnDraw()
 		GetVCtrlPtr(i)->Draw();
 	}
 	*/
+
+	/*	2009/10/01  ちゃんとイテレータ使いましょう
 	for(int i=0; i<m_ctrlPtrAry.size(); i++)
 	{
 		agh::CControlBase *pCtrl = m_ctrlPtrAry[i];
 		if ( pCtrl->IsVisual() )
 			((agh::CVisualControlBase*)pCtrl)->OnDraw();
 			//((agh::CVisualControlBase*)pCtrl)->Draw();
+	}
+	*/
+	for(vctrl_iterator it = vcbegin(); it != vcend(); it++)
+	{
+		it->OnDraw();
 	}
 }
 
