@@ -55,7 +55,7 @@ public:
 
 	//bool SetImageFilePath(const char* szImageFilePath);
 	virtual bool Load(const char* szImageFilePath){ return LoadEx(szImageFilePath); }
-	bool LoadEx(const char* szImageFilePath, agh::COLOR transparentColor=0);
+	bool LoadEx(const char* szImageFilePath, agh::COLOR transparentColor=AGHCOLOR_PINK);
 	
 	//void SetTransparentColor(AGHCOLOR color);
 };
