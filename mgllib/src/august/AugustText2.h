@@ -59,7 +59,7 @@ public:
 	virtual ~CAugustText2(){}*/
 
 	//	2009/09/29  コピーコンストラクタ対応（STL向け）
-	CAugustText2(CAugustText2& from);
+	CAugustText2(const CAugustText2& from);
 };
 
 /*

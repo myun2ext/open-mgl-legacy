@@ -27,7 +27,7 @@ CAugustText2::~CAugustText2()
 }
 
 //	コピーコンストラクタ
-CAugustText2::CAugustText2(CAugustText2 &from)
+CAugustText2::CAugustText2(const CAugustText2 &from)
 {
 	*this = from;
 
