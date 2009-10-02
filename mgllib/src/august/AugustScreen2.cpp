@@ -418,6 +418,9 @@ bool CAugustScreen2::DoFrame()
 		*/
 	}
 
+	//	2009/10/03
+	Draw();
+	/*
 	this->OnDraw();
 
 	//	各コントロールのフレーム処理
@@ -428,6 +431,7 @@ bool CAugustScreen2::DoFrame()
 	{
 		it2->OnDraw();
 	}
+	*/
 
 	return true;
 }
