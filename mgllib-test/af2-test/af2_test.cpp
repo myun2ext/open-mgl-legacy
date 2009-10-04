@@ -31,6 +31,56 @@ public:
 
 class QQQQ{};
 
+
+
+
+
+
+class CFileItem : public CAugustText2
+{
+public:
+	CFileItem(){}
+	
+_AGH_EVENT_ACCESS_MODIFIER:
+	virtual void OnRegist()
+	{
+		SetText("dsfd");
+	}
+};
+
+class CFileItemArray : public agh::CControlVector<CFileItem>
+{
+private:
+	typedef agh::CControlVector<CFileItem> _BASE;
+protected:
+public:
+	void Add(){
+		CFileItem *pAddedItem = &(_BASE::Add( CFileItem() ));
+
+		pAddedItem->SetPos(8, m_ctrlAry.size()*17);
+	}
+
+_AGH_EVENT_ACCESS_MODIFIER:
+};
+
+class CFileItemArray1 : public agh::CVisualControlBase
+{
+protected:
+	std::vector<CFileItem> m_items;
+public:
+	void Add(){
+		m_items.push_back( CFileItem() );
+
+		CFileItem *pAddedItem = m_items.rbegin().operator ->();
+		RegistControl(pAddedItem);
+
+		pAddedItem->SetPos(7, m_items.size()*17);
+	}
+};
+
+
+
+
 //class CMyWindow : public CMwlAghWindow
 class CMyWindow : public CAugustScreen2//, public agh::_CKeyboardBase_CDummyBase
 {
@@ -51,7 +101,13 @@ private:
 	CAugustText2 m_text;
 	CAugustText2 m_text2;
 	CAugustText2 m_text2_bl[BLUR_COUNT];
+	agh::CControlVector<CAugustText2> m_textAry;
+	CFileItemArray1 m_textAry1;
+	CFileItemArray m_itemAry;
 
+	//std::vector::iterator it;
+
+public:
 	CAugustKeyboardInput m_input;
 	CAugustMouseInput m_mouse;
 
@@ -64,7 +120,7 @@ public:
 		return false;
 	}*/
 	
-	bool OnGraphicInitEnded()
+	virtual bool OnGraphicInitEnded()
 	{
 		//m_sinX.SetRange(-2147483648, 2147483647);
 		m_waveX.SetRange(0, 300);
@@ -74,10 +130,22 @@ public:
 
 		RegistSubControl(&m_fade1);
 		RegistSubControl(&m_img);
-		RegistSubControl(&m_text);
+		//RegistSubControl(&m_text);
 		RegistSubControl(&m_text2);
 		RegistSubControl(&m_input);
 		RegistSubControl(&m_mouse);
+		RegistSubControl(&m_textAry);
+		RegistSubControl(&m_textAry1);
+		RegistSubControl(&m_itemAry);
+
+		CAugustText2 m_text3 = m_text2;
+
+		//m_textAry.Add().SetText("ZZZZZZZZZZZZZZZZ");
+		//m_textAry.Add().SetText("YYYYYYYYYYYYYY");
+		m_textAry1.Add();
+		m_textAry1.Add();
+		//m_itemAry.Add();
+		//m_itemAry.Add();
 
 		m_img.SetScale(0.4f);
 		m_img.Load("shana_36-1.jpg");
@@ -92,16 +160,18 @@ public:
 
 		//m_input.RegistHandler(AGH_KB_EVT_HANDLER_EVTTYPE_ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
 		//m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (agh::KB_EVT_HANDLER_CALLBACK)&CMyWindow::OnZ);
-		m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (CAugustKeyboardInput::CALLBACK_TYPE)&CMyWindow::OnZ);
+		m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', (CAugustKeyboardInput::CALLBACK_TYPE_MI)&CMyWindow::OnZ, this);
 		//m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'Z', dynamic_cast<CAugustKeyboardInput::CALLBACK_TYPE*>(&CMyWindow::OnZ) );
 
-		CAugustKeyboardInput::CALLBACK_TYPE c = (CAugustKeyboardInput::CALLBACK_TYPE)&CMyWindow::OnZ;
+		/*CAugustKeyboardInput::CALLBACK_TYPE c = (CAugustKeyboardInput::CALLBACK_TYPE)&CMyWindow::OnZ;
 
 		(bool (QQQQ::*)())&CMyWindow::OnZ;
 		(bool (QQQQ::*)(long,long))&CMyWindow::OnClick;
-		CAugustMouseInput::CALLBACK_TYPE b = (bool (QQQQ::*)(long,long))&CMyWindow::OnClick;
+		CAugustMouseInput::CALLBACK_TYPE b = (bool (QQQQ::*)(long,long))&CMyWindow::OnClick;*/
 
-		m_mouse.RegistHandler(CAugustMouseInput::ON_PRESS, CAugustMouseInput::LBUTTON, (CAugustMouseInput::CALLBACK_TYPE)&CMyWindow::OnClick);
+		m_mouse.RegistHandler(CAugustMouseInput::ON_PRESS, CAugustMouseInput::LBUTTON, (CAugustMouseInput::CALLBACK_TYPE_MI)&CMyWindow::OnClick, this);
+
+		m_mouse.RegistHandler(CAugustMouseInput::ON_MOVE, CAugustMouseInput::CBUTTON, (CAugustMouseInput::CALLBACK_TYPE_MI)&CMyWindow::OnClick, this);
 
 		///////////////////////
 		CAugustImage2 *pImg ;
@@ -242,7 +312,7 @@ public:
 		return true;
 	}
 	bool OnClick(long x, long y){
-		MessageBox(NULL,NULL,NULL,NULL);
+		MessageBox(NULL,"OnClick",NULL,NULL);
 		return true;
 	}
 };
@@ -255,9 +325,40 @@ int _MWL_APIENTRY WinMain(
                     int       nCmdShow )
 //int main()
 {
+	class CNag{
+	private:
+		int nag;
+	public:
+		CNag(){ nag = 6566; }
+		virtual void Nag(){ 
+			MessageBox(NULL,"Nag",NULL,NULL);
+			/*printf("Nag=%d\n", nag );*/
+		}
+	};
+	class CNag3{
+	public:
+		void Nag2(){
+			MessageBox(NULL,"Nag3",NULL,NULL);
+		}
+	};
+	class CNag2 : public CNag, public CNag3 {
+	private:
+		int nag;
+	public:
+		CNag2(){ nag = 6566; }
+		void Nag2(){ 
+			MessageBox(NULL,"Nag2",NULL,NULL);
+			/*printf("Nag=%d\n", nag );*/
+		}
+	};
+
+	CNag nag;
+
 	g_hInstance = hInstance;
 //::FreeConsole();
 	CMyWindow myWindow;
+	myWindow.m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'X', (CAugustKeyboardInput::CALLBACK_TYPE_SI)&CNag::Nag, &nag);
+	myWindow.m_input.RegistHandler(CAugustKeyboardInput::ON_PRESS, 'C', (CAugustKeyboardInput::CALLBACK_TYPE_MI)&CNag2::Nag2, &nag);
 	//CAugustScreen2 myWindow;
 	myWindow.EnableDropFiles();
 	myWindow.Start();
@@ -269,7 +370,7 @@ int _MWL_APIENTRY WinMain(
 
 /////////////////////////////////////////////////////////
 
-
+/*
 //class CMyWindow : public CMwlAghWindow
 class CMyWindow2 : public CAugustScreen2//, public agh::_CKeyboardBase_CDummyBase
 {
@@ -299,3 +400,4 @@ public:
 		return true;
 	}
 };
+*/
