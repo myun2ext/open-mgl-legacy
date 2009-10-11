@@ -118,6 +118,49 @@ typedef CAugustControlBaseT<agh::CControlBase> CAugustControlBase;
 /***********************************************************************************/
 
 
+////////////////////////////////////////////////////
+//
+//	CAugustVisualControlBaseT
+//
+
+
+//	内部メソッド
+void _AGST_DLL_EXP _AugustPaintRect(AGHCOLOR color, agh::CRect rect);
+
+class CAugustGraphicsManager;
+class CMglGraphicManager;
+
+//	クラス宣言
+template <typename T> /* T=CAugustControlBaseT、ないしCAugustControlBaseTを継承したクラスである事が前提	*/
+class CAugustVisualControlBaseT : public T
+{
+protected:
+	CAugustGraphicsManager* m_pAGrpMgr;
+	CMglGraphicManager *m_pGrp;
+
+_AGH_EVENT_ACCESS_MODIFIER:
+	virtual void OnRegist(){
+		m_pAGrpMgr = (CAugustGraphicsManager*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_AGRPM),
+			"%s:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。", m_strClassName.c_str() );
+	}
+
+public:
+	//	コンストラクタ・デストラクタ
+	//CAugustControlBase(){}
+	CAugustVisualControlBaseT(const char* szClassName) : T(szClassName) { m_pAGrpMgr = NULL; }
+	virtual ~CAugustVisualControlBaseT(){}
+
+	//////////////////////////////////////////
+
+	virtual void PaintBackground(AGHCOLOR color){ _AugustPaintRect(color, m_rect); }
+	//virtual void PaintBackground(AGHCOLOR color);
+};
+
+
+
+/***********************************************************************************/
+
+
 
 //	Load()を実装するメソッドの基底クラス
 class CAugustLoadable

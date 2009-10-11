@@ -21,3 +21,8 @@ void AugustThrow( unsigned long nCode, const char* szMsgFormat, ... )
 
 	throw exp;
 }
+
+void _AGST_DLL_EXP _AugustPaintRect(AGHCOLOR color, agh::CRect rect)
+{
+
+}
