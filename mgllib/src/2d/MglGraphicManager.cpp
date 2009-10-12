@@ -152,6 +152,11 @@ void CMglGraphicManager::Init( HWND hWnd, int nDispX, int nDispY, BOOL bFullscre
 		_MGL_DEBUGLOG( "HALデバイス情報の取得に失敗。REFでリトライ" );
 
 		//_MGL_DEBUGLOG( "REFデバイスの取得" );
+		/*MyuAssert( m_pD3d->GetDeviceCaps( nAdapterNo, D3DDEVTYPE_SW, &caps ), D3D_OK,
+			"CMglGraphicManager::Init()  SWデバイス情報の取得に失敗。" );
+		_MGL_DEBUGLOG( "REFデバイスの取得に成功" );*/
+
+		//_MGL_DEBUGLOG( "REFデバイスの取得" );
 		MyuAssert( m_pD3d->GetDeviceCaps( nAdapterNo, D3DDEVTYPE_REF, &caps ), D3D_OK,
 			"CMglGraphicManager::Init()  HAL/REFデバイス情報の取得に失敗。" );
 		_MGL_DEBUGLOG( "REFデバイスの取得に成功" );
@@ -341,9 +346,18 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 	//	2007/07/15  REFサポート
 	if ( dwD3dDeviceMode == D3D_DEVICE_FLG_REF ){
 		_MGL_DEBUGLOG( "dwD3dDeviceModeはD3D_DEVICE_FLG_REFです。" );
+		_MGL_DEBUGLOG( "D3dCreateDevice( D3D_DEVICE_FLG_REF, pPresentParam, nAdapterNo=%d, hFocusWindow)", nAdapterNo );
 		if ( D3dCreateDevice( D3D_DEVICE_FLG_REF, pPresentParam, nAdapterNo, hFocusWindow ) != TRUE )
 			//MyuThrow( 0, "指定されたデバイスモード(dwD3dDeviceMode=0x%08X)はサポートされていません。\r\nDirect3Dデバイスの生成に失敗しました。", dwD3dDeviceMode );
-			MyuThrow( MGLMSGNO_GRPMGR(41), "Direct3Dデバイスの生成に失敗しました。\r\n"
+			
+			/*	2009/10/03
+			MyuThrow( MGLMSGNO_GRPMGR(0x29), "Direct3Dデバイスの生成に失敗しました。\r\n"
+				"dwD3dDeviceMode=0x%08X", dwD3dDeviceMode );
+			*/
+
+			MyuThrow( MGLMSGNO_GRPMGR(0x29), 
+				"Direct3Dデバイス(REF)の生成に失敗しました。画面の色の設定に16ビット・32ビット以外が指定されているか、\r\n"
+				"グラフィックハードウェア、またはドライバが Direct3D アクセレーションをサポートしていない可能性があります。\r\n"
 				"dwD3dDeviceMode=0x%08X", dwD3dDeviceMode );
 	}
 	else
@@ -368,7 +382,7 @@ void CMglGraphicManager::InitEx( D3DPRESENT_PARAMETERS* pPresentParam, DWORD dwD
 		}
 		if ( dwWork == 0 )
 			//MyuThrow( 0, "指定されたデバイスモード(dwD3dDeviceMode=0x%08X)はサポートされていません。\r\nDirect3Dデバイスの生成に失敗しました。", dwD3dDeviceMode );
-			MyuThrow( MGLMSGNO_GRPMGR(43), "Direct3Dデバイスの生成に失敗しました。\r\n"
+			MyuThrow( MGLMSGNO_GRPMGR(0x2B), "Direct3Dデバイスの生成に失敗しました。\r\n"
 				"dwD3dDeviceMode=0x%08X", dwD3dDeviceMode );
 	}
 
@@ -454,15 +468,22 @@ BOOL CMglGraphicManager::D3dCreateDevice( DWORD dwD3dDeviceFlg, D3DPRESENT_PARAM
 	}
 
 	//	D3Dデバイス生成
-	if( FAILED( this->m_pD3d->CreateDevice(
-		nAdapterNo, deviceType, hFocusWindow, vertexFlag | D3DCREATE_MULTITHREADED, pPresentParam, &this->m_pD3dDev ) ) )
+	HRESULT hr = this->m_pD3d->CreateDevice(
+		nAdapterNo, deviceType, hFocusWindow, vertexFlag | D3DCREATE_MULTITHREADED, pPresentParam, &this->m_pD3dDev );
+	if( hr != D3D_OK )
     {
-		_MGL_DEBUGLOG( "CMglGraphicManager::D3dCreateDevice()  失敗。" );
+		const char* hrStr = NULL;
+		switch(hr){
+			case D3DERR_INVALIDCALL:		hrStr = "D3DERR_INVALIDCALL"; break;
+			case D3DERR_NOTAVAILABLE:		hrStr = "D3DERR_NOTAVAILABLE"; break;
+			case D3DERR_OUTOFVIDEOMEMORY:	hrStr = "D3DERR_OUTOFVIDEOMEMORY"; break;
+		}
+		_MGL_DEBUGLOG( "CMglGraphicManager::D3dCreateDevice()  this->m_pD3d->CreateDevice() 失敗。(0x%08X = %s)", hr, hrStr );
 		return FALSE;
 	}
 	else
 	{
-		_MGL_DEBUGLOG( "CMglGraphicManager::D3dCreateDevice()  成功。" );
+		_MGL_DEBUGLOG( "CMglGraphicManager::D3dCreateDevice()  this->m_pD3d->CreateDevice() 成功。" );
 		return TRUE;
 	}
 }
