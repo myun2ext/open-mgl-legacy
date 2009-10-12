@@ -14,6 +14,7 @@ using namespace agh;
 
 //	コンストラクタ
 CAugustText2::CAugustText2()
+: _BASE("CAugustText2")
 {
 	m_pText = new CMglText();
 
@@ -28,8 +29,9 @@ CAugustText2::~CAugustText2()
 
 //	コピーコンストラクタ
 CAugustText2::CAugustText2(const CAugustText2 &from)
+: _BASE("CAugustText2")
 {
-	*this = from;
+	//*this = from;
 
 	m_pText = new CMglText();	//	コピーして来たもの
 
@@ -107,5 +109,6 @@ void CAugustText2::OnDraw()
 		ReCreateFont();
 
 	DWORD dwOption = 0;
+
 	m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }

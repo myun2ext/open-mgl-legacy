@@ -20,10 +20,12 @@ class _AGST_DLL_EXP agh::CVisualControlBase;
 template class _AGST_DLL_EXP agh::CTextBaseT<agh::CVisualControlBase>;
 
 //	ÉNÉâÉXêÈåæ  /////////////////////////////////////////////////////////
-class _AGST_DLL_EXP CAugustText2 : public agh::CTextBase
+//class _AGST_DLL_EXP CAugustText2 : public agh::CTextBase
+class _AGST_DLL_EXP CAugustText2 : public CAugustVisualControlBaseT<agh::CTextBase>
 {
 private:
-	typedef agh::CTextBase _BASE;
+	//typedef agh::CTextBase _BASE;
+	typedef CAugustVisualControlBaseT<agh::CTextBase> _BASE;
 
 protected:
 	CMglGraphicManager *m_pGrp;
