@@ -14,7 +14,9 @@ namespace MglManager
 {
 	CMe::CMe()
 	{
+#ifdef _DEBUG
 		EnableDebugLog();
+#endif
 	}
 
 	CMe me;
