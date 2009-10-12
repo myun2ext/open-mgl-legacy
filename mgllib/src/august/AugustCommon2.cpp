@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "AugustCommon2.h"
+#include "AugustGraphicsManager.h"
 #include "MglManager.h"
+#include "MglGraphicManager.h"
 
 //	例外を投げる
 void AugustThrow( unsigned long nCode, const char* szMsgFormat, ... )
@@ -22,7 +24,14 @@ void AugustThrow( unsigned long nCode, const char* szMsgFormat, ... )
 	throw exp;
 }
 
-void _AGST_DLL_EXP _AugustPaintRect(AGHCOLOR color, agh::CRect rect)
+//	CAugustGraphicsManager から CMglGraphicManager* の取得
+_AGST_DLL_EXP CMglGraphicManager* _AGrpMgr_GetGrp(CAugustGraphicsManager* pAGrpMgr)
 {
+	return pAGrpMgr->GetMglGrp();
+}
 
+//	ペイント
+_AGST_DLL_EXP void _AugustPaintRect(CMglGraphicManager* pMglGrp, const agh::CRect &rect, AGHCOLOR color)
+{
+	pMglGrp->Paint( (::RECT*)&rect, (D3DCOLOR)color);
 }

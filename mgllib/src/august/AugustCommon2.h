@@ -93,9 +93,9 @@ public:
 	//virtual bool IsRegisted()=0;
 
 protected:
-	std::string m_strClassName;
+	//std::string m_strClassName;
 
-	void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
+	//void SetClassName(const char* szClassName){ m_strClassName = szClassName; }
 
 	void RegistCheck(){
 		if ( IsRegisted() == false )
@@ -123,36 +123,40 @@ typedef CAugustControlBaseT<agh::CControlBase> CAugustControlBase;
 //	CAugustVisualControlBaseT
 //
 
-
-//	内部メソッド
-void _AGST_DLL_EXP _AugustPaintRect(AGHCOLOR color, agh::CRect rect);
-
 class CAugustGraphicsManager;
 class CMglGraphicManager;
 
+//	内部メソッド
+_AGST_DLL_EXP CMglGraphicManager* _AGrpMgr_GetGrp(CAugustGraphicsManager* pAGrpMgr);
+_AGST_DLL_EXP void _AugustPaintRect(CMglGraphicManager* pMglGrp, const agh::CRect &rect, AGHCOLOR color);
+
 //	クラス宣言
 template <typename T> /* T=CAugustControlBaseT、ないしCAugustControlBaseTを継承したクラスである事が前提	*/
-class CAugustVisualControlBaseT : public T
+class CAugustVisualControlBaseT : public CAugustControlBaseT<T>
 {
+private:
+	typedef CAugustControlBaseT<T> _BASE;
+
 protected:
 	CAugustGraphicsManager* m_pAGrpMgr;
-	CMglGraphicManager *m_pGrp;
+	CMglGraphicManager *m_pMglGrp;
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnRegist(){
 		m_pAGrpMgr = (CAugustGraphicsManager*)MyuAssertNull(_BASE::GetValPtr(AUGUST_VALKEY_AGRPM),
 			"%s:  AUGUST_VALKEY_IMAGE_LOADER の取得に失敗。", m_strClassName.c_str() );
+		m_pMglGrp = _AGrpMgr_GetGrp(m_pAGrpMgr);
 	}
 
 public:
 	//	コンストラクタ・デストラクタ
 	//CAugustControlBase(){}
-	CAugustVisualControlBaseT(const char* szClassName) : T(szClassName) { m_pAGrpMgr = NULL; }
+	CAugustVisualControlBaseT(const char* szClassName) : _BASE(szClassName) { m_pAGrpMgr = NULL; }
 	virtual ~CAugustVisualControlBaseT(){}
 
 	//////////////////////////////////////////
 
-	virtual void PaintBackground(AGHCOLOR color){ _AugustPaintRect(color, m_rect); }
+	virtual void PaintBackground(AGHCOLOR color){ _AugustPaintRect(m_pMglGrp, m_rect, color); }
 	//virtual void PaintBackground(AGHCOLOR color);
 };
 
