@@ -110,5 +110,13 @@ void CAugustText2::OnDraw()
 
 	DWORD dwOption = 0;
 
-	m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
+	//::MessageBox(0,0,0,0);
+	agh::CRect rect = GetAbsoluteRect();
+
+	char work[256];
+	sprintf(work,"%d, %d", rect.left, rect.top );
+	//::MessageBox(0,work,0,0);
+
+	m_pText->Draw(GetStr(), rect.left, rect.top, m_color, GetDrawInternalOption());
+	//m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }
