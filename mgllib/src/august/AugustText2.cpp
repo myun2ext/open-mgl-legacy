@@ -8,13 +8,15 @@
 #include "AugustText2.h"
 #include "MglText.h"
 
+const char* CAugustText2::CLASS_NAME = "sf/jp/open-mgl/CAugustText2";
+
 using namespace agh;
 
 #define _P m_pBaseControl
 
 //	コンストラクタ
 CAugustText2::CAugustText2()
-: _BASE("CAugustText2")
+: _BASE(CLASS_NAME)
 {
 	m_pText = new CMglText();
 
@@ -29,7 +31,7 @@ CAugustText2::~CAugustText2()
 
 //	コピーコンストラクタ
 CAugustText2::CAugustText2(const CAugustText2 &from)
-: _BASE("CAugustText2")
+: _BASE(CLASS_NAME)
 {
 	//*this = from;
 
