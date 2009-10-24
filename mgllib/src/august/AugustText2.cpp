@@ -112,13 +112,18 @@ void CAugustText2::OnDraw()
 
 	DWORD dwOption = 0;
 
-	//::MessageBox(0,0,0,0);
-	agh::CRect rect = GetAbsoluteRect();
+	agh::CRect absRect = GetAbsoluteRect();
 
 	char work[256];
-	sprintf(work,"%d, %d", rect.left, rect.top );
+	sprintf(work,"%d, %d", absRect.left, absRect.top );
 	//::MessageBox(0,work,0,0);
 
-	m_pText->Draw(GetStr(), rect.left, rect.top, m_color, GetDrawInternalOption());
+	//	2009/10/25  バックグラウンド描画対応
+	AGHCOLOR bgColor = agh::CRectControl::GetBackgroundColor();
+	if ( bgColor != 0 )
+		m_pGrp->Paint((::RECT*)&absRect, bgColor);
+
+	//	テキスト描画
+	m_pText->Draw(GetStr(), absRect.left, absRect.top, m_color, GetDrawInternalOption());
 	//m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }
