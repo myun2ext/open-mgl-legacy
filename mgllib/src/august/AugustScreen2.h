@@ -27,6 +27,10 @@ public:
 	void SetFps(int nFps);
 	float GetAveFps();
 	float GetFps();
+
+	void SetFPS(int nFps){ SetFps(nFps); }
+	float GetAveFPS(){ return GetAveFps(); }
+	float GetFPS(){ return GetFps(); }
 };
 
 /////////////////////////////////////////////////////////////////////////
@@ -80,9 +84,9 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	**/
 
 	virtual _AGST_DLL_EXP void OnDraw();
-	virtual _AGST_DLL_EXP bool DoFrame();
 	virtual _AGST_DLL_EXP bool OnClose();
 	virtual _AGST_DLL_EXP void OnClosedWindow();
+	virtual bool OnFrame(){return OnFrameDoUser();}
 
 	//	このクラスから
 	virtual bool OnFrameDoUser(){return true;}
@@ -134,6 +138,7 @@ public:
 	}
 	*/
 	//virtual void Start();	//	スレッド終了待ちするためのオーバーライド
+	virtual _AGST_DLL_EXP bool DoFrame();
 };
 
 class CAugustScreen2_X : public CAugustScreen2

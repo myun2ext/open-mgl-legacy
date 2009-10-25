@@ -405,7 +405,8 @@ bool CAugustScreen2::DoFrame()
 	for(citr it=cbegin(); it != cend(); it++)
 	//for(vector<CControlBase*>::iterator it=cbegin(); it != cend(); it++)
 	{
-		if ( it->OnFrame() == false )
+		//if ( it->OnFrame() == false )
+		if ( it->DoFrame() == false )
 			return false;
 		//(*it)->OnFrame();
 		//((CControlBase*)it)->OnFrame();
