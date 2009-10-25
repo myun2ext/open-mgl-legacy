@@ -48,6 +48,9 @@ bool CAugustImage2::LoadEx(const char* szImageFilePath, agh::COLOR transparentCo
 void CAugustImage2::OnDraw()
 {
 	RegistedCheck();
+	if ( m_pImg == NULL )	//	2009/10/25
+		return;
+
 	////////////////////////////////////////
 
 	//_Img()->Draw( GetRect().left, GetRect().top,
