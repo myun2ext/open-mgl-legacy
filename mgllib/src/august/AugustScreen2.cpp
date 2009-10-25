@@ -386,7 +386,19 @@ void CAugustScreen2::OnDraw()
 	m_grp.OnDraw();
 }
 
+
 //	フレーム処理
+bool CAugustScreen2::DoFrame()
+{
+	_BASE::DoFrame();
+
+	Draw();
+
+	return true;
+}
+
+//	2009/10/25  ↑に簡素にしました。
+#if 1 == 0
 bool CAugustScreen2::DoFrame()
 {
 	//m_grp.OnDraw();	//	とりあえずー	//	2009/05/17 コメントアウト
@@ -437,6 +449,7 @@ bool CAugustScreen2::DoFrame()
 
 	return true;
 }
+#endif
 
 /*
 //	スレッド終了待ちするためのオーバーライド
