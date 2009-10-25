@@ -386,7 +386,6 @@ void CAugustScreen2::OnDraw()
 	m_grp.OnDraw();
 }
 
-
 //	ƒtƒŒ[ƒ€ˆ—
 bool CAugustScreen2::DoFrame()
 {
@@ -396,6 +395,8 @@ bool CAugustScreen2::DoFrame()
 
 	return true;
 }
+
+
 
 //	2009/10/25  ª‚ÉŠÈ‘f‚É‚µ‚Ü‚µ‚½B
 #if 1 == 0

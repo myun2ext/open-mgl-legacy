@@ -41,18 +41,6 @@ protected:
 _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnDraw();
 
-	// ---- Public Event Handlers ----
-	virtual void SetOption(agh::AGHDWORD dwOption);
-	virtual void SetFontName(const char* szFontName);
-	virtual void SetFontPoint(int point);
-	//virtual void SetStr(const char* szStr){ m_textData = szStr; }
-	//virtual const char* GetStr(){ return m_textData.c_str(); }
-	virtual void SetColor(agh::COLOR color);
-	//virtual void SetOption(AGHDWORD dwOption);
-	//virtual AGHCOLOR GetColor(){ return m_color; }
-	//virtual AGHDWORD GetOption(){ return m_dwOption; }
-	//virtual void Align(int align){ m_nAlign = align; }
-
 public:
 	//	コンストラクタ
 	CAugustText2();
@@ -64,6 +52,19 @@ public:
 
 	//	2009/09/29  コピーコンストラクタ対応（STL向け）
 	CAugustText2(const CAugustText2& from);
+
+	/////////////////////////////////////////////////////////////////////
+
+	virtual void SetOption(agh::AGHDWORD dwOption);
+	virtual void SetFontName(const char* szFontName);
+	virtual void SetFontPoint(int point);
+	//virtual void SetStr(const char* szStr){ m_textData = szStr; }
+	//virtual const char* GetStr(){ return m_textData.c_str(); }
+	virtual void SetColor(agh::COLOR color);
+	//virtual void SetOption(AGHDWORD dwOption);
+	//virtual AGHCOLOR GetColor(){ return m_color; }
+	//virtual AGHDWORD GetOption(){ return m_dwOption; }
+	//virtual void Align(int align){ m_nAlign = align; }
 };
 
 /*

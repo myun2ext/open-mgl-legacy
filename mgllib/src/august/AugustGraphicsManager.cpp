@@ -199,23 +199,6 @@ void CAugustGraphicsManager::OnDraw()
 {
 	Clear();
 
-	/*
-	for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
-	{
-		GetVCtrlPtr(i)->Draw();
-	}
-	*/
-
-	/*	2009/10/01  ちゃんとイテレータ使いましょう
-	for(int i=0; i<m_ctrlPtrAry.size(); i++)
-	{
-		agh::CControlBase *pCtrl = m_ctrlPtrAry[i];
-		if ( pCtrl->IsVisual() )
-			((agh::CVisualControlBase*)pCtrl)->OnDraw();
-			//((agh::CVisualControlBase*)pCtrl)->Draw();
-	}
-	*/
-
 	/*	2009/10/25 @myun2  「CAugustGraphicsManagerに子供が居れば・・・？」と言う事だけど、
 							子供はDraw()でやる事にしたので、もし追加するような事をすれば二重になるぞ・・・？
 	//	CAugustGraphicsManagerに子供が居れば・・・？多分普通はない・・・
@@ -234,15 +217,9 @@ bool CAugustGraphicsManager::DoFrame()
 		return false;
 
 	//	各コントロールのフレーム処理
-	//for(int i=0; i<m_ctrlPtrAry.size(); i++)
-	//for(int i=0; i<m_ctrlPtrAry.size(); _vcpp(i))
 	for(citr it=cbegin(); it != cend(); it++)
-	//for(vector<CControlBase*>::iterator it=cbegin(); it != cend(); it++)
 	{
 		it->OnFrame();
-		//(*it)->OnFrame();
-		//((CControlBase*)it)->OnFrame();
-		//m_ctrlPtrAry[i]->OnFrame();
 		//GetVCtrlPtr(i)->Draw();
 	}
 
