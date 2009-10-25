@@ -381,7 +381,8 @@ bool CAugustScreen2::WaitEndThread()
 //	描画ー
 void CAugustScreen2::OnDraw()
 {
-	//	CAugustGraphicsManager は CControlBase を継承したクラスなんですねぇー。
+	//	CAugustGraphicsManager は CControlBase を継承したクラスなのでDraw()では呼ばれない・・・
+	//	ので CAugustScreen2::OnDraw() の中で呼んでやる事にしたらしい
 	m_grp.OnDraw();
 }
 

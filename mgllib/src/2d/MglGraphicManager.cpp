@@ -502,6 +502,7 @@ void CMglGraphicManager::Clear( D3DCOLOR color )
    //m_pD3dDev->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
 	Paint( NULL, color );
 
+	// ZBufferもクリアする
 	if ( m_bUse3d )
 		MyuAssert2( m_pD3dDev->Clear( 0, NULL, D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0 ), D3D_OK,
 			MGLMSGNO_GRPMGR(111), "CMglGraphicManager::Clear()  m_pD3dDev->Clear()に失敗" );
@@ -518,7 +519,7 @@ void CMglGraphicManager::Paint( RECT* rect, D3DCOLOR color )
 		rectCount = 1;
 
 	//	良く分かんないけど多分これキャストしちゃってもええんちゃう…？
-    MyuAssert2( m_pD3dDev->Clear( rectCount, (D3DRECT*)rect, D3DCLEAR_TARGET, color, 1.0f, 0 ), D3D_OK,
+	MyuAssert2( m_pD3dDev->Clear( rectCount, (D3DRECT*)rect, D3DCLEAR_TARGET, color, 1.0f, 0 ), D3D_OK,
 		MGLMSGNO_GRPMGR(110), "CMglGraphicManager::Clear()  m_pD3dDev->Clear()に失敗" );
 }
 

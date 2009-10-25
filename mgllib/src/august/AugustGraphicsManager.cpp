@@ -215,10 +215,15 @@ void CAugustGraphicsManager::OnDraw()
 			//((agh::CVisualControlBase*)pCtrl)->Draw();
 	}
 	*/
+
+	/*	2009/10/25 @myun2  「CAugustGraphicsManagerに子供が居れば・・・？」と言う事だけど、
+							子供はDraw()でやる事にしたので、もし追加するような事をすれば二重になるぞ・・・？
+	//	CAugustGraphicsManagerに子供が居れば・・・？多分普通はない・・・
 	for(vctrl_iterator it = vcbegin(); it != vcend(); it++)
 	{
 		it->OnDraw();
 	}
+	*/
 }
 
 //	フレーム処理
