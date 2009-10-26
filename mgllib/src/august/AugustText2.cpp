@@ -23,6 +23,15 @@ CAugustText2::CAugustText2()
 	m_bChanged = true;
 }
 
+//	コンストラクタ
+CAugustText2::CAugustText2(const char* szClassName)
+: _BASE(szClassName)
+{
+	m_pText = new CMglText();
+
+	m_bChanged = true;
+}
+
 //	デストラクタ
 CAugustText2::~CAugustText2()
 {
@@ -31,11 +40,11 @@ CAugustText2::~CAugustText2()
 
 //	コピーコンストラクタ
 CAugustText2::CAugustText2(const CAugustText2 &from)
-: _BASE(CLASS_NAME)
+: _BASE(from.m_strClassName.c_str())
 {
 	//*this = from;
 
-	m_pText = new CMglText();	//	コピーして来たもの
+	m_pText = new CMglText();	//	新たにnewし直さないとデストラクタで二重解放どかーん！
 
 	m_bChanged = true;
 }
@@ -112,18 +121,32 @@ void CAugustText2::OnDraw()
 
 	DWORD dwOption = 0;
 
+	//::MessageBox(0,0,0,0);
 	agh::CRect absRect = GetAbsoluteRect();
 
 	char work[256];
 	sprintf(work,"%d, %d", absRect.left, absRect.top );
 	//::MessageBox(0,work,0,0);
 
-	//	2009/10/25  バックグラウンド描画対応
 	AGHCOLOR bgColor = agh::CRectControl::GetBackgroundColor();
-	if ( bgColor != 0 )
-		m_pGrp->Paint((::RECT*)&absRect, bgColor);
 
-	//	テキスト描画
-	m_pText->Draw(GetStr(), absRect.left, absRect.top, m_color, GetDrawInternalOption());
+	CMglImage tx;
+	tx.Create(1,1,TRUE);
+	tx.Clear(bgColor);
+	tx.Draw( absRect.left, absRect.top, NULL, D3DCOLOR_WHITE, absRect.right - absRect.left, absRect.bottom - absRect.top );
+
+	if ( bgColor != 0 )
+		//m_pGrp->Paint((::RECT*)&absRect, bgColor);
+		m_pGrp->Paint((::RECT*)&(agh::CRect(GetRect())+5), bgColor);
+		//m_pGrp->Paint((::RECT*)&(agh::CRect(0,0,100,200)), bgColor);
+		//m_pGrp->Clear(bgColor);
+	else 
+		m_pGrp->Paint((::RECT*)&(agh::CRect(GetRect())+12), D3DCOLOR_ARGB(50,0,0,0));
+
+	static int sdfdsf = 0;
+	//if ( (sdfdsf % 2000) == 0 )
+		m_pText->Draw(GetStr(), absRect.left, absRect.top, m_color, GetDrawInternalOption());
+
+	sdfdsf++;
 	//m_pText->Draw(GetStr(), m_rect.left, m_rect.top, m_color, GetDrawInternalOption());
 }

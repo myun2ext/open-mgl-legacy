@@ -44,6 +44,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 public:
 	//	コンストラクタ
 	CAugustText2();
+	CAugustText2(const char* szClassName);
 	virtual ~CAugustText2();
 	/*CAugustText2(){
 		m_pText = NULL;

@@ -13,14 +13,12 @@
 #pragma warning( disable : 4660 ) 
 //class DLL_EXP agh::CImageBase;
 
-class CMglText;
+class CMglImage;
 
-//class _AGST_DLL_EXP agh::CTextBase;	<- 実態はtypedef
 class _AGST_DLL_EXP agh::CVisualControlBase;
-template class _AGST_DLL_EXP agh::CTextBaseT<agh::CVisualControlBase>;
 
 //	クラス宣言  /////////////////////////////////////////////////////////
-//class _AGST_DLL_EXP CAugust2dSquare2 : public agh::CTextBase
+
 class _AGST_DLL_EXP CAugust2dSquare2 : public CAugustVisualControlBaseT<agh::CVisualControlBase>
 {
 public:
@@ -40,17 +38,11 @@ public:
 	//	コンストラクタ
 	CAugust2dSquare2();
 	virtual ~CAugust2dSquare2();
-	/*CAugust2dSquare2(){
-		m_pText = NULL;
-	}
-	virtual ~CAugust2dSquare2(){}*/
 
 	//	2009/09/29  コピーコンストラクタ対応（STL向け）
 	CAugust2dSquare2(const CAugust2dSquare2& from);
 };
 
-/*
-typedef CAugust2dSquare2 CAugust2dSquare2Ctrl;
-typedef CAugust2dSquare2 CAugust2dSquare2;
-*/
+typedef CAugust2dSquare2 CAugust2dSquare, CAugustSquare2, CAugustSquare, CAugustRect2, CAugustRect;
+
 #endif//__August2dSquare2_H__
