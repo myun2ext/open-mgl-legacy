@@ -73,6 +73,8 @@ void CAugustText2::ReCreateFont()
 	m_pText->Init(m_pGrp);
 	m_pText->Create(m_nPoint, m_strFontName.c_str(), bItalic, bBold);
 #endif
+
+	m_bChanged = false;
 }
 
 //	ƒIƒvƒVƒ‡ƒ“‚ÌDWORDŽæ“¾
@@ -130,18 +132,21 @@ void CAugustText2::OnDraw()
 
 	AGHCOLOR bgColor = agh::CRectControl::GetBackgroundColor();
 
+	if ( absRect.top < -10 || absRect.top > 600 )
+		return;
+
 	CMglImage tx;
 	tx.Create(1,1,TRUE);
 	tx.Clear(bgColor);
 	tx.Draw( absRect.left, absRect.top, NULL, D3DCOLOR_WHITE, absRect.right - absRect.left, absRect.bottom - absRect.top );
 
-	if ( bgColor != 0 )
+/*	if ( bgColor != 0 )
 		//m_pGrp->Paint((::RECT*)&absRect, bgColor);
 		m_pGrp->Paint((::RECT*)&(agh::CRect(GetRect())+5), bgColor);
 		//m_pGrp->Paint((::RECT*)&(agh::CRect(0,0,100,200)), bgColor);
 		//m_pGrp->Clear(bgColor);
 	else 
-		m_pGrp->Paint((::RECT*)&(agh::CRect(GetRect())+12), D3DCOLOR_ARGB(50,0,0,0));
+		m_pGrp->Paint((::RECT*)&(agh::CRect(GetRect())+12), D3DCOLOR_ARGB(50,0,0,0));*/
 
 	static int sdfdsf = 0;
 	//if ( (sdfdsf % 2000) == 0 )

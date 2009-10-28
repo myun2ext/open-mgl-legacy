@@ -67,7 +67,9 @@ void CAugustImage2::OnDraw()
 		m_srcRect.left, m_srcRect.top, m_srcRect.right, m_srcRect.bottom,
 		m_color, m_fScaleX, m_fScaleY, m_fAngle);*/
 
-	m_pImg->Draw( x, y,
+	agh::CRect posRect = GetAbsoluteRect();
+
+	m_pImg->Draw( posRect.left, posRect.top,
 		(::RECT*)&m_srcRect, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle); // 2009/03/31 ‘Î‰ž
 	//	NULL, m_color, m_fScaleX, m_fScaleY, 0.5f, 0.5f, m_fAngle);
 
