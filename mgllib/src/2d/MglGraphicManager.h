@@ -45,6 +45,7 @@
 
 //#include "MyuDebugLog.h"
 #include "MglManager.h"
+#include "mglafx.h"
 
 #include "MglGraphicUtil.h"
 #include "MyuReleaseBase.h"
@@ -344,6 +345,7 @@ public:
 	virtual ~CMglDgIBase(){
 		//	自動開放用のリファレンスを削除
 		//MGLGRP_DELREF();  CMglDgBase::Release()から仮想関数でこのクラスのRelease()が呼ばれることは分かってるので別に必要ないかも
+		Release();	//	2009/11/01 myun2  こっちは要るんでないの・・・？
 	}
 
 	//	初期化/開放
