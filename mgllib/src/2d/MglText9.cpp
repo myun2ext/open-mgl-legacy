@@ -22,7 +22,8 @@ CMglText::CMglText()
 //	デストラクタ
 CMglText::~CMglText()
 {
-	//Release();
+	//Release();	//	2009/11/01  何故呼ばない・・・？
+	//	CMglDgIBase<ID3DXFont> が呼びますので呼びません。
 }
 
 ////// 作成系 //////////////////////////////////////////////////////
@@ -30,6 +31,7 @@ CMglText::~CMglText()
 //	作成
 void CMglText::Create( int nHeight, const char* szFontName, BOOL bItalic, BOOL bBold )
 {
+	InitCheck();
 	//CreatedCheck();
 	Release();	//	コイツはフォント変更でCreateしまくるのでReleaseしないと駄目か・・・
 
