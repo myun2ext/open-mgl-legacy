@@ -499,7 +499,7 @@ void CMglGraphicManager::IsValidDisplayMode( int nWidth, int nHeight, D3DFORMAT 
 void CMglGraphicManager::Clear( D3DCOLOR color )
 {
 	CMglStackInstance("CMglGraphicManager::Clear");
-   //m_pD3dDev->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
+	//m_pD3dDev->Clear( 0, NULL, D3DCLEAR_TARGET, color, 1.0f, 0 );// ZBufferもクリアする
 	Paint( NULL, color );
 
 	// ZBufferもクリアする
@@ -883,7 +883,8 @@ void CMglGraphicManager::SpriteBegin()
 	if( m_pSprite == NULL )
 		MyuThrow(MGLMSGNO_GRPMGR(91), "Spriteが作成されていません。");
 
-	if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){
+	//if( m_pSprite != NULL && m_bSpriteBegun == FALSE ){	//	2009/11/01 わざわざNULLチェックしている意味がわかりません（上でしてるのに・・・
+	if( m_bSpriteBegun == FALSE ){
 //#if _MGL_DXVER == 9
 #if _MGL_D3DXVER >= MGL_D3DXVER_ID3DXSPRITE_CHANGED
 		MyuAssert2( m_pSprite->Begin(0), D3D_OK,
@@ -901,7 +902,8 @@ void CMglGraphicManager::SpriteEnd()
 	if( m_pSprite == NULL )
 		MyuThrow(MGLMSGNO_GRPMGR(92), "Spriteが作成されていません。");
 
-	if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){
+	//if( m_pSprite != NULL && m_bSpriteBegun == TRUE ){	//	2009/11/01 わざわざNULLチェックしている意味がわかりません（上でしてるのに・・・
+	if( m_bSpriteBegun == TRUE ){
 		MyuAssert2( m_pSprite->End(), D3D_OK,
 			MGLMSGNO_GRPMGR(90), "CMglGraphicManager::SpriteEnd()  m_pSprite->End()に失敗" );
 		m_bSpriteBegun = FALSE;
