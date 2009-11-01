@@ -40,6 +40,7 @@ protected:
 
 _AGH_EVENT_ACCESS_MODIFIER:
 	virtual void OnDraw();
+	virtual void OnRegist();
 
 public:
 	//	コンストラクタ

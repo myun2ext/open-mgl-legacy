@@ -51,11 +51,24 @@ CAugustText2::CAugustText2(const CAugustText2 &from)
 
 ////////////////////////////////////
 
-//	ƒtƒHƒ“ƒg‚ÌÄ\’z
-void CAugustText2::ReCreateFont()
+//	“o˜^Žž‚ÉInit‚ðŒÄ‚Ño‚·
+void CAugustText2::OnRegist()
 {
 	m_pGrp = (CMglGraphicManager*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_GRP),
 		"CAugustText2: GetValPtr(AUGUST_VALKEY_GRP) ‚ÌŽæ“¾‚ÉŽ¸”sB");
+
+#if _MGL_DXVER == 8
+#else
+	m_pText->Init(m_pGrp);	//‰½ŒÌ‚©‚±‚±‚ÅŒÄ‚Ño‚·‚Æ‘Ê–Ú‚È•sŽv‹cH
+#endif
+}
+
+
+//	ƒtƒHƒ“ƒg‚ÌÄ\’z
+void CAugustText2::ReCreateFont()
+{
+//	m_pGrp = (CMglGraphicManager*)MyuAssertNull(GetValPtr(AUGUST_VALKEY_GRP),
+//		"CAugustText2: GetValPtr(AUGUST_VALKEY_GRP) ‚ÌŽæ“¾‚ÉŽ¸”sB");
 
 	BOOL bBold, bItalic, bUnderLine, bStrikeOut;
 
@@ -70,7 +83,7 @@ void CAugustText2::ReCreateFont()
 	/* CMglGraphicManager* in_myudg, int nHeight, const char* szFontName,
 			BOOL bItalic, BOOL bBold, BOOL bUnderLine, BOOL bStrikeOut, float fAngle )*/
 #else
-	m_pText->Init(m_pGrp);
+	//m_pText->Init(m_pGrp);
 	m_pText->Create(m_nPoint, m_strFontName.c_str(), bItalic, bBold);
 #endif
 
