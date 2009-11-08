@@ -24,11 +24,16 @@ class CAugustMouseCore : public agh::CMouseCoreBase
 protected:
 	CMglMouseInput m_mouse;
 	_AGH_POINT m_oldCurPos;
+	_AGH_POINT m_curPos;
+	_AGH_POINT m_moveCount;
+	//int m_zMoveCount;
+	_AGH_POINT m_zMoveCount;
 
 private:
 	_AGH_POINT GetMoveCount(agh::MOUSECODE_t mouseCode)
 	{
 		if ( mouseCode == agh::CMouseBase::CBUTTON ){
+			return m_zMoveCount;
 
 			long z = m_mouse.GetZMoveCount();
 			if ( z == 0 )
@@ -38,6 +43,7 @@ private:
 		}
 		else
 		{
+			return m_moveCount;
 			/*	2回呼び出すのは誤差を引き起こす可能性がある（と言うか起きてるっぽい）ので辞める
 			_AGH_POINT moveCount = GetCursorPos() - m_oldCurPos;
 			m_oldCurPos = GetCursorPos();
@@ -62,10 +68,41 @@ private:
 				return _AGH_POINT(INVALID_POINT, INVALID_POINT);*/
 		}
 	}
+	
+	virtual _AGH_POINT _GetCursorPos_JustMoment(){
+		::POINT point = m_mouse.GetCursorPos();
+		return _AGH_POINT(point.x, point.y);
+	}
+
+	void UpdateMoveCounts()
+	{
+		//	マウスホイール
+		long z = m_mouse.GetZMoveCount();
+		if ( z == 0 )
+			m_zMoveCount = _AGH_POINT(INVALID_POINT, INVALID_POINT);
+		else
+			m_zMoveCount = _AGH_POINT(z, INVALID_POINT);	//	xにzを入れる、yは使ってない。
+		
+		///////////////////////////////////////////////
+
+		//	普通の移動量
+		//m_curPos = GetCursorPos();
+		m_curPos = _GetCursorPos_JustMoment();
+		m_moveCount = m_curPos - m_oldCurPos;
+
+		if ( m_moveCount.x == 0 && m_moveCount.y == 0 )	//	xもyも移動量0ならコールバックを呼ばないようにする
+			m_moveCount = _AGH_POINT(INVALID_POINT, INVALID_POINT);
+
+		m_oldCurPos = m_curPos;
+
+		//MessageBox(0,0,0,0);
+	}
 
 public:
 	//	コンストラクタ・デストラクタ
-	CAugustMouseCore(){}
+	CAugustMouseCore(){
+		//m_zMoveCount = 0;
+	}
 	virtual ~CAugustMouseCore(){}
 
 	//	初期化
@@ -121,8 +158,9 @@ public:
 	}
 	
 	virtual _AGH_POINT GetCursorPos(){
-		::POINT point = m_mouse.GetCursorPos();
-		return _AGH_POINT(point.x, point.y);
+		/*::POINT point = m_mouse.GetCursorPos();
+		return _AGH_POINT(point.x, point.y);*/
+		return m_curPos;
 	}
 
 	agh::CPoint GetPrimitiveMoveCount()
@@ -134,6 +172,8 @@ public:
 	void Update()
 	{
 		m_mouse.UpdateStateBuf();
+
+		UpdateMoveCounts();
 	}
 };
 
