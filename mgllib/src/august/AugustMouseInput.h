@@ -31,6 +31,16 @@ public:
 
 	/*	純粋なマウス移動量を取得。ウインドウにフォーカスがある時のみ	*/
 	agh::CPoint GetPrimitiveMoveCount();
+
+	///////////////////////////////////////////////
+
+	virtual agh::CPoint GetMoveCount(bool bPrimitiveMoveCount=false)
+	{
+		if ( bPrimitiveMoveCount )
+			return GetPrimitiveMoveCount();
+		else
+			return agh::CMouseBase::GetMoveCount();
+	}
 };
 
 typedef CAugustMouseInput CAugustMouseInput2;
