@@ -126,7 +126,8 @@ bool CAugustScreen2::ThreadFuncMain()
 			m_grp.Init();
 
 			//	ユーザコールバック
-			if ( OnGraphicInitEnded() == false )
+			//if ( OnGraphicInitEnded() == false )
+			if ( OnReady() == false )
 				return false;
 
 			/*

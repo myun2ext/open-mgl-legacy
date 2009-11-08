@@ -94,6 +94,7 @@ _AGH_EVENT_ACCESS_MODIFIER:
 	//virtual bool OnFrameMouseInput();
 
 	virtual bool OnInitFirst(){ return true; }	//	falseを返すとプログラム終了
+	virtual bool OnReady(){ return OnGraphicInitEnded(); }	//	falseを返すとプログラム終了
 	virtual bool OnGraphicInitEnded(){ return true; }	//	falseを返すとプログラム終了
 	virtual bool OnInited(){ return true; }	//	falseを返すとプログラム終了
 	virtual _AGST_DLL_EXP void MainLoop();
