@@ -94,6 +94,7 @@ private:
 		m_text = NULL;
 		bCreateFlg = FALSE;
 		bSetParamFlg = FALSE;
+		ZeroMemory(&m_rect, sizeof(m_rect));
 	}
 
 public:
@@ -176,6 +177,7 @@ protected:
 
 	std::string m_str;
 	CMglImage m_workImg;
+	::RECT m_rect;
 
 	void SetParamCheck() {
 		if ( bSetParamFlg != TRUE )
@@ -187,6 +189,7 @@ protected:
 		m_nY = 0;
 		m_dwOption = 0;
 		m_color = 0;
+		ZeroMemory(&m_rect, sizeof(m_rect));
 	}
 
 public:
@@ -213,6 +216,9 @@ public:
 	void Draw( const char* szString ){ FDraw( szString ); }
 	void FDraw( const char* szString, ... );
 	void SetDrawParam( int in_nX, int in_nY, D3DCOLOR in_color, DWORD in_dwOption=0 );
+
+	void SetRect( ::RECT *pRect ){ m_rect = *pRect; }
+	::RECT GetRect(){ return m_rect; }
 
 //	std::vector<std::string> EnumFontNames();
 
