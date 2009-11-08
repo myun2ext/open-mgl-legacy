@@ -174,6 +174,7 @@ protected:
 	DWORD m_dwOption;
 	D3DCOLOR m_color;
 
+	std::string m_str;
 	CMglImage m_workImg;
 
 	void SetParamCheck() {

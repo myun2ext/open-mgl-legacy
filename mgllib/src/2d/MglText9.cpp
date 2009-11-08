@@ -87,51 +87,68 @@ void CMglText::Draw( const char* szString, int nX, int nY, D3DCOLOR color, DWORD
 	//	DirectX9では第一引数としてスプライトを指定するとパフォーマンスが向上するらしい。とりあえず後回しで・・・ (TODO)
 	//m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 
+	if ( m_str != szString )
+	{
 
-/*	RECT rect2 = {nX, nY, 0, 0}; //表示領域
-	rect = rect2;
+	/*	RECT rect2 = {nX, nY, 0, 0}; //表示領域
+		rect = rect2;
 
-    //文字列サイズを計算
-    m_pI->DrawText(
-        NULL,
-        szString,
-        -1,             //表示サイズ(-1で全部)
-        &rect,          //表示範囲
-        DT_CALCRECT,    //表示範囲に調整
-        NULL);*/
+		//文字列サイズを計算
+		m_pI->DrawText(
+			NULL,
+			szString,
+			-1,             //表示サイズ(-1で全部)
+			&rect,          //表示範囲
+			DT_CALCRECT,    //表示範囲に調整
+			NULL);*/
 
-	//m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_FALSE );		// Zバッファを有効にする。
-	//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );			// Zバッファへの書き込み許可
+		//m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_FALSE );		// Zバッファを有効にする。
+		//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, FALSE );			// Zバッファへの書き込み許可
 
-	CMglDxSprite* pMglSprite = m_myudg->GetTextMglSprite();
+		CMglDxSprite* pMglSprite = m_myudg->GetTextMglSprite();
 
-	//////////////////////////////////////
-	//m_workImg.Clear(0x00ffffff);
-	m_workImg.Clear(0);
-	m_workImg.SetRenderTarget();
-	//////////////////////////////////////
+	/*	if ( m_str == szString ){
+			m_myudg->SetRenderBackBuffer();
+			m_workImg.Draw((float)0,0,NULL,D3DCOLOR_WHITE );
+			return;
+		}*/
 
-	//pMglSprite->Begin(D3DXSPRITE_SORT_TEXTURE);
-	pMglSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
-	//pMglSprite->Begin(D3DXSPRITE_BILLBOARD);
+		//////////////////////////////////////
+		//m_workImg.Clear(0x00ffffff);
+		m_workImg.Clear(0);
 
-	//	2009/04/05 なんかDT_NOPREFIXつけるとちゃんと出ないみたいだぜ・・・？（何故？
-	//m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | dwOption, color );
-	m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, D3DCOLOR_FULLALPHA_FILTER(color) );
-	//m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, 0 );
+		m_workImg.SetRenderTarget();
+		//////////////////////////////////////
 
-	pMglSprite->End();
+		//pMglSprite->Begin(D3DXSPRITE_SORT_TEXTURE);
+		pMglSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);
+		//pMglSprite->Begin(D3DXSPRITE_BILLBOARD);
 
-	//m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );		// Zバッファを有効にする。
-	//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, TRUE );			// Zバッファへの書き込み許可
+		//	2009/04/05 なんかDT_NOPREFIXつけるとちゃんと出ないみたいだぜ・・・？（何故？
+		//m_pI->DrawText( NULL, szString, -1, &rect, DT_NOCLIP | dwOption, color );
 
-	//////////////////////////////////////
-	m_myudg->SetRenderBackBuffer();
-	m_workImg.Draw((float)0,0,NULL,D3DCOLOR_A(D3DCOLOR_GETA(color)) );
+		//m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, D3DCOLOR_FULLALPHA_FILTER(color) );
+		m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, NULL, DT_NOCLIP | dwOption, D3DCOLOR_WHITE );
+		//m_pI->DrawText( pMglSprite->GetSpritePtr(), szString, -1, &rect, DT_NOCLIP | dwOption, 0 );
+
+		pMglSprite->End();
+
+		//m_pD3dDev->SetRenderState( D3DRS_ZENABLE, D3DZB_TRUE );		// Zバッファを有効にする。
+		//m_pD3dDev->SetRenderState( D3DRS_ZWRITEENABLE, TRUE );			// Zバッファへの書き込み許可
+
+		//////////////////////////////////////
+		m_myudg->SetRenderBackBuffer();
+	}
+	/*else
+		MessageBox(0,0,0,0);*/
+
+	m_workImg.Draw((float)nX,nY,NULL, color );
+	//m_workImg.Draw((float)0,0,NULL,D3DCOLOR_A(D3DCOLOR_GETA(color)) );
 	//m_workImg.Draw((float)0,0,NULL,0);
 	//m_workImg.Draw();
 	//////////////////////////////////////
 
+	m_str = szString;
 #else
 	m_pI->DrawText( szString, -1, &rect, DT_NOCLIP | DT_NOPREFIX | dwOption, color );
 #endif
