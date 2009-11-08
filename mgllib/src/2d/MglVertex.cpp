@@ -47,10 +47,11 @@
 	}
 }*/
 
-DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, float z, int vertexCount )
+DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs_, float x, float y, float z, int vertexCount )
 {
-		throw 0;
-/*	for( int i=0; i<vertexCount; i++ )
+	MGL_VERTEX1 *pVertexs = (MGL_VERTEX1*)pVertexs_;
+//		throw 0;
+	for( int i=0; i<vertexCount; i++ )
 	{
 		pVertexs->x += x;
 		pVertexs->y += y;
@@ -61,8 +62,8 @@ DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, float z, in
 		p->x += x;
 		p->y += y;
 		p->z += z;
-		*//*
-	}*/
+		*/
+	}
 }
 
 DLL_EXP void MglVertexsFillColor( MGL_VERTEX *pVertexs, D3DCOLOR color, int vertexCount )

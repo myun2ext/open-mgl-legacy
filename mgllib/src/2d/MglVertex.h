@@ -31,13 +31,13 @@
 typedef struct
 {
 	//float		x,y,z;				//位置情報
-	D3DXVECTOR3 pos;		// ←こっちの方が色々関数ついてるっぽくて良いかもね・・・
+	D3DXVECTOR3 pos;				// ←こっちの方が色々関数ついてるっぽくて良いかもね・・・
 #ifdef _MGLVERTEX_USE_RHW
 	float		rhw;				//頂点変換値
 #endif
 #ifdef _MGLVERTEX_USE_NORMAL
 	//float		nx, ny, nz;			// 法線ベクトル
-	D3DXVECTOR3	normal;			// 法線ベクトル
+	D3DXVECTOR3	normal;				// 法線ベクトル
 #endif
 	D3DCOLOR	color;				// ポリゴンカラー
 #ifdef _MGLVERTEX_USE_SPECULAR
@@ -50,6 +50,30 @@ typedef struct
 #endif
 }MYU_VERTEX;
 typedef MYU_VERTEX	MGL_VERTEX;
+
+
+typedef struct
+{
+	float		x,y,z;				//位置情報
+#ifdef _MGLVERTEX_USE_RHW
+	float		rhw;				//頂点変換値
+#endif
+#ifdef _MGLVERTEX_USE_NORMAL
+	//float		nx, ny, nz;			// 法線ベクトル
+	D3DXVECTOR3	normal;				// 法線ベクトル
+#endif
+	D3DCOLOR	color;				// ポリゴンカラー
+#ifdef _MGLVERTEX_USE_SPECULAR
+	D3DCOLOR	specular;			// スペキュラ色
+#endif
+#ifdef _MGLVERTEX_USE_MULTITEX
+	float		tu,tv;				//テクスチャ座標 - D3DXVECTOR2
+	D3DXVECTOR2 tPosAry[7];			//テクスチャ座標配列
+#else
+#endif
+}MYU_VERTEX1;
+typedef MYU_VERTEX1	MGL_VERTEX1;
+
 
 //////////////////////////////////////////////////////
 
@@ -194,7 +218,6 @@ MGL_VERTEX_COLORS;
 
 //// Methods //////////////////////////////////////////////////////////////////////////////
 
-//DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, int vertexCount );
 DLL_EXP void MglMoveVertexs( MGL_VERTEX *pVertexs, float x, float y, float z, int vertexCount );
 DLL_EXP void MglVertexsFillColor( MGL_VERTEX *pVertexs, D3DCOLOR color, int vertexCount );
 
