@@ -252,6 +252,39 @@ void CMglD3dTexture::CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize,
 	m_tutv.tv = m_imgInfo.Height / (float)texDesc.Height;
 }
 
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+//	UpdateTexture
+void CMglD3dTexture::UpdateTexture( _MGL_IDirect3DTexture* pDestTexture )
+{
+	CreateCheck();	//	Createチェック
+
+	MyuAssert( d3d->UpdateTexture( m_pTexture, pDestTexture ), D3D_OK,
+		"CMglImage::UpdateTexture()  UpdateTexture()に失敗" );
+}
+
+//	UpdateSurface
+void CMglD3dTexture::UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurface* pDestSurface, CONST POINT* pDestinationPoint )
+{
+	CreateCheck();	//	Createチェック
+
+	MyuAssert( d3d->UpdateSurface( m_pSurface, pSourceRect, pDestSurface, pDestinationPoint ), D3D_OK,
+		"CMglImage::UpdateSurface()  UpdateSurface()に失敗" );
+}
+
+/*
+void CMglD3dTexture::CopyToOtherTexture( CMglD3dTexture &toTex )
+{
+	UpdateTexture(
+}
+
+void CMglD3dTexture::CopyFromOtherTexture( CMglD3dTexture &fromTex )
+{
+
+}
+*/
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 void CMglD3dTexture::SetD3dStageTexture(DWORD nStage)

@@ -79,6 +79,9 @@ protected:
 				"  CMglInternalBitmapData::Release() の呼び出し漏れ。");
 	}
 
+	void UpdateTexture( _MGL_IDirect3DTexture* pDestTexture );
+	void UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurface* pDestSurface, CONST POINT* pDestinationPoint );
+
 private:
 	//	テクスチャのサーフェスを取得する
 	void _GetSurface(){
@@ -100,11 +103,14 @@ public:
 	//	ファイルからの読み込み系
 	void Load( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+
 	void Create( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+
 	void CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		//CreateFromFileEx( szFileName, D3DX_DEFAULT, D3DX_DEFAULT, bRenderTarget, colorKey ); }
 		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+
 	void CreateFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
 		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_BOX );
@@ -115,6 +121,7 @@ public:
 		CreateFromFile( szFileName, bRenderTarget, colorKey );}*/
 	void CreateTextureFromFileEx( LPCSTR szFileName, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromFileEx( szFileName, 0, 0, bRenderTarget, colorKey ); }
+
 	void CreateTextureFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
 		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE ){
@@ -123,11 +130,19 @@ public:
 	//	メモリから作成
 	void CreateFromFile( LPCVOID lpFileData, UINT nDataSize, BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY ){
 		CreateFromMemoryFileEx( lpFileData, nDataSize, 0, 0, bRenderTarget, colorKey ); }
+
 	void CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize, int nForceBmpWidth, int nForceBmpHeight,
 		BOOL bRenderTarget=RENDER_TARGET_DEFAULT, D3DCOLOR colorKey=DEF_COLORKEY,
 		DWORD dwFilter=D3DX_FILTER_NONE, DWORD dwMapFilter=D3DX_FILTER_NONE );
 
 	/////////////////////////////////////////////////////////////////////
+
+	//	コピーメソッド
+	void Copy( CMglD3dTexture &toTex ){ CopyToOtherTexture(toTex); }
+	void CopyToOtherTexture( CMglD3dTexture &toTex ){ UpdateTexture( toTex.GetD3dTexturePtr() ); }
+	void CopyFromOtherTexture( CMglD3dTexture &fromTex ){ fromTex.UpdateTexture( m_pTexture ); }
+
+	////////////////////////////////////////////////////////////////////////////////
 
 	void SetD3dStageTexture(DWORD nStage=0);
 	void SetStageTexture(DWORD nStage=0){ SetD3dStageTexture(nStage); }
@@ -135,6 +150,9 @@ public:
 
 	//	内部変数取得系
 	_MGL_IDirect3DTexture* GetDirect3dTexturePtr(){ CreateCheck(); return m_pTexture; }
+	_MGL_IDirect3DTexture* GetD3dTexturePtr(){ CreateCheck(); return m_pTexture; }
+	_MGL_IDirect3DTexture* GetDxTexturePtr(){ CreateCheck(); return m_pTexture; }
+	_MGL_IDirect3DTexture* GetTexturePtr(){ CreateCheck(); return m_pTexture; }
 	_MGL_IDirect3DSurface* GetSurfacePtr() { CreateCheck(); return m_pSurface; }
 
 	//	サイズ取得
