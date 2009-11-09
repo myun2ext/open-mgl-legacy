@@ -55,6 +55,19 @@ typedef MYU_VERTEX	MGL_VERTEX;
 typedef struct
 {
 	float		x,y,z;				//位置情報
+	float		rhw;				//頂点変換値
+	D3DCOLOR	color;				// ポリゴンカラー
+	float		tu,tv;				//テクスチャ座標 - D3DXVECTOR2
+}MYU_VERTEX_SIMPLE1;
+typedef MYU_VERTEX_SIMPLE1 MGL_VERTEX1, MGL_VERTEX_SIMPLE, MGL_VERTEX_SIMPLE1;
+typedef MYU_VERTEX_SIMPLE1 MYU_VERTEX1, MYU_VERTEX_SIMPLE, MYU_VERTEX_SIMPLE1;
+
+#define	FVF_MYU_VERTEX1		( D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1 )
+
+/*
+typedef struct
+{
+	float		x,y,z;				//位置情報
 #ifdef _MGLVERTEX_USE_RHW
 	float		rhw;				//頂点変換値
 #endif
@@ -73,6 +86,7 @@ typedef struct
 #endif
 }MYU_VERTEX1;
 typedef MYU_VERTEX1	MGL_VERTEX1;
+*/
 
 
 //////////////////////////////////////////////////////

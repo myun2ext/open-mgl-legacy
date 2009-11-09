@@ -408,7 +408,7 @@ void CMglTexture::Paint( RECT* pRect, D3DCOLOR color )
 //#if 1==0
 //	Texture(DrawPrimitiveUP)で絵画
 void CMglTexture::TextureDraw(
-	float x, float y, RECT* srcRect, float fScaleX, float fScaleY,
+	float x, float y, const RECT* srcRect, float fScaleX, float fScaleY,
 	float fRotationCenterX, float fRotationCenterY, float fAngle,
 	MGL_VERTEX_COLORS* vertexColors, DWORD dwAlphaOption )
 {
@@ -428,9 +428,9 @@ void CMglTexture::TextureDraw(
 	const float fRealTexTv = (float)nBmpSrcY / (float)texDesc.Height;
 
 	//MYU_VERTEX vertices[4];		//	頂点
-	//MYU_VERTEX1 vertices[4];		//	頂点
-	MYU_VERTEX vertices_[4];
-	MYU_VERTEX1 *vertices = (MYU_VERTEX1*)vertices_;
+	MYU_VERTEX1 vertices[4];		//	頂点
+	/*MYU_VERTEX vertices_[4];
+	MYU_VERTEX1 *vertices = (MYU_VERTEX1*)vertices_;*/
 	ZeroMemory( vertices, sizeof(vertices) );
 
 	//	転送元もどきの設定
@@ -504,6 +504,8 @@ void CMglTexture::TextureDraw(
 
 	//	アルファオプション
 	m_myudg->SetAlphaMode( dwAlphaOption );
+
+	m_myudg->SetFVF( FVF_MYU_VERTEX1 );
 
 	//	描画
 	Draw( (MYU_VERTEX*)vertices );

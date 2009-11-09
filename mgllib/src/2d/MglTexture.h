@@ -170,7 +170,7 @@ public:
 
 
 	//	å√Ç¢ï`âÊï˚éÆ
-	void TextureDraw( float x=0.0f, float y=0.0f, RECT* srcRect=NULL, float fScaleX=1.0f, float fScaleY=1.0f,
+	void TextureDraw( float x=0.0f, float y=0.0f, const RECT* srcRect=NULL, float fScaleX=1.0f, float fScaleY=1.0f,
 		D3DCOLOR color=D3DCOLOR_WHITE, DWORD dwAlphaOption=MGL_ALPHA_OPT_DEFAULT )
 	{
 		MGL_VERTEX_COLORS tVertexColors;
@@ -178,7 +178,7 @@ public:
 		TextureDraw( x, y, srcRect, fScaleX, fScaleY, 0.5f, 0.5f, 0.0f, &tVertexColors, dwAlphaOption );
 	}
 	//	Å´fAngleÇÕé¿ÇÕé¿ëïÇµÇƒÇ»Ç¢
-	void TextureDraw( float x, float y, RECT* srcRect, float fScaleX, float fScaleY,
+	void TextureDraw( float x, float y, const RECT* srcRect, float fScaleX, float fScaleY,
 		float fRotationCenterX, float fRotationCenterY, float fAngle,
 		MGL_VERTEX_COLORS* vertexColors, DWORD dwAlphaOption );
 	//void TextureDraw( float x=0.0f, float y=0.0f, float fSizeX=1.0f, float fSizeY=1.0f, D3DCOLOR color=0xffffffff );
