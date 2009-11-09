@@ -187,6 +187,7 @@ public:
 };
 
 typedef CMglD3dTexture CMglSquareTexture;
+typedef CMglD3dTexture CMglDxTexture;
 
 
 
