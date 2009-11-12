@@ -20,6 +20,7 @@ protected:
 	//	Direct3D系
 	//_MGL_IDirect3DDevice* d3d;			//	D3DDeviceへのポインタ
 	//_MGL_IDirect3DSurface* m_pSurface;	//	サーフェス
+	_MGL_IDirect3DSurface*& m_pSurface;	//	サーフェス
 
 	void CreateCheck() {
 		InitCheck();	//	2008/06/28 これもやらないと駄目でない・・・？
@@ -41,6 +42,9 @@ public:
 	}
 	
 	////////////////////////////////////////////////////////////////////////////
+
+	void CaptureToFile( const char* szFilename, D3DXIMAGE_FILEFORMAT fileType, const ::RECT *pSrcRect=NULL);
+
 };
 
 
