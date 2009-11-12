@@ -239,15 +239,41 @@ using namespace std;
 #include <dmusici.h>
 #pragma comment(lib, "dxguid.lib")
 
-/*
+
 //	DirectShow
 #include <DShow.h>
-#ifdef _DEBUG
-	#pragma comment(lib, "Strmbasd.lib")
+
+//	Strmbase.lib / strmiids.lib
+#if _MGL_DXVER == 8
+
+	//	DirectX8 はSDK内に普通に Strmbase.lib / Strmbasd.lib が入ってた。（ハズ
+	#ifdef _DEBUG
+		#pragma comment(lib, "Strmbasd.lib")
+	#else
+		#pragma comment(lib, "Strmbase.lib")
+	#endif//_DEBUG
+
 #else
-	#pragma comment(lib, "Strmbase.lib")
-#endif//_DEBUG
-*/
+
+	//	DirectX9 以降はPlatformSDKのを使う事になる。
+	//	ネットで検索すると「Strmbase.lib・Strmbasd.lib を自前でSampleより生成」とか書かれてたりするが、
+	//	「なんでSample・・・？おかしいなぁ・・・」と思って調べてみたところ、PlatformSDK Lib内、「strmiids.lib」
+	//	だけがあれば良いみたい。
+
+
+	//	…でも（PlatformSDKを）インストールとかメンドイんで、
+	//	USE_MGLSTRMIIDS が定義されてたら自前の MglStrmiids.lib を使っちゃうよ
+
+	#ifdef USE_MGLSTRMIIDS
+		#pragma comment(lib, "MglStrmiids.lib")
+	#else
+		#pragma comment(lib, "strmiids.lib")
+	#endif
+
+#endif
+
+
+////////////////////////////////////////////////////////////
 
 #endif//_MGL_NOUSE_DIRECTX
 

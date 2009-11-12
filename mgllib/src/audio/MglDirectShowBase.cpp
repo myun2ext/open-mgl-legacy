@@ -8,11 +8,13 @@
 #include "stdafx.h"
 #include "MglDirectShowBase.h"
 
+/*
 #ifdef _DEBUG
 	#pragma comment(lib, "Strmbasd.lib")
 #else
 	#pragma comment(lib, "Strmbase.lib")
 #endif//_DEBUG
+*/
 
 //template class DLL_EXP std::map<std::string,IDirectMusicSegment8*>;
 
