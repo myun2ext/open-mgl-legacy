@@ -24,7 +24,7 @@ protected:
 	void CreateCheck() {
 		InitCheck();	//	2008/06/28 これもやらないと駄目でない・・・？
 		//if ( createFlg == FALSE ){
-		if ( m_pSurface == NULL )
+		if ( m_pI == NULL )
 			MyuThrow( 0, "CMglDxSurface 未作成であるにも関わらず操作を行おうとしました。Create()系メソッドを呼んでください。" );
 	}
 

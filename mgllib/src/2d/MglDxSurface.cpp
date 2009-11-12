@@ -13,7 +13,7 @@
 //	コンストラクタ
 CMglDxSurface::CMglDxSurface()
 {
-	m_pSurface = NULL;
+	//m_pI = NULL;
 }
 
 //	デストラクタ
