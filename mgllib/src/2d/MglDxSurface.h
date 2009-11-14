@@ -45,6 +45,8 @@ public:
 
 	void CaptureToFile( const char* szFilename, D3DXIMAGE_FILEFORMAT fileType, const ::RECT *pSrcRect=NULL);
 	void UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurface* pDestSurface, CONST POINT* pDestinationPoint=NULL );
+
+	void UpdateToScreenBuffer();
 };
 
 
