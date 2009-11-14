@@ -81,6 +81,18 @@ void CMglDxSurface::UpdateToScreenBuffer()
 	//	フルスクリーン モードの場合、転送先サーフェイスのサイズは、スクリーンのサイズでなければならない。
 }
 
+/*
+このメソッドは、プール タイプが D3DPOOL_DEFAULT であるレンダリング ターゲット、
+レンダリング ターゲットのテクスチャ サーフェイス、およびオフスクリーンの平面サーフェイス
+にのみ適用できる。
+*/
+void CMglDxSurface::Fill( D3DCOLOR color, CONST RECT *pRect )
+{
+	CreateCheck();
+	MglDxAssert( d3d->ColorFill( m_pSurface, pRect, color ),
+		"CMglDxSurface", "Fill", "d3d->ColorFill" );
+}
+
 
 /*
 
@@ -112,4 +124,15 @@ HRESULT CreateRenderTarget(
     IDirect3DSurface9** ppSurface,
     HANDLE* pHandle
 );
+*/
+
+/*
+IDirect3DDevice9::
+
+HRESULT GetRenderTargetData(
+    IDirect3DSurface9* pRenderTarget,
+    IDirect3DSurface9* pDestSurface
+);
+
+レンダリング ターゲット データをデバイス メモリからシステム メモリにコピーする。
 */

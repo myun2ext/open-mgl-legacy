@@ -37,6 +37,7 @@ private:
 		"%s  %s Ç…é∏îsÅB"	\
 		"\r\n%s:%d", FROM, # CALL, __FILE__, __LINE__);
 */
+
 inline void MglDxAssert( long nResult, const char* szCurClass, const char* szCurMethod, const char* szFunc, const char* szAppend, ... )
 {
 	char appendFormatted[1024];

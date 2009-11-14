@@ -47,6 +47,8 @@ public:
 	void UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurface* pDestSurface, CONST POINT* pDestinationPoint=NULL );
 
 	void UpdateToScreenBuffer();
+
+	void Fill( D3DCOLOR color, CONST RECT *pRect=NULL );
 };
 
 
