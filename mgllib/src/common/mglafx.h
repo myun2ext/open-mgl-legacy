@@ -77,7 +77,7 @@ using namespace std;
 #include <stdio.h>
 #include <windows.h>*/
 //#include "MyuDebugLog.h"	//	2008/06/30  mgl_common.h Ç…à⁄ìÆ
-#include "MglException.h"
+//#include "MglException.h"	//	2009/11/14  DirectXÉwÉbÉ_ì«Ç›çûÇ›å„Ç…à⁄ìÆ
 #include "MyuCommonException.h"
 #include "MglExceptionThrowerBase.h"
 #include "MglExceptionCode.h"
@@ -231,6 +231,11 @@ using namespace std;
 #define MGL_D3DXVER_ID3DXFONT_CHANGED	0x0902
 #define MGL_D3DXVER_ID3DXSPRITE_CHANGED	0x0902
 #define MGL_D3DXVER_ID3DXEFFECT_CHANGED	0x0902
+
+
+//	2009/11/14  DirectXì«Ç›çûÇ›å„Ç…à⁄ìÆ
+#include "MglException.h"
+
 
 #include <dinput.h>
 
