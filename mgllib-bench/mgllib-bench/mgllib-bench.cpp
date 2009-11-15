@@ -7,8 +7,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow )
 {
-	/*CAugustScreen2 frame;
-	frame.Start();*/
+	CAugustScreen2 frame;
+	frame.Start();
 	return 0;
 }
 

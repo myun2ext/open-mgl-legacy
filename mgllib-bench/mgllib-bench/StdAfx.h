@@ -13,7 +13,8 @@
 #define WIN32_LEAN_AND_MEAN		// Windows ヘッダーから殆ど使用されないスタッフを除外します
 
 #include <windows.h>
-//#include <mgl.h>
+#include <mglaugust2.h>
+#include <mglafx.h>
 
 
 // TODO: プログラムで必要なヘッダー参照を追加してください。
