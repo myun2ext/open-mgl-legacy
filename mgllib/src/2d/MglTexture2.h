@@ -8,7 +8,8 @@
 #ifndef __MglTexture2_H__
 #define __MglTexture2_H__
 
-#include "MglD3dTexture.h"
+//#include "MglD3dTexture.h"
+#include "MglDxTexture.h"
 //#include "MglVertexManager.h"
 #include "Mgl3dSquare.h"
 

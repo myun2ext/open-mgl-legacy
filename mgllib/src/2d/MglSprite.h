@@ -7,7 +7,8 @@
 #ifndef __MglSprite_H__
 #define __MglSprite_H__
 
-#include "MglD3dTexture.h"
+//#include "MglD3dTexture.h"
+#include "MglDxTexture.h"
 
 //	ƒNƒ‰ƒXéŒ¾  /////////////////////////////////////////////////////////
 class DLL_EXP CMglSprite

@@ -9,7 +9,8 @@
 
 #include "MglGraphicManager.h"
 #include "MglVertexManager.h"
-#include "MglD3dTexture.h"
+//#include "MglD3dTexture.h"
+#include "MglDxTexture.h"
 
 //#pragma warning( disable : 4660 )
 

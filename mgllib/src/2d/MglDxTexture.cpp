@@ -1,17 +1,17 @@
 //////////////////////////////////////////////////////////
 //
-//	MglD3dTexture
+//	MglDxTexture
 //		- MglGraphicManager サーフェスクラス
 //
 //////////////////////////////////////////////////////////
 
 #include "stdafx.h"
-#include "MglD3dTexture.h"
+#include "MglDxTexture.h"
 
 ////////////////////////////////////////////////////////////////////
 
 //	コンストラクタ
-CMglD3dTexture::CMglD3dTexture()
+CMglDxTexture::CMglDxTexture()
 {
 	//m_myudg = NULL;
 	//d3d = NULL;
@@ -28,7 +28,7 @@ CMglD3dTexture::CMglD3dTexture()
 
 /*
 //	初期化
-void CMglD3dTexture::Init( CMglGraphicManager* in_myudg )
+void CMglDxTexture::Init( CMglGraphicManager* in_myudg )
 {
 	m_myudg = in_myudg;
 	d3d = m_myudg->GetD3dDevPtr();
@@ -36,7 +36,7 @@ void CMglD3dTexture::Init( CMglGraphicManager* in_myudg )
 */
 
 //	開放
-void CMglD3dTexture::Release()
+void CMglDxTexture::Release()
 {
 	CMglDgBase::Release();
 
@@ -48,9 +48,9 @@ void CMglD3dTexture::Release()
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 //	生成
-void CMglD3dTexture::Create( int x, int y, BOOL bRenderTarget )
+void CMglDxTexture::Create( int x, int y, BOOL bRenderTarget )
 {
-	_MGL_DEBUGLOG( "+ CMglD3dTexture::Create()" );
+	_MGL_DEBUGLOG( "+ CMglDxTexture::Create()" );
 
 	InitCheck();	//	初期化チェック
 
@@ -72,11 +72,11 @@ void CMglD3dTexture::Create( int x, int y, BOOL bRenderTarget )
 	//	m_myudg->backBufferDesc.Format
 	if ( bRenderTarget == TRUE ) {
 		MyuAssert( D3DXCreateTexture( d3d, x, y, D3DX_DEFAULT, D3DUSAGE_RENDERTARGET, m_myudg->GetFormat(), D3DPOOL_DEFAULT, &m_pTexture ), D3D_OK,
-			"CMglD3dTexture::Create()  D3DXCreateTexture(VRAM)に失敗" );
+			"CMglDxTexture::Create()  D3DXCreateTexture(VRAM)に失敗" );
 	}
 	else {
 		MyuAssert( D3DXCreateTexture( d3d, x, y, D3DX_DEFAULT, 0, m_myudg->GetFormat(), D3DPOOL_MANAGED, &m_pTexture ), D3D_OK,
-			"CMglD3dTexture::Create()  D3DXCreateTexture(SYSMEM)に失敗" );
+			"CMglDxTexture::Create()  D3DXCreateTexture(SYSMEM)に失敗" );
 	}
 
 	//	記憶しておく
@@ -87,11 +87,11 @@ void CMglD3dTexture::Create( int x, int y, BOOL bRenderTarget )
 
 	//	テクスチャのサーフェスを取得する
 	MyuAssert( m_pTexture->GetSurfaceLevel(0, &m_pSurface), D3D_OK,
-		"CMglD3dTexture::Create()  GetSurfaceLevel()に失敗" );
+		"CMglDxTexture::Create()  GetSurfaceLevel()に失敗" );
 
 	//	スプライト作成
 	MyuAssert( D3DXCreateSprite( d3d, &this->m_pSprite ), D3D_OK,
-		"CMglD3dTexture::Init  D3DXCreateSprite()に失敗" );
+		"CMglDxTexture::Init  D3DXCreateSprite()に失敗" );
 
 	//	クリアする
 	//Clear();
@@ -106,13 +106,13 @@ void CMglD3dTexture::Create( int x, int y, BOOL bRenderTarget )
 	//Clear();
 	Clear(0);	//	0にしないとカラーキー＋白に勝手にされてしまう・・・
 
-	_MGL_DEBUGLOG( "- CMglD3dTexture::Create()" );
+	_MGL_DEBUGLOG( "- CMglDxTexture::Create()" );
 }
 
 //	ファイルから読み込み
 //	bRenderTargetをTRUEにした場合はPOOLも D3DPOOL_MANAGED として読み込まれる。
-//void CMglD3dTexture::CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )
-void CMglD3dTexture::CreateFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
+//void CMglDxTexture::CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )
+void CMglDxTexture::CreateFromFileEx( LPCSTR szFileName, int nForceBmpWidth, int nForceBmpHeight,
 	BOOL bRenderTarget, D3DCOLOR colorKey, DWORD dwFilter, DWORD dwMapFilter )
 {
 	InitCheck();	//	初期化チェック
@@ -183,8 +183,8 @@ void CMglD3dTexture::CreateFromFileEx( LPCSTR szFileName, int nForceBmpWidth, in
 
 //	ファイルから読み込み
 //	bRenderTargetをTRUEにした場合はPOOLも D3DPOOL_MANAGED として読み込まれる。
-//void CMglD3dTexture::CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )
-void CMglD3dTexture::CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize, int nForceBmpWidth, int nForceBmpHeight,
+//void CMglDxTexture::CreateFromFile( LPCSTR szFileName, BOOL bRenderTarget, D3DCOLOR colorKey )
+void CMglDxTexture::CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize, int nForceBmpWidth, int nForceBmpHeight,
 	BOOL bRenderTarget, D3DCOLOR colorKey, DWORD dwFilter, DWORD dwMapFilter )
 {
 	InitCheck();	//	初期化チェック
@@ -256,7 +256,7 @@ void CMglD3dTexture::CreateFromMemoryFileEx( LPCVOID lpFileData, UINT nDataSize,
 //////////////////////////////////////////////////////////////////////////////////////
 
 //	UpdateTexture
-void CMglD3dTexture::UpdateTexture( _MGL_IDirect3DTexture* pDestTexture )
+void CMglDxTexture::UpdateTexture( _MGL_IDirect3DTexture* pDestTexture )
 {
 	CreateCheck();	//	Createチェック
 
@@ -265,7 +265,7 @@ void CMglD3dTexture::UpdateTexture( _MGL_IDirect3DTexture* pDestTexture )
 }
 
 //	UpdateSurface
-void CMglD3dTexture::UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurface* pDestSurface, CONST POINT* pDestinationPoint )
+void CMglDxTexture::UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurface* pDestSurface, CONST POINT* pDestinationPoint )
 {
 	CreateCheck();	//	Createチェック
 
@@ -274,12 +274,12 @@ void CMglD3dTexture::UpdateSurface( CONST RECT* pSourceRect, _MGL_IDirect3DSurfa
 }
 
 /*
-void CMglD3dTexture::CopyToOtherTexture( CMglD3dTexture &toTex )
+void CMglDxTexture::CopyToOtherTexture( CMglDxTexture &toTex )
 {
 	UpdateTexture(
 }
 
-void CMglD3dTexture::CopyFromOtherTexture( CMglD3dTexture &fromTex )
+void CMglDxTexture::CopyFromOtherTexture( CMglDxTexture &fromTex )
 {
 
 }
@@ -287,17 +287,17 @@ void CMglD3dTexture::CopyFromOtherTexture( CMglD3dTexture &fromTex )
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-void CMglD3dTexture::SetD3dStageTexture(DWORD nStage)
+void CMglDxTexture::SetD3dStageTexture(DWORD nStage)
 {
 	CreateCheck();	//	Createチェック
 
 	//	テクスチャの設定
 	MyuAssert( d3d->SetTexture(nStage, m_pTexture), D3D_OK,
-		"CMglD3dTexture::SetD3dTexture()  d3d->SetTexture()に失敗" );
+		"CMglDxTexture::SetD3dTexture()  d3d->SetTexture()に失敗" );
 }
 
 //	絵画先をこのサーフェスに設定する
-void CMglD3dTexture::SetRender()
+void CMglDxTexture::SetRender()
 {
 	CreateCheck();	//	Createチェック
 	LockedCheck();
@@ -307,7 +307,7 @@ void CMglD3dTexture::SetRender()
 #else
 	MyuAssert( d3d->SetRenderTarget( m_pSurface, NULL ), D3D_OK, //m_myudg->lpZbuffer
 #endif
-		"CMglD3dTexture::SetRender()  SetRenderTarget()に失敗" );
+		"CMglDxTexture::SetRender()  SetRenderTarget()に失敗" );
 }
 
 //	クリアする
@@ -322,12 +322,12 @@ void CMglD3dTexture::SetRender()
 */
 
 //	クリアする
-void CMglD3dTexture::Clear( D3DCOLOR color )
+void CMglDxTexture::Clear( D3DCOLOR color )
 {
 	Paint(NULL,color);
 }
 
-void CMglD3dTexture::Clear__( D3DCOLOR color )
+void CMglDxTexture::Clear__( D3DCOLOR color )
 {
 	CreateCheck();	//	Createチェック
 	LockedCheck();
@@ -352,13 +352,13 @@ void CMglD3dTexture::Clear__( D3DCOLOR color )
 #else
 		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
 #endif
-			"CMglD3dTexture::Clear()  レンダーを戻すのに失敗" );
+			"CMglDxTexture::Clear()  レンダーを戻すのに失敗" );
 	}
 	else
 	{
 		/*
 		//	別にクリアされたサーフェスを作成してそこからコピー、と言う面倒な処理(´Д`)
-		CMglD3dTexture workSurface;
+		CMglDxTexture workSurface;
 		workSurface.Init( m_myudg );
 		//workSurface.Create();	//	レンダリング先はTRUEにしないと無限再帰してしまう
 		workSurface.Create(TRUE);	//	レンダリング先はTRUEにしないと無限再帰してしまう
@@ -372,7 +372,7 @@ void CMglD3dTexture::Clear__( D3DCOLOR color )
 }
 
 //	指定された矩形領域を塗りつぶす
-void CMglD3dTexture::Paint( RECT* pRect, D3DCOLOR color )
+void CMglDxTexture::Paint( RECT* pRect, D3DCOLOR color )
 {
 	CreateCheck();	//	Createチェック
 	LockedCheck();
@@ -396,7 +396,7 @@ void CMglD3dTexture::Paint( RECT* pRect, D3DCOLOR color )
 #else
 		MyuAssert( d3d->SetRenderTarget( bkupRender, NULL ), D3D_OK, //m_myudg->lpZbuffer
 #endif
-			"CMglD3dTexture::Clear()  レンダーを戻すのに失敗" );
+			"CMglDxTexture::Clear()  レンダーを戻すのに失敗" );
 	}
 	else
 	{
@@ -422,7 +422,7 @@ void CMglD3dTexture::Paint( RECT* pRect, D3DCOLOR color )
 
 //	イテレータ ////////////////////////////////////////////////
 
-CMglBitmapData* CMglD3dTexture::GetIternalBitmapData()
+CMglBitmapData* CMglDxTexture::GetIternalBitmapData()
 {
 	CreateCheck();	//	Createチェック
 
@@ -432,12 +432,12 @@ CMglBitmapData* CMglD3dTexture::GetIternalBitmapData()
 }
 
 /*
-CMglD3dTexture::iterator CMglD3dTexture::begin()
+CMglDxTexture::iterator CMglDxTexture::begin()
 {
 
 }
 
-CMglD3dTexture::iterator CMglD3dTexture::end()
+CMglDxTexture::iterator CMglDxTexture::end()
 {
 
 
@@ -447,8 +447,8 @@ CMglD3dTexture::iterator CMglD3dTexture::end()
 
 //	2007/01/10  スケール取得
 //	# テクスチャ領域は2の倍数になる。その内の0.?fがBMPの領域かを算出する
-//MGLTUTV CMglD3dTexture::GetTuTv()
-const MGLTUTV& CMglD3dTexture::GetTuTv()
+//MGLTUTV CMglDxTexture::GetTuTv()
+const MGLTUTV& CMglDxTexture::GetTuTv()
 {
 	/*CreateCheck();	//	Createチェック
 

@@ -1,10 +1,10 @@
 //////////////////////////////////////////////////////////
 //
-//	MglD3dTexture - テクスチャ管理クラス
+//	MglDxTexture - テクスチャ管理クラス
 //
 
-#ifndef __MglD3dTexture_H__
-#define __MglD3dTexture_H__
+#ifndef __MglDxTexture_H__
+#define __MglDxTexture_H__
 
 #include "MglGraphicManager.h"
 #include "MglVertex.h"
@@ -33,7 +33,7 @@
 #define MGL_TEXTURE_STAGE_MAX	(8)
 
 //	クラス宣言
-class DLL_EXP CMglD3dTexture : public CMglDgBase
+class DLL_EXP CMglDxTexture : public CMglDgBase
 {
 public:
 	typedef CMglLockedRectIterator iterator;
@@ -69,12 +69,12 @@ protected:
 		InitCheck();	//	2008/06/28 これもやらないと駄目でない・・・？
 		//if ( createFlg == FALSE ){
 		if ( m_pTexture == NULL )
-			MyuThrow( 0, "CMglD3dTexture 未作成であるにも関わらず操作を行おうとしました。Create()系メソッドを呼んでください。" );
+			MyuThrow( 0, "CMglDxTexture 未作成であるにも関わらず操作を行おうとしました。Create()系メソッドを呼んでください。" );
 	}
 
 	void LockedCheck(){
 		if ( m_bLocked == TRUE )
-			MyuThrow(0, "CMglD3dTexture ロックされています。ロックを開放してください。\r\n\r\n"
+			MyuThrow(0, "CMglDxTexture ロックされています。ロックを開放してください。\r\n\r\n"
 				"考えられる可能性 :\r\n"
 				"  CMglInternalBitmapData::Release() の呼び出し漏れ。");
 	}
@@ -86,12 +86,12 @@ private:
 	//	テクスチャのサーフェスを取得する
 	void _GetSurface(){
 		MyuAssert( m_pTexture->GetSurfaceLevel(0, &m_pSurface), D3D_OK,
-			"CMglD3dTexture::GetSurface()  GetSurfaceLevel()に失敗" );
+			"CMglDxTexture::GetSurface()  GetSurfaceLevel()に失敗" );
 	}
 public:
 	//	コンストラクタ・デストラクタ
-	CMglD3dTexture();
-	virtual ~CMglD3dTexture(){ Release(); }
+	CMglDxTexture();
+	virtual ~CMglDxTexture(){ Release(); }
 
 	//	初期化と開放
 	//void Init( CMglGraphicManager* in_myudg=GetDefaultGd() );
@@ -138,9 +138,9 @@ public:
 	/////////////////////////////////////////////////////////////////////
 
 	//	コピーメソッド
-	void Copy( CMglD3dTexture &toTex ){ CopyToOtherTexture(toTex); }
-	void CopyToOtherTexture( CMglD3dTexture &toTex ){ UpdateTexture( toTex.GetD3dTexturePtr() ); }
-	void CopyFromOtherTexture( CMglD3dTexture &fromTex ){ fromTex.UpdateTexture( m_pTexture ); }
+	void Copy( CMglDxTexture &toTex ){ CopyToOtherTexture(toTex); }
+	void CopyToOtherTexture( CMglDxTexture &toTex ){ UpdateTexture( toTex.GetD3dTexturePtr() ); }
+	void CopyFromOtherTexture( CMglDxTexture &fromTex ){ fromTex.UpdateTexture( m_pTexture ); }
 
 	////////////////////////////////////////////////////////////////////////////////
 
@@ -186,8 +186,9 @@ public:
 	void Unlock(){ m_bLocked = FALSE; }
 };
 
-typedef CMglD3dTexture CMglSquareTexture;
-typedef CMglD3dTexture CMglDxTexture;
+typedef CMglDxTexture CMglD3dTexture;
+typedef CMglDxTexture CMglSquareTexture;
+typedef CMglDxTexture CMglDxTexture;
 
 
 
@@ -230,4 +231,4 @@ public:
 };
 typedef CMglTextureStageStateManager CMglTssManager;
 
-#endif//__MglD3dTexture_H__
+#endif//__MglDxTexture_H__

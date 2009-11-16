@@ -8,7 +8,8 @@
 #define __MglDxSprite_H__
 
 #include "MglGraphicManager.h"
-#include "MglD3dTexture.h"
+//#include "MglD3dTexture.h"
+#include "MglDxTexture.h"
 
 DLL_TMPL_EXP CMglDgIBase<ID3DXSprite>;
 
