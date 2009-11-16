@@ -36,6 +36,8 @@ CMglGraphicManager::CMglGraphicManager()
 	m_pD3d = NULL;
 	m_pD3dDev = NULL;
 	p3d = NULL;
+	m_pBackBuffer = NULL;
+
 	m_nDispX = 0;
 	m_nDispY = 0;
 	ZeroMemory( &m_formatTexture, sizeof(m_formatTexture) ); 

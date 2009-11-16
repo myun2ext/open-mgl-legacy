@@ -102,6 +102,7 @@ protected:
 	//	DirectX系宣言
 	_MGL_IDirect3D* m_pD3d;			//	D3D
 	_MGL_IDirect3DDevice* m_pD3dDev;	//	D3Dデバイス
+	_MGL_IDirect3DSurface* m_pBackBuffer;	//	バックバッファサーフェス
 
 	int m_nDispX, m_nDispY;		//	画面サイズ
 	D3DFORMAT m_formatTexture;	//	フォーマット
@@ -168,6 +169,19 @@ public:
 
 	//	便利系メソッド
 	_IDirect3DSurfaceX* GetBackBuffer()
+	{
+		if ( m_pBackBuffer == NULL )
+		{
+#if _MGL_DXVER == 9
+			MyuAssert2( m_pD3dDev->GetBackBuffer(0, 0, D3DBACKBUFFER_TYPE_MONO, &m_pBackBuffer ), D3D_OK,
+#else
+			MyuAssert2( m_pD3dDev->GetBackBuffer(0, D3DBACKBUFFER_TYPE_MONO, &m_pBackBuffer ), D3D_OK,
+#endif
+				MGLMSGNO_GRPMGR(150), "CMglGraphicManager::GetBackBuffer()  GetBackBuffer()に失敗" );
+		}
+		return m_pBackBuffer;
+	}
+	_IDirect3DSurfaceX* __GetBackBuffer__old()
 	{
 		_IDirect3DSurfaceX* p;
 #if _MGL_DXVER == 9
