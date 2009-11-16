@@ -17,7 +17,7 @@ CMglSprite::CMglSprite()
 //	デストラクタ
 CMglSprite::~CMglSprite()
 {
-
+	SAFE_DELETE( m_pTex );
 }
 
 //	描画

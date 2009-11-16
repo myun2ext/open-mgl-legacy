@@ -156,7 +156,8 @@ void CMglBitmapData::Set(int x, int y, D3DCOLOR color)
 ////////////////////////////////////////////////////////////////////////
 
 //	“h‚è‚Â‚Ô‚µ
-void CMglBitmapData::Fill(D3DCOLOR color){
+void CMglBitmapData::Fill(D3DCOLOR color)
+{
 	InitChk();
 	Fill(color,Rect(0,0,m_nWidth,m_nHeight));
 	/*Lock();
@@ -166,7 +167,8 @@ void CMglBitmapData::Fill(D3DCOLOR color){
 }
 
 //	“h‚è‚Â‚Ô‚µ
-void CMglBitmapData::Fill(D3DCOLOR color, RECT rect){
+void CMglBitmapData::Fill(D3DCOLOR color, RECT rect)
+{
 	InitChk();
 	CMglBitmapDataLocker locker(*this);
 

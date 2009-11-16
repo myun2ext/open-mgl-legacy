@@ -40,6 +40,7 @@ bool CAugustImage2::LoadEx(const char* szImageFilePath, agh::COLOR transparentCo
 	//m_pImg = pAGrpMgr->LoadImageA(szImageFilePath);	//	基本的に例外で飛ぶはずー
 	m_pImg = pAGrpMgr->LoadImage(szImageFilePath, transparentColor);	//	基本的に例外で飛ぶはずー
 
+//	if ( GetRect() != 0 )	なんか設定されてればSetRectしないよの対応。CRectを新しいバージョンにしないと無理か・・・
 	SetRect(0,0, m_pImg->GetBmpWidth(), m_pImg->GetBmpHeight());
 
 	return true;
